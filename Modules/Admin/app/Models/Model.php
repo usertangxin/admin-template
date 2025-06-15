@@ -1,0 +1,16 @@
+<?php
+
+namespace Modules\Admin\Models;
+
+use Illuminate\Database\Eloquent\Model as BaseModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+// use Modules\Admin\Database\Factories\ModelFactory;
+
+abstract class Model extends BaseModel
+{
+    use HasFactory;
+
+    const CREATED_AT = 'create_time';
+    const UPDATED_AT = 'update_time';
+    protected $dateFormat = 'Y-m-d H:i:s';
+}
