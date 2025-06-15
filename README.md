@@ -1,61 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel 12 后台管理系统
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 简介
+本项目是基于 Laravel 12 开发的一套功能完备的后台管理系统，包含多种实用功能，帮助您高效管理业务。
 
-## About Laravel
+## 功能特性
+- **用户管理**：对系统用户进行全面管理，包括添加、编辑、删除和权限分配。
+- **菜单管理**：灵活配置系统菜单，支持多级菜单结构。
+- **部门管理**：清晰划分组织架构，方便管理不同部门。
+- **角色管理**：定义不同角色的权限，实现精细化权限控制。
+- **岗位管理**：管理不同岗位信息，与用户和权限关联。
+- **字典管理**：维护系统常用字典数据，方便数据统一管理。
+- **系统公告管理**：发布和管理系统公告，及时通知用户。
+- **日志监控**：实时监控系统日志，快速定位问题。
+- **邮件记录管理**：记录和查看系统发送的邮件信息。
+- **代码生成**：自动生成常用代码，提高开发效率。
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 项目结构
+项目主要包含以下模块和文件：
+```
+├── Modules/
+│   ├── Admin/
+│   └── User/
+├── app/
+├── config/
+├── database/
+├── resources/
+├── routes/
+└── tests/
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 快速开始
+### 安装依赖
+```bash
+composer install
+npm install
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 配置环境
+复制 `.env.example` 文件并重命名为 `.env`，然后配置数据库等信息。
 
-## Learning Laravel
+### 数据库迁移
+```bash
+php artisan migrate
+php artisan module:migrate
+php artisan module:seed
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 启动项目
+```bash
+composer run dev
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 贡献指南
+如果您想为项目做出贡献，请遵循以下步骤：
+1. Fork 本仓库。
+2. 创建您的特性分支 (`git checkout -b feature/YourFeature`)。
+3. 提交您的更改 (`git commit -m 'Add some YourFeature'`)。
+4. 将更改推送到分支 (`git push origin feature/YourFeature`)。
+5. 提交 Pull Request。
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 许可证
+本项目采用 [MIT 许可证](LICENSE)。
