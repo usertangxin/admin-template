@@ -2,7 +2,7 @@
 
 namespace Modules\Admin\Models;
 
-class SystemConfig extends Model
+class SystemConfig extends AbstractModel
 {
     protected $table = 'system_config';
     public $timestamps = false;

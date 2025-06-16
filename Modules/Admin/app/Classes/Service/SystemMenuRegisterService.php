@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Admin\Classes;
+namespace Modules\Admin\Classes\Service;
 
 class SystemMenuRegisterService
 {

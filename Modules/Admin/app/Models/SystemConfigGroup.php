@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 // use Modules\Admin\Database\Factories\SystemConfigGroupFactory;
 
-class SystemConfigGroup extends SoftDelModel
+class SystemConfigGroup extends AbstractSoftDelModel
 {
     protected $table = 'system_config_group';
 }

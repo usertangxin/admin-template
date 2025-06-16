@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Modules\Admin\Database\Factories\SystemUserFactory;
 
-class SystemUser extends SoftDelModel
+class SystemUser extends AbstractSoftDelModel
 {
     protected $table = 'system_user';
 

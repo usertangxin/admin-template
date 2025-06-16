@@ -2,7 +2,7 @@
 
 namespace Modules\Admin\Models;
 
-class SystemCrontab extends SoftDelModel
+class SystemCrontab extends AbstractSoftDelModel
 {
     protected $table = 'system_crontab';
 }

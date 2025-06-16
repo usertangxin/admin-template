@@ -2,7 +2,7 @@
 
 namespace Modules\Admin\Models;
 
-class SystemDept extends SoftDelModel
+class SystemDept extends AbstractSoftDelModel
 {
     protected $table = 'system_dept';
 
