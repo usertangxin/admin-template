@@ -13,21 +13,4 @@ abstract class AbstractModel extends BaseModel
     const CREATED_AT = 'create_time';
     const UPDATED_AT = 'update_time';
     protected $dateFormat = 'Y-m-d H:i:s';
-
-    /**
-     * 搜索
-     * 可以使用scope开头的方法来定义搜索条件
-     * @param array $where
-     * @return $this
-     */
-    public function search($where) {
-        foreach ($where as $key => $value) {
-            if ($this->hasNamedScope($key)) {
-                $this->$key($value);
-                continue;
-            }
-            $this->where($key, $value);
-        }
-        return $this;
-    }
 }

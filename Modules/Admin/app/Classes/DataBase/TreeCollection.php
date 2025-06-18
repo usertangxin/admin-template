@@ -27,4 +27,9 @@ class TreeCollection extends Collection
 
         return $this;
     }
+
+    public static function new(array $items = [])
+    {
+        return new static($items);
+    }
 }
