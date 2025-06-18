@@ -9,7 +9,7 @@ use Modules\Admin\Classes\Utils\ModelUtil;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
 
-abstract class AbstractCrudController
+abstract class AbstractCrudController extends AbstractController
 {
 
     abstract protected function getModel(): AbstractModel|AbstractSoftDelModel;
@@ -106,7 +106,7 @@ abstract class AbstractCrudController
         if (!empty($resourceCollection = $this->getResourceCollection())) {
             $data = $data->toResourceCollection($resourceCollection);
         }
-        return $data;
+        return $this->success($data);
     }
 
     /**
@@ -120,7 +120,7 @@ abstract class AbstractCrudController
         if (!empty($resourceCollection = $this->getResourceCollection())) {
             $data = $data->toResourceCollection($resourceCollection);
         }
-        return $data;
+        return $this->success($data);
     }
 
     /**
@@ -137,7 +137,7 @@ abstract class AbstractCrudController
         if (!empty($resourceCollection = $this->getResourceCollection())) {
             $result = $result->toResourceCollection($resourceCollection);
         }
-        return $result;
+        return $this->success($result);
     }
 
     /**
@@ -155,7 +155,7 @@ abstract class AbstractCrudController
         if (!empty($resourceCollection = $this->getResourceCollection())) {
             $result = $result->toResourceCollection($resourceCollection);
         }
-        return $result;
+        return $this->success($result);
     }
 
     /**
@@ -169,7 +169,7 @@ abstract class AbstractCrudController
         if (!empty($resourceCollection = $this->getResourceCollection())) {
             $result = $result->toResourceCollection($resourceCollection);
         }
-        return $result;
+        return $this->success($result);
     }
 
     /**
@@ -178,7 +178,7 @@ abstract class AbstractCrudController
      * @return int 
      */
     public function destroy($id) {
-        return $this->getModel()->destroy($id);
+        return $this->success($this->getModel()->destroy($id));
     }
 
     /**
@@ -217,7 +217,7 @@ abstract class AbstractCrudController
         if (!empty($resourceCollection = $this->getResourceCollection())) {
             $data = $data->toResourceCollection($resourceCollection);
         }
-        return $data;
+        return $this->success($data);
     }
 
     /**
@@ -228,7 +228,7 @@ abstract class AbstractCrudController
     public function recovery()
     {
         $ids = request('ids');
-        $this->getModel()->withTrashed()->whereIn('id', $ids)->restore();
+        return $this->success($this->getModel()->withTrashed()->whereIn('id', $ids)->restore());
     }
 
     /**
@@ -239,6 +239,6 @@ abstract class AbstractCrudController
     public function realDestroy()
     {
         $ids = request('ids');
-        $this->getModel()->withTrashed()->whereIn('id', $ids)->forceDelete();
+        return $this->success($this->getModel()->withTrashed()->whereIn('id', $ids)->forceDelete());
     }
 }
