@@ -1,6 +1,7 @@
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import ArcoVue from '@arco-design/web-vue';
+import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import '@arco-design/web-vue/dist/arco.css';
 import { ZiggyVue } from 'ziggy-js';
 
@@ -13,6 +14,7 @@ createInertiaApp({
     createApp({ render: () => h(App, props) })
       .use(plugin)
       .use(ArcoVue)
+      .use(ArcoVueIcon)
       .use(ZiggyVue)
       .mount(el)
   },

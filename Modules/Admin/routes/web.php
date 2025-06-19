@@ -10,10 +10,10 @@ use Modules\Admin\Http\Middleware\HandleInertiaRequests;
 // });
 
 Route::middleware([HandleInertiaRequests::class])->group(function () {
-    Route::get('test', function () {
-        return Inertia::render('test', ['dd' => route('module.Admin.web.test')]);
-    })->name('test');
-    Route::get('test2', function () {
-        return Inertia::render('test2', ['dd' => route('module.Admin.web.test')]);
-    })->name('test2');
+    Route::get('',function() {
+        return Inertia::render('main');
+    });
+    Route::get('login', function () {
+        return Inertia::render('login');
+    })->name('login');
 });
