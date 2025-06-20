@@ -1,7 +1,7 @@
 <template>
     <div>
         <LoginBg />
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-95">
             <a-card>
                 <a-form>
                     <a-form-item :hide-label="true">
