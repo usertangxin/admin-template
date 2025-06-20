@@ -431,7 +431,7 @@ body[arco-theme='dark'] {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        // gap: 3px;
         // border-bottom: 1px solid var(--color-border-3);
         font-size: 12px;
 

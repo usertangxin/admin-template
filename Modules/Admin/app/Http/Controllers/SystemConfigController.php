@@ -1,0 +1,24 @@
+<?php
+
+namespace Modules\Admin\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Modules\Admin\Models\AbstractModel;
+use Modules\Admin\Models\AbstractSoftDelModel;
+use Modules\Admin\Models\SystemConfig;
+
+class SystemConfigController extends AbstractCrudController
+{
+    protected function getModel(): AbstractModel|AbstractSoftDelModel { 
+        return new SystemConfig();
+    }
+
+    public function index()
+    {
+        $data = $this->getModel()->get();
+        return $this->inertia([
+            'data' => $data,
+        ]);
+    }
+}

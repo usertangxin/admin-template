@@ -3,6 +3,7 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Inertia\Inertia;
 use InvalidArgumentException;
 use Modules\Admin\Classes\DataBase\TreeCollection;
 use Modules\Admin\Classes\Utils\ModelUtil;
@@ -106,7 +107,7 @@ abstract class AbstractCrudController extends AbstractController
         if (!empty($resourceCollection = $this->getResourceCollection())) {
             $data = $data->toResourceCollection($resourceCollection);
         }
-        return $this->success($data);
+        return $this->inertia($data);
     }
 
     /**
@@ -114,7 +115,7 @@ abstract class AbstractCrudController extends AbstractController
      * @param mixed $id 
      * @return mixed 
      */
-    public function read($id)
+    public function getRead($id)
     {
         $data = $this->getModel()->find($id);
         if (!empty($resourceCollection = $this->getResourceCollection())) {
@@ -123,13 +124,18 @@ abstract class AbstractCrudController extends AbstractController
         return $this->success($data);
     }
 
+    public function getSave()
+    {
+        return $this->inertia();
+    }
+
     /**
      * 添加
      * @return mixed 
      * @throws BindingResolutionException 
      * @throws InvalidArgumentException 
      */
-    public function save()
+    public function postSave()
     {
         $data = request()->all();
         $this->validator('save', $data);
