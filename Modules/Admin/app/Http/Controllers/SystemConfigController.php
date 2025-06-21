@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Models\SystemConfig;
+use Modules\Admin\Models\SystemConfigGroup;
 
 class SystemConfigController extends AbstractCrudController
 {
@@ -17,8 +18,10 @@ class SystemConfigController extends AbstractCrudController
     public function index()
     {
         $data = $this->getModel()->get();
+        $systemConfigGroup = SystemConfigGroup::all();
         return $this->inertia([
-            'data' => $data,
+            'config_list' => $data,
+            'config_group_list' => $systemConfigGroup,
         ]);
     }
 }

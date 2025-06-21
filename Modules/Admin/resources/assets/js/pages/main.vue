@@ -173,7 +173,8 @@
                     他在 a-popover 打开时打开，关闭时关闭
                       -->
                 </div>
-                <iframe frameborder=" 0" width="100%" height="100%"></iframe>
+                <iframe frameborder="0" src="http://127.0.0.1:8000/module/Admin/web/SystemConfig/index" width="100%"
+                    height="100%"></iframe>
             </div>
         </div>
     </div>
@@ -313,13 +314,7 @@ const onPopupVisibleChange = (visible) => {
 }
 
 </script>
-<style lang="scss">
-body[arco-theme='dark'] {
-    .page-content {
-        background-color: var(--color-bg-1);
-    }
-}
-</style>
+
 <style scoped lang="scss">
 .logo {
     height: 60px;
@@ -410,10 +405,6 @@ body[arco-theme='dark'] {
             border-radius: 0;
         }
     }
-}
-
-.page-content {
-    background-color: var(--color-neutral-2);
 }
 
 .menu-main {
