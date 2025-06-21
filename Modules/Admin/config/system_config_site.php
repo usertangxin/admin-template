@@ -1,0 +1,116 @@
+<?php
+
+use Modules\Admin\Classes\Utils\SystemConfigInputType;
+
+return [
+    [
+        "group" => 'site_config',
+        "key" => "site_copyright",
+        "value" => "",
+        "name" => "版权信息",
+        "input_type" => SystemConfigInputType::TEXTAREA,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => null,
+        "input_attr" => null
+    ],
+    [
+        "group" => 'site_config',
+        "key" => "site_desc",
+        "value" => "Laravel Admin 后台模板",
+        "name" => "网站描述",
+        "input_type" => SystemConfigInputType::TEXTAREA,
+        "config_select_data" => null,
+        "remark" => null,
+        "bind_p_config" => null,
+        "input_attr" => null
+    ],
+    [
+        "group" => 'site_config',
+        "key" => "site_keywords",
+        "value" => "Laravel Admin 后台模板",
+        "name" => "网站关键字",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => null,
+        "bind_p_config" => null,
+        "input_attr" => null
+    ],
+    [
+        "group" => 'site_config',
+        "key" => "site_name",
+        "value" => "Laravel Admin 后台模板",
+        "name" => "网站名称",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => null,
+        "bind_p_config" => null,
+        "input_attr" => null
+    ],
+    [
+        "group" => 'site_config',
+        "key" => "site_record_number",
+        "value" => "",
+        "name" => "网站备案号",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => null,
+        "bind_p_config" => null,
+        "input_attr" => null
+    ],
+    [
+        "group" => 'site_config',
+        "key" => "about",
+        "value" => "",
+        "name" => "关于我们",
+        "input_type" => SystemConfigInputType::WANG_EDITOR,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'site_config',
+        "key" => "join_about",
+        "value" => "",
+        "name" => "加入我们",
+        "input_type" => SystemConfigInputType::WANG_EDITOR,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'site_config',
+        "key" => "address",
+        "value" => "星系信息寻寻寻寻寻寻寻寻寻寻寻寻寻寻寻C座605室",
+        "name" => "公司地址",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => null,
+        "input_attr" => null
+    ],
+    [
+        "group" => 'site_config',
+        "key" => "phone",
+        "value" => "020-12345678",
+        "name" => "联系电话",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => null,
+        "input_attr" => null
+    ],
+    [
+        "group" => 'site_config',
+        "key" => "service_phone",
+        "value" => "020-12345678",
+        "name" => "客服电话",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => null,
+        "input_attr" => null
+    ]
+];

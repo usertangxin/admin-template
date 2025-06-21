@@ -43,9 +43,9 @@ const props = defineProps(['config_list', 'config_group_list'])
 const current_group_index = ref(0);
 
 const current_group_config_list = computed(function () {
-    const group_id = props.config_group_list[current_group_index.value].id;
+    const group_code = props.config_group_list[current_group_index.value].code;
     const config_list = props.config_list.filter(function (item) {
-        return item.group_id == group_id;
+        return item.group == group_code;
     })
     return config_list;
 })

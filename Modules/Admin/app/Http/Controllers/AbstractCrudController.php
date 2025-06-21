@@ -13,7 +13,7 @@ use Modules\Admin\Models\AbstractSoftDelModel;
 abstract class AbstractCrudController extends AbstractController
 {
 
-    abstract protected function getModel(): AbstractModel|AbstractSoftDelModel;
+    abstract protected function getModel(): AbstractModel|AbstractSoftDelModel|null;
 
     /**
      * 显示字段 他会覆盖数据库中的$visible配置

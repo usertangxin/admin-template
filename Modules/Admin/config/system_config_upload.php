@@ -1,0 +1,458 @@
+<?php
+
+use Modules\Admin\Classes\Utils\SystemConfigInputType;
+
+return [
+    [
+        'group' => 'upload_config',
+        'name' => '类型限制',
+        'input_type' => SystemConfigInputType::DIVIDER,
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "upload_allow_file",
+        "value" => "txt,doc,docx,xls,xlsx,ppt,pptx,rar,zip,7z,gz,pdf,wps,md,mp3,mp4,mov,jpg,jpeg,png,gif,svg,bmp,JPG,JPEG,PNG",
+        "name" => "文件类型",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "upload_allow_image",
+        "value" => "jpg,jpeg,png,gif,svg,bmp,JPG,JPEG,PNG",
+        "name" => "图片类型",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "upload_allow_video",
+        "value" => "mp4",
+        "name" => "视频类型",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "upload_allow_audio",
+        "value" => "mp3",
+        "name" => "音频类型",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "",
+        "input_attr" => null
+    ],
+    [
+        'group' => 'upload_config',
+        'name' => '大小限制',
+        'input_type' => SystemConfigInputType::DIVIDER,
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "upload_size",
+        "value" => "10485760",
+        "name" => "上传大小",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "单位Byte,1MB=1024*1024Byte",
+        "bind_p_config" => null,
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "upload_size_image",
+        "value" => "1048576",
+        "name" => "上传图片大小",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "单位Byte,1MB=1024*1024Byte",
+        "bind_p_config" => "",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "upload_size_video",
+        "value" => "10485760",
+        "name" => "上传视频大小",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "单位Byte,1MB=1024*1024Byte",
+        "bind_p_config" => "",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "upload_size_audio",
+        "value" => "10485760",
+        "name" => "上传音频大小",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "单位Byte,1MB=1024*1024Byte",
+        "bind_p_config" => "",
+        "input_attr" => null
+    ],
+    [
+        'group' => 'upload_config',
+        'name' => '存储类型',
+        'input_type' => SystemConfigInputType::DIVIDER,
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "upload_mode",
+        "value" => "local",
+        "name" => "当前存储",
+        "input_type" => SystemConfigInputType::RADIO,
+        "config_select_data" => [
+            ["label" => "本地上传", "value" => "local"],
+            ["label" => "阿里云OSS", "value" => "oss"],
+            ["label" => "七牛云", "value" => "qiniu"],
+            ["label" => "腾讯云COS", "value" => "cos"],
+            ["label" => "亚马逊S3", "value" => "s3"]
+        ],
+        "remark" => "",
+        "bind_p_config" => "",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "local_root",
+        "value" => "public/storage/",
+        "name" => "本地存储路径",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "本地存储文件路径",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "local_domain",
+        "value" => "http://127.0.0.1:8787",
+        "name" => "本地存储域名",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "http://127.0.0.1:8787",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "local_uri",
+        "value" => "/storage/",
+        "name" => "本地访问路径",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "访问是通过domain + uri",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "qiniu_accessKey",
+        "value" => "",
+        "name" => "七牛key",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "七牛云存储secretId",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "qiniu_secretKey",
+        "value" => "",
+        "name" => "七牛secret",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "七牛云存储secretKey",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "qiniu_bucket",
+        "value" => "",
+        "name" => "七牛bucket",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "七牛云存储bucket",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "qiniu_dirname",
+        "value" => "",
+        "name" => "七牛dirname",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "七牛云存储dirname",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "qiniu_domain",
+        "value" => "",
+        "name" => "七牛domain",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "七牛云存储domain",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "cos_secretId",
+        "value" => "",
+        "name" => "腾讯Id",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "腾讯云存储secretId",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "cos_secretKey",
+        "value" => "",
+        "name" => "腾讯key",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "腾讯云secretKey",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "cos_bucket",
+        "value" => "",
+        "name" => "腾讯bucket",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "腾讯云存储bucket",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "cos_dirname",
+        "value" => "",
+        "name" => "腾讯dirname",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "腾讯云存储dirname",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "cos_domain",
+        "value" => "",
+        "name" => "腾讯domain",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "腾讯云存储domain",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "cos_region",
+        "value" => "",
+        "name" => "腾讯region",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "腾讯云存储region",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "oss_accessKeyId",
+        "value" => "",
+        "name" => "阿里Id",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "阿里云存储accessKeyId",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "oss_accessKeySecret",
+        "value" => "",
+        "name" => "阿里Secret",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "阿里云存储accessKeySecret",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "oss_bucket",
+        "value" => "",
+        "name" => "阿里bucket",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "阿里云存储bucket",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "oss_dirname",
+        "value" => "",
+        "name" => "阿里dirname",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "阿里云存储dirname",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "oss_domain",
+        "value" => "",
+        "name" => "阿里domain",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "阿里云存储domain",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "oss_endpoint",
+        "value" => "",
+        "name" => "阿里endpoint",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "阿里云存储endpoint",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "s3_key",
+        "value" => "",
+        "name" => "key",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "s3_secret",
+        "value" => "",
+        "name" => "secret",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "s3_bucket",
+        "value" => "",
+        "name" => "bucket",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "s3_dirname",
+        "value" => "",
+        "name" => "dirname",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "s3_domain",
+        "value" => "",
+        "name" => "domain",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "s3_region",
+        "value" => "",
+        "name" => "region",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "s3_version",
+        "value" => "",
+        "name" => "version",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "s3_use_path_style_endpoint",
+        "value" => "",
+        "name" => "path_style_endpoint",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "s3_endpoint",
+        "value" => "",
+        "name" => "endpoint",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "s3_acl",
+        "value" => "",
+        "name" => "acl",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    
+    
+];

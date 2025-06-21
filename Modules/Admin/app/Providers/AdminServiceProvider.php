@@ -4,6 +4,8 @@ namespace Modules\Admin\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Admin\Classes\Service\SystemConfigService;
+use Modules\Admin\Database\Seeders\SystemConfigSeeder;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -27,6 +29,13 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+        SystemConfigService::registerGroups(\config('admin.system_config_group'));
+        SystemConfigService::registerList(\config('admin.system_config_agreement'));
+        SystemConfigService::registerList(\config('admin.system_config_email'));
+        SystemConfigService::registerList(\config('admin.system_config_map'));
+        SystemConfigService::registerList(\config('admin.system_config_site'));
+        SystemConfigService::registerList(\config('admin.system_config_upload'));
+        SystemConfigService::registerList(\config('admin.system_config_wechat'));
     }
 
     /**

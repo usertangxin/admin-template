@@ -64,6 +64,11 @@
                 </a-form-item>
             </a-col>
         </template>
+        <template v-else-if="config.input_type === 'divider'">
+            <a-col :span="24">
+                <a-divider>{{ config.name }}</a-divider>
+            </a-col>
+        </template>
         <template v-else>
             <div class="p-2">
                 {{ config }}
