@@ -64,16 +64,6 @@
                 </a-form-item>
             </a-col>
         </template>
-        <template v-else-if="config.input_type === 'ueditorPlus'">
-            <a-col :span="24">
-                <a-form-item :label="config.name" :field="config.key">
-                    <ueditor-plus v-model="config.value"></ueditor-plus>
-                    <template #extra>
-                        <div>{{ config.remark }}</div>
-                    </template>
-                </a-form-item>
-            </a-col>
-        </template>
         <template v-else>
             <div class="p-2">
                 {{ config }}
@@ -86,7 +76,6 @@
 import { computed } from 'vue'
 import RecursionConfig from './recursion-config.vue'
 import WangEditor from './wang-editor.vue'
-import UeditorPlus from './ueditor-plus.vue'
 
 const props = defineProps(['config_list', 'p_config', 'p_config_value'])
 

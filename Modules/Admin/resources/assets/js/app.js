@@ -5,7 +5,6 @@ import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import '@arco-design/web-vue/dist/arco.css';
 import Size from './layouts/size.vue';
 import { ZiggyVue } from 'ziggy-js';
-import VueUeditorWrap from 'vue-ueditor-wrap';
 
 document.body.setAttribute('arco-theme', window.localStorage.getItem('arco-theme') || 'light')
 
@@ -23,7 +22,6 @@ createInertiaApp({
       .use(ArcoVue)
       .use(ArcoVueIcon)
       .use(ZiggyVue)
-      .use(VueUeditorWrap)
       .mount(el)
   },
 })

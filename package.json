@@ -25,7 +25,6 @@
         "jquery": "^3.7.1",
         "uuid": "^11.1.0",
         "vue": "^3.5.17",
-        "vue-ueditor-wrap": "3.x",
         "ziggy-js": "^2.5.3"
     }
 }

@@ -49,7 +49,7 @@
   dependencies:
     "@babel/types" "^7.27.3"
 
-"@babel/runtime@7.x", "@babel/runtime@^7.12.0":
+"@babel/runtime@^7.12.0":
   version "7.27.6"
   resolved "https://registry.npmmirror.com/@babel/runtime/-/runtime-7.27.6.tgz#ec4070a04d76bae8ddbb10770ba55714a417b7c6"
   integrity sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==
@@ -1824,13 +1824,6 @@ vite@^6.2.4:
     tinyglobby "^0.2.13"
   optionalDependencies:
     fsevents "~2.3.3"
-
-vue-ueditor-wrap@3.x:
-  version "3.0.8"
-  resolved "https://registry.npmmirror.com/vue-ueditor-wrap/-/vue-ueditor-wrap-3.0.8.tgz#b0c6b9d2fe4f4754c55876e60973b44c85b10a43"
-  integrity sha512-U1s30pKcz8rr6v2F2ivnomOf1vF1N+n+aNClas4jXfiEf4E5FEtNwkFJBugcyf2VTRFK0UVpx5WspX5nwmImYw==
-  dependencies:
-    "@babel/runtime" "7.x"
 
 vue@^3.1.0, vue@^3.5.17:
   version "3.5.17"
