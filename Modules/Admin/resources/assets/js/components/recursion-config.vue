@@ -3,7 +3,7 @@
         <template v-if="config.input_type === 'textarea'">
             <a-col :span="24">
                 <a-form-item :label="config.name" :field="config.key">
-                    <a-textarea v-model="config.value"></a-textarea>
+                    <a-textarea v-model="config.value" v-bind="config.input_attr || {}"></a-textarea>
                     <template #extra>
                         <div>{{ config.remark }}</div>
                     </template>
@@ -13,7 +13,7 @@
         <template v-else-if="config.input_type === 'input'">
             <a-col :span="24">
                 <a-form-item :label="config.name" :field="config.key">
-                    <a-input v-model="config.value"></a-input>
+                    <a-input v-model="config.value" v-bind="config.input_attr || {}"></a-input>
                     <template #extra>
                         <div>{{ config.remark }}</div>
                     </template>
@@ -23,7 +23,7 @@
         <template v-else-if="config.input_type === 'radio'">
             <a-col :span="24">
                 <a-form-item :label="config.name" :field="config.key">
-                    <a-radio-group v-model="config.value">
+                    <a-radio-group v-model="config.value" v-bind="config.input_attr || {}">
                         <template v-for="(item, index) in config.config_select_data" :key="index">
                             <a-radio :value="item.value">{{ item.label }}</a-radio>
                         </template>
@@ -39,9 +39,10 @@
         <template v-else-if="config.input_type == 'tabs'">
             <a-col :span="24">
                 <a-form-item :label="config.name" :field="config.key">
-                    <a-tabs :default-active-key="config.value" type="card-gutter">
+                    <a-tabs v-model="config.value" :default-active-key="config.value" type="card-gutter"
+                        v-bind="config.input_attr || {}">
                         <a-tab-pane v-for="(tab, tab_index) in config.config_select_data" :title="tab.label"
-                            v-bind:key="tab.value" class="pr-4">
+                            v-bind:key="tab.value" class="px-4">
                             <a-row :gutter="16">
                                 <RecursionConfig :config_list="props.config_list" :p_config="config.key"
                                     :p_config_value="tab.value"></RecursionConfig>
@@ -57,7 +58,7 @@
         <template v-else-if="config.input_type === 'wangEditor'">
             <a-col :span="24">
                 <a-form-item :label="config.name" :field="config.key">
-                    <WangEditor v-model="config.value"></WangEditor>
+                    <WangEditor v-model="config.value" v-bind="config.input_attr || {}"></WangEditor>
                     <template #extra>
                         <div>{{ config.remark }}</div>
                     </template>
@@ -66,7 +67,7 @@
         </template>
         <template v-else-if="config.input_type === 'divider'">
             <a-col :span="24">
-                <a-divider>{{ config.name }}</a-divider>
+                <a-divider v-bind="config.input_attr || {}">{{ config.name }}</a-divider>
             </a-col>
         </template>
         <template v-else>

@@ -112,11 +112,11 @@ abstract class AbstractCrudController extends AbstractController
 
     /**
      * 读取详情
-     * @param mixed $id 
      * @return mixed 
      */
-    public function getRead($id)
+    public function getRead()
     {
+        $id = \request('id');
         $data = $this->getModel()->find($id);
         if (!empty($resourceCollection = $this->getResourceCollection())) {
             $data = $data->toResourceCollection($resourceCollection);
@@ -148,13 +148,27 @@ abstract class AbstractCrudController extends AbstractController
 
     /**
      * 编辑
-     * @param mixed $id 
+     * @return mixed 
+     */
+    public function getUpdate()
+    {
+        $id = \request('id');
+        $data = $this->getModel()->find($id);
+        if (!empty($resourceCollection = $this->getResourceCollection())) {
+            $data = $data->toResourceCollection($resourceCollection);
+        }
+        return $this->inertia($data);
+    }
+
+    /**
+     * 编辑
      * @return mixed 
      * @throws BindingResolutionException 
      * @throws InvalidArgumentException 
      */
-    public function update($id)
+    public function postUpdate()
     {
+        $id = \request('id');
         $data = request()->all();
         $this->validator('update', $data);
         $result = $this->getModel()->find($id)->update($data);

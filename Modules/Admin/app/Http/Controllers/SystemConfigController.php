@@ -2,19 +2,23 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+
+use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Service\SystemConfigService;
+use Modules\Admin\Classes\Utils\SystemMenuType;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Models\SystemConfig;
 
-class SystemConfigController extends AbstractCrudController
+// #[SystemMenu('系统配置')]
+class SystemConfigController extends AbstractController
 {
-    protected function getModel(): AbstractModel|AbstractSoftDelModel { 
+    protected function getModel(): AbstractModel|AbstractSoftDelModel
+    {
         return new SystemConfig();
     }
 
+    #[SystemMenu('系统配置', type: SystemMenuType::MENU)]
     public function index()
     {
         $data = SystemConfigService::getList();
@@ -23,5 +27,16 @@ class SystemConfigController extends AbstractCrudController
             'config_list' => $data,
             'config_group_list' => $systemConfigGroup,
         ]);
+    }
+
+    #[SystemMenu('修改系统配置')]
+    public function postSave()
+    {
+        $data = \request()->post('data');
+        // \dump($data);
+        foreach ($data as $item) {
+            $this->getModel()->updateOrCreate(['key' => $item['key']], $item);
+        }
+        return $this->success();
     }
 }

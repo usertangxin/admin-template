@@ -110,10 +110,11 @@ return [
         "group" => 'upload_config',
         "key" => "upload_mode",
         "value" => "local",
-        "name" => "当前存储",
+        "name" => "默认存储",
         "input_type" => SystemConfigInputType::RADIO,
         "config_select_data" => [
-            ["label" => "本地上传", "value" => "local"],
+            ["label" => "本地私有", "value" => "local"],
+            ["label" => "本地公开", "value" => "public"],
             ["label" => "阿里云OSS", "value" => "oss"],
             ["label" => "七牛云", "value" => "qiniu"],
             ["label" => "腾讯云COS", "value" => "cos"],
@@ -126,7 +127,7 @@ return [
     [
         "group" => 'upload_config',
         "key" => "local_root",
-        "value" => "public/storage/",
+        "value" => "app/private",
         "name" => "本地存储路径",
         "input_type" => SystemConfigInputType::INPUT,
         "config_select_data" => null,
@@ -136,7 +137,18 @@ return [
     ],
     [
         "group" => 'upload_config',
-        "key" => "local_domain",
+        "key" => "public_root",
+        "value" => "app/public",
+        "name" => "本地存储路径",
+        "input_type" => SystemConfigInputType::INPUT,
+        "config_select_data" => null,
+        "remark" => "本地存储文件路径",
+        "bind_p_config" => "upload_mode",
+        "input_attr" => null
+    ],
+    [
+        "group" => 'upload_config',
+        "key" => "public_domain",
         "value" => "http://127.0.0.1:8787",
         "name" => "本地存储域名",
         "input_type" => SystemConfigInputType::INPUT,
@@ -147,8 +159,8 @@ return [
     ],
     [
         "group" => 'upload_config',
-        "key" => "local_uri",
-        "value" => "/storage/",
+        "key" => "public_uri",
+        "value" => "storage",
         "name" => "本地访问路径",
         "input_type" => SystemConfigInputType::INPUT,
         "config_select_data" => null,

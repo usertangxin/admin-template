@@ -7,6 +7,10 @@ body, html {
 
     --w-e-toolbar-border-color: var(--color-neutral-3);
 
+    .w-e-full-screen-container  {
+        z-index: 1;
+    }
+
     &[arco-theme='dark'] {
 
         background-color: var(--color-bg-1);

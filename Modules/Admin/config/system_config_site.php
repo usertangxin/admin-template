@@ -6,7 +6,7 @@ return [
     [
         "group" => 'site_config',
         "key" => "site_copyright",
-        "value" => "",
+        "value" => "@2025 - 2025 Laravel Admin 后台模板",
         "name" => "版权信息",
         "input_type" => SystemConfigInputType::TEXTAREA,
         "config_select_data" => null,
@@ -50,7 +50,7 @@ return [
     [
         "group" => 'site_config',
         "key" => "site_record_number",
-        "value" => "",
+        "value" => "1234567890",
         "name" => "网站备案号",
         "input_type" => SystemConfigInputType::INPUT,
         "config_select_data" => null,

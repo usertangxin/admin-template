@@ -9,7 +9,7 @@ use Str;
 abstract class AbstractController
 {
 
-    public function inertia($data = [], $view = null)
+    protected function inertia($data = [], $view = null)
     {
         if ($view === null) {
             $controller = \request()->route()->getControllerClass();
@@ -22,7 +22,7 @@ abstract class AbstractController
         return Inertia::render($view, $data);
     }
 
-    public function success($data = null, $message = 'success', $code = 200)
+    protected function success($data = null, $message = 'success', $code = 0)
     {
         return response()->json([
             'code' => $code,
@@ -31,7 +31,7 @@ abstract class AbstractController
         ]);
     }
 
-    public function fail($message = 'fail', $code = 400)
+    protected function fail($message = 'fail', $code = 400)
     {
         return response()->json([
             'code' => $code,

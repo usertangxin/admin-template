@@ -3,8 +3,11 @@
 namespace Modules\Admin\Providers;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Classes\Service\SystemConfigService;
+use Modules\Admin\Classes\Service\SystemMenuRegisterService;
+use Modules\Admin\Classes\Utils\ArrUtil;
 use Modules\Admin\Database\Seeders\SystemConfigSeeder;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
@@ -36,6 +39,10 @@ class AdminServiceProvider extends ServiceProvider
         SystemConfigService::registerList(\config('admin.system_config_site'));
         SystemConfigService::registerList(\config('admin.system_config_upload'));
         SystemConfigService::registerList(\config('admin.system_config_wechat'));
+
+        $system_menus = SystemMenuRegisterService::$system_menus;
+        $tree = ArrUtil::convertToTree($system_menus, 'parent_code', 'code', 'children');
+        
     }
 
     /**
