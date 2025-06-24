@@ -3,67 +3,30 @@
         <div class="h-[100vh] side">
             <div class="logo">
                 <img class="logo-img" src="../../images/logo.png" alt="">
-                <span>Laravel Admin</span>
+                <span v-if="subMenus.length">Laravel Admin</span>
             </div>
             <div class="flex">
-                <div class="menu-main">
+                <div class="menu-main" :style="[subMenus.length ? '' : 'border-right:none']">
                     <a-scrollbar style="height: calc(100vh - 60px);overflow-y: scroll;">
-                        <template v-for="i in 100" :key="i">
-                            <div class="menu-item" :class="{ 'active': i == 1 }">
+                        <template v-for="(item, index) in system_menus" :key="index">
+                            <div class="menu-item" :class="{ 'active': index === currentMainMenuIndex }"
+                                @click="currentMainMenuIndex = index">
                                 <icon-menu-unfold size="25" />
-                                <span>菜单{{ i }}</span>
+                                <span>{{ item.name }}</span>
                             </div>
                         </template>
                     </a-scrollbar>
                 </div>
-                <div class="menu-sub">
+                <div class="menu-sub" v-if="subMenus.length">
                     <a-scrollbar style="height: calc(100vh - 60px);overflow-y: scroll;">
-                        <a-menu :default-open-keys="['1']" :default-selected-keys="['0_3']" :style="{ width: '100%' }"
-                            @menu-item-click="onClickMenuItem">
-                            <a-menu-item key="0_1">
+                        <a-menu default-selected-keys="" :style="{ width: '100%' }" @menu-item-click="onClickMenuItem">
+                            <a-menu-item v-for="(item, index) in subMenus" :key="item.code">
                                 <template #icon>
                                     <IconHome size="20"></IconHome>
                                 </template>
-                                首页
-                            </a-menu-item>
-                            <a-menu-item key="0_2">
-                                <template #icon>
-                                    <IconSettings size="20"></IconSettings>
-                                </template>
-                                系统管理
-                            </a-menu-item>
-                            <a-menu-item key="0_3">
-                                <template #icon>
-                                    <IconSettings size="20"></IconSettings>
-                                </template>
-                                日志管理
-                            </a-menu-item>
-                            <a-menu-item key="0_4">
-                                <template #icon>
-                                    <IconLock size="20"></IconLock>
-                                </template>
-                                权限管理
-                            </a-menu-item>
-                            <a-menu-item key="0_5">
-                                <template #icon>
-                                    <IconSettings size="20"></IconSettings>
-                                </template>
-                                角色管理
-                            </a-menu-item>
-                            <a-menu-item key="0_6">
-                                <template #icon>
-                                    <IconSettings size="20"></IconSettings>
-                                </template>
-                                菜单管理
-                            </a-menu-item>
-                            <a-menu-item key="0_7">
-                                <template #icon>
-                                    <IconSettings size="20"></IconSettings>
-                                </template>
-                                操作日志
+                                {{ item.name }}
                             </a-menu-item>
                         </a-menu>
-
                     </a-scrollbar>
                 </div>
             </div>
@@ -180,19 +143,28 @@
     </div>
 </template>
 <script setup>
-import { defineComponent, ref, watch } from 'vue';
+import { computed, defineComponent, ref, watch } from 'vue';
 import { Message } from '@arco-design/web-vue';
 
+const props = defineProps(['system_menus'])
 const theme = ref(window.localStorage.getItem('arco-theme') || 'light')
+const contentMask = ref(false)
+const fullScreen = ref(false)
+const currentMainMenuIndex = ref(0)
+
+const subMenus = computed(() => {
+    const currentMainMenu = props.system_menus[currentMainMenuIndex.value]
+    if (currentMainMenu.type == 'M') {
+        return [];
+    }
+    return currentMainMenu.children
+})
 
 const changeTheme = (t) => {
     document.body.setAttribute('arco-theme', t)
     window.localStorage.setItem('arco-theme', t)
     theme.value = t
 }
-
-const contentMask = ref(false)
-const fullScreen = ref(false)
 
 function openFullscreen() {
     const elem = document.getElementById('app')

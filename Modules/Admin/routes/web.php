@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use Modules\Admin\Classes\Service\SystemMenuRegisterService;
 use Modules\Admin\Http\Controllers\AdminController;
 use Modules\Admin\Http\Controllers\SystemConfigController;
+use Modules\Admin\Http\Controllers\SystemMenuController;
 use Modules\Admin\Http\Middleware\HandleInertiaRequests;
 
 // Route::middleware([])->group(function () {
@@ -13,12 +14,15 @@ use Modules\Admin\Http\Middleware\HandleInertiaRequests;
 
 Route::middleware([HandleInertiaRequests::class])->group(function () {
     Route::get('',function() {
-        return Inertia::render('main');
+        return Inertia::render('main',[
+            'system_menus' => SystemMenuRegisterService::getSystemMenuTree(),
+        ]);
     });
     Route::get('login', function () {
         return Inertia::render('login');
     })->name('login');
 
     SystemMenuRegisterService::fastRoute(SystemConfigController::class);
+    SystemMenuRegisterService::fastRoute(SystemMenuController::class);
 
 });

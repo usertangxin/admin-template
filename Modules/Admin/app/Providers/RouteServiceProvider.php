@@ -4,6 +4,9 @@ namespace Modules\Admin\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Modules\Admin\Classes\Attrs\SystemMenu;
+use Modules\Admin\Classes\Service\SystemMenuRegisterService;
+use Modules\Admin\Classes\Utils\SystemMenuType;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -24,8 +27,14 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map(): void
     {
+        $this->mapSystemMenuGroup();
         $this->mapApiRoutes();
         $this->mapWebRoutes();
+    }
+
+    protected function mapSystemMenuGroup()
+    {
+        SystemMenuRegisterService::$system_menus[] = (array)(new SystemMenu('系统权限', type: SystemMenuType::GROUP, code: 'system.permission'));
     }
 
     /**
