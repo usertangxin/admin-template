@@ -15,7 +15,8 @@ use Modules\Admin\Http\Middleware\HandleInertiaRequests;
 Route::middleware([HandleInertiaRequests::class])->group(function () {
     Route::get('',function() {
         return Inertia::render('main',[
-            'system_menus' => SystemMenuRegisterService::getSystemMenuTree(),
+            'system_menus_tree' => SystemMenuRegisterService::getSystemMenuTree(),
+            'system_menus_list' => SystemMenuRegisterService::getSystemMenuList(),
         ]);
     });
     Route::get('login', function () {

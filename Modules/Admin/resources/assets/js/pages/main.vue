@@ -8,9 +8,9 @@
             <div class="flex">
                 <div class="menu-main" :style="[subMenus.length ? '' : 'border-right:none']">
                     <a-scrollbar style="height: calc(100vh - 60px);overflow-y: scroll;">
-                        <template v-for="(item, index) in system_menus" :key="index">
-                            <div class="menu-item" :class="{ 'active': index === currentMainMenuIndex }"
-                                @click="currentMainMenuIndex = index">
+                        <template v-for="(item, index) in system_menus_tree" :key="index">
+                            <div class="menu-item" :class="{ 'active': index == currentMainMenuIndex }"
+                                @click="handleClickMainMenu(item, index)">
                                 <icon-menu-unfold size="25" />
                                 <span>{{ item.name }}</span>
                             </div>
@@ -19,13 +19,9 @@
                 </div>
                 <div class="menu-sub" v-if="subMenus.length">
                     <a-scrollbar style="height: calc(100vh - 60px);overflow-y: scroll;">
-                        <a-menu default-selected-keys="" :style="{ width: '100%' }" @menu-item-click="onClickMenuItem">
-                            <a-menu-item v-for="(item, index) in subMenus" :key="item.code">
-                                <template #icon>
-                                    <IconHome size="20"></IconHome>
-                                </template>
-                                {{ item.name }}
-                            </a-menu-item>
+                        <a-menu :default-selected-keys="[currOpenMenuCode]" :style="{ width: '100%' }"
+                            @menu-item-click="onClickMenuItem">
+                            <recursion-menu :menus="subMenus"></recursion-menu>
                         </a-menu>
                     </a-scrollbar>
                 </div>
@@ -37,10 +33,11 @@
                     <div class=" absolute top-0 left-0 right-0 bottom-0">
                         <a-scrollbar style="height: 60px;overflow-x: scroll;width: 100%;">
                             <div class="tabs">
-                                <template v-for="i in 10" :key="i">
+                                <template v-for="(item, index) in openMenus" :key="index">
                                     <a-dropdown trigger="contextMenu" @popup-visible-change="onPopupVisibleChange">
-                                        <div class="tab-item" :class="{ 'active': i == 1 }">
-                                            系统管理{{ i }}
+                                        <div class="tab-item" :class="{ 'active': item.code == currOpenMenuCode }"
+                                            @click="handleClickTab(item)">
+                                            {{ item.name }}
                                             <IconClose></IconClose>
                                         </div>
                                         <template #content>
@@ -136,8 +133,7 @@
                     他在 a-popover 打开时打开，关闭时关闭
                       -->
                 </div>
-                <iframe frameborder="0" src="http://127.0.0.1:8000/module/Admin/web/SystemConfig/index" width="100%"
-                    height="100%"></iframe>
+                <iframe frameborder="0" :src="currentUrl" width="100%" height="100%"></iframe>
             </div>
         </div>
     </div>
@@ -145,20 +141,59 @@
 <script setup>
 import { computed, defineComponent, ref, watch } from 'vue';
 import { Message } from '@arco-design/web-vue';
+import RecursionMenu from '../components/recursion-menu.vue'
 
-const props = defineProps(['system_menus'])
+const props = defineProps(['system_menus_tree', 'system_menus_list'])
 const theme = ref(window.localStorage.getItem('arco-theme') || 'light')
 const contentMask = ref(false)
 const fullScreen = ref(false)
 const currentMainMenuIndex = ref(0)
+const currentUrl = ref('')
+const openMenus = ref([])
+const currOpenMenuCode = ref(window.localStorage.getItem('currOpenMenuCode') || '')
+
+let storageOpenMenuCodes = window.localStorage.getItem('openMenus')
+if (storageOpenMenuCodes) {
+    storageOpenMenuCodes = JSON.parse(storageOpenMenuCodes)
+    storageOpenMenuCodes.forEach((code, index) => {
+        if (props.system_menus_list[code]) {
+            openMenus.value.push(props.system_menus_list[code])
+            if (code == currOpenMenuCode.value) {
+                currentUrl.value = '/' + props.system_menus_list[code].url
+            }
+        }
+    })
+}
 
 const subMenus = computed(() => {
-    const currentMainMenu = props.system_menus[currentMainMenuIndex.value]
+    const currentMainMenu = props.system_menus_tree[currentMainMenuIndex.value]
     if (currentMainMenu.type == 'M') {
         return [];
     }
     return currentMainMenu.children
 })
+
+const recursionFindInitMainMenuIndex = (menus, is_main = false, index = 0) => {
+    for (const element of menus) {
+        if (element.code == currOpenMenuCode.value) {
+            return index
+        }
+        if (element.type === 'G') {
+            if (element.children) {
+                let _index = recursionFindInitMainMenuIndex(element.children, false, index)
+                if (_index !== -1) {
+                    return _index
+                }
+            }
+        }
+        if (is_main) {
+            index++
+        }
+    }
+    return -1
+}
+
+currentMainMenuIndex.value = recursionFindInitMainMenuIndex(props.system_menus_tree, true)
 
 const changeTheme = (t) => {
     document.body.setAttribute('arco-theme', t)
@@ -278,11 +313,39 @@ const messages = ref([
     },
 ])
 
+const openMenu = (menu) => {
+    if (menu.type === 'M') {
+        currentUrl.value = '/' + menu.url
+        for (const element of openMenus.value) {
+            if (element.code === menu.code) {
+                currOpenMenuCode.value = menu.code
+                window.localStorage.setItem('currOpenMenuCode', currOpenMenuCode.value)
+                return;
+            }
+        }
+        openMenus.value.push(menu)
+        let codes = openMenus.value.map(item => item.code)
+        window.localStorage.setItem('openMenus', JSON.stringify(codes))
+        currOpenMenuCode.value = menu.code
+        window.localStorage.setItem('currOpenMenuCode', currOpenMenuCode.value)
+    }
+}
+
+const handleClickTab = (tab) => {
+    openMenu(tab)
+    currentMainMenuIndex.value = recursionFindInitMainMenuIndex(props.system_menus_tree, true)
+}
+
 const onClickMenuItem = (key) => {
-    Message.info({ content: `You select ${key}`, showIcon: true });
+    const menu = props.system_menus_list[key];
+    openMenu(menu)
 }
 const onPopupVisibleChange = (visible) => {
     contentMask.value = visible
+}
+const handleClickMainMenu = (item, index) => {
+    currentMainMenuIndex.value = index
+    openMenu(item)
 }
 
 </script>

@@ -13,7 +13,10 @@ class SystemMenuController extends AbstractController
     #[SystemMenu('系统菜单', type: SystemMenuType::MENU, parent_code: 'system.permission')]
     public function index()
     {
-        return $this->success(SystemMenuRegisterService::getSystemMenuTree());
+        return $this->success([
+            'tree' => SystemMenuRegisterService::getSystemMenuTree(),
+            'list' => SystemMenuRegisterService::getSystemMenuList(),
+        ]);
     }
 
     #[SystemMenu('刷新系统菜单缓存')]
@@ -23,10 +26,11 @@ class SystemMenuController extends AbstractController
         if (\file_exists($route_cache_file)) {
             Artisan::call('route:cache');
         }
-        $system_menus = SystemMenuRegisterService::$system_menus;
+        $system_menus = SystemMenuRegisterService::getOriginSystemMenu();
         $tree = ArrUtil::convertToTree($system_menus, 'parent_code', 'code', 'children');
         if ($system_menus) {
             SystemMenuRegisterService::writeMenuTreeToCacheFile($tree);
+            SystemMenuRegisterService::writeMenuToCacheFile($system_menus);
         }
         return $this->success();
     }

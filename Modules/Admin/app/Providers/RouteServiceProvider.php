@@ -34,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapSystemMenuGroup()
     {
-        SystemMenuRegisterService::$system_menus[] = (array)(new SystemMenu('系统权限', type: SystemMenuType::GROUP, code: 'system.permission'));
+        SystemMenuRegisterService::pushSystemMenu((new SystemMenu('系统权限', type: SystemMenuType::GROUP, code: 'system.permission')));
     }
 
     /**
