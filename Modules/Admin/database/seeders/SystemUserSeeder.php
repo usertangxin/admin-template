@@ -13,11 +13,11 @@ class SystemUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = json_decode(file_get_contents(__DIR__ . '/json/system_user.json'), true);
+        $data = json_decode(file_get_contents(__DIR__.'/json/system_user.json'), true);
         foreach ($data as $item) {
             $model = SystemUser::find($item['id']);
             if (empty($model)) {
-                $model = new SystemUser();
+                $model = new SystemUser;
             }
             foreach ($item as $key => $value) {
                 $model->$key = $value;
@@ -25,13 +25,13 @@ class SystemUserSeeder extends Seeder
             $model->save();
         }
 
-        $data = json_decode(file_get_contents(__DIR__ . '/json/system_user_role.json'), true);
+        $data = json_decode(file_get_contents(__DIR__.'/json/system_user_role.json'), true);
         foreach ($data as $item) {
             $model = SystemUserRole::find($item['id']);
-            if (!empty($model)) {
+            if (! empty($model)) {
                 continue;
             }
-            $model = new SystemUserRole();
+            $model = new SystemUserRole;
             foreach ($item as $key => $value) {
                 $model->$key = $value;
             }

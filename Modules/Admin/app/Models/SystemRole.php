@@ -8,11 +8,11 @@ class SystemRole extends AbstractSoftDelModel
 
     public function depts()
     {
-        return $this->belongsToMany(SystemDept::class, foreignPivotKey:'role_id', relatedPivotKey:'dept_id')->using(SystemRoleDept::class);
+        return $this->belongsToMany(SystemDept::class, foreignPivotKey: 'role_id', relatedPivotKey: 'dept_id')->using(SystemRoleDept::class);
     }
 
     public function menus()
     {
-        return $this->belongsToMany(SystemMenu::class, foreignPivotKey:'role_id', relatedPivotKey:'menu_id')->using(SystemRoleMenu::class);
+        return $this->belongsToMany(SystemMenu::class, foreignPivotKey: 'role_id', relatedPivotKey: 'menu_id')->using(SystemRoleMenu::class);
     }
 }

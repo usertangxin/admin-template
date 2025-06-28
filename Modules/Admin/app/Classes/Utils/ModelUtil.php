@@ -2,8 +2,8 @@
 
 namespace Modules\Admin\Classes\Utils;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class ModelUtil
 {
@@ -12,8 +12,9 @@ class ModelUtil
     /**
      * 搜索
      * 可以使用scope开头的方法来定义搜索条件
-     * @param Builder|Model $query
-     * @param array $where
+     *
+     * @param  Builder|Model $query
+     * @param  array         $where
      * @return Builder
      */
     public static function bindSearch($query, $where)
@@ -21,10 +22,12 @@ class ModelUtil
         foreach ($where as $key => $value) {
             if ($query->hasNamedScope($key)) {
                 $query = $query->$key($value);
+
                 continue;
             }
             $query = $query->where($key, $value);
         }
+
         return $query;
     }
 }

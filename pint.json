@@ -1,0 +1,16 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "align_multiline_comment": true,
+        "fully_qualified_strict_types": true,
+        "no_unneeded_import_alias": true,
+        "no_unused_imports": true,
+        "phpdoc_align": true,
+        "no_trailing_comma_in_singleline": true,
+        "binary_operator_spaces": {
+            "operators": {
+                "=>": "align_single_space"
+            }
+        }
+    }
+}

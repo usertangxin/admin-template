@@ -13,11 +13,11 @@ class SystemDictSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = json_decode(file_get_contents(__DIR__ . '/json/system_dict_type.json'), true);
+        $data = json_decode(file_get_contents(__DIR__.'/json/system_dict_type.json'), true);
         foreach ($data as $item) {
             $model = SystemDictType::find($item['id']);
             if (empty($model)) {
-                $model = new SystemDictType();
+                $model = new SystemDictType;
             }
             foreach ($item as $key => $value) {
                 $model->$key = $value;
@@ -25,11 +25,11 @@ class SystemDictSeeder extends Seeder
             $model->save();
         }
 
-        $data = json_decode(file_get_contents(__DIR__ . '/json/system_dict_data.json'), true);
+        $data = json_decode(file_get_contents(__DIR__.'/json/system_dict_data.json'), true);
         foreach ($data as $item) {
             $model = SystemDictData::find($item['id']);
             if (empty($model)) {
-                $model = new SystemDictData();
+                $model = new SystemDictData;
             }
             foreach ($item as $key => $value) {
                 $model->$key = $value;

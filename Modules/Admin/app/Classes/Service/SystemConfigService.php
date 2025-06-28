@@ -8,7 +8,9 @@ use Modules\Admin\Models\SystemConfig;
 class SystemConfigService
 {
     protected static Collection $config_group;
+
     protected static Collection $config_list;
+
     protected static \Illuminate\Database\Eloquent\Collection $databaseConfig;
 
     protected function __construct() {}
@@ -20,7 +22,8 @@ class SystemConfigService
 
     public static function getGroups(): Collection
     {
-        static::$config_group ??= new Collection();
+        static::$config_group ??= new Collection;
+
         return static::$config_group;
     }
 
@@ -49,7 +52,8 @@ class SystemConfigService
 
     public static function getList(): Collection
     {
-        static::$config_list ??= new Collection();
+        static::$config_list ??= new Collection;
+
         return static::$config_list;
     }
 }

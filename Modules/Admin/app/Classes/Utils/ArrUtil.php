@@ -22,7 +22,7 @@ class ArrUtil
             $parentCode = $item[$for_key];
 
             // 如果找不到父节点或者父节点是当前节点自身，则作为根节点
-            if (!isset($itemsByCode[$parentCode]) || $parentCode === $item[$local_key]) {
+            if (! isset($itemsByCode[$parentCode]) || $parentCode === $item[$local_key]) {
                 $rootItems[] = &$itemsByCode[$item[$local_key]];
             } else {
                 // 将当前节点添加到父节点的 children 中

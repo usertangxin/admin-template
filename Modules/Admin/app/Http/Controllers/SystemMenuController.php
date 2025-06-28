@@ -32,6 +32,7 @@ class SystemMenuController extends AbstractController
             SystemMenuRegisterService::writeMenuTreeToCacheFile($tree);
             SystemMenuRegisterService::writeMenuToCacheFile($system_menus);
         }
+
         return $this->success();
     }
 
@@ -39,6 +40,7 @@ class SystemMenuController extends AbstractController
     public function deleteCache()
     {
         SystemMenuRegisterService::deleteCacheFile();
+
         return $this->success();
     }
 }

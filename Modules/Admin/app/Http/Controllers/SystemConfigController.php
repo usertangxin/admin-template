@@ -2,7 +2,6 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Service\SystemConfigService;
 use Modules\Admin\Classes\Utils\SystemMenuType;
@@ -15,7 +14,7 @@ class SystemConfigController extends AbstractController
 {
     protected function getModel(): AbstractModel|AbstractSoftDelModel
     {
-        return new SystemConfig();
+        return new SystemConfig;
     }
 
     #[SystemMenu('系统配置', type: SystemMenuType::MENU)]
@@ -23,8 +22,9 @@ class SystemConfigController extends AbstractController
     {
         $data = SystemConfigService::getList();
         $systemConfigGroup = SystemConfigService::getGroups();
+
         return $this->inertia([
-            'config_list' => $data,
+            'config_list'       => $data,
             'config_group_list' => $systemConfigGroup,
         ]);
     }
@@ -37,6 +37,7 @@ class SystemConfigController extends AbstractController
         foreach ($data as $item) {
             $this->getModel()->updateOrCreate(['key' => $item['key']], $item);
         }
+
         return $this->success();
     }
 }

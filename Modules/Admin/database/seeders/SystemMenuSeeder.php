@@ -12,11 +12,11 @@ class SystemMenuSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = json_decode(file_get_contents(__DIR__ . '/json/system_menu.json'), true);
+        $data = json_decode(file_get_contents(__DIR__.'/json/system_menu.json'), true);
         foreach ($data as $item) {
             $model = SystemMenu::find($item['id']);
             if (empty($model)) {
-                $model = new SystemMenu();
+                $model = new SystemMenu;
             }
             foreach ($item as $key => $value) {
                 $model->$key = $value;
