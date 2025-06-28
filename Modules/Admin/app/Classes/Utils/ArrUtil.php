@@ -6,12 +6,20 @@ class ArrUtil
 {
     private function __construct() {}
 
+    /**
+     * 数组转换为树结构
+     *
+     * @param  array $items        原始数组
+     * @param  mixed $for_key      用于关联的键名
+     * @param  mixed $local_key    本地键名
+     * @param  mixed $sub_coll_key 子集合键名
+     * @return array 转换后的树结构数组
+     */
     public static function convertToTree(array $items, $for_key, $local_key, $sub_coll_key): array
     {
         // 首先将数组转换为以 code 为键的关联数组，便于快速查找
         $itemsByCode = [];
         foreach ($items as &$item) {
-            $item[$sub_coll_key] = []; // 确保每个元素都有 children 属性
             $itemsByCode[$item[$local_key]] = &$item;
         }
         unset($item); // 释放引用，避免后续问题
@@ -25,6 +33,7 @@ class ArrUtil
             if (! isset($itemsByCode[$parentCode]) || $parentCode === $item[$local_key]) {
                 $rootItems[] = &$itemsByCode[$item[$local_key]];
             } else {
+                $itemsByCode[$parentCode][$sub_coll_key] ??= [];
                 // 将当前节点添加到父节点的 children 中
                 $itemsByCode[$parentCode][$sub_coll_key][] = &$itemsByCode[$item[$local_key]];
             }

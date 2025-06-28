@@ -38,12 +38,13 @@
                                         <div class="tab-item" :class="{ 'active': item.code == currOpenMenuCode }"
                                             @click="handleClickTab(item)">
                                             {{ item.name }}
-                                            <IconClose></IconClose>
+                                            <IconClose @click.prevent.stop="handleClickCloseTab(item, index)">
+                                            </IconClose>
                                         </div>
                                         <template #content>
-                                            <a-doption>刷新</a-doption>
-                                            <a-doption>关闭其他</a-doption>
-                                            <a-doption>关闭全部</a-doption>
+                                            <a-doption @click="handleClickRefresh(item, index)">刷新</a-doption>
+                                            <a-doption @click="handleClickCloseOtherTab(item, index)">关闭其他</a-doption>
+                                            <a-doption @click="handleClickCloseAllTab(item, index)">关闭全部</a-doption>
                                         </template>
                                     </a-dropdown>
                                 </template>
@@ -334,6 +335,38 @@ const openMenu = (menu) => {
 const handleClickTab = (tab) => {
     openMenu(tab)
     currentMainMenuIndex.value = recursionFindInitMainMenuIndex(props.system_menus_tree, true)
+}
+
+const handleClickCloseTab = (tab, index) => {
+    openMenus.value = openMenus.value.filter(item => item.code !== tab.code)
+    window.localStorage.setItem('openMenus', JSON.stringify(openMenus.value.map(item => item.code)))
+    if (tab.code === currOpenMenuCode.value) {
+        if (index === 0) {
+            handleClickTab(openMenus.value[index])
+        } else {
+            handleClickTab(openMenus.value[index - 1])
+        }
+    }
+}
+
+const handleClickRefresh = (tab) => {
+    handleClickTab(tab)
+    const timestamp = new Date().getTime();
+    currentUrl.value += currentUrl.value.includes('?') ? `&__random_time__=${timestamp}` : `?__random_time__=${timestamp}`;
+}
+
+const handleClickCloseOtherTab = (tab, index) => {
+    openMenus.value = openMenus.value.filter(item => item.code === tab.code)
+    window.localStorage.setItem('openMenus', JSON.stringify(openMenus.value.map(item => item.code)))
+    handleClickTab(tab)
+}
+
+const handleClickCloseAllTab = (tab, index) => {
+    openMenus.value = []
+    window.localStorage.setItem('openMenus', JSON.stringify(openMenus.value.map(item => item.code)))
+    currentUrl.value = ''
+    currOpenMenuCode.value = ''
+    window.localStorage.setItem('currOpenMenuCode', currOpenMenuCode.value)
 }
 
 const onClickMenuItem = (key) => {

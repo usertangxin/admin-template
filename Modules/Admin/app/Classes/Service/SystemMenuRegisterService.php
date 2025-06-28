@@ -68,7 +68,7 @@ class SystemMenuRegisterService
                     // if(isset(static::$system_menus[$mtdSystemMenuAttr->code])) {
                     //     throw new \Exception('系统菜单编码重复:' . $mtdSystemMenuAttr->code);
                     // }
-                    static::$system_menus[$mtdSystemMenuAttr->code] = (array) $mtdSystemMenuAttr;
+                    static::pushSystemMenu($mtdSystemMenuAttr);
 
                     Route::$route_action($uri, [$controller, $name])->name($routeName);
                 }
@@ -78,7 +78,11 @@ class SystemMenuRegisterService
 
     public static function pushSystemMenu(SystemMenu $systemMenu)
     {
-        static::$system_menus[$systemMenu->code] = (array) $systemMenu;
+        $menu = (array) $systemMenu;
+        if ($menu['type'] == SystemMenuType::ACTION) {
+            unset($menu['children']);
+        }
+        static::$system_menus[$systemMenu->code] = $menu;
     }
 
     public static function getOriginSystemMenu()

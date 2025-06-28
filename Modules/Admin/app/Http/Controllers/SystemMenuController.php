@@ -13,9 +13,9 @@ class SystemMenuController extends AbstractController
     #[SystemMenu('系统菜单', type: SystemMenuType::MENU, parent_code: 'system.permission')]
     public function index()
     {
-        return $this->success([
+        return $this->inertia([
             'tree' => SystemMenuRegisterService::getSystemMenuTree(),
-            'list' => SystemMenuRegisterService::getSystemMenuList(),
+            'list' => array_values(SystemMenuRegisterService::getSystemMenuList()),
         ]);
     }
 
