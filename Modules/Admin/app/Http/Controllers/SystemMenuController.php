@@ -2,7 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use Artisan;
+use Illuminate\Support\Facades\Artisan;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Service\SystemMenuRegisterService;
 use Modules\Admin\Classes\Utils\ArrUtil;

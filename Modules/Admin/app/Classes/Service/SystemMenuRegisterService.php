@@ -4,10 +4,10 @@ namespace Modules\Admin\Classes\Service;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Utils\ArrUtil;
 use Modules\Admin\Classes\Utils\SystemMenuType;
-use Str;
 
 class SystemMenuRegisterService
 {
