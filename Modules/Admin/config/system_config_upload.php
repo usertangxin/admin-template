@@ -109,7 +109,7 @@ return [
     [
         'group'              => 'upload_config',
         'key'                => 'upload_mode',
-        'value'              => 'local',
+        'value'              => 'public',
         'name'               => '默认存储',
         'input_type'         => SystemConfigInputType::RADIO,
         'config_select_data' => [
@@ -149,11 +149,11 @@ return [
     [
         'group'              => 'upload_config',
         'key'                => 'public_domain',
-        'value'              => 'http://127.0.0.1:8787',
+        'value'              => 'http://127.0.0.1:8000',
         'name'               => '本地存储域名',
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
-        'remark'             => 'http://127.0.0.1:8787',
+        'remark'             => '本地存储域名',
         'bind_p_config'      => 'upload_mode',
         'input_attr'         => null,
     ],

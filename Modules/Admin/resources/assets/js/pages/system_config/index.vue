@@ -1,12 +1,14 @@
 <template>
     <div class=" m-3 p-3 page-content" style="background-color: var(--color-bg-2);">
-        <a-row :gutter="20">
+        <a-row :gutter="20" align="stretch">
             <a-col flex="none">
-                <a-list>
+                <a-list class=" sticky top-6" :virtualListProps="{
+                    height: 530,
+                }" :data="config_group_list">
                     <template #header>
                         配组组
                     </template>
-                    <template v-for="(group, group_index) in config_group_list" :key="group_index">
+                    <template #item="{ item: group, index: group_index }">
                         <a-list-item :class="{ 'group_active': current_group_index == group_index }">
                             <a-list-item-meta class=" cursor-pointer" :title="group.name" :description="group.remark"
                                 @click="current_group_index = group_index"></a-list-item-meta>
