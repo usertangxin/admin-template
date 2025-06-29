@@ -16,9 +16,9 @@ return [
     ],
     [
         'group'              => 'map',
-        'key'                => 'tencent_key',
+        'key'                => 'amap_code',
         'value'              => '',
-        'name'               => '腾讯地图Key',
+        'name'               => '高德地图code',
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => [],
         'remark'             => '',
@@ -28,7 +28,7 @@ return [
     [
         'group'              => 'map',
         'key'                => 'amap_key',
-        'value'              => '3cedb1af3a2fd8080f6324e088d00ffe',
+        'value'              => '',
         'name'               => '高德地图key',
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
@@ -39,7 +39,7 @@ return [
     [
         'group'              => 'map',
         'key'                => 'tencent_key',
-        'value'              => '60708b72732974b975e4135891e431ba',
+        'value'              => '',
         'name'               => '腾讯地图key',
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,

@@ -1,5 +1,5 @@
 <template>
-    <div class=" m-3 p-3 page-content" style="background-color: var(--color-bg-1);">
+    <div class=" m-3 p-3 page-content" style="background-color: var(--color-bg-2);">
         <a-row :gutter="20">
             <a-col flex="none">
                 <a-list>

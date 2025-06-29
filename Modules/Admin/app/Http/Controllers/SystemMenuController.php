@@ -10,7 +10,7 @@ use Modules\Admin\Classes\Utils\SystemMenuType;
 
 class SystemMenuController extends AbstractController
 {
-    #[SystemMenu('系统菜单', type: SystemMenuType::MENU, parent_code: 'system.permission')]
+    #[SystemMenu('菜单规则', type: SystemMenuType::MENU, parent_code: 'system.permission', icon: 'fas bars')]
     public function index()
     {
         return $this->inertia([

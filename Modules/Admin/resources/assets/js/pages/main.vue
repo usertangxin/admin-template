@@ -11,7 +11,7 @@
                         <template v-for="(item, index) in system_menus_tree" :key="index">
                             <div class="menu-item" :class="{ 'active': index == currentMainMenuIndex }"
                                 @click="handleClickMainMenu(item, index)">
-                                <icon-menu-unfold size="25" />
+                                <component :is="item.icon.split(' ',2)[0] + '-icon'" :icon="item.icon.split(' ',2)[1]" style="font-size: 18px;"></component>
                                 <span>{{ item.name }}</span>
                             </div>
                         </template>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="menu-sub" v-if="subMenus.length">
                     <a-scrollbar style="height: calc(100vh - 60px);overflow-y: scroll;">
-                        <a-menu :default-selected-keys="[currOpenMenuCode]" :style="{ width: '100%' }"
+                        <a-menu :selected-keys="[currOpenMenuCode]" :style="{ width: '100%' }"
                             @menu-item-click="onClickMenuItem">
                             <recursion-menu :menus="subMenus"></recursion-menu>
                         </a-menu>
@@ -134,7 +134,8 @@
                     他在 a-popover 打开时打开，关闭时关闭
                       -->
                 </div>
-                <iframe frameborder="0" :src="currentUrl" width="100%" height="100%"></iframe>
+                <iframe v-for="item in openMenus" :key="item.code" v-show="item.code == currOpenMenuCode"
+                    frameborder="0" ref="iframeRef" :src="item.open_url" width="100%" height="100%"></iframe>
             </div>
         </div>
     </div>
@@ -144,12 +145,12 @@ import { computed, defineComponent, ref, watch } from 'vue';
 import { Message } from '@arco-design/web-vue';
 import RecursionMenu from '../components/recursion-menu.vue'
 
+const iframeRef = ref(null)
 const props = defineProps(['system_menus_tree', 'system_menus_list'])
 const theme = ref(window.localStorage.getItem('arco-theme') || 'light')
 const contentMask = ref(false)
 const fullScreen = ref(false)
 const currentMainMenuIndex = ref(0)
-const currentUrl = ref('')
 const openMenus = ref([])
 const currOpenMenuCode = ref(window.localStorage.getItem('currOpenMenuCode') || '')
 
@@ -158,10 +159,11 @@ if (storageOpenMenuCodes) {
     storageOpenMenuCodes = JSON.parse(storageOpenMenuCodes)
     storageOpenMenuCodes.forEach((code, index) => {
         if (props.system_menus_list[code]) {
-            openMenus.value.push(props.system_menus_list[code])
-            if (code == currOpenMenuCode.value) {
-                currentUrl.value = '/' + props.system_menus_list[code].url
+            const m = props.system_menus_list[code];
+            if (m.code == currOpenMenuCode.value) {
+                m.open_url = '/' + m.url
             }
+            openMenus.value.push(m)
         }
     })
 }
@@ -316,14 +318,15 @@ const messages = ref([
 
 const openMenu = (menu) => {
     if (menu.type === 'M') {
-        currentUrl.value = '/' + menu.url
         for (const element of openMenus.value) {
-            if (element.code === menu.code) {
+            if (element.code == menu.code) {
+                element.open_url ??= '/' + element.url
                 currOpenMenuCode.value = menu.code
                 window.localStorage.setItem('currOpenMenuCode', currOpenMenuCode.value)
                 return;
             }
         }
+        menu.open_url = '/' + menu.url
         openMenus.value.push(menu)
         let codes = openMenus.value.map(item => item.code)
         window.localStorage.setItem('openMenus', JSON.stringify(codes))
@@ -331,6 +334,8 @@ const openMenu = (menu) => {
         window.localStorage.setItem('currOpenMenuCode', currOpenMenuCode.value)
     }
 }
+
+
 
 const handleClickTab = (tab) => {
     openMenu(tab)
@@ -349,10 +354,9 @@ const handleClickCloseTab = (tab, index) => {
     }
 }
 
-const handleClickRefresh = (tab) => {
+const handleClickRefresh = (tab,index) => {
     handleClickTab(tab)
-    const timestamp = new Date().getTime();
-    currentUrl.value += currentUrl.value.includes('?') ? `&__random_time__=${timestamp}` : `?__random_time__=${timestamp}`;
+    iframeRef.value[index].contentWindow.location.reload()
 }
 
 const handleClickCloseOtherTab = (tab, index) => {
@@ -364,7 +368,6 @@ const handleClickCloseOtherTab = (tab, index) => {
 const handleClickCloseAllTab = (tab, index) => {
     openMenus.value = []
     window.localStorage.setItem('openMenus', JSON.stringify(openMenus.value.map(item => item.code)))
-    currentUrl.value = ''
     currOpenMenuCode.value = ''
     window.localStorage.setItem('currOpenMenuCode', currOpenMenuCode.value)
 }
@@ -490,7 +493,7 @@ const handleClickMainMenu = (item, index) => {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        // gap: 3px;
+        gap: 5px;
         // border-bottom: 1px solid var(--color-border-3);
         font-size: 12px;
 

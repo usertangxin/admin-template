@@ -12,7 +12,6 @@ class AdminDatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            SystemConfigSeeder::class,
             SystemDeptSeeder::class,
             SystemDictSeeder::class,
             SystemMenuSeeder::class,

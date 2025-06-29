@@ -5,6 +5,7 @@ namespace Modules\Admin\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Classes\Service\SystemConfigService;
+use Modules\Admin\Classes\Service\SystemDictService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -35,6 +36,14 @@ class AdminServiceProvider extends ServiceProvider
         SystemConfigService::registerList(\config('admin.system_config_site'));
         SystemConfigService::registerList(\config('admin.system_config_upload'));
         SystemConfigService::registerList(\config('admin.system_config_wechat'));
+
+        $dict_groups = \config('admin.system_dict_type');
+        SystemDictService::registerGroups($dict_groups);
+        foreach($dict_groups as $dict_group) {
+            \dump($dict_group['code']);
+            \dump(\config('admin.dict.' . $dict_group['code']));
+            SystemDictService::registerList(\config('admin.dict.' . $dict_group['code']));
+        }
     }
 
     /**
