@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use Modules\Admin\Classes\Service\SystemMenuRegisterService;
 use Modules\Admin\Http\Controllers\AdminController;
 use Modules\Admin\Http\Controllers\SystemConfigController;
+use Modules\Admin\Http\Controllers\SystemDictController;
 use Modules\Admin\Http\Controllers\SystemMenuController;
 use Modules\Admin\Http\Middleware\HandleInertiaRequests;
 
@@ -24,6 +25,7 @@ Route::middleware([HandleInertiaRequests::class])->group(function () {
     })->name('login');
 
     SystemMenuRegisterService::fastRoute(SystemConfigController::class);
+    SystemMenuRegisterService::fastRoute(SystemDictController::class);
     SystemMenuRegisterService::fastRoute(SystemMenuController::class);
 
 });

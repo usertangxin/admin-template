@@ -1,7 +1,7 @@
 <?php
 
 return [
-     [
+    [
         'label'  => '男',
         'value'  => 'man',
         'code'   => 'sex',
@@ -13,7 +13,7 @@ return [
         'code'   => 'sex',
         'remark' => null,
     ],
-     [
+    [
         'label'  => '未知',
         'value'  => 'unknown',
         'code'   => 'sex',

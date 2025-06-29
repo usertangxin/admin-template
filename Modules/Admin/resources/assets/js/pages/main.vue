@@ -445,39 +445,6 @@ const handleClickMainMenu = (item, index) => {
     }
 }
 
-:deep(.arco-scrollbar-track-direction-vertical) {
-    width: 2px;
-
-    .arco-scrollbar-thumb-bar {
-        width: 2px !important;
-        margin: 0 !important;
-        border-radius: 0;
-    }
-}
-
-:deep(.arco-scrollbar-track-direction-horizontal) {
-    height: 2px;
-
-    .arco-scrollbar-thumb-bar {
-        height: 2px !important;
-        margin: 0 !important;
-        border-radius: 0;
-    }
-}
-
-:deep(.arco-list-virtual) {
-    &::-webkit-scrollbar {
-        width: 3px;
-        background-color: unset;
-        border-radius: 0;
-
-        &-thumb {
-            background-color: var(--color-neutral-4);
-            border-radius: 0;
-        }
-    }
-}
-
 .menu-main {
     border-right: 1px solid var(--color-border-3);
     position: relative;

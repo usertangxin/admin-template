@@ -39,10 +39,8 @@ class AdminServiceProvider extends ServiceProvider
 
         $dict_groups = \config('admin.system_dict_type');
         SystemDictService::registerGroups($dict_groups);
-        foreach($dict_groups as $dict_group) {
-            \dump($dict_group['code']);
-            \dump(\config('admin.dict.' . $dict_group['code']));
-            SystemDictService::registerList(\config('admin.dict.' . $dict_group['code']));
+        foreach ($dict_groups as $dict_group) {
+            SystemDictService::registerList(\config('admin.dict.'.$dict_group['code']));
         }
     }
 

@@ -13,8 +13,6 @@ class AdminDatabaseSeeder extends Seeder
     {
         $this->call([
             SystemDeptSeeder::class,
-            SystemDictSeeder::class,
-            SystemMenuSeeder::class,
             SystemRoleSeeder::class,
             SystemUserSeeder::class,
         ]);
