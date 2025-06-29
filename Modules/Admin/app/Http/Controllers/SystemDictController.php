@@ -3,12 +3,10 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Modules\Admin\Classes\Attrs\SystemMenu;
-use Modules\Admin\Classes\Service\SystemConfigService;
 use Modules\Admin\Classes\Service\SystemDictService;
 use Modules\Admin\Classes\Utils\SystemMenuType;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
-use Modules\Admin\Models\SystemConfig;
 use Modules\Admin\Models\SystemDictData;
 
 // #[SystemMenu('系统配置')]
@@ -16,7 +14,7 @@ class SystemDictController extends AbstractController
 {
     protected function getModel(): AbstractModel|AbstractSoftDelModel
     {
-        return new SystemDictData();
+        return new SystemDictData;
     }
 
     #[SystemMenu('字典配置', type: SystemMenuType::MENU, parent_code: 'system.setting', icon: 'fas book')]
