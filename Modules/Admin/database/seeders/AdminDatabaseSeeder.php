@@ -14,7 +14,7 @@ class AdminDatabaseSeeder extends Seeder
         $this->call([
             SystemDeptSeeder::class,
             SystemRoleSeeder::class,
-            SystemUserSeeder::class,
+            SystemAdminSeeder::class,
         ]);
     }
 }

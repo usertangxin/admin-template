@@ -3,21 +3,21 @@
 namespace Modules\Admin\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\Admin\Models\SystemUser;
-use Modules\Admin\Models\SystemUserRole;
+use Modules\Admin\Models\SystemAdmin;
+use Modules\Admin\Models\SystemAdminRole;
 
-class SystemUserSeeder extends Seeder
+class SystemAdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $data = json_decode(file_get_contents(__DIR__.'/json/system_user.json'), true);
+        $data = json_decode(file_get_contents(__DIR__.'/json/system_admin.json'), true);
         foreach ($data as $item) {
-            $model = SystemUser::find($item['id']);
+            $model = SystemAdmin::find($item['id']);
             if (empty($model)) {
-                $model = new SystemUser;
+                $model = new SystemAdmin;
             }
             foreach ($item as $key => $value) {
                 $model->$key = $value;
@@ -25,13 +25,13 @@ class SystemUserSeeder extends Seeder
             $model->save();
         }
 
-        $data = json_decode(file_get_contents(__DIR__.'/json/system_user_role.json'), true);
+        $data = json_decode(file_get_contents(__DIR__.'/json/system_admin_role.json'), true);
         foreach ($data as $item) {
-            $model = SystemUserRole::find($item['id']);
+            $model = SystemAdminRole::find($item['id']);
             if (! empty($model)) {
                 continue;
             }
-            $model = new SystemUserRole;
+            $model = new SystemAdminRole;
             foreach ($item as $key => $value) {
                 $model->$key = $value;
             }

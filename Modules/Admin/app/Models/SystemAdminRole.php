@@ -4,11 +4,9 @@ namespace Modules\Admin\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-// use Modules\Admin\Database\Factories\SystemUserPostFactory;
-
-class SystemUserPost extends Pivot
+class SystemAdminRole extends Pivot
 {
-    protected $table = 'system_user_post';
+    protected $table = 'system_admin_role';
 
     public $incrementing = true;
 

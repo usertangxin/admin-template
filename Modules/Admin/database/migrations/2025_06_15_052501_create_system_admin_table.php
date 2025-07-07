@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_user', function (Blueprint $table) {
+        Schema::create('system_admin', function (Blueprint $table) {
             $table->comment('用户信息表');
             $table->increments('id')->comment('用户ID,主键');
-            $table->string('username', 20)->unique('username')->comment('用户名');
+            $table->string('adminname', 20)->unique('adminname')->comment('用户名');
             $table->string('password', 100)->comment('密码');
-            $table->string('user_type', 3)->nullable()->default('100')->comment('用户类型:(100系统用户)');
+            $table->string('admin_type', 3)->nullable()->default('100')->comment('用户类型:(100系统用户)');
             $table->string('nickname', 30)->nullable()->comment('用户昵称');
             $table->string('phone', 11)->nullable()->comment('手机');
             $table->string('email', 50)->nullable()->comment('用户邮箱');
@@ -42,6 +42,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('system_user');
+        Schema::dropIfExists('system_admin');
     }
 };

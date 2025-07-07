@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('db_type')->comment('数据库类型');
             $table->string('db_hostname')->comment('服务器地址');
             $table->string('db_database')->comment('数据库名');
-            $table->string('db_username')->comment('数据库用户名');
+            $table->string('db_adminname')->comment('数据库用户名');
             $table->string('db_password')->comment('数据库密码');
             $table->string('db_hostport')->comment('数据库连接端口');
             $table->boolean('status')->nullable()->default(true)->comment('状态:dict=data_status');

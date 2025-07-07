@@ -9,7 +9,7 @@
                 <a-button type="primary" status="danger" @click="handleDeleteCache">删除菜单缓存</a-button>
             </a-space>
         </div>
-        <a-table ref="tableRef" row-key="code" :columns="columns" v-model:expandedKeys="expandedKeys" :data="tree"
+        <a-table ref="tableRef" row-key="code" :pagination="false" :columns="columns" v-model:expandedKeys="expandedKeys" :data="tree"
             :bordered="{
                 cell:true,
             }">

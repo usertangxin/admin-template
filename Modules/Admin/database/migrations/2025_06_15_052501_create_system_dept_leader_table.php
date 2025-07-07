@@ -15,7 +15,7 @@ return new class extends Migration
             $table->comment('部门领导关联表');
             $table->increments('leader_id')->comment('编号');
             $table->unsignedInteger('dept_id')->index('idx_dept_id')->comment('部门主键');
-            $table->unsignedInteger('user_id')->index('idx_user_id')->comment('角色主键');
+            $table->unsignedInteger('admin_id')->index('idx_admin_id')->comment('角色主键');
         });
     }
 

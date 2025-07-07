@@ -8,6 +8,6 @@ class SystemDept extends AbstractSoftDelModel
 
     public function leader()
     {
-        return $this->belongsToMany(SystemUser::class, foreignPivotKey: 'user_id', relatedPivotKey: 'dept_id')->using(SystemDeptLeader::class);
+        return $this->belongsToMany(SystemAdmin::class, foreignPivotKey: 'admin_id', relatedPivotKey: 'dept_id')->using(SystemDeptLeader::class);
     }
 }
