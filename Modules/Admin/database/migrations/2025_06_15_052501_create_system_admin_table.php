@@ -12,19 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('system_admin', function (Blueprint $table) {
-            $table->comment('用户信息表');
-            $table->increments('id')->comment('用户ID,主键');
-            $table->string('adminname', 20)->unique('adminname')->comment('用户名');
+            $table->comment('系统管理员信息表');
+            $table->increments('id')->comment('系统管理员ID,主键');
+            $table->string('admin_name', 20)->unique('admin_name')->comment('系统管理员名');
             $table->string('password', 100)->comment('密码');
-            $table->string('admin_type', 3)->nullable()->default('100')->comment('用户类型:(100系统用户)');
-            $table->string('nickname', 30)->nullable()->comment('用户昵称');
+            $table->string('nickname', 30)->nullable()->comment('系统管理员昵称');
             $table->string('phone', 11)->nullable()->comment('手机');
-            $table->string('email', 50)->nullable()->comment('用户邮箱');
-            $table->string('avatar')->nullable()->default('/avatar.png')->comment('用户头像');
-            $table->string('signed')->nullable()->comment('个人签名');
+            $table->string('email', 50)->nullable()->comment('系统管理员邮箱');
+            $table->string('avatar')->nullable()->default('/avatar.png')->comment('系统管理员头像');
             $table->string('dashboard', 100)->nullable()->comment('后台首页类型');
             $table->unsignedInteger('dept_id')->nullable()->index('dept_id')->comment('部门ID');
-            $table->smallInteger('status')->nullable()->default(1)->comment('状态 (1正常 2停用)');
+            $table->smallInteger('status')->nullable()->default(1)->comment('状态:dict=data_status');
             $table->string('login_ip', 45)->nullable()->comment('最后登陆IP');
             $table->dateTime('login_time')->nullable()->comment('最后登陆时间');
             $table->string('backend_setting', 500)->nullable()->comment('后台设置数据');

@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('system_admin_role', function (Blueprint $table) {
-            $table->comment('用户与角色关联表');
+            $table->comment('系统管理员与角色关联表');
             $table->increments('id')->comment('编号');
-            $table->unsignedInteger('admin_id')->index('idx_admin_id')->comment('用户主键');
+            $table->unsignedInteger('admin_id')->index('idx_admin_id')->comment('系统管理员主键');
             $table->unsignedInteger('role_id')->index('idx_role_id')->comment('角色主键');
         });
     }
