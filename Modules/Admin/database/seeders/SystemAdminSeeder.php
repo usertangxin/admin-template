@@ -13,7 +13,7 @@ class SystemAdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = json_decode(file_get_contents(__DIR__.'/json/system_admin.json'), true);
+        $data = json_decode(file_get_contents(__DIR__ . '/json/system_admin.json'), true);
         foreach ($data as $item) {
             $model = SystemAdmin::find($item['id']);
             if (empty($model)) {
@@ -25,7 +25,7 @@ class SystemAdminSeeder extends Seeder
             $model->save();
         }
 
-        $data = json_decode(file_get_contents(__DIR__.'/json/system_admin_role.json'), true);
+        $data = json_decode(file_get_contents(__DIR__ . '/json/system_admin_role.json'), true);
         foreach ($data as $item) {
             $model = SystemAdminRole::find($item['id']);
             if (! empty($model)) {

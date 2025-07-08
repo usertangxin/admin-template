@@ -30,7 +30,7 @@ class SystemMenuRegisterService
                 $ctlSystemMenuAttr->type ??= SystemMenuType::GROUP;
                 $ctlSystemMenuAttr->code ??= $ref->getName();
                 if (isset(static::$system_menus[$ctlSystemMenuAttr->code])) {
-                    throw new \Exception('系统菜单编码重复:'.$ctlSystemMenuAttr->code);
+                    throw new \Exception('系统菜单编码重复:' . $ctlSystemMenuAttr->code);
                 }
                 static::$system_menus[$ctlSystemMenuAttr->code] = (array) $ctlSystemMenuAttr;
             }
@@ -47,23 +47,23 @@ class SystemMenuRegisterService
                     foreach ($actions as $action) {
                         if (str_starts_with($actionName, $action)) {
                             $route_action = $action;
-                            $actionName = str_replace($action.'', '', $actionName);
+                            $actionName = str_replace($action . '', '', $actionName);
                             $actionName = Str::lcfirst($actionName);
                             break;
                         }
                     }
 
-                    $uri = $prefix.'/'.$actionName;
-                    $routeName = $prefix.'.'.$actionName;
+                    $uri = $prefix . '/' . $actionName;
+                    $routeName = $prefix . '.' . $actionName;
                     $fullUri = static::prefix($uri);
 
                     $mtdSystemMenuAttr->url = $fullUri;
                     $mtdSystemMenuAttr->type ??= SystemMenuType::ACTION;
-                    $mtdSystemMenuAttr->code ??= $ref->getName().'.'.$method->getName();
+                    $mtdSystemMenuAttr->code ??= $ref->getName() . '.' . $method->getName();
                     if ($method->getName() === 'index') {
                         $mtdSystemMenuAttr->parent_code ??= $ctlSystemMenuAttr?->code;
                     } else {
-                        $mtdSystemMenuAttr->parent_code ??= $ref->getName().'.index';
+                        $mtdSystemMenuAttr->parent_code ??= $ref->getName() . '.index';
                     }
                     // if(isset(static::$system_menus[$mtdSystemMenuAttr->code])) {
                     //     throw new \Exception('系统菜单编码重复:' . $mtdSystemMenuAttr->code);
@@ -92,7 +92,7 @@ class SystemMenuRegisterService
 
     public static function getSystemMenuTree()
     {
-        $cache_file_path = \config('cache.stores.file.path').'/system_menus_tree.php';
+        $cache_file_path = \config('cache.stores.file.path') . '/system_menus_tree.php';
         $tree = null;
         if (! file_exists($cache_file_path)) {
             if (! static::$system_menus) {
@@ -118,7 +118,7 @@ class SystemMenuRegisterService
 
     public static function getSystemMenuList()
     {
-        $cache_file_path = \config('cache.stores.file.path').'/system_menus.php';
+        $cache_file_path = \config('cache.stores.file.path') . '/system_menus.php';
         $menus = null;
         if (! file_exists($cache_file_path)) {
             if (! static::$system_menus) {
@@ -140,7 +140,7 @@ class SystemMenuRegisterService
 
     public static function writeMenuTreeToCacheFile($tree)
     {
-        $cache_file_path = \config('cache.stores.file.path').'/system_menus_tree.php';
+        $cache_file_path = \config('cache.stores.file.path') . '/system_menus_tree.php';
         $treeCode = \var_export($tree, true);
         $file_content = <<<EOF
 <?php
@@ -152,7 +152,7 @@ EOF;
 
     public static function writeMenuToCacheFile($menus)
     {
-        $cache_file_path = \config('cache.stores.file.path').'/system_menus.php';
+        $cache_file_path = \config('cache.stores.file.path') . '/system_menus.php';
         $menusCode = \var_export($menus, true);
         $file_content = <<<EOF
 <?php
@@ -164,11 +164,11 @@ EOF;
 
     public static function deleteCacheFile()
     {
-        $cache_tree_file_path = \config('cache.stores.file.path').'/system_menus_tree.php';
+        $cache_tree_file_path = \config('cache.stores.file.path') . '/system_menus_tree.php';
         if (file_exists($cache_tree_file_path)) {
             unlink($cache_tree_file_path);
         }
-        $cache_file_path = \config('cache.stores.file.path').'/system_menus.php';
+        $cache_file_path = \config('cache.stores.file.path') . '/system_menus.php';
         if (file_exists($cache_file_path)) {
             unlink($cache_file_path);
         }
@@ -176,6 +176,6 @@ EOF;
 
     private static function prefix($uri)
     {
-        return trim(trim(Route::getLastGroupPrefix(), '/').'/'.trim($uri, '/'), '/') ?: '/';
+        return trim(trim(Route::getLastGroupPrefix(), '/') . '/' . trim($uri, '/'), '/') ?: '/';
     }
 }

@@ -12,7 +12,7 @@ class SystemRoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = json_decode(file_get_contents(__DIR__.'/json/system_role.json'), true);
+        $data = json_decode(file_get_contents(__DIR__ . '/json/system_role.json'), true);
         foreach ($data as $item) {
             $model = SystemRole::find($item['id']);
             if (empty($model)) {

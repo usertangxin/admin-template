@@ -11,6 +11,9 @@
             "operators": {
                 "=>": "align_single_space"
             }
+        },
+        "concat_space": {
+            "spacing": "one"
         }
     }
 }

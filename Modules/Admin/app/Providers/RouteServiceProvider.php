@@ -37,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
         SystemMenuRegisterService::pushSystemMenu((new SystemMenu('权限管理', type: SystemMenuType::GROUP, code: 'system.permission', icon: 'fas drum-steelpan')));
         SystemMenuRegisterService::pushSystemMenu((new SystemMenu('常规管理', type: SystemMenuType::GROUP, code: 'system.setting', icon: 'fas gears')));
         if (\env('APP_ENV') === 'local') {
-            SystemMenuRegisterService::pushSystemMenu(new SystemMenu('OpenApi', url: 'docs/api', type: SystemMenuType::MENU, code:'swagger.openapi' ,icon: 'fas fa-code'));
+            SystemMenuRegisterService::pushSystemMenu(new SystemMenu('OpenApi', url: 'docs/api', type: SystemMenuType::MENU, code: 'swagger.openapi', icon: 'fas fa-code'));
         }
     }
 
@@ -48,7 +48,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes(): void
     {
-        Route::middleware('web')->prefix('module/' . $this->name . '/web')->name('module.' . $this->name . '.web.')->group(module_path($this->name, '/routes/web.php'));
+        Route::middleware('web')->prefix('web/module/' . $this->name)->name('web.module.' . $this->name . '.')->group(module_path($this->name, '/routes/web.php'));
     }
 
     /**
@@ -58,6 +58,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes(): void
     {
-        Route::middleware('api')->prefix('module/' . $this->name . '/api')->name('module.' . $this->name . '.api.')->group(module_path($this->name, '/routes/api.php'));
+        Route::middleware('api')->prefix('api/module/' . $this->name)->name('api.module.' . $this->name . '.')->group(module_path($this->name, '/routes/api.php'));
     }
 }

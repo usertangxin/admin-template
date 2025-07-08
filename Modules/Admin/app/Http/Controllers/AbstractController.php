@@ -16,7 +16,7 @@ abstract class AbstractController
             $shortName = Arr::last(\explode('\\', $controller));
             $prefix = str_replace('Controller', '', $shortName);
             $prefix = Str::snake($prefix, '_');
-            $view = $prefix.'/'.$action;
+            $view = $prefix . '/' . $action;
         }
 
         return Inertia::render($view, $data);
