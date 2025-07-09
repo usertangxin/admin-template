@@ -170,6 +170,9 @@ if (storageOpenMenuCodes) {
 
 const subMenus = computed(() => {
     const currentMainMenu = props.system_menus_tree[currentMainMenuIndex.value]
+    if (!currentMainMenu) {
+        return []
+    }
     if (currentMainMenu.type == 'M') {
         return [];
     }
