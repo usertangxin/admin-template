@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Modules\Admin\Models\SystemConfig;
 
-
 class SystemConfigService
 {
     protected static Collection $config_group;
@@ -33,7 +32,7 @@ class SystemConfigService
     {
         $run_diff = true;
         if (\app()->runningInConsole()) {
-            if (!Schema::hasTable(SystemConfig::query()->getModel()->getTable())) {
+            if (! Schema::hasTable(SystemConfig::query()->getModel()->getTable())) {
                 $run_diff = false;
             }
         }

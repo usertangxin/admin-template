@@ -1,5 +1,10 @@
 <template>
     <div class=" m-3 p-3 page-content" style="background-color: var(--color-bg-2);">
+
+        <a-alert class="mb-2">
+            温馨提示：切换配置组前，如果当前配置页有更改，记得保存！
+        </a-alert>
+
         <a-row :gutter="20" align="stretch">
             <a-col flex="none">
                 <a-list class=" sticky top-6" :virtualListProps="{

@@ -186,12 +186,12 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 切换状态
      *
-     * @param  mixed $id
-     * @param  mixed $status
      * @return mixed
      */
-    public function changeStatus($id, $status)
+    public function changeStatus()
     {
+        $id = \request('id');
+        $status = \request('status');
         $result = $this->getModel()->find($id)->update(['status' => $status]);
         if (! empty($resourceCollection = $this->getResourceCollection())) {
             $result = $result->toResourceCollection($resourceCollection);
@@ -203,11 +203,12 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 删除
      *
-     * @param  mixed $id
      * @return int
      */
-    public function destroy($id)
+    public function destroy()
     {
+        $id = \request('id');
+
         return $this->success($this->getModel()->destroy($id));
     }
 

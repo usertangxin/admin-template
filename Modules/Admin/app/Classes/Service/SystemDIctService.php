@@ -35,7 +35,7 @@ class SystemDictService
     {
         $run_diff = true;
         if (\app()->runningInConsole()) {
-            if (!Schema::hasTable(SystemDictData::query()->getModel()->getTable())) {
+            if (! Schema::hasTable(SystemDictData::query()->getModel()->getTable())) {
                 $run_diff = false;
             }
         }
