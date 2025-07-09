@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('system_login_log', function (Blueprint $table) {
             $table->comment('登录日志表');
             $table->increments('id')->comment('主键');
-            $table->string('adminname', 20)->nullable()->index('adminname')->comment('系统管理员名');
+            $table->string('admin_name', 20)->nullable()->index('admin_name')->comment('系统管理员名');
             $table->string('ip', 45)->nullable()->comment('登录IP地址');
             $table->string('ip_location')->nullable()->comment('IP所属地');
             $table->string('os', 50)->nullable()->comment('操作系统');
             $table->string('browser', 50)->nullable()->comment('浏览器');
-            $table->smallInteger('status')->nullable()->default(1)->comment('登录状态 (1成功 2失败)');
+            $table->string('status', 20)->nullable()->comment('登录状态:dict=success_or_fail');
             $table->string('message', 50)->nullable()->comment('提示消息');
             $table->dateTime('login_time')->useCurrentOnUpdate()->useCurrent()->comment('登录时间');
             $table->string('remark')->nullable()->comment('备注');

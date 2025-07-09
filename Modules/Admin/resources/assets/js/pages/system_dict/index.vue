@@ -6,7 +6,7 @@
                     height: 530,
                 }" :data="group_list">
                     <template #header>
-                         字典组
+                        字典组
                     </template>
                     <template #item="{ item: group, index: group_index }">
                         <a-list-item :class="{ 'group_active': current_group_index == group_index }">
@@ -24,7 +24,7 @@
                 </a-list>
             </a-col>
             <a-col flex="1">
-                <a-card :title="'字典项（ 「 ' + group_list[current_group_index].name + ' 」相关 ）'">
+                <a-card :title="'字典项（ 「 ' + group_list[current_group_index].name + ' 」相关 ）' + group_list[current_group_index].code">
                     <a-table :columns="columns" :data="current_group_list"></a-table>
                 </a-card>
             </a-col>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name', 50)->nullable()->comment('岗位名称');
             $table->string('code', 100)->nullable()->comment('岗位代码');
             $table->unsignedSmallInteger('sort')->nullable()->default(0)->comment('排序');
-            $table->smallInteger('status')->nullable()->default(1)->comment('状态 (1正常 2停用)');
+            $table->smallInteger('status')->nullable()->default(1)->comment('状态:dict=data_status');
             $table->string('remark')->nullable()->comment('备注');
             $table->integer('created_by')->nullable()->comment('创建者');
             $table->integer('updated_by')->nullable()->comment('更新者');

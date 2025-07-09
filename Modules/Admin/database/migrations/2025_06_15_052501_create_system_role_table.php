@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('level', 500)->nullable()->comment('组级集合');
             $table->string('name', 30)->nullable()->comment('角色名称');
             $table->string('code', 100)->nullable()->comment('角色代码');
-            $table->smallInteger('data_scope')->nullable()->default(1)->comment('数据范围(1:全部数据权限 2:自定义数据权限 3:本部门数据权限 4:本部门及以下数据权限 5:本人数据权限)');
-            $table->smallInteger('status')->nullable()->default(1)->comment('状态 (1正常 2停用)');
+            $table->string('data_scope',50)->nullable()->default('all')->comment('数据范围:dict=data_scope');
+            $table->string('status', 20)->nullable()->default(1)->comment('状态:dict=data_status');
             $table->unsignedSmallInteger('sort')->nullable()->default(0)->comment('排序');
             $table->string('remark')->nullable()->comment('备注');
             $table->integer('created_by')->nullable()->comment('创建者');

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->comment('角色与菜单关联表');
             $table->increments('id')->comment('编号');
             $table->unsignedInteger('role_id')->index('idx_role_id')->comment('角色主键');
-            $table->unsignedInteger('menu_id')->index('idx_menu_id')->comment('菜单主键');
+            $table->unsignedInteger('url')->index('idx_url')->comment('菜单');
         });
     }
 

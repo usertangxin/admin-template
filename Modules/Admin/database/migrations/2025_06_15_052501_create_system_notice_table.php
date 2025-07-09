@@ -16,7 +16,7 @@ return new class extends Migration
             $table->increments('id')->comment('主键');
             $table->integer('message_id')->nullable()->index('message_id')->comment('消息ID');
             $table->string('title')->nullable()->comment('标题');
-            $table->smallInteger('type')->nullable()->comment('公告类型(1通知 2公告)');
+            $table->string('type', 20)->nullable()->comment('公告类型:dict=backend_notice_type');
             $table->text('content')->nullable()->comment('公告内容');
             $table->integer('click_num')->nullable()->default(0)->comment('浏览次数');
             $table->string('remark')->nullable()->comment('备注');

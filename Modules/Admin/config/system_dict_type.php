@@ -12,6 +12,11 @@ return [
         'remark' => '通用数据状态',
     ],
     [
+        'name'   => '成功失败',
+        'code'   => 'success_or_fail',
+        'remark' => '',
+    ],
+    [
         'name'   => '后台首页',
         'code'   => 'dashboard',
         'remark' => null,
@@ -67,7 +72,7 @@ return [
         'remark' => '',
     ],
     [
-        'name'   => '前台用户登录方式',
+        'name'   => '用户登录方式',
         'code'   => 'front_user_login_type',
         'remark' => null,
     ],

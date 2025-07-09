@@ -3,6 +3,7 @@
 namespace Modules\Admin\Classes\Service;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
 use Modules\Admin\Models\SystemDictData;
 
 class SystemDictService
@@ -34,9 +35,9 @@ class SystemDictService
     {
         $run_diff = true;
         if (\app()->runningInConsole()) {
-            // if (\app()->runningConsoleCommand('migrate', 'module:migrate','package')) {
-            $run_diff = false;
-            // }
+            if (!Schema::hasTable(SystemDictData::query()->getModel()->getTable())) {
+                $run_diff = false;
+            }
         }
         if ($run_diff) {
             static::$databaseConfig ??= SystemDictData::all();

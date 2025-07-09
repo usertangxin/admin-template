@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedInteger('parent_id')->nullable()->index('parent_id')->comment('父ID');
             $table->string('level', 500)->nullable()->comment('组级集合');
             $table->string('name', 30)->nullable()->comment('部门名称');
-            $table->smallInteger('status')->nullable()->default(1)->comment('状态 (1正常 2停用)');
+            $table->smallInteger('status')->nullable()->default(1)->comment('状态:dict=data_status');
             $table->unsignedSmallInteger('sort')->nullable()->default(0)->comment('排序');
             $table->string('remark')->nullable()->comment('备注');
             $table->integer('created_by')->nullable()->comment('创建者');

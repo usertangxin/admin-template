@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('system_uploadfile', function (Blueprint $table) {
-            $table->comment('上传文件信息表');
+            $table->comment('附件管理表');
             $table->increments('id')->comment('主键');
-            $table->string('storage_mode')->nullable()->default('local')->comment('存储模式 (1 本地 2 阿里云 3 七牛云 4 腾讯云)');
+            $table->string('storage_mode')->nullable()->default('local')->comment('存储模式:dict=upload_mode');
             $table->string('origin_name')->nullable()->comment('原文件名');
             $table->string('object_name', 50)->nullable()->comment('新文件名');
             $table->string('hash', 64)->nullable()->unique('hash')->comment('文件hash');
