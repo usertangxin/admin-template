@@ -9,15 +9,11 @@
                 <a-button type="primary" status="danger" @click="handleDeleteCache">删除菜单缓存</a-button>
             </a-space>
         </div>
-        <a-table ref="tableRef" row-key="code" :pagination="false" :columns="columns" v-model:expandedKeys="expandedKeys" :data="tree"
-            :bordered="{
-                cell:true,
+        <index-table ref="tableRef" row-key="code" :pagination="false" :columns="columns"
+            :actionColumn="{ show: false }" v-model:expandedKeys="expandedKeys" :data="tree" :bordered="{
+                cell: true,
             }">
-            <template #icon="{ record }">
-                <component v-if="record.icon" :is="record.icon.split(' ',2)[0] + '-icon'"
-                    :icon="record.icon.split(' ',2)[1]"></component>
-            </template>
-        </a-table>
+        </index-table>
     </div>
 </template>
 
@@ -34,10 +30,10 @@ const expandedKeys = ref([]);
 const columns = [
     { title: '菜单名称', dataIndex: 'name' },
     { title: '菜单URL', dataIndex: 'url' },
-    { title: '菜单类型', dataIndex: 'type' },
-    { title: '菜单图标', dataIndex: 'icon', slotName: 'icon' },
-    // { title: '菜单编码', dataIndex: 'code' },
-    { title: '是否隐藏', dataIndex: 'hidden' },
+    { title: '菜单类型', dataIndex: 'type', type: 'dict_tag', dict: 'menu_type' },
+    { title: '菜单图标', dataIndex: 'icon', type: 'icon' },
+    { title: '菜单编码', dataIndex: 'code' },
+    { title: '是否隐藏', dataIndex: 'hidden', type: 'switch' },
     { title: '备注', dataIndex: 'remark' },
 ]
 

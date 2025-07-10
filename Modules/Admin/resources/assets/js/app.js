@@ -16,6 +16,8 @@ import * as regular from '@fortawesome/free-regular-svg-icons';
 import * as brands from '@fortawesome/free-brands-svg-icons';
 import FasIcon from './components/fas-icon.vue'
 import AIcon from './components/a-icon.vue'
+import IndexTable from './components/index-table.vue'
+import DictTag from './components/dict-tag.vue'
 
 document.body.setAttribute('arco-theme', window.localStorage.getItem('arco-theme') || 'light')
 
@@ -53,6 +55,8 @@ createInertiaApp({
       .component('font-awesome-icon', FontAwesomeIcon)
       .component('fas-icon',FasIcon)
       .component('a-icon', AIcon)
+      .component('index-table', IndexTable)
+      .component('dict-tag', DictTag)
       .mount(el)
   },
 })
