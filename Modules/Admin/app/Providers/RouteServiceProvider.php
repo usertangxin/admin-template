@@ -37,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
         SystemMenuRegisterService::pushSystemMenu((new SystemMenu('权限管理', type: SystemMenuType::GROUP, code: 'system.permission', icon: 'fas drum-steelpan')));
         SystemMenuRegisterService::pushSystemMenu((new SystemMenu('常规管理', type: SystemMenuType::GROUP, code: 'system.setting', icon: 'fas gears')));
         if (\env('APP_ENV') === 'local') {
-            SystemMenuRegisterService::pushSystemMenu(new SystemMenu('OpenApi', url: 'docs/api', type: SystemMenuType::MENU, code: 'swagger.openapi', icon: 'fas fa-code'));
+            SystemMenuRegisterService::pushSystemMenu(new SystemMenu('OpenApi', url: 'docs/api', type: SystemMenuType::MENU, code: 'scramble.docs.ui', icon: 'fas fa-code'));
         }
     }
 

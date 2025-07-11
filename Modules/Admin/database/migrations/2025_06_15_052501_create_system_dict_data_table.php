@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('label', 50)->nullable()->comment('字典标签');
             $table->string('value', 100)->nullable()->comment('字典值');
             $table->string('code', 100)->nullable()->comment('字典标示');
+            $table->string('color', 10)->nullable()->comment('颜色');
             $table->string('remark')->nullable()->comment('备注');
         });
     }

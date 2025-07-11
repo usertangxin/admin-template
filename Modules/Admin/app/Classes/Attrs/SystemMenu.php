@@ -15,8 +15,8 @@ class SystemMenu implements ArrayAccess
      * @param  null|string $url         菜单URL
      * @param  null|string $type        菜单类型
      * @param  null|string $icon        菜单图标
-     * @param  null|string $code        菜单编码，他用于菜单项通过 parent_code 参数识别并绑定到下级
-     * @param  null|string $parent_code 父菜单编码，通过 parent_code 绑定到父级菜单下
+     * @param  null|string $code        菜单编码，取路由名称为该值，他用户判断权限
+     * @param  null|string $parent_code 父菜单编码
      * @param  bool        $hidden      是否隐藏
      * @param  string      $remark      备注
      * @param  array       $children    子菜单

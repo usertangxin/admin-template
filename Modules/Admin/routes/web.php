@@ -20,7 +20,7 @@ Route::middleware([HandleInertiaRequests::class, HandleInertiaShare::class])->gr
             'system_menus_tree' => SystemMenuRegisterService::getSystemMenuTree(),
             'system_menus_list' => SystemMenuRegisterService::getSystemMenuList(),
         ]);
-    });
+    })->name('index');
     Route::get('login', function () {
         return Inertia::render('login');
     })->name('login');

@@ -57,20 +57,20 @@ class SystemMenuRegisterService
                     $routeName = $prefix . '.' . $actionName;
                     $fullUri = static::prefix($uri);
 
+                    $route = Route::$route_action($uri, [$controller, $name])->name($routeName);
+
                     $mtdSystemMenuAttr->url = $fullUri;
                     $mtdSystemMenuAttr->type ??= SystemMenuType::ACTION;
-                    $mtdSystemMenuAttr->code ??= $ref->getName() . '.' . $method->getName();
+                    $mtdSystemMenuAttr->code ??= $route->getName();
                     if ($method->getName() === 'index') {
                         $mtdSystemMenuAttr->parent_code ??= $ctlSystemMenuAttr?->code;
                     } else {
-                        $mtdSystemMenuAttr->parent_code ??= $ref->getName() . '.index';
+                        $mtdSystemMenuAttr->parent_code ??= preg_replace('/' . '.' . $actionName . '(?=.*$)/', '', $route->getName(), 1) . '.index';
                     }
                     // if(isset(static::$system_menus[$mtdSystemMenuAttr->code])) {
                     //     throw new \Exception('系统菜单编码重复:' . $mtdSystemMenuAttr->code);
                     // }
                     static::pushSystemMenu($mtdSystemMenuAttr);
-
-                    Route::$route_action($uri, [$controller, $name])->name($routeName);
                 }
             }
         });
