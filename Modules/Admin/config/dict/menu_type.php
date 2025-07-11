@@ -26,12 +26,14 @@ return [
         'label'  => '外链',
         'value'  => 'L',
         'code'   => 'menu_type',
+        'color'  => 'red',
         'remark' => '',
     ],
     [
         'label'  => 'iFrame',
         'value'  => 'I',
         'code'   => 'menu_type',
+        'color'  => 'gray',
         'remark' => '',
     ],
 ];

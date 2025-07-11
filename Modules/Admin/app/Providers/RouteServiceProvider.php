@@ -38,6 +38,8 @@ class RouteServiceProvider extends ServiceProvider
         SystemMenuRegisterService::pushSystemMenu((new SystemMenu('常规管理', type: SystemMenuType::GROUP, code: 'system.setting', icon: 'fas gears')));
         if (\env('APP_ENV') === 'local') {
             SystemMenuRegisterService::pushSystemMenu(new SystemMenu('OpenApi', url: 'docs/api', type: SystemMenuType::MENU, code: 'scramble.docs.ui', icon: 'fas fa-code'));
+            SystemMenuRegisterService::pushSystemMenu(new SystemMenu('百度IFrame', url: 'https://www.baidu.com', type: SystemMenuType::IFRAME, code: 'baidu.com', icon: 'fas fa-link'));
+            SystemMenuRegisterService::pushSystemMenu(new SystemMenu('百度外链', url: 'https://www.baidu.com', type: SystemMenuType::LINK, code: 'link.baidu.com', icon: 'fas fa-link'));
         }
     }
 

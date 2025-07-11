@@ -21,6 +21,10 @@ import DictTag from './components/dict-tag.vue'
 
 document.body.setAttribute('arco-theme', window.localStorage.getItem('arco-theme') || 'light')
 
+window.changeTheme = (t) => {
+  document.body.setAttribute('arco-theme', t)
+}
+
 // 合并所有图标集并去重
 const allIcons = [...Object.values(solid), ...Object.values(regular), ...Object.values(brands)];
 

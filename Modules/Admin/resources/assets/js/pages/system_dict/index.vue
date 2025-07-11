@@ -24,8 +24,14 @@
                 </a-list>
             </a-col>
             <a-col flex="1">
-                <a-card :title="'字典项（ 「 ' + group_list[current_group_index].name + ' 」相关 ）' + group_list[current_group_index].code">
-                    <a-table :columns="columns" :data="current_group_list"></a-table>
+                <a-card
+                    :title="'字典项（ 「 ' + group_list[current_group_index].name + ' 」相关 ）' + group_list[current_group_index].code">
+                    <index-table :columns="columns" :actionColumn="{ show: false }"
+                        :data="current_group_list">
+                        <template #color="{record}">
+                            <a-tag v-if="record.color" :style="[...colorMatch(record.color)]" bordered>{{ record.label }}</a-tag>
+                        </template>
+                    </index-table>
                 </a-card>
             </a-col>
         </a-row>
@@ -35,12 +41,14 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { Message } from '@arco-design/web-vue';
+import { colorMatch } from '../../util';
 
 const props = defineProps(['list', 'group_list'])
 
 const columns = [
     { title: '标签', dataIndex: 'label' },
     { title: '值', dataIndex: 'value' },
+    { title: '颜色', dataIndex: 'color' },
     { title: '备注', dataIndex: 'remark' },
 ];
 

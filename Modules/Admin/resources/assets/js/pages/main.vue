@@ -141,7 +141,7 @@
     </div>
 </template>
 <script setup>
-import { computed, defineComponent, ref, watch } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { Message } from '@arco-design/web-vue';
 import RecursionMenu from '../components/recursion-menu.vue'
 
@@ -155,25 +155,27 @@ const openMenus = ref([])
 const currOpenMenuCode = ref(window.localStorage.getItem('currOpenMenuCode') || '')
 
 let storageOpenMenuCodes = window.localStorage.getItem('openMenus')
-if (storageOpenMenuCodes) {
-    storageOpenMenuCodes = JSON.parse(storageOpenMenuCodes)
-    storageOpenMenuCodes.forEach((code, index) => {
-        if (props.system_menus_list[code]) {
-            const m = props.system_menus_list[code];
-            if (m.code == currOpenMenuCode.value) {
-                m.open_url = '/' + m.url
+onMounted(()=>{
+    if (storageOpenMenuCodes) {
+        storageOpenMenuCodes = JSON.parse(storageOpenMenuCodes)
+        storageOpenMenuCodes.forEach((code, index) => {
+            if (props.system_menus_list[code]) {
+                const m = props.system_menus_list[code];
+                openMenus.value.push(m)
+                if (m.code == currOpenMenuCode.value) {
+                    openMenu(m)
+                }
             }
-            openMenus.value.push(m)
-        }
-    })
-}
+        })
+    }
+})
 
 const subMenus = computed(() => {
     const currentMainMenu = props.system_menus_tree[currentMainMenuIndex.value]
     if (!currentMainMenu) {
         return []
     }
-    if (currentMainMenu.type == 'M') {
+    if (currentMainMenu.type != 'G') {
         return [];
     }
     return currentMainMenu.children
@@ -205,6 +207,9 @@ const changeTheme = (t) => {
     document.body.setAttribute('arco-theme', t)
     window.localStorage.setItem('arco-theme', t)
     theme.value = t
+    iframeRef.value.forEach((item) => {
+        item.contentWindow.changeTheme && item.contentWindow.changeTheme(t)
+    })
 }
 
 function openFullscreen() {
@@ -320,21 +325,24 @@ const messages = ref([
 ])
 
 const openMenu = (menu) => {
-    if (menu.type === 'M') {
+    if (menu.type === 'M' || menu.type === 'I') {
+        const url = menu.type === 'M' ? '/' + menu.url : menu.url
         for (const element of openMenus.value) {
             if (element.code == menu.code) {
-                element.open_url ??= '/' + element.url
+                element.open_url ??= url
                 currOpenMenuCode.value = menu.code
                 window.localStorage.setItem('currOpenMenuCode', currOpenMenuCode.value)
                 return;
             }
         }
-        menu.open_url = '/' + menu.url
+        menu.open_url = url
         openMenus.value.push(menu)
         let codes = openMenus.value.map(item => item.code)
         window.localStorage.setItem('openMenus', JSON.stringify(codes))
         currOpenMenuCode.value = menu.code
         window.localStorage.setItem('currOpenMenuCode', currOpenMenuCode.value)
+    } else if (menu.type === 'L') {
+        window.open(menu.url)
     }
 }
 

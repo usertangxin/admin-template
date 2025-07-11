@@ -79,9 +79,7 @@ class SystemMenuRegisterService
     public static function pushSystemMenu(SystemMenu $systemMenu)
     {
         $menu = (array) $systemMenu;
-        if ($menu['type'] == SystemMenuType::ACTION) {
-            unset($menu['children']);
-        }
+        unset($menu['children']);
         static::$system_menus[$systemMenu->code] = $menu;
     }
 
