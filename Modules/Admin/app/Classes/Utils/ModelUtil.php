@@ -21,7 +21,7 @@ class ModelUtil
     {
         foreach ($where as $key => $value) {
             if ($query->hasNamedScope($key)) {
-                $query = $query->$key($value);
+                $query = $query->callNamedScope($key, $value);
 
                 continue;
             }
