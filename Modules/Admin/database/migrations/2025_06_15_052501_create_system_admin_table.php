@@ -27,6 +27,7 @@ return new class extends Migration
             $table->dateTime('login_time')->nullable()->comment('最后登陆时间');
             $table->string('backend_setting', 500)->nullable()->comment('后台设置数据');
             $table->text('remark')->nullable()->comment('备注');
+            $table->string('remember_token', 100)->nullable()->comment('记住我');
             $table->integer('created_by')->nullable()->comment('创建者');
             $table->integer('updated_by')->nullable()->comment('更新者');
             $table->dateTime('create_time')->nullable()->comment('创建时间');

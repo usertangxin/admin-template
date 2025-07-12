@@ -14,6 +14,7 @@ Route::middleware([HandleInertiaRequests::class])->group(function () {
 
     Route::get('login', [LoginController::class, 'view'])->name('login');
     Route::post('login', [LoginController::class, 'authenticate'])->name('login');
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::middleware(['auth:admin', HandleInertiaShare::class])->group(function () {
         Route::get('', function () {

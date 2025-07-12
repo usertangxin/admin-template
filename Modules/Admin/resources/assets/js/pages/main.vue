@@ -117,7 +117,7 @@
                         <template #content>
                             <a-dgroup title="个人">
                                 <a-doption>个人中心</a-doption>
-                                <a-doption>退出登录</a-doption>
+                                <a-doption @click="logout">退出登录</a-doption>
                             </a-dgroup>
                             <a-dgroup title="缓存">
                                 <a-doption>清理系统缓存</a-doption>
@@ -393,6 +393,10 @@ const onPopupVisibleChange = (visible) => {
 const handleClickMainMenu = (item, index) => {
     currentMainMenuIndex.value = index
     openMenu(item)
+}
+
+const logout = () => {
+    window.location.href = './Admin/logout';
 }
 
 </script>

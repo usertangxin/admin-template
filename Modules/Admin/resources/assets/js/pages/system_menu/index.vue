@@ -43,21 +43,11 @@ const handleExpandAll = () => {
 }
 
 const handleRefreshCache = () => {
-    axios.get('./refreshSystemMenuCache').then(res => {
-        if (res.data.code === 0) {
-            Message.success('刷新菜单缓存成功');
-        }
-    })
+    axios.put('./refreshSystemMenuCache')
 }
 
 const handleDeleteCache = () => {
-    axios.delete('./cache').then(res => {
-        if (res.data.code === 0) {
-            Message.success('删除菜单缓存成功');
-        } else {
-            Message.error('删除菜单缓存失败');
-        }
-    })
+    axios.delete('./cache')
 }
 
 

@@ -20,7 +20,7 @@ class SystemMenuController extends AbstractController
     }
 
     #[SystemMenu('刷新系统菜单缓存')]
-    public function getRefreshSystemMenuCache()
+    public function putRefreshSystemMenuCache()
     {
         $route_cache_file = app()->getCachedRoutesPath();
         if (\file_exists($route_cache_file)) {
@@ -33,7 +33,7 @@ class SystemMenuController extends AbstractController
             SystemMenuRegisterService::writeMenuToCacheFile($system_menus);
         }
 
-        return $this->success();
+        return $this->success(message: '刷新菜单缓存成功');
     }
 
     #[SystemMenu('删除系统菜单缓存')]
@@ -41,6 +41,6 @@ class SystemMenuController extends AbstractController
     {
         SystemMenuRegisterService::deleteCacheFile();
 
-        return $this->success();
+        return $this->success(message: '删除菜单缓存成功');
     }
 }

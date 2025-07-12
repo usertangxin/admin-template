@@ -38,6 +38,6 @@ class SystemConfigController extends AbstractController
             $this->getModel()->updateOrCreate(['key' => $item['key']], $item);
         }
 
-        return $this->success();
+        return $this->success(message: '保存成功');
     }
 }

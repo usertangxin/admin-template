@@ -81,16 +81,11 @@ const handleSubmit = (data) => {
             }
         }
     }
-    console.log(kvs);
     if (kvs.length == 0) {
         Message.warning('没有需要保存的配置');
         return;
     }
-    axios.post('./save', { data: kvs }).then(res => {
-        if (res.data.code == 0) {
-            Message.success('保存成功');
-        }
-    })
+    axios.post('./save', { data: kvs })
 }
 
 </script>
