@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('avatar')->nullable()->default('/avatar.png')->comment('系统管理员头像');
             $table->string('dashboard', 100)->nullable()->comment('后台首页类型');
             $table->unsignedInteger('dept_id')->nullable()->index('dept_id')->comment('部门ID');
-            $table->smallInteger('status')->nullable()->default(1)->comment('状态:dict=data_status');
+            $table->string('status')->nullable()->default('normal')->comment('状态:dict=data_status');
             $table->string('login_ip', 45)->nullable()->comment('最后登陆IP');
             $table->dateTime('login_time')->nullable()->comment('最后登陆时间');
             $table->string('backend_setting', 500)->nullable()->comment('后台设置数据');

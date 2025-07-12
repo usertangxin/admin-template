@@ -13,7 +13,6 @@ class AdminDatabaseSeeder extends Seeder
     {
         $this->call([
             SystemDeptSeeder::class,
-            SystemRoleSeeder::class,
             SystemAdminSeeder::class,
         ]);
     }
