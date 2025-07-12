@@ -4,10 +4,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Filename
+    | 文件名
     |--------------------------------------------------------------------------
     |
-    | The default filename.
+    | 默认文件名。
     |
     */
 
@@ -15,10 +15,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Models filename
+    | 模型文件名
     |--------------------------------------------------------------------------
     |
-    | The default filename for the models helper file.
+    | 模型辅助文件的默认文件名。
     |
     */
 
@@ -26,22 +26,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | PhpStorm meta filename
+    | PhpStorm 元数据文件名
     |--------------------------------------------------------------------------
     |
-    | PhpStorm also supports the directory `.phpstorm.meta.php/` with arbitrary
-    | files in it, should you need additional files for your project; e.g.
-    | `.phpstorm.meta.php/laravel_ide_Helper.php'.
+    | PhpStorm 还支持 `.phpstorm.meta.php/` 目录下的任意文件，
+    | 如果你的项目需要额外的文件，例如 `.phpstorm.meta.php/laravel_ide_Helper.php`。
     |
     */
     'meta_filename' => '.phpstorm.meta.php',
 
     /*
     |--------------------------------------------------------------------------
-    | Fluent helpers
+    | 流畅方法辅助
     |--------------------------------------------------------------------------
     |
-    | Set to true to generate commonly used Fluent methods.
+    | 设置为 true 以生成常见的流畅方法。
     |
     */
 
@@ -49,13 +48,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Factory builders
+    | 工厂构建器
     |--------------------------------------------------------------------------
     |
-    | Set to true to generate factory generators for better factory()
-    | method auto-completion.
+    | 设置为 true 以生成工厂生成器，以便更好地实现 factory() 方法的自动补全。
     |
-    | Deprecated for Laravel 8 or latest.
+    | 对于 Laravel 8 或更高版本已弃用。
     |
     */
 
@@ -63,10 +61,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Write model magic methods
+    | 写入模型魔术方法
     |--------------------------------------------------------------------------
     |
-    | Set to false to disable write magic methods of model.
+    | 设置为 false 以禁用写入模型的魔术方法。
     |
     */
 
@@ -74,10 +72,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Write model external Eloquent builder methods
+    | 写入模型外部 Eloquent 构建器方法
     |--------------------------------------------------------------------------
     |
-    | Set to false to disable write external Eloquent builder methods.
+    | 设置为 false 以禁用写入外部 Eloquent 构建器方法。
     |
     */
 
@@ -85,10 +83,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Write model relation count properties
+    | 写入模型关联计数属性
     |--------------------------------------------------------------------------
     |
-    | Set to false to disable writing of relation count properties to model DocBlocks.
+    | 设置为 false 以禁用将关联计数属性写入模型 DocBlock。
     |
     */
 
@@ -96,14 +94,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Write Eloquent model mixins
+    | 写入 Eloquent 模型混入
     |--------------------------------------------------------------------------
     |
-    | This will add the necessary DocBlock mixins to the model class
-    | contained in the Laravel framework. This helps the IDE with
-    | auto-completion.
+    | 这将为 Laravel 框架中包含的模型类添加必要的 DocBlock 混入。
+    | 这有助于 IDE 实现自动补全。
     |
-    | Please be aware that this setting changes a file within the /vendor directory.
+    | 请注意，此设置会修改 `/vendor` 目录中的文件。
     |
     */
 
@@ -111,11 +108,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Helper files to include
+    | 要包含的辅助文件
     |--------------------------------------------------------------------------
     |
-    | Include helper files. By default not included, but can be toggled with the
-    | -- helpers (-H) option. Extra helper files can be included.
+    | 包含辅助文件。默认情况下不包含，但可以使用 --helpers (-H) 选项切换。
+    | 可以包含额外的辅助文件。
     |
     */
 
@@ -128,14 +125,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Model locations to include
+    | 要包含的模型位置
     |--------------------------------------------------------------------------
     |
-    | Define in which directories the ide-helper:models command should look
-    | for models.
+    | 定义 ide-helper:models 命令应在哪些目录中查找模型。
     |
-    | glob patterns are supported to easier reach models in sub-directories,
-    | e.g. `app/Services/* /Models` (without the space).
+    | 支持 glob 模式，以便更轻松地访问子目录中的模型，例如 `app/Services/* /Models`（不含空格）。
     |
     */
 
@@ -146,10 +141,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Models to ignore
+    | 要忽略的模型
     |--------------------------------------------------------------------------
     |
-    | Define which models should be ignored.
+    | 定义应忽略哪些模型。
     |
     */
 
@@ -159,12 +154,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Models hooks
+    | 模型钩子
     |--------------------------------------------------------------------------
     |
-    | Define which hook classes you want to run for models to add custom information.
+    | 定义要为模型运行哪些钩子类以添加自定义信息。
     |
-    | Hooks should implement Barryvdh\LaravelIdeHelper\Contracts\ModelHookInterface.
+    | 钩子应实现 Barryvdh\LaravelIdeHelper\Contracts\ModelHookInterface。
     |
     */
 
@@ -174,10 +169,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Extra classes
+    | 额外类
     |--------------------------------------------------------------------------
     |
-    | These implementations are not really extended, but called with magic functions.
+    | 这些实现实际上并未被扩展，而是通过魔术函数调用。
     |
     */
 
@@ -190,11 +185,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Interface implementations
+    | 接口实现
     |--------------------------------------------------------------------------
     |
-    | These interfaces will be replaced with the implementing class. Some interfaces
-    | are detected by the helpers, others can be listed below.
+    | 这些接口将被实现类替换。一些接口由辅助工具检测，其他接口可以在下面列出。
     |
     */
 
@@ -204,36 +198,34 @@ return [
 
     /*
      |--------------------------------------------------------------------------
-     | Support for camel cased models
+     | 对驼峰命名模型的支持
      |--------------------------------------------------------------------------
      |
-     | There are some Laravel packages (such as Eloquence) that allow for accessing
-     | Eloquent model properties via camel case, instead of snake case.
+     | 有一些 Laravel 包（例如 Eloquence）允许通过驼峰命名而不是蛇形命名来访问 Eloquent 模型属性。
      |
-     | Enabling this option will support these packages by saving all model
-     | properties as camel case, instead of snake case.
+     | 启用此选项将支持这些包，将所有模型属性保存为驼峰命名，而不是蛇形命名。
      |
-     | For example, normally you would see this:
+     | 例如，通常你会看到这样的内容：
      |
      |  * @property \Illuminate\Support\Carbon $created_at
      |  * @property \Illuminate\Support\Carbon $updated_at
      |
-     | With this enabled, the properties will be this:
+     | 启用此选项后，属性将变为这样：
      |
      |  * @property \Illuminate\Support\Carbon $createdAt
      |  * @property \Illuminate\Support\Carbon $updatedAt
      |
-     | Note, it is currently an all-or-nothing option.
+     | 注意，目前这是一个全有或全无的选项。
      |
      */
     'model_camel_case_properties' => false,
 
     /*
     |--------------------------------------------------------------------------
-    | Property casts
+    | 属性类型转换
     |--------------------------------------------------------------------------
     |
-    | Cast the given "real type" to the given "type".
+    | 将给定的“实际类型”转换为给定的“类型”。
     |
     */
     'type_overrides' => [
@@ -243,80 +235,74 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Include DocBlocks from classes
+    | 包含类的 DocBlock
     |--------------------------------------------------------------------------
     |
-    | Include DocBlocks from classes to allow additional code inspection for
-    | magic methods and properties.
+    | 包含类的 DocBlock，以便对魔术方法和属性进行额外的代码检查。
     |
     */
     'include_class_docblocks' => false,
 
     /*
     |--------------------------------------------------------------------------
-    | Force FQN usage
+    | 强制使用完全限定名
     |--------------------------------------------------------------------------
     |
-    | Use the fully qualified (class) name in DocBlocks,
-    | even if the class exists in the same namespace
-    | or there is an import (use className) of the class.
+    | 在 DocBlock 中使用完全限定（类）名，
+    | 即使类存在于同一命名空间中，或者有类的导入（use className）。
     |
     */
     'force_fqn' => false,
 
     /*
     |--------------------------------------------------------------------------
-    | Use generics syntax
+    | 使用泛型语法
     |--------------------------------------------------------------------------
     |
-    | Use generics syntax within DocBlocks,
-    | e.g. `Collection<User>` instead of `Collection|User[]`.
+    | 在文档注释中使用泛型语法，
+    | 例如 `Collection<User>` 而不是 `Collection|User[]`。
     |
     */
     'use_generics_annotations' => true,
 
     /*
     |--------------------------------------------------------------------------
-    | Additional relation types
+    | 额外的关联类型
     |--------------------------------------------------------------------------
     |
-    | Sometimes it's needed to create custom relation types. The key of the array
-    | is the relationship method name. The value of the array is the fully-qualified
-    | class name of the relationship, e.g. `'relationName' => RelationShipClass::class`.
+    | 有时需要创建自定义的关联类型。数组的键是关联方法名，值是关联的完全限定类名，
+    | 例如 `'relationName' => RelationShipClass::class`。
     |
     */
     'additional_relation_types' => [],
 
     /*
     |--------------------------------------------------------------------------
-    | Additional relation return types
+    | 额外的关联返回类型
     |--------------------------------------------------------------------------
     |
-    | When using custom relation types its possible for the class name to not contain
-    | the proper return type of the relation. The key of the array is the relationship
-    | method name. The value of the array is the return type of the relation ('many'
-    | or 'morphTo').
-    | e.g. `'relationName' => 'many'`.
+    | 使用自定义关联类型时，类名可能不包含关联的正确返回类型。数组的键是关联方法名，
+    | 值是关联的返回类型（'many' 或 'morphTo'）。
+    | 例如 `'relationName' => 'many'`。
     |
     */
     'additional_relation_return_types' => [],
 
     /*
     |--------------------------------------------------------------------------
-    | Enforce nullable Eloquent relationships on not null columns
+    | 对非空列强制使用可空的 Eloquent 关联
     |--------------------------------------------------------------------------
     |
-    | When set to true (default), this option enforces nullable Eloquent relationships.
-    | However, in cases where the application logic ensures the presence of related
-    | records it may be desirable to set this option to false to avoid unwanted null warnings.
+    | 设置为 true（默认值）时，此选项会强制使用可空的 Eloquent 关联。
+    | 但是，在应用逻辑确保存在关联记录的情况下，可能需要将此选项设置为 false，以避免不必要的 null 警告。
     |
-    | Default: true
-    | A not null column with no foreign key constraint will have a "nullable" relationship.
+    | 默认值：true
+    | 没有外键约束的非空列将具有 "可空" 的关联。
     |  * @property int $not_null_column_with_no_foreign_key_constraint
     |  * @property-read BelongsToVariation|null $notNullColumnWithNoForeignKeyConstraint
     |
-    | Option: false
-    | A not null column with no foreign key constraint will have a "not nullable" relationship.
+    | 选项：false
+    | 没有外键约束的非空列将具有 "不可空" 的关联。
     |  * @property int $not_null_column_with_no_foreign_key_constraint
     |  * @property-read BelongsToVariation $notNullColumnWithNoForeignKeyConstraint
     |
@@ -326,10 +312,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Run artisan commands after migrations to generate model helpers
+    | 在迁移后运行 artisan 命令以生成模型助手
     |--------------------------------------------------------------------------
     |
-    | The specified commands should run after migrations are finished running.
+    | 指定的命令应在迁移完成后运行。
     |
     */
     'post_migrate' => [
@@ -338,11 +324,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Macroable Traits
+    | 可宏化的 Trait
     |--------------------------------------------------------------------------
     |
-    | Define which traits should be considered capable of adding Macro.
-    | You can add any custom trait that behaves like the original Laravel one.
+    | 定义哪些 Trait 应该被视为能够添加宏。
+    | 你可以添加任何行为类似于原始 Laravel Trait 的自定义 Trait。
     |
     */
     'macroable_traits' => [
