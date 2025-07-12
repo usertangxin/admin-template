@@ -15,17 +15,19 @@ use Modules\Admin\Http\Middleware\HandleInertiaShare;
 // });
 
 Route::middleware([HandleInertiaRequests::class, HandleInertiaShare::class])->group(function () {
-    Route::get('', function () {
-        return Inertia::render('main', [
-            'system_menus_tree' => SystemMenuRegisterService::getSystemMenuTree(),
-            'system_menus_list' => SystemMenuRegisterService::getSystemMenuList(),
-        ]);
-    })->name('index');
     Route::get('login', function () {
         return Inertia::render('login');
     })->name('login');
 
-    SystemMenuRegisterService::fastRoute(SystemConfigController::class);
-    SystemMenuRegisterService::fastRoute(SystemDictController::class);
-    SystemMenuRegisterService::fastRoute(SystemMenuController::class);
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('', function () {
+            return Inertia::render('main', [
+                'system_menus_tree' => SystemMenuRegisterService::getSystemMenuTree(),
+                'system_menus_list' => SystemMenuRegisterService::getSystemMenuList(),
+            ]);
+        })->name('index');
+        SystemMenuRegisterService::fastRoute(SystemConfigController::class);
+        SystemMenuRegisterService::fastRoute(SystemDictController::class);
+        SystemMenuRegisterService::fastRoute(SystemMenuController::class);
+    });
 });

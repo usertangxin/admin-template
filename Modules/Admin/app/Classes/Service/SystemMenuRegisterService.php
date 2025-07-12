@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Classes\Service;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -134,6 +135,27 @@ class SystemMenuRegisterService
         $menus = include_once $cache_file_path;
 
         return $menus;
+    }
+
+    /**
+     * 根据编码获取菜单
+     *
+     * @param  mixed $value
+     * @param  mixed $key
+     * @return mixed
+     *
+     * @throws BindingResolutionException
+     */
+    public static function getBy($value, $key)
+    {
+        $list = static::getSystemMenuList();
+        foreach ($list as $item) {
+            if ($item[$key] == $value) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 
     public static function writeMenuTreeToCacheFile($tree)
