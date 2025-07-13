@@ -1,5 +1,8 @@
 <template>
-    <a-table ref="tableRef" :columns="comColumns" :data="data" v-bind="attrs" v-on="$listeners">
+    <a-table ref="tableRef" :bordered="{
+        cell: true,
+    }" :columns="comColumns" :data="data" :pagination="pagination" @page-change="handlePageChange"
+        @page-size-change="handlePageSizeChange" v-bind="attrs">
         <template v-for="(column, index) in comColumns" :key="index" v-slot:[column.slotName]="scope">
             <slot :name="column.slotName" v-bind="scope">
                 <template v-if="!column.type">
@@ -20,6 +23,8 @@
                 <template v-else-if="column.type === 'switch'">
                     <a-switch type="round" :checked="scope.record[column.dataIndex]"
                         :disabled="scope.record[column.dataIndex + '_disabled'] ?? column.disabled ?? false"
+                        :checked-value="column.checkedValue ?? true"
+                        :unchecked-value="column.uncheckedValue ?? false"
                         :beforeChange="async (newValue) => await handleSwitchBeforeChange(newValue, scope.record, column.dataIndex)">
                         <template #checked-icon>
                             <a-icon icon="check" />
@@ -35,45 +40,61 @@
 </template>
 
 <script setup>
-import { computed, ref, useAttrs, onMounted, defineExpose } from 'vue';
+import { computed, ref, useAttrs, defineExpose, watch } from 'vue';
+import { useInjectIndexShareStore } from '../IndexShare'
+import { usePage } from '@inertiajs/vue3';
 
+const page = usePage()
 const attrs = useAttrs()
 const tableRef = ref(null);
-const props = defineProps({
-    columns: {
-        type: Array,
-        default: () => []
-    },
-    actionColumn: {
-        type: Object,
-        default: () => ({
-            title: '操作',
-            width: 120,
-            fixed: 'right',
-            show: true,
-        })
-    },
-    dataSource: {
-        type: Array,
-        default: () => []
+
+const store = useInjectIndexShareStore()
+const data = store.listData
+
+const pagination = computed(() => {
+    return {
+        current: store.searchQuery.page,
+        pageSize: store.searchQuery.per_page,
+        total: page.props.total ?? 0,
+        showPageSize: true,
     }
 })
 
-const data = ref(props.dataSource)
+watch(() => store.searchQuery.page, (newVal, oldVal) => {
+    if (newVal !== oldVal) {
+        getList()
+    }
+})
 
 const comColumns = computed(() => {
-    const columns = [...props.columns]
+    const columns = [...store.columns]
     columns.forEach(element => {
         element.slotName ??= element.dataIndex
     });
-    if (!props.actionColumn.show) {
+    if (!store.actionColumn.value) {
         return columns
     }
-    return [...columns, props.actionColumn]
+    return [...columns, store.actionColumn.value]
 })
 
 const handleSwitchBeforeChange = async (newValue, record, dataIndex) => {
     // return true
+}
+
+const handlePageChange = (page) => {
+    store.setSearchQueryItem('page', page)
+}
+
+const handlePageSizeChange = (pageSize) => {
+    store.setSearchQueryItem('per_page', pageSize)
+}
+
+const refreshList = () => {
+    store.resetSearchQuery()
+}
+
+const getList = () => {
+    store.fetchListData()
 }
 
 const analysisMedia = (url) => {

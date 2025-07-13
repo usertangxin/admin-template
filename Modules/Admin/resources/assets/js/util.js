@@ -71,7 +71,7 @@ export function colorMatch(color) {
 
 
 
-    if (color.startsWith('#')) {
+    if (color && color.startsWith('#')) {
         let baseColor = tinycolor(color)
         if (baseColor.isLight()) {
             baseColor = baseColor.darken(50)

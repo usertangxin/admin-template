@@ -22,7 +22,7 @@ class SystemConfigController extends AbstractController
         $data = SystemConfigService::getList();
         $systemConfigGroup = SystemConfigService::getGroups();
 
-        return $this->inertia([
+        return $this->success([
             'config_list'       => $data,
             'config_group_list' => $systemConfigGroup,
         ]);

@@ -22,7 +22,7 @@ class SystemDictController extends AbstractController
         $data = SystemDictService::getList();
         $groupList = SystemDictService::getGroups();
 
-        return $this->inertia([
+        return $this->success([
             'list'       => $data,
             'group_list' => $groupList,
         ]);

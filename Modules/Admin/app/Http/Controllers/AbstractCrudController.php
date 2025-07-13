@@ -31,9 +31,9 @@ abstract class AbstractCrudController extends AbstractController
     }
 
     /**
-     * 资源集合
+     * 资源
      */
-    protected function getResourceCollection(): ?string
+    protected function getResource(): ?string
     {
         return null;
     }
@@ -76,6 +76,7 @@ abstract class AbstractCrudController extends AbstractController
     {
         $listType = \request('__list_type__', 'list');
         $where = $this->searchWhere();
+        /** @var AbstractModel|AbstractSoftDelModel $query */
         $query = ModelUtil::bindSearch($this->getModel(), $where);
         if (! empty($with = $this->with())) {
             $query = $query->with($with);
@@ -88,7 +89,7 @@ abstract class AbstractCrudController extends AbstractController
         }
         switch ($listType) {
             case 'list':
-                $data = $query->paginate();
+                $data = $query->paginate(\request('per_page', 10));
                 break;
             case 'tree':
                 $data = ($this->getTreeCollection())::new($query->get())->toArray();
@@ -97,14 +98,14 @@ abstract class AbstractCrudController extends AbstractController
                 $data = $query->get();
                 break;
             default:
-                $data = $query->paginate();
+                $data = $query->paginate(\request('per_page', 10));
                 break;
         }
-        if (! empty($resourceCollection = $this->getResourceCollection())) {
-            $data = $data->toResourceCollection($resourceCollection);
+        if (! empty($resourceCollection = $this->getResource())) {
+            $data = new $resourceCollection($data);
         }
 
-        return $this->inertia($data);
+        return $this->success($data);
     }
 
     /**
@@ -113,12 +114,12 @@ abstract class AbstractCrudController extends AbstractController
      * @return mixed
      */
     #[SystemMenu('详情')]
-    public function getRead()
+    public function read()
     {
         $id = \request('id');
         $data = $this->getModel()->find($id);
-        if (! empty($resourceCollection = $this->getResourceCollection())) {
-            $data = $data->toResourceCollection($resourceCollection);
+        if (! empty($resourceCollection = $this->getResource())) {
+            $data = new $resourceCollection($data);
         }
 
         return $this->success($data);
@@ -128,29 +129,22 @@ abstract class AbstractCrudController extends AbstractController
      * 添加
      *
      * @return mixed
-     */
-    #[SystemMenu('添加')]
-    public function getSave()
-    {
-        return $this->inertia();
-    }
-
-    /**
-     * 添加
-     *
-     * @return mixed
      *
      * @throws BindingResolutionException
      * @throws InvalidArgumentException
      */
     #[SystemMenu('添加')]
-    public function postSave()
+    public function save()
     {
+        if (\request()->method() == 'GET') {
+            return $this->inertia();
+        }
+
         $data = request()->all();
         $this->validator('save', $data);
         $result = $this->getModel()->create($data);
-        if (! empty($resourceCollection = $this->getResourceCollection())) {
-            $result = $result->toResourceCollection($resourceCollection);
+        if (! empty($resourceCollection = $this->getResource())) {
+            $result = new $resourceCollection($result);
         }
 
         return $this->success($result);
@@ -160,36 +154,28 @@ abstract class AbstractCrudController extends AbstractController
      * 编辑
      *
      * @return mixed
-     */
-    #[SystemMenu('编辑')]
-    public function getUpdate()
-    {
-        $id = \request('id');
-        $data = $this->getModel()->find($id);
-        if (! empty($resourceCollection = $this->getResourceCollection())) {
-            $data = $data->toResourceCollection($resourceCollection);
-        }
-
-        return $this->inertia($data);
-    }
-
-    /**
-     * 编辑
-     *
-     * @return mixed
      *
      * @throws BindingResolutionException
      * @throws InvalidArgumentException
      */
     #[SystemMenu('编辑')]
-    public function postUpdate()
+    public function update()
     {
         $id = \request('id');
+        if (\request()->method() == 'GET') {
+            $data = $this->getModel()->find($id);
+            if (! empty($resourceCollection = $this->getResource())) {
+                $data = new $resourceCollection($data);
+            }
+
+            return $this->inertia($data);
+        }
+
         $data = request()->all();
         $this->validator('update', $data);
         $result = $this->getModel()->find($id)->update($data);
-        if (! empty($resourceCollection = $this->getResourceCollection())) {
-            $result = $result->toResourceCollection($resourceCollection);
+        if (! empty($resourceCollection = $this->getResource())) {
+            $result = new $resourceCollection($result);
         }
 
         return $this->success($result);
@@ -206,8 +192,8 @@ abstract class AbstractCrudController extends AbstractController
         $id = \request('id');
         $status = \request('status');
         $result = $this->getModel()->find($id)->update(['status' => $status]);
-        if (! empty($resourceCollection = $this->getResourceCollection())) {
-            $result = $result->toResourceCollection($resourceCollection);
+        if (! empty($resourceCollection = $this->getResource())) {
+            $result = new $resourceCollection($result);
         }
 
         return $this->success($result);
@@ -250,7 +236,7 @@ abstract class AbstractCrudController extends AbstractController
         }
         switch ($listType) {
             case 'list':
-                $data = $query->paginate();
+                $data = $query->paginate(\request('per_page', 10));
                 break;
             case 'tree':
                 $data = ($this->getTreeCollection())::new($query->get())->toArray();
@@ -259,11 +245,11 @@ abstract class AbstractCrudController extends AbstractController
                 $data = $query->get();
                 break;
             default:
-                $data = $query->paginate();
+                $data = $query->paginate(\request('per_page', 10));
                 break;
         }
-        if (! empty($resourceCollection = $this->getResourceCollection())) {
-            $data = $data->toResourceCollection($resourceCollection);
+        if (! empty($resourceCollection = $this->getResource())) {
+            $data = new $resourceCollection($data);
         }
 
         return $this->success($data);

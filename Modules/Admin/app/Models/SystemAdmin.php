@@ -23,6 +23,11 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
         ];
     }
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     public function roles()
     {
         return $this->belongsToMany(SystemRole::class, foreignPivotKey: 'role_id', relatedKey: 'admin_id')->using(SystemAdminRole::class);

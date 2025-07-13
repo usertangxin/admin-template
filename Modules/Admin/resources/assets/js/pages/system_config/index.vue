@@ -1,5 +1,5 @@
 <template>
-    <div class=" m-3 p-3 page-content" style="background-color: var(--color-bg-2);">
+    <div class=" m-3 p-3 page-content">
 
         <a-alert class="mb-2">
             温馨提示：切换配置组前，如果当前配置页有更改，记得保存！

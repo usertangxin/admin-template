@@ -26,6 +26,7 @@
         "@inertiajs/vue3": "^2.0.13",
         "@wangeditor/editor": "^5.1.23",
         "@wangeditor/editor-for-vue": "^5.1.12",
+        "eventemitter3": "^5.0.1",
         "gsap": "^3.13.0",
         "jquery": "^3.7.1",
         "nprogress": "^0.2.0",

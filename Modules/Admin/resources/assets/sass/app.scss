@@ -12,6 +12,7 @@ body, html {
     }
 
     &[arco-theme='dark'] {
+        color: var(--color-text-1);
 
         background-color: var(--color-bg-1);
 
@@ -22,6 +23,10 @@ body, html {
         --w-e-textarea-color: var(--color-text-1);
         --w-e-toolbar-active-color: var(--color-text-1);
     }
+}
+
+.page-content {
+    background-color: var(--color-bg-2);
 }
 
 .arco-scrollbar-track-direction-vertical {

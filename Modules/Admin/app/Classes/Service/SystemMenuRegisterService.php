@@ -22,6 +22,14 @@ class SystemMenuRegisterService
             $ref = new \ReflectionClass($controller);
             $methods = $ref->getMethods();
             $shortName = $ref->getShortName();
+            $ignore_actions = [];
+            $ignore_methods = [];
+            if ($ref->hasConstant('IGNORE_ACTIONS')) {
+                $ignore_actions = $ref->getConstant('IGNORE_ACTIONS');
+            }
+            if ($ref->hasConstant('IGNORE_METHODS')) {
+                $ignore_methods = $ref->getConstant('IGNORE_METHODS');
+            }
             $prefix = str_replace('Controller', '', $shortName);
 
             $ctlSystemMenuAttrs = $ref->getAttributes(SystemMenu::class);
@@ -36,13 +44,15 @@ class SystemMenuRegisterService
                 // static::$system_menus[$ctlSystemMenuAttr->code] = (array) $ctlSystemMenuAttr;
             }
 
+            $action_map = [];
+
             foreach ($methods as $method) {
                 if ($method->isPublic() && ! $method->isConstructor()) {
                     $name = $method->getName();
+                    if (in_array($name, $ignore_methods)) {
+                        continue;
+                    }
                     $actionName = $name;
-
-                    $mtdSystemMenuAttr = $method->getAttributes(SystemMenu::class)[0]->newInstance();
-
                     $route_action = 'any';
                     $actions = ['get', 'post', 'put', 'delete', 'patch'];
                     foreach ($actions as $action) {
@@ -53,11 +63,17 @@ class SystemMenuRegisterService
                             break;
                         }
                     }
+                    if (in_array($actionName, $ignore_actions)) {
+                        continue;
+                    }
+
+                    $mtdSystemMenuAttr = $method->getAttributes(SystemMenu::class)[0]->newInstance();
 
                     $uri = $prefix . '/' . $actionName;
                     $routeName = $prefix . '.' . $actionName;
                     $fullUri = static::prefix($uri);
 
+                    /** @var \Illuminate\Routing\Route $route */
                     $route = Route::$route_action($uri, [$controller, $name])->name($routeName);
 
                     $mtdSystemMenuAttr->url = $fullUri;
@@ -66,7 +82,7 @@ class SystemMenuRegisterService
                     if ($method->getName() === 'index') {
                         $mtdSystemMenuAttr->parent_code ??= $ctlSystemMenuAttr?->code;
                         $mtdSystemMenuAttr->type = SystemMenuType::MENU;
-                        if($ctlSystemMenuAttr) {
+                        if ($ctlSystemMenuAttr) {
                             $mtdSystemMenuAttr->name = $ctlSystemMenuAttr->name;
                             $mtdSystemMenuAttr->icon = $ctlSystemMenuAttr->icon;
                             $mtdSystemMenuAttr->parent_code = $ctlSystemMenuAttr->parent_code;

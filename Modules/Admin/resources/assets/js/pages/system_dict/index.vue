@@ -1,5 +1,5 @@
 <template>
-    <div class=" m-3 p-3 page-content" style="background-color: var(--color-bg-2);">
+    <div class=" m-3 p-3 page-content">
         <a-row :gutter="20">
             <a-col flex="none">
                 <a-list :virtualListProps="{
@@ -26,10 +26,10 @@
             <a-col flex="1">
                 <a-card
                     :title="'字典项（ 「 ' + group_list[current_group_index].name + ' 」相关 ）' + group_list[current_group_index].code">
-                    <index-table :columns="columns" :actionColumn="{ show: false }"
-                        :data="current_group_list">
-                        <template #color="{record}">
-                            <a-tag v-if="record.color" :style="[...colorMatch(record.color)]" bordered>{{ record.label }}</a-tag>
+                    <index-table :data="current_group_list" :pagination="pagination" @page-change="pagination.current = $event">
+                        <template #color="{ record }">
+                            <a-tag v-if="record.color" :style="[...colorMatch(record.color)]" bordered>{{ record.label
+                            }}</a-tag>
                         </template>
                     </index-table>
                 </a-card>
@@ -39,18 +39,21 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { Message } from '@arco-design/web-vue';
 import { colorMatch } from '../../util';
+import { provideIndexShareStore } from '../../IndexShare';
 
 const props = defineProps(['list', 'group_list'])
 
-const columns = [
-    { title: '标签', dataIndex: 'label' },
-    { title: '值', dataIndex: 'value' },
-    { title: '颜色', dataIndex: 'color' },
-    { title: '备注', dataIndex: 'remark' },
-];
+const store = provideIndexShareStore({
+    columns: [
+        { title: '标签', dataIndex: 'label' },
+        { title: '值', dataIndex: 'value' },
+        { title: '颜色', dataIndex: 'color' },
+        { title: '备注', dataIndex: 'remark' },
+    ],
+})
 
 const origin_kvs = {};
 
@@ -68,6 +71,12 @@ const current_group_list = computed(function () {
         return item.code == group_code;
     })
     return config_list;
+})
+
+const pagination = reactive({
+    total: computed(() => current_group_list.value.length),
+    current: 1,
+    pageSize: 10,
 })
 
 </script>
