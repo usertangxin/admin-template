@@ -11,7 +11,12 @@ axios.interceptors.response.use(function (response) {
             Message.error(data.message);
         }
     }
-    return data;
+    // 你重新加载走这里是我没想到的
+    // 你让我找的好苦
+    if (response.headers['x-inertia']) {
+        return response;
+    }
+    return data
 }, function (error) {
     Message.error(error.response.data.message);
     return Promise.reject(error);

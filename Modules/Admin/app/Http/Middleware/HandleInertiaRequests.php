@@ -2,19 +2,9 @@
 
 namespace Modules\Admin\Http\Middleware;
 
-use Closure;
-use Illuminate\Http\Request;
-use Inertia\Inertia;
+use App\Http\Middleware\HandleInertiaRequests as AppHandleInertiaRequests;
 
-class HandleInertiaRequests
+class HandleInertiaRequests extends AppHandleInertiaRequests
 {
-    /**
-     * Handle an incoming request.
-     */
-    public function handle(Request $request, Closure $next)
-    {
-        Inertia::setRootView('admin::app');
-
-        return $next($request);
-    }
+    protected $rootView = 'admin::app';
 }

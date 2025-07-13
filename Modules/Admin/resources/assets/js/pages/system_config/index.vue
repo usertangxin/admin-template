@@ -46,6 +46,7 @@
 
 <script setup>
 import { computed, ref } from 'vue';
+import { router } from '@inertiajs/vue3';
 import RecursionConfig from '../../components/recursion-config.vue';
 import { Message } from '@arco-design/web-vue';
 
@@ -53,11 +54,14 @@ const props = defineProps(['config_list', 'config_group_list'])
 
 const origin_kvs = [];
 
-props.config_list.forEach(element => {
-    if (element.key) {
-        origin_kvs[element.key] = element.value;
-    }
-});
+function refreshOriginKvs() {
+    props.config_list.forEach(element => {
+        if (element.key) {
+            origin_kvs[element.key] = element.value;
+        }
+    });
+}
+refreshOriginKvs()
 
 const current_group_index = ref(0);
 
@@ -85,7 +89,12 @@ const handleSubmit = (data) => {
         Message.warning('没有需要保存的配置');
         return;
     }
-    axios.post('./save', { data: kvs })
+    axios.post('./save', { data: kvs }).then(function () {
+        router.reload()
+        setTimeout(() => {
+            refreshOriginKvs()
+        }, 50);
+    })
 }
 
 </script>
