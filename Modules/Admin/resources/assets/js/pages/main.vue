@@ -11,7 +11,7 @@
                         <template v-for="(item, index) in system_menus_tree" :key="index">
                             <div class="menu-item" :class="{ 'active': index == currentMainMenuIndex }"
                                 @click="handleClickMainMenu(item, index)">
-                                <component :is="item.icon.split(' ',2)[0] + '-icon'" :icon="item.icon.split(' ',2)[1]" style="font-size: 18px;"></component>
+                                <icon :icon="item.icon" style="font-size: 18px;"></icon>
                                 <span>{{ item.name }}</span>
                             </div>
                         </template>
@@ -396,7 +396,7 @@ const handleClickMainMenu = (item, index) => {
 }
 
 const logout = () => {
-    window.location.href = './Admin/logout';
+    window.location.href = route('web.module.Admin.logout');
 }
 
 </script>

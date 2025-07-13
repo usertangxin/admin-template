@@ -9,9 +9,10 @@ class LoginController extends AbstractController
 {
     public function view()
     {
-        if(Auth::check()) {
+        if (Auth::check()) {
             return redirect()->route('web.module.Admin.index');
         }
+
         return $this->inertia(view: 'login');
     }
 
@@ -19,12 +20,13 @@ class LoginController extends AbstractController
     {
         $credentials = $request->validate([
             'admin_name' => 'required',
-            'password' => 'required',
+            'password'   => 'required',
         ]);
         $remember = $request->input('remember', false);
         if (Auth::attempt($credentials, $remember)) {
             return $this->success(message: '登录成功');
         }
+
         return $this->fail('用户名或密码错误');
     }
 

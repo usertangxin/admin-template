@@ -12,8 +12,7 @@
                     </a-image-preview-group>
                 </template>
                 <template v-else-if="column.type === 'icon'">
-                    <component v-if="scope.record.icon" :is="scope.record.icon.split(' ', 2)[0] + '-icon'"
-                        :icon="scope.record.icon.split(' ', 2)[1]"></component>
+                    <icon :icon="scope.record.icon"></icon>
                 </template>
                 <template v-else-if="column.type === 'dict_tag'">
                     <dict-tag :code="column.dict" :value="scope.record[column.dataIndex]"></dict-tag>

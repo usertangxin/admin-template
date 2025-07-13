@@ -16,6 +16,7 @@ import * as regular from '@fortawesome/free-regular-svg-icons';
 import * as brands from '@fortawesome/free-brands-svg-icons';
 import FasIcon from './components/fas-icon.vue'
 import AIcon from './components/a-icon.vue'
+import Icon from './components/icon.vue'
 import IndexTable from './components/index-table.vue'
 import DictTag from './components/dict-tag.vue'
 
@@ -59,13 +60,14 @@ createInertiaApp({
       .component('font-awesome-icon', FontAwesomeIcon)
       .component('fas-icon',FasIcon)
       .component('a-icon', AIcon)
+      .component('icon', Icon)
       .component('index-table', IndexTable)
       .component('dict-tag', DictTag)
       .mount(el)
   },
   progress: {
     // The delay after which the progress bar will appear, in milliseconds...
-    delay: 0,
+    delay: 200,
 
     // The color of the progress bar...
     color: '#29d',

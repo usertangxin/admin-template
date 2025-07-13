@@ -33,7 +33,7 @@ class SystemMenuRegisterService
                 if (isset(static::$system_menus[$ctlSystemMenuAttr->code])) {
                     throw new \Exception('系统菜单编码重复:' . $ctlSystemMenuAttr->code);
                 }
-                static::$system_menus[$ctlSystemMenuAttr->code] = (array) $ctlSystemMenuAttr;
+                // static::$system_menus[$ctlSystemMenuAttr->code] = (array) $ctlSystemMenuAttr;
             }
 
             foreach ($methods as $method) {
@@ -65,6 +65,12 @@ class SystemMenuRegisterService
                     $mtdSystemMenuAttr->code ??= $route->getName();
                     if ($method->getName() === 'index') {
                         $mtdSystemMenuAttr->parent_code ??= $ctlSystemMenuAttr?->code;
+                        $mtdSystemMenuAttr->type = SystemMenuType::MENU;
+                        if($ctlSystemMenuAttr) {
+                            $mtdSystemMenuAttr->name = $ctlSystemMenuAttr->name;
+                            $mtdSystemMenuAttr->icon = $ctlSystemMenuAttr->icon;
+                            $mtdSystemMenuAttr->parent_code = $ctlSystemMenuAttr->parent_code;
+                        }
                     } else {
                         $mtdSystemMenuAttr->parent_code ??= preg_replace('/' . '.' . $actionName . '(?=.*$)/', '', $route->getName(), 1) . '.index';
                     }

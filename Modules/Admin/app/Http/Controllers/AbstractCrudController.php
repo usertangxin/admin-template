@@ -4,6 +4,7 @@ namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use InvalidArgumentException;
+use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\DataBase\TreeCollection;
 use Modules\Admin\Classes\Utils\ModelUtil;
 use Modules\Admin\Models\AbstractModel;
@@ -70,6 +71,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @throws BindingResolutionException
      */
+    #[SystemMenu('列表')]
     public function index()
     {
         $listType = \request('__list_type__', 'list');
@@ -110,6 +112,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @return mixed
      */
+    #[SystemMenu('详情')]
     public function getRead()
     {
         $id = \request('id');
@@ -121,6 +124,12 @@ abstract class AbstractCrudController extends AbstractController
         return $this->success($data);
     }
 
+    /**
+     * 添加
+     *
+     * @return mixed
+     */
+    #[SystemMenu('添加')]
     public function getSave()
     {
         return $this->inertia();
@@ -134,6 +143,7 @@ abstract class AbstractCrudController extends AbstractController
      * @throws BindingResolutionException
      * @throws InvalidArgumentException
      */
+    #[SystemMenu('添加')]
     public function postSave()
     {
         $data = request()->all();
@@ -151,6 +161,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @return mixed
      */
+    #[SystemMenu('编辑')]
     public function getUpdate()
     {
         $id = \request('id');
@@ -170,6 +181,7 @@ abstract class AbstractCrudController extends AbstractController
      * @throws BindingResolutionException
      * @throws InvalidArgumentException
      */
+    #[SystemMenu('编辑')]
     public function postUpdate()
     {
         $id = \request('id');
@@ -188,6 +200,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @return mixed
      */
+    #[SystemMenu('切换状态')]
     public function changeStatus()
     {
         $id = \request('id');
@@ -205,6 +218,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @return int
      */
+    #[SystemMenu('删除')]
     public function destroy()
     {
         $id = \request('id');
@@ -219,6 +233,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @throws BindingResolutionException
      */
+    #[SystemMenu('回收站')]
     public function recycle()
     {
         $listType = \request('__list_type__', 'list');
@@ -261,6 +276,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @throws BindingResolutionException
      */
+    #[SystemMenu('恢复')]
     public function recovery()
     {
         $ids = request('ids');
@@ -275,6 +291,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @throws BindingResolutionException
      */
+    #[SystemMenu('永久删除')]
     public function realDestroy()
     {
         $ids = request('ids');

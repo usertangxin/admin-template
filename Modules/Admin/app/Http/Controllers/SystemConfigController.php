@@ -9,7 +9,6 @@ use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Models\SystemConfig;
 
-// #[SystemMenu('系统配置')]
 class SystemConfigController extends AbstractController
 {
     protected function getModel(): AbstractModel|AbstractSoftDelModel

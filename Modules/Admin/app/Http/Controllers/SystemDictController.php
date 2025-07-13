@@ -9,7 +9,6 @@ use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Models\SystemDictData;
 
-// #[SystemMenu('系统配置')]
 class SystemDictController extends AbstractController
 {
     protected function getModel(): AbstractModel|AbstractSoftDelModel

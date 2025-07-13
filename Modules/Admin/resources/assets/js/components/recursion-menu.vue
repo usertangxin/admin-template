@@ -7,8 +7,7 @@
         </template>
         <a-menu-item v-else-if="item.type === 'M'" :key="item.code">
             <template #icon>
-                <component :is="item.icon.split(' ',2)[0] + '-icon'" :icon="item.icon.split(' ',2)[1]"
-                    style="font-size: 18px;"></component>
+                <icon :icon="item.icon" style="font-size: 18px;"></icon>
             </template>
             {{ item.name }}
         </a-menu-item>
