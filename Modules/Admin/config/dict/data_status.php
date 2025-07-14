@@ -5,14 +5,14 @@ return [
         'label'  => '正常',
         'value'  => 'normal',
         'code'   => 'data_status',
-        'color' => 'green',
+        'color'  => 'green',
         'remark' => '',
     ],
     [
         'label'  => '停用',
         'value'  => 'disabled',
         'code'   => 'data_status',
-        'color' => 'gray',
+        'color'  => 'gray',
         'remark' => '',
     ],
 ];

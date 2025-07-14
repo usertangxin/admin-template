@@ -36,7 +36,7 @@ abstract class AbstractController
                 'data'    => $data,
             ]);
         }
-        
+
         Inertia::share('__flush_success__', $message);
         Inertia::share('__flush_code__', $code);
 
