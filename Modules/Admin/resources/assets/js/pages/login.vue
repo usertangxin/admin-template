@@ -54,7 +54,7 @@ const handleSubmit = ({values, errors}) => {
     }
     axios.post('', values).then(res=>{
         if(res.code === 0) {
-            window.location.href = route('web.Admin.index');
+            window.location.href = route('web.admin.index');
         }
     })
 }

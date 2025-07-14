@@ -4,6 +4,7 @@ namespace Modules\User\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -35,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes(): void
     {
-        Route::middleware('web')->prefix('web/module/' . $this->name)->name('web.module.' . $this->name . '.')->group(module_path($this->name, '/routes/web.php'));
+        Route::middleware('api')->prefix('api/' . Str::kebab($this->name))->name('api.' . Str::kebab($this->name) . '.')->group(module_path($this->name, '/routes/web.php'));
     }
 
     /**
@@ -45,6 +46,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes(): void
     {
-        Route::middleware('api')->prefix('api/module/' . $this->name)->name('api.module.' . $this->name . '.')->group(module_path($this->name, '/routes/api.php'));
+        Route::middleware('api')->prefix('api/' . Str::kebab($this->name))->name('api.' . Str::kebab($this->name) . '.')->group(module_path($this->name, '/routes/api.php'));
     }
 }

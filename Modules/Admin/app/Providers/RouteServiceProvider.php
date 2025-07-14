@@ -4,9 +4,11 @@ namespace Modules\Admin\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Service\SystemMenuRegisterService;
 use Modules\Admin\Classes\Utils\SystemMenuType;
+
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -50,7 +52,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes(): void
     {
-        Route::middleware('web')->prefix('web/' . $this->name)->name('web.' . $this->name . '.')->group(module_path($this->name, '/routes/web.php'));
+        Route::middleware('web')->prefix('web/' . Str::kebab($this->name))->name('web.' . Str::kebab($this->name) . '.')->group(module_path($this->name, '/routes/web.php'));
     }
 
     /**
@@ -60,6 +62,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes(): void
     {
-        Route::middleware('api')->prefix('api/' . $this->name)->name('api.' . $this->name . '.')->group(module_path($this->name, '/routes/api.php'));
+        Route::middleware('api')->prefix('api/' . Str::kebab($this->name))->name('api.' . Str::kebab($this->name) . '.')->group(module_path($this->name, '/routes/api.php'));
     }
 }

@@ -69,8 +69,8 @@ class SystemMenuRegisterService
 
                     $mtdSystemMenuAttr = $method->getAttributes(SystemMenu::class)[0]->newInstance();
 
-                    $uri = $prefix . '/' . $actionName;
-                    $routeName = $prefix . '.' . $actionName;
+                    $uri = $prefix . '/' . Str::kebab($actionName);
+                    $routeName = $prefix . '.' . Str::kebab($actionName);
                     $fullUri = static::prefix($uri);
 
                     /** @var \Illuminate\Routing\Route $route */
@@ -88,7 +88,7 @@ class SystemMenuRegisterService
                             $mtdSystemMenuAttr->parent_code = $ctlSystemMenuAttr->parent_code;
                         }
                     } else {
-                        $mtdSystemMenuAttr->parent_code ??= preg_replace('/' . '.' . $actionName . '(?=.*$)/', '', $route->getName(), 1) . '.index';
+                        $mtdSystemMenuAttr->parent_code ??= preg_replace('/' . '.' . Str::kebab($actionName) . '(?=.*$)/', '', $route->getName(), 1) . '.index';
                     }
                     // if(isset(static::$system_menus[$mtdSystemMenuAttr->code])) {
                     //     throw new \Exception('系统菜单编码重复:' . $mtdSystemMenuAttr->code);

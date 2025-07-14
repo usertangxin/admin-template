@@ -10,7 +10,7 @@ class LoginController extends AbstractController
     public function view()
     {
         if (Auth::check()) {
-            return redirect()->route('web.Admin.index');
+            return redirect()->route('web.admin.index');
         }
 
         return $this->inertia(view: 'login');
@@ -41,6 +41,6 @@ class LoginController extends AbstractController
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('web.Admin.login');
+        return redirect()->route('web.admin.login');
     }
 }
