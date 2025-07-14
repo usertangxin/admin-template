@@ -396,7 +396,7 @@ const handleClickMainMenu = (item, index) => {
 }
 
 const logout = () => {
-    window.location.href = route('web.module.Admin.logout');
+    window.location.href = route('web.Admin.logout');
 }
 
 </script>
