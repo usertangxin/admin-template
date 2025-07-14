@@ -3,7 +3,7 @@
         <a-row :gutter="20">
             <a-col flex="none">
                 <a-list :virtualListProps="{
-                    height: 530,
+                    height: groupHeight,
                 }" :data="group_list">
                     <template #header>
                         字典组
@@ -45,6 +45,7 @@ import { colorMatch } from '../../util';
 import { provideIndexShareStore } from '../../IndexShare';
 
 const props = defineProps(['list', 'group_list'])
+const groupHeight = ref(0)
 
 const store = provideIndexShareStore({
     columns: [
@@ -53,6 +54,20 @@ const store = provideIndexShareStore({
         { title: '颜色', dataIndex: 'color' },
         { title: '备注', dataIndex: 'remark' },
     ],
+})
+
+const setGroupHeight = () => {
+    groupHeight.value = window.innerHeight - 100
+}
+setGroupHeight()
+let timer = null
+window.addEventListener('resize', () => {
+    if (timer) {
+        clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+        setGroupHeight()
+    }, 100)
 })
 
 const origin_kvs = {};
