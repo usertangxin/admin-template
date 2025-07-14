@@ -1,5 +1,5 @@
 <template>
-    <a :href="route('module.Admin.web.test')">test</a>
+    <a :href="route('web.admin.login')">test</a>
 </template>
 
 <script setup>
