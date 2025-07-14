@@ -1,14 +1,14 @@
 <template>
     <div class="m-3 p-3 page-content">
-        <div class="mb-3">
-            <a-space>
+        <index-action>
+            <template #left>
                 <a-button type="primary" @click="handleExpandAll">
                     {{ isExpandAll ? '收起全部' : '展开全部' }}
                 </a-button>
                 <a-button type="primary" status="success" @click="handleRefreshCache">刷新菜单缓存</a-button>
                 <a-button type="primary" status="danger" @click="handleDeleteCache">删除菜单缓存</a-button>
-            </a-space>
-        </div>
+            </template>
+        </index-action>
         <index-table ref="tableRef" row-key="code" :pagination="false" v-model:expandedKeys="expandedKeys" :data="tree">
         </index-table>
     </div>

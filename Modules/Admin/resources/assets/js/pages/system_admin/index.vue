@@ -1,5 +1,6 @@
 <template>
     <div class="p-3 m-3 page-content">
+        <index-action></index-action>
         <index-table></index-table>
     </div>
 </template>

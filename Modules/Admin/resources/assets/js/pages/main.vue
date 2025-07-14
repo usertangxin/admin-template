@@ -55,7 +55,8 @@
                 <div class="right">
                     <a-divider direction="vertical" />
                     <a-popover position="lt" trigger="click" @popup-visible-change="onPopupVisibleChange">
-                        <a-badge :count="9"><icon-notification class="cursor-pointer" size="25" /></a-badge>
+                        <a-badge :count="9"><icon-notification class="cursor-pointer"
+                                style="font-size: 25px;" /></a-badge>
                         <template #content>
                             <a-list style="width: 500px;" :virtualListProps="{
                                 height: 500,
@@ -91,20 +92,21 @@
                         </template>
                     </a-popover>
                     <a-divider direction="vertical" />
-                    <icon-fullscreen-exit v-if="fullScreen" class="cursor-pointer" size="25" @click="closeFullscreen" />
-                    <icon-fullscreen v-else class="cursor-pointer" size="25" @click="openFullscreen" />
+                    <icon-fullscreen-exit v-if="fullScreen" class="cursor-pointer" style="font-size: 25px;"
+                        @click="closeFullscreen" />
+                    <icon-fullscreen v-else class="cursor-pointer" style="font-size: 25px;" @click="openFullscreen" />
                     <a-divider direction="vertical" />
                     <a-dropdown trigger="hover">
-                        <icon-language class="cursor-pointer" size="25" />
+                        <icon-language class="cursor-pointer" style="font-size: 25px;" />
                         <template #content>
                             <a-doption>中文</a-doption>
                             <a-doption>English</a-doption>
                         </template>
                     </a-dropdown>
                     <a-divider direction="vertical" />
-                    <icon-sun-fill class="cursor-pointer" size="25" v-if="theme == 'light'"
+                    <icon-sun-fill class="cursor-pointer" style="font-size: 25px;" v-if="theme == 'light'"
                         @click="changeTheme('dark')" />
-                    <icon-moon-fill class="cursor-pointer" size="25" v-if="theme == 'dark'"
+                    <icon-moon-fill class="cursor-pointer" style="font-size: 25px;" v-if="theme == 'dark'"
                         @click="changeTheme('light')" />
                     <a-divider direction="vertical" />
                     <a-dropdown trigger="click" @popup-visible-change="onPopupVisibleChange">

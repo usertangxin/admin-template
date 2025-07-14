@@ -16,6 +16,7 @@ import AIcon from './components/a-icon.vue'
 import Icon from './components/icon.vue'
 import IndexTable from './components/index-table.vue'
 import DictTag from './components/dict-tag.vue'
+import IndexAction from './components/index-action.vue'
 
 document.body.setAttribute('arco-theme', window.localStorage.getItem('arco-theme') || 'light')
 
@@ -51,6 +52,7 @@ const useComm = {
         .component('icon', Icon)
         .component('index-table', IndexTable)
         .component('dict-tag', DictTag)
+        .component('index-action', IndexAction)
     }
 }
 

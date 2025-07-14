@@ -126,15 +126,15 @@ abstract class AbstractCrudController extends AbstractController
     }
 
     /**
-     * 添加
+     * 创建
      *
      * @return mixed
      *
      * @throws BindingResolutionException
      * @throws InvalidArgumentException
      */
-    #[SystemMenu('添加')]
-    public function save()
+    #[SystemMenu('创建')]
+    public function create()
     {
         if (\request()->method() == 'GET') {
             return $this->inertia();

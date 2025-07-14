@@ -17,8 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
         //
         $middleware->redirectGuestsTo(function (Request $request) {
             $route_name = $request->route()->getName();
-            if ($route_name == 'web.module.Admin.index' || (SystemMenuRegisterService::getBy($route_name, 'code') ?? false)) {
-                return route('web.module.Admin.login');
+            if ($route_name == 'web.admin.index' || (SystemMenuRegisterService::getBy($route_name, 'code') ?? false)) {
+                return route('web.admin.login');
             }
 
             return false;
