@@ -6,8 +6,8 @@ const page = usePage()
 export function useIndexShareStore() {
     /** 搜索参数 */
     const searchQuery = reactive({
-        page: page.props.current_page,
-        per_page: page.props.per_page,
+        __page__: page.props.current_page,
+        __per_page__: page.props.per_page,
     })
     /** 内部是否调用fetchListData */
     const innerFetchListData = ref(true)
@@ -35,7 +35,7 @@ export function useIndexShareStore() {
 
     /** 重置搜索参数 */
     const resetSearchQuery = () => {
-        searchQuery.page = 1
+        searchQuery.__page__ = 1
         fetchListData()
     }
 

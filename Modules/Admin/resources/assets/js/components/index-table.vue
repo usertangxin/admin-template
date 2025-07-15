@@ -53,14 +53,20 @@ const data = store.listData
 
 const pagination = computed(() => {
     return {
-        current: store.searchQuery.page,
-        pageSize: store.searchQuery.per_page,
+        current: store.searchQuery.__page__,
+        pageSize: store.searchQuery.__per_page__,
         total: page.props.total ?? 0,
         showPageSize: true,
     }
 })
 
-watch(() => store.searchQuery.page, (newVal, oldVal) => {
+watch(() => store.searchQuery.__page__, (newVal, oldVal) => {
+    if (newVal !== oldVal) {
+        getList()
+    }
+})
+
+watch(() => store.searchQuery.__per_page__, (newVal, oldVal) => {
     if (newVal !== oldVal) {
         getList()
     }
@@ -70,6 +76,7 @@ const comColumns = computed(() => {
     const columns = [...store.columns]
     columns.forEach(element => {
         element.slotName ??= element.dataIndex
+        element.show ??= true
     });
     if (!store.actionColumn.value) {
         return columns
@@ -82,11 +89,11 @@ const handleSwitchBeforeChange = async (newValue, record, dataIndex) => {
 }
 
 const handlePageChange = (page) => {
-    store.setSearchQueryItem('page', page)
+    store.setSearchQueryItem('__page__', page)
 }
 
 const handlePageSizeChange = (pageSize) => {
-    store.setSearchQueryItem('per_page', pageSize)
+    store.setSearchQueryItem('__per_page__', pageSize)
 }
 
 const refreshList = () => {

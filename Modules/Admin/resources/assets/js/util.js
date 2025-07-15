@@ -1,4 +1,5 @@
 import tinycolor from 'tinycolor2'
+import _ from 'lodash'
 
 export function colorMatch(color) {
     let defaultMap = {
@@ -87,4 +88,13 @@ export function colorMatch(color) {
     }
 
     return defaultMap[color] ?? [];
+}
+
+export function recursiveMap(arr, iteratee) {
+    return _.map(arr, item => {
+        if (item.children && item.children.length) {
+            item.children = recursiveMap(item.children, iteratee)
+        }
+        return iteratee(item)
+    });
 }

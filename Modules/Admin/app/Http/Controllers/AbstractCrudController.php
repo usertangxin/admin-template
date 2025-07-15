@@ -31,6 +31,16 @@ abstract class AbstractCrudController extends AbstractController
     }
 
     /**
+     * 排序
+     * @return mixed 
+     * @throws BindingResolutionException 
+     */
+    protected function orderBy()
+    {
+        return request('order_by', ['create_time' => 'desc']);
+    }
+
+    /**
      * 资源
      */
     protected function getResource(): ?string
@@ -87,9 +97,12 @@ abstract class AbstractCrudController extends AbstractController
         if (! empty($hidden = $this->getHiddenFields())) {
             $query = $query->setHidden($hidden);
         }
+        foreach ($this->orderBy() as $key => $value) {
+            $query = $query->orderBy($key, $value);
+        }
         switch ($listType) {
             case 'list':
-                $data = $query->paginate(\request('per_page', 10));
+                $data = $query->paginate(\request('__per_page__', 10), pageName: '__page__');
                 break;
             case 'tree':
                 $data = ($this->getTreeCollection())::new($query->get())->toArray();
@@ -98,7 +111,7 @@ abstract class AbstractCrudController extends AbstractController
                 $data = $query->get();
                 break;
             default:
-                $data = $query->paginate(\request('per_page', 10));
+                $data = $query->paginate(\request('__per_page__', 10), pageName: '__page__');
                 break;
         }
         if (! empty($resourceCollection = $this->getResource())) {
@@ -234,9 +247,12 @@ abstract class AbstractCrudController extends AbstractController
         if (! empty($hidden = $this->getHiddenFields())) {
             $query = $query->setHidden($hidden);
         }
+        foreach ($this->orderBy() as $key => $value) {
+            $query = $query->orderBy($key, $value);
+        }
         switch ($listType) {
             case 'list':
-                $data = $query->paginate(\request('per_page', 10));
+                $data = $query->paginate(\request('__per_page__', 10), pageName: '__page__');
                 break;
             case 'tree':
                 $data = ($this->getTreeCollection())::new($query->get())->toArray();
@@ -245,7 +261,7 @@ abstract class AbstractCrudController extends AbstractController
                 $data = $query->get();
                 break;
             default:
-                $data = $query->paginate(\request('per_page', 10));
+                $data = $query->paginate(\request('__per_page__', 10), pageName: '__page__');
                 break;
         }
         if (! empty($resourceCollection = $this->getResource())) {

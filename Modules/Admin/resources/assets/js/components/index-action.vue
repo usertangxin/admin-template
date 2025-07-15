@@ -7,16 +7,18 @@
                     <slot name="left">
                         <slot name="refresh-before"></slot>
                         <slot name="refresh">
-                            <a-button status="normal">
+                            <a-button status="normal" @click="refreshList">
                                 <template #icon>
                                     <icon icon="a refresh"></icon>
                                 </template>
                             </a-button>
                         </slot>
+                        <slot name="refresh-after"></slot>
                         <slot name="create-before"></slot>
                         <slot name="create">
                             <a-button type="primary" status="normal">创建</a-button>
                         </slot>
+                        <slot name="create-after"></slot>
                         <slot name="destroy-before"></slot>
                         <slot name="destroy">
                             <a-button type="primary" status="danger">删除</a-button>
@@ -34,42 +36,47 @@
                         <slot name="search-input">
                             <a-input-search placeholder="请输入搜索内容" />
                         </slot>
+                        <slot name="search-input-after"></slot>
                         <slot name="columns-before"></slot>
                         <slot name="columns">
-                            <a-dropdown position="br">
-                                <a-button>
-                                    <template #icon>
-                                        <icon icon="fas table-columns"></icon>
-                                    </template>
-                                </a-button>
+                            <a-dropdown position="br" :popup-max-height="false">
+                                <a-tooltip mimi content="控制显示列">
+                                    <a-button>
+                                        <template #icon>
+                                            <icon icon="fas table-columns"></icon>
+                                        </template>
+                                    </a-button>
+                                </a-tooltip>
                                 <template #content>
-                                    <a-space direction="vertical" class="p-1 min-w-[150px]">
-                                        <label class="block">
-                                            <a-checkbox>
-                                                用户名
-                                            </a-checkbox>
-                                        </label>
-                                        <label class="block">
-                                            <a-checkbox>
-                                                手机号
-                                            </a-checkbox>
-                                        </label>
-                                        <label class="block">
-                                            <a-checkbox>
-                                                电子邮箱
-                                            </a-checkbox>
-                                        </label>
-                                    </a-space>
+                                    <div class="p-1 min-w-[150px]">
+                                        <a-tree :data="columns" checkable multiple show-line></a-tree>
+                                    </div>
                                 </template>
                             </a-dropdown>
                         </slot>
-                        <slot name="search">
-                            <a-button status="normal">
-                                <template #icon>
-                                    <icon icon="a search"></icon>
-                                </template>
-                            </a-button>
+                        <slot name="columns-after"></slot>
+                        <slot name="recycle-before"></slot>
+                        <slot name="recycle">
+                            <a-tooltip mini content="回收站">
+                                <a-button status="normal">
+                                    <template #icon>
+                                        <icon icon="fas recycle"></icon>
+                                    </template>
+                                </a-button>
+                            </a-tooltip>
                         </slot>
+                        <slot name="recycle-after"></slot>
+                        <slot name="search-before"></slot>
+                        <slot name="search">
+                            <a-tooltip mini content="更多搜索选项" position="br">
+                                <a-button status="normal">
+                                    <template #icon>
+                                        <icon icon="a search"></icon>
+                                    </template>
+                                </a-button>
+                            </a-tooltip>
+                        </slot>
+                        <slot name="search-after"></slot>
                     </slot>
                     <slot name="right-after"></slot>
                 </a-space>
@@ -77,3 +84,25 @@
         </a-row>
     </div>
 </template>
+
+<script setup>
+import { computed } from 'vue'
+import { useInjectIndexShareStore } from '../IndexShare';
+import { recursiveMap } from '../util';
+
+const store = useInjectIndexShareStore()
+const refreshList = () => {
+    store.fetchListData()
+}
+
+const columns = computed(() => {
+    return recursiveMap(store.columns, item => {
+        return {
+            title: item.title, key: item.dataIndex, children: item.children
+        }
+    })
+})
+
+</script>
+
+<style lang="scss" scoped></style>
