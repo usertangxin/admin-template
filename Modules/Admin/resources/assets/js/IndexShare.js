@@ -1,4 +1,4 @@
-import { computed, reactive, ref, provide, inject } from 'vue'
+import { computed, reactive, ref, provide, inject, watch } from 'vue'
 import { usePage, router } from '@inertiajs/vue3'
 
 const page = usePage()
@@ -61,6 +61,7 @@ export function useIndexShareStore() {
         return searchQuery
     }
 
+
     return {
         searchQuery,
         columns,
@@ -78,7 +79,7 @@ export function useIndexShareStore() {
 
 export function provideIndexShareStore(props) {
     const store = useIndexShareStore()
-    props.columns && (store.columns = props.columns)
+    props.columns && (store.columns.value = props.columns)
     props.actionColumn !== undefined && (store.actionColumn.value = props.actionColumn)
     props.innerFetchListData !== undefined && (store.innerFetchListData.value = props.innerFetchListData)
     provide('indexShareStore', store)

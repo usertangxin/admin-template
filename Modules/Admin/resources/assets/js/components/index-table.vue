@@ -23,8 +23,7 @@
                 <template v-else-if="column.type === 'switch'">
                     <a-switch type="round" :checked="scope.record[column.dataIndex]"
                         :disabled="scope.record[column.dataIndex + '_disabled'] ?? column.disabled ?? false"
-                        :checked-value="column.checkedValue ?? true"
-                        :unchecked-value="column.uncheckedValue ?? false"
+                        :checked-value="column.checkedValue ?? true" :unchecked-value="column.uncheckedValue ?? false"
                         :beforeChange="async (newValue) => await handleSwitchBeforeChange(newValue, scope.record, column.dataIndex)">
                         <template #checked-icon>
                             <a-icon icon="check" />
@@ -43,6 +42,8 @@
 import { computed, ref, useAttrs, defineExpose, watch } from 'vue';
 import { useInjectIndexShareStore } from '../IndexShare'
 import { usePage } from '@inertiajs/vue3';
+import { recursiveFilter } from '../util';
+import _ from 'lodash'
 
 const page = usePage()
 const attrs = useAttrs()
@@ -73,11 +74,14 @@ watch(() => store.searchQuery.__per_page__, (newVal, oldVal) => {
 })
 
 const comColumns = computed(() => {
-    const columns = [...store.columns]
-    columns.forEach(element => {
-        element.slotName ??= element.dataIndex
-        element.show ??= true
-    });
+    const newColumns = JSON.parse(JSON.stringify(store.columns.value))
+    const columns = recursiveFilter(newColumns, item => {
+        item.slotName ??= item.dataIndex
+        item.show ??= true
+        if (item.show !== false) {
+            return item
+        }
+    })
     if (!store.actionColumn.value) {
         return columns
     }

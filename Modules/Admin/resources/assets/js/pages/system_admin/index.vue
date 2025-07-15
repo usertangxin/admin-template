@@ -12,10 +12,8 @@ import { provideIndexShareStore } from '../../IndexShare'
 const store = provideIndexShareStore({
     columns: [
         { title: 'ID', dataIndex: 'id', },
-        { title: '信息', dataIndex: 'info', children: [
-            { title: '管理员账号', dataIndex: 'admin_name', },
-            { title: '昵称', dataIndex: 'nickname', },
-        ]},
+        { title: '管理员账号', dataIndex: 'admin_name', },
+        { title: '昵称', dataIndex: 'nickname', },
         { title: '手机号', dataIndex: 'phone' },
         { title: '电子邮箱', dataIndex: 'email' },
         { title: '状态', dataIndex: 'status', type: 'dict_tag', dict: 'data_status' },

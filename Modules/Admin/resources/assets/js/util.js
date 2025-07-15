@@ -90,11 +90,29 @@ export function colorMatch(color) {
     return defaultMap[color] ?? [];
 }
 
-export function recursiveMap(arr, iteratee) {
-    return _.map(arr, item => {
-        if (item.children && item.children.length) {
-            item.children = recursiveMap(item.children, iteratee)
+export function recursiveMap(arr, iteratee, children_key = 'children') {
+    return _.map(arr, (item, key) => {
+        if (item[children_key] && item[children_key].length) {
+            item[children_key] = recursiveMap(item[children_key], iteratee)
         }
-        return iteratee(item)
+        return iteratee(item, key)
+    });
+}
+
+export function recursiveFilter(arr, iteratee, children_key = 'children') {
+    return _.filter(arr, (item, key) => {
+        if (item[children_key] && item[children_key].length) {
+            item[children_key] = recursiveFilter(item[children_key], iteratee)
+        }
+        return iteratee(item, key)
+    });
+}
+
+export function recursiveForEach(arr, iteratee, children_key = 'children', parent = null) {
+    _.forEach(arr, (item, key) => {
+        iteratee(item, key, parent)
+        if (item[children_key] && item[children_key].length) {
+            recursiveForEach(item[children_key], iteratee, children_key, item)
+        }
     });
 }

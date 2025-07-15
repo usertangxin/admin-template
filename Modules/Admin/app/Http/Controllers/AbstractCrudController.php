@@ -32,8 +32,10 @@ abstract class AbstractCrudController extends AbstractController
 
     /**
      * 排序
-     * @return mixed 
-     * @throws BindingResolutionException 
+     *
+     * @return mixed
+     *
+     * @throws BindingResolutionException
      */
     protected function orderBy()
     {
