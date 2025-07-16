@@ -49,8 +49,8 @@
                                 </a-tooltip>
                                 <template #content>
                                     <div class="p-1 min-w-[150px]">
-                                        <a-tree :selectable="false" checkable block-node v-model:checked-keys="selectedKeys"
-                                            :data="columns" show-line></a-tree>
+                                        <a-tree :selectable="false" checkable block-node
+                                            v-model:checked-keys="selectedKeys" :data="columns" show-line></a-tree>
                                     </div>
                                 </template>
                             </a-dropdown>
@@ -87,7 +87,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useInjectIndexShareStore } from '../IndexShare';
 import { recursiveForEach, recursiveMap } from '../util';
 
@@ -99,8 +99,8 @@ const refreshList = () => {
 const selectedKeys = ref([])
 const columns = ref([])
 
-watch(() => store.columns, (newVal, oldVal) => {
-    const newColumns = JSON.parse(JSON.stringify(newVal.value))
+watch(store.columns, (newVal, oldVal) => {
+    const newColumns = JSON.parse(JSON.stringify(newVal))
     columns.value = recursiveMap(newColumns, item => {
         if (item.show !== false && !item.children) {
             selectedKeys.value.push(item.dataIndex)
@@ -111,9 +111,9 @@ watch(() => store.columns, (newVal, oldVal) => {
     })
 }, {
     immediate: true,
+    deep: true,
 })
-
-watch(() => selectedKeys.value, (newVal, oldVal) => {
+watch(selectedKeys, (newVal, oldVal) => {
     const waitFire = {}
     recursiveForEach(store.columns.value, (item, key, parent) => {
         if (!selectedKeys.value.includes(item.dataIndex)) {
