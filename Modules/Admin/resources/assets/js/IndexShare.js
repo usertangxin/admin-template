@@ -8,6 +8,7 @@ export function useIndexShareStore() {
     const searchQuery = reactive({
         __page__: page.props.current_page,
         __per_page__: page.props.per_page,
+        fast_search: '',
     })
     /** 内部是否调用fetchListData */
     const innerFetchListData = ref(true)
@@ -27,7 +28,9 @@ export function useIndexShareStore() {
     /** 刷新表格数据 */
     const fetchListData = () => {
         innerFetchListData.value && router.visit('?' + Object.keys(searchQuery).map((item) => {
-            return item + '=' + searchQuery[item]
+            return searchQuery[item] ? item + '=' + searchQuery[item] : ''
+        }).filter((item) => {
+            return item !== ''
         }).join('&'), {
             preserveState: true
         })

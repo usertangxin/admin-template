@@ -14,4 +14,14 @@ class SystemAdminController extends AbstractCrudController
     {
         return new SystemAdmin;
     }
+
+    protected function searchWhere(): array
+    {
+        $where = [];
+        if (! empty($fast_search = \request('fast_search'))) {
+            $where['fast_search'] = $fast_search;
+        }
+
+        return $where;
+    }
 }

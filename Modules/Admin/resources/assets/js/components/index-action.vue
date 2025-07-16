@@ -34,7 +34,8 @@
                     <slot name="right">
                         <slot name="search-input-before"></slot>
                         <slot name="search-input">
-                            <a-input-search placeholder="请输入搜索内容" />
+                            <a-input-search v-model="store.searchQuery.fast_search" @search="store.resetSearchQuery"
+                                @press-enter="store.resetSearchQuery" placeholder="请输入搜索内容" />
                         </slot>
                         <slot name="search-input-after"></slot>
                         <slot name="columns-before"></slot>

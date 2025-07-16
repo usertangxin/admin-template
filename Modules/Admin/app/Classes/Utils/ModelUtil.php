@@ -11,21 +11,22 @@ class ModelUtil
 
     /**
      * 搜索
-     * 可以使用scope开头的方法来定义搜索条件
+     * 可以使用本地查询范围来定义搜索条件
      *
      * @param  Builder|Model $query
-     * @param  array         $where
+     * @param  array         $where，键为本地查询范围的名称或者字段名称，值为搜索值
      * @return Builder
      */
     public static function bindSearch($query, $where)
     {
         foreach ($where as $key => $value) {
             if ($query->hasNamedScope($key)) {
-                $query = $query->callNamedScope($key, $value);
-
-                continue;
+                // 如果存在本地查询范围，则调用该范围
+                $query = $query->{$key}($value);
+            } else {
+                // 否则使用直接的字段查询
+                $query = $query->where($key, $value);
             }
-            $query = $query->where($key, $value);
         }
 
         return $query;
