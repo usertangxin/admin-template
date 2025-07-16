@@ -3,6 +3,10 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Inertia\Inertia;
 use InvalidArgumentException;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\DataBase\TreeCollection;
@@ -270,7 +274,12 @@ abstract class AbstractCrudController extends AbstractController
             $data = new $resourceCollection($data);
         }
 
-        return $this->success($data);
+        $shortName = \class_basename(\request()->route()->getControllerClass());
+        $prefix = Str::of($shortName)->replace('Controller', '')->snake('_');
+
+        Inertia::share('__recycle__', true);
+
+        return $this->success($data, view: $prefix . '/index');
     }
 
     /**

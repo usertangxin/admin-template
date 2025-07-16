@@ -5,25 +5,63 @@
                 <a-space>
                     <slot name="left-before"></slot>
                     <slot name="left">
+                        <template v-if="!page.props.__recycle__">
+                            <slot name="recycle-before"></slot>
+                            <slot name="recycle">
+                                <a-tooltip mini content="回收站">
+                                    <a-button status="normal" @click="toRecycle">
+                                        <template #icon>
+                                            <icon icon="fas recycle"></icon>
+                                        </template>
+                                    </a-button>
+                                </a-tooltip>
+                            </slot>
+                            <slot name="recycle-after"></slot>
+                        </template>
+                        <template v-else>
+                            <a-tooltip mini content="返回">
+                                <a-button status="normal" @click="toIndex">
+                                    <template #icon>
+                                        <icon icon="fas arrow-left"></icon>
+                                    </template>
+                                </a-button>
+                            </a-tooltip>
+                        </template>
                         <slot name="refresh-before"></slot>
                         <slot name="refresh">
-                            <a-button status="normal" @click="refreshList">
-                                <template #icon>
-                                    <icon icon="a refresh"></icon>
-                                </template>
-                            </a-button>
+                            <a-tooltip mini content="刷新">
+                                <a-button status="normal" @click="refreshList">
+                                    <template #icon>
+                                        <icon icon="a refresh"></icon>
+                                    </template>
+                                </a-button>
+                            </a-tooltip>
                         </slot>
                         <slot name="refresh-after"></slot>
-                        <slot name="create-before"></slot>
-                        <slot name="create">
-                            <a-button type="primary" status="normal">创建</a-button>
-                        </slot>
-                        <slot name="create-after"></slot>
-                        <slot name="destroy-before"></slot>
-                        <slot name="destroy">
-                            <a-button type="primary" status="danger">删除</a-button>
-                        </slot>
-                        <slot name="destroy-after"></slot>
+                        <template v-if="!page.props.__recycle__">
+                            <slot name="create-before"></slot>
+                            <slot name="create">
+                                <a-button type="primary" status="normal">创建</a-button>
+                            </slot>
+                            <slot name="create-after"></slot>
+                            <slot name="destroy-before"></slot>
+                            <slot name="destroy">
+                                <a-button type="primary" status="danger">删除</a-button>
+                            </slot>
+                            <slot name="destroy-after"></slot>
+                        </template>
+                        <template v-else>
+                            <slot name="recovery-before"></slot>
+                            <slot name="recovery">
+                                <a-button type="primary" status="success">恢复</a-button>
+                            </slot>
+                            <slot name="recovery-after"></slot>
+                            <slot name="real-destroy-before"></slot>
+                            <slot name="real-destroy">
+                                <a-button type="primary" status="danger">永久删除</a-button>
+                            </slot>
+                            <slot name="real-destroy-after"></slot>
+                        </template>
                     </slot>
                     <slot name="left-after"></slot>
                 </a-space>
@@ -57,21 +95,10 @@
                             </a-dropdown>
                         </slot>
                         <slot name="columns-after"></slot>
-                        <slot name="recycle-before"></slot>
-                        <slot name="recycle">
-                            <a-tooltip mini content="回收站">
-                                <a-button status="normal">
-                                    <template #icon>
-                                        <icon icon="fas recycle"></icon>
-                                    </template>
-                                </a-button>
-                            </a-tooltip>
-                        </slot>
-                        <slot name="recycle-after"></slot>
                         <slot name="search-before"></slot>
                         <slot name="search">
                             <a-tooltip mini content="更多搜索选项" position="br">
-                                <a-button status="normal">
+                                <a-button type="primary" status="normal">
                                     <template #icon>
                                         <icon icon="a search"></icon>
                                     </template>
@@ -89,9 +116,11 @@
 
 <script setup>
 import { ref, watch } from 'vue'
+import { router, usePage } from '@inertiajs/vue3';
 import { useInjectIndexShareStore } from '../IndexShare';
 import { recursiveForEach, recursiveMap } from '../util';
 
+const page = usePage();
 const store = useInjectIndexShareStore()
 const refreshList = () => {
     store.fetchListData()
@@ -130,6 +159,14 @@ watch(selectedKeys, (newVal, oldVal) => {
         item.show = true
     })
 })
+
+const toRecycle = () => {
+    router.visit('./recycle')
+}
+
+const toIndex = () => {
+    router.visit('./index')
+}
 
 </script>
 
