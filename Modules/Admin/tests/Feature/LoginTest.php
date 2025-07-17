@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Admin\Tests\Unit;
+namespace Modules\Admin\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Exceptions\InvalidArgumentException;
