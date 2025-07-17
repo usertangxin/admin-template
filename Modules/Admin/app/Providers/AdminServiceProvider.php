@@ -29,6 +29,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+
         SystemConfigService::registerGroups(\config('admin.system_config_group'));
         SystemConfigService::registerList(\config('admin.system_config_agreement'));
         SystemConfigService::registerList(\config('admin.system_config_email'));

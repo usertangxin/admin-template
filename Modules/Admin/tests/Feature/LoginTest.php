@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Tests\Feature;
 
+use Auth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Exceptions\InvalidArgumentException;
 use InvalidArgumentException as GlobalInvalidArgumentException;
@@ -124,6 +125,8 @@ class LoginTest extends TestCase
             'code' => 0,
         ]);
         $this->assertAuthenticated();
+        $this->assertNotEmpty(Auth::user()->login_ip);
+        $this->assertNotEmpty(Auth::user()->login_time);
     }
 
     /**

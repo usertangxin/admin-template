@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 
@@ -16,4 +17,9 @@ abstract class AbstractModel extends BaseModel
     const UPDATED_AT = 'update_time';
 
     protected $dateFormat = 'Y-m-d H:i:s';
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format($this->dateFormat);
+    }
 }
