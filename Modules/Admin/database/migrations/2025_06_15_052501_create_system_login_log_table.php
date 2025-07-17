@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('system_login_log', function (Blueprint $table) {
             $table->comment('登录日志表');
             $table->increments('id')->comment('主键');
-            $table->string('admin_name', 20)->nullable()->index('admin_name')->comment('系统管理员名');
+            $table->string('admin_name', 20)->nullable()->index('system_login_log_admin_name')->comment('系统管理员名');
             $table->string('ip', 45)->nullable()->comment('登录IP地址');
             $table->string('ip_location')->nullable()->comment('IP所属地');
             $table->string('os', 50)->nullable()->comment('操作系统');

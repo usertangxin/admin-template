@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('system_notice', function (Blueprint $table) {
             $table->comment('系统公告表');
             $table->increments('id')->comment('主键');
-            $table->integer('message_id')->nullable()->index('message_id')->comment('消息ID');
+            $table->integer('message_id')->nullable()->index('system_notice_message_id')->comment('消息ID');
             $table->string('title')->nullable()->comment('标题');
             $table->string('type', 20)->nullable()->comment('公告类型:dict=backend_notice_type');
             $table->text('content')->nullable()->comment('公告内容');

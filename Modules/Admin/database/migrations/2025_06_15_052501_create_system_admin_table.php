@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('system_admin', function (Blueprint $table) {
             $table->comment('系统管理员信息表');
             $table->increments('id')->comment('系统管理员ID,主键');
-            $table->string('admin_name', 20)->unique('admin_name')->comment('系统管理员名');
+            $table->string('admin_name', 20)->unique('system_admin_admin_name')->comment('系统管理员名');
             $table->string('password', 100)->comment('密码');
             $table->string('nickname', 30)->nullable()->comment('系统管理员昵称');
             $table->string('phone', 11)->nullable()->comment('手机');
             $table->string('email', 50)->nullable()->comment('系统管理员邮箱');
             $table->string('avatar')->nullable()->default('/avatar.png')->comment('系统管理员头像');
             $table->string('dashboard', 100)->nullable()->comment('后台首页类型');
-            $table->unsignedInteger('dept_id')->nullable()->index('dept_id')->comment('部门ID');
+            $table->unsignedInteger('dept_id')->nullable()->index('system_admin_dept_id')->comment('部门ID');
             $table->string('status')->nullable()->default('normal')->comment('状态:dict=data_status');
             $table->string('login_ip', 45)->nullable()->comment('最后登陆IP');
             $table->dateTime('login_time')->nullable()->comment('最后登陆时间');

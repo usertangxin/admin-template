@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('system_dept_leader', function (Blueprint $table) {
             $table->comment('部门领导关联表');
             $table->increments('leader_id')->comment('编号');
-            $table->unsignedInteger('dept_id')->index('idx_dept_id')->comment('部门主键');
-            $table->unsignedInteger('admin_id')->index('idx_admin_id')->comment('管理员主键');
+            $table->unsignedInteger('dept_id')->index('system_dept_leader_idx_dept_id')->comment('部门主键');
+            $table->unsignedInteger('admin_id')->index('system_dept_leader_idx_admin_id')->comment('管理员主键');
         });
     }
 

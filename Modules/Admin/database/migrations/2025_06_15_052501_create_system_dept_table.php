@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('system_dept', function (Blueprint $table) {
             $table->comment('部门信息表');
             $table->increments('id')->comment('主键');
-            $table->unsignedInteger('parent_id')->nullable()->index('parent_id')->comment('父ID');
+            $table->unsignedInteger('parent_id')->nullable()->index('system_dept_parent_id')->comment('父ID');
             $table->string('level', 500)->nullable()->comment('组级集合');
             $table->string('name', 30)->nullable()->comment('部门名称');
             $table->smallInteger('status')->nullable()->default(1)->comment('状态:dict=data_status');

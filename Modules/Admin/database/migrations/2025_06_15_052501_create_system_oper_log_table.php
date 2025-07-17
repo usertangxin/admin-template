@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('system_oper_log', function (Blueprint $table) {
             $table->comment('操作日志表');
             $table->bigIncrements('id')->comment('主键');
-            $table->string('admin_name', 20)->nullable()->index('admin_name')->comment('系统管理员名');
+            $table->string('admin_name', 20)->nullable()->index('system_oper_log_admin_name')->comment('系统管理员名');
             $table->string('app', 50)->nullable()->comment('应用名称');
             $table->string('method', 20)->nullable()->comment('请求方式');
             $table->string('router', 500)->nullable()->comment('请求路由');

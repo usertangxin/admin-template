@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('system_admin_post', function (Blueprint $table) {
             $table->comment('系统管理员与岗位关联表');
             $table->increments('id')->comment('主键');
-            $table->unsignedInteger('admin_id')->index('idx_admin_id')->comment('系统管理员主键');
-            $table->unsignedInteger('post_id')->index('idx_post_id')->comment('岗位主键');
-
-            $table->primary(['id', 'admin_id']);
+            $table->unsignedInteger('admin_id')->index('system_admin_post_idx_admin_id')->comment('系统管理员主键');
+            $table->unsignedInteger('post_id')->index('system_admin_post_idx_post_id')->comment('岗位主键');
         });
     }
 

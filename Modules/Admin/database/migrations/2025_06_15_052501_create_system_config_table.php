@@ -16,7 +16,6 @@ return new class extends Migration
             $table->increments('id')->comment('不要使用此字段作为判断依据');
             $table->string('key', 32)->comment('配置键名');
             $table->longText('value')->nullable()->comment('配置值');
-            $table->primary(['id', 'key']);
         });
     }
 

@@ -2,7 +2,11 @@
 
 namespace Modules\Admin\Classes\Service;
 
+use Illuminate\Database\Connectors\SQLiteConnector;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\SQLiteDatabaseDoesNotExistException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Modules\Admin\Models\SystemConfig;
 
@@ -32,7 +36,12 @@ class SystemConfigService
     {
         $run_diff = true;
         if (\app()->runningInConsole()) {
-            if (! Schema::hasTable(SystemConfig::query()->getModel()->getTable())) {
+            try {
+                DB::connection()->getPdo();
+                if (! Schema::hasTable(SystemConfig::query()->getModel()->getTable())) {
+                    $run_diff = false;
+                }
+            } catch (SQLiteDatabaseDoesNotExistException $e) {
                 $run_diff = false;
             }
         }
