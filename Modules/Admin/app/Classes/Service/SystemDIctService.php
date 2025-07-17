@@ -45,7 +45,7 @@ class SystemDictService
             } catch (SQLiteDatabaseDoesNotExistException $e) {
                 $run_diff = false;
             }
-            
+
         }
         if ($run_diff) {
             static::$databaseConfig ??= SystemDictData::all();

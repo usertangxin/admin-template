@@ -2,8 +2,6 @@
 
 namespace Modules\Admin\Classes\Service;
 
-use Illuminate\Database\Connectors\SQLiteConnector;
-use Illuminate\Database\QueryException;
 use Illuminate\Database\SQLiteDatabaseDoesNotExistException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
