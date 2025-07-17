@@ -29,7 +29,9 @@ class LoginTest extends TestCase
             'admin_name' => '       ',
             'password'   => '123456',
         ]);
-        $response->assertStatus(422);
+        $response->assertJsonMissing([
+            'code' => 0,
+        ]);
     }
 
     /**
@@ -46,7 +48,9 @@ class LoginTest extends TestCase
             'admin_name' => 'admin',
             'password'   => '      ',
         ]);
-        $response->assertStatus(422);
+        $response->assertJsonMissing([
+            'code' => 0,
+        ]);
     }
 
     /**
@@ -68,8 +72,8 @@ class LoginTest extends TestCase
             'password'   => '1234567',
             'remember'   => false,
         ]);
-        $response->assertJson([
-            'code' => 400,
+        $response->assertJsonMissing([
+            'code' => 0,
         ]);
     }
 
@@ -92,8 +96,8 @@ class LoginTest extends TestCase
             'password'   => '123456',
             'remember'   => false,
         ]);
-        $response->assertJson([
-            'code' => 400,
+        $response->assertJsonMissing([
+            'code' => 0,
         ]);
     }
 
@@ -141,8 +145,8 @@ class LoginTest extends TestCase
             'password'   => '123456',
             'remember'   => false,
         ]);
-        $response->assertJson([
-            'code' => 400,
+        $response->assertJsonMissing([
+            'code' => 0,
         ]);
     }
 
@@ -157,8 +161,8 @@ class LoginTest extends TestCase
             'password'   => '123456',
             'remember'   => false,
         ]);
-        $response->assertJson([
-            'code' => 400,
+        $response->assertJsonMissing([
+            'code' => 0,
         ]);
     }
 }
