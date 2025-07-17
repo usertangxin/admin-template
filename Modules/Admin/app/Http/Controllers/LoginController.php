@@ -22,6 +22,7 @@ class LoginController extends AbstractController
             'admin_name' => 'required',
             'password'   => 'required',
         ]);
+        $credentials['status'] = 'normal';
         $remember = $request->input('remember', false);
         if (Auth::attempt($credentials, $remember)) {
             return $this->success(message: '登录成功');
