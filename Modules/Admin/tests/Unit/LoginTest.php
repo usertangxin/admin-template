@@ -135,4 +135,20 @@ class LoginTest extends TestCase
             'code' => 400,
         ]);
     }
+
+    /**
+     * 测试管理员已删除
+     */
+    public function test_admin_is_delete()
+    {
+        SystemAdminFactory::new()->trashed()->create(['admin_name' => 'super admin']);
+        $response = $this->postJson('/web/admin/login', [
+            'admin_name' => "super admin",
+            'password' => "123456",
+            'remember' => false,
+        ]);
+        $response->assertJson([
+            'code' => 400,
+        ]);
+    }
 }
