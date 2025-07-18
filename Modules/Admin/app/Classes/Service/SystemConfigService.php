@@ -64,4 +64,14 @@ class SystemConfigService
 
         return static::$config_list;
     }
+
+    public static function getListHash()
+    {
+        return \sha1(static::getList()->toJson());
+    }
+
+    public static function getGroupsHash()
+    {
+        return \sha1(static::getGroups()->toJson());
+    }
 }

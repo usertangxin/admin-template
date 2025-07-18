@@ -19,10 +19,10 @@ class HandleInertiaShare
      */
     public function handle(Request $request, Closure $next)
     {
-        Inertia::share('dict_list', SystemDictService::getList());
-        Inertia::share('dict_group_list', SystemDictService::getGroups());
-        Inertia::share('system_config_list', SystemConfigService::getList());
-        Inertia::share('system_config_group_list', SystemConfigService::getGroups());
+        Inertia::share('system_dict_hash', SystemDictService::getListHash());
+        Inertia::share('system_dict_group_hash', SystemDictService::getGroupsHash());
+        Inertia::share('system_config_hash', SystemConfigService::getListHash());
+        Inertia::share('system_config_group_hash', SystemConfigService::getGroupsHash());
 
         return $next($request);
     }

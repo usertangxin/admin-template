@@ -68,4 +68,14 @@ class SystemDictService
 
         return static::$list;
     }
+
+    public static function getListHash()
+    {
+        return \sha1(static::getList()->toJson());
+    }
+
+    public static function getGroupsHash()
+    {
+        return \sha1(static::getGroups()->toJson());
+    }
 }
