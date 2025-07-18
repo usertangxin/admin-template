@@ -49,7 +49,7 @@ const handleExpandAll = () => {
 }
 
 const handleRefreshCache = () => {
-    axios.put('./refreshSystemMenuCache')
+    axios.put('./refresh-system-menu-cache')
 }
 
 const handleDeleteCache = () => {
