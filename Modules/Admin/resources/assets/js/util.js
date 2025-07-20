@@ -116,3 +116,58 @@ export function recursiveForEach(arr, iteratee, children_key = 'children', paren
         }
     });
 }
+
+export function openFullscreen() {
+    const elem = document.getElementById('app')
+    // 标准方法
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    }
+    // WebKit内核浏览器
+    else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+    }
+    // Firefox
+    else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+    }
+    // IE/Edge
+    else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+    }
+}
+
+// 退出全屏函数
+export function closeFullscreen() {
+    // 标准方法
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    }
+    // WebKit内核浏览器
+    else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    }
+    // Firefox
+    else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    }
+    // IE/Edge
+    else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+}
+
+export function isFullscreen() {
+    return document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement || (window.innerWidth === screen.width && window.innerHeight === screen.height)
+}
+
+export function changeFullScreen() {
+    if (isFullscreen()) {
+        closeFullscreen()
+    } else {
+        openFullscreen()
+    }
+}

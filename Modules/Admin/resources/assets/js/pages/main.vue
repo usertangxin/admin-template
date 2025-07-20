@@ -53,61 +53,10 @@
                     </div>
                 </div>
                 <div class="right">
-                    <a-divider direction="vertical" />
-                    <a-popover position="lt" trigger="click" @popup-visible-change="onPopupVisibleChange">
-                        <a-badge :count="9"><icon-notification class="cursor-pointer"
-                                style="font-size: 25px;" /></a-badge>
-                        <template #content>
-                            <a-list style="width: 500px;" :virtualListProps="{
-                                height: 500,
-                            }" :data="messages">
-                                <template #item="{ item, index }">
-                                    <a-list-item :key="index">
-                                        <a-list-item-meta :title="item.title" :description="item.description">
-                                            <template #avatar>
-                                                <a-avatar shape="square">
-                                                    <img :src="item.avatar" alt="">
-                                                </a-avatar>
-                                            </template>
-                                        </a-list-item-meta>
-                                        <template #actions>
-                                            <div class="ml-2">
-                                                <a-space>
-                                                    <a-button type="primary" status="normal">
-                                                        <template #icon>
-                                                            <icon-import class="cursor-pointer" size="20" />
-                                                        </template>
-                                                    </a-button>
-                                                    <a-button type="primary" status="warning">
-                                                        <template #icon>
-                                                            <icon-eye-invisible class="cursor-pointer" size="20" />
-                                                        </template>
-                                                    </a-button>
-                                                </a-space>
-                                            </div>
-                                        </template>
-                                    </a-list-item>
-                                </template>
-                            </a-list>
-                        </template>
-                    </a-popover>
-                    <a-divider direction="vertical" />
-                    <icon-fullscreen-exit v-if="fullScreen" class="cursor-pointer" style="font-size: 25px;"
-                        @click="closeFullscreen" />
-                    <icon-fullscreen v-else class="cursor-pointer" style="font-size: 25px;" @click="openFullscreen" />
-                    <a-divider direction="vertical" />
-                    <a-dropdown trigger="hover">
-                        <icon-language class="cursor-pointer" style="font-size: 25px;" />
-                        <template #content>
-                            <a-doption>中文</a-doption>
-                            <a-doption>English</a-doption>
-                        </template>
-                    </a-dropdown>
-                    <a-divider direction="vertical" />
-                    <icon-sun-fill class="cursor-pointer" style="font-size: 25px;" v-if="theme == 'light'"
-                        @click="changeTheme('dark')" />
-                    <icon-moon-fill class="cursor-pointer" style="font-size: 25px;" v-if="theme == 'dark'"
-                        @click="changeTheme('light')" />
+                    <template v-for="(item, index) in navActions">
+                        <a-divider direction="vertical" />
+                        <component :is="item" style="font-size: 25px;"></component>
+                    </template>
                     <a-divider direction="vertical" />
                     <a-dropdown trigger="click" @popup-visible-change="onPopupVisibleChange">
                         <a-space class="cursor-pointer">
@@ -146,10 +95,19 @@
 import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { Message } from '@arco-design/web-vue';
 import RecursionMenu from '../components/recursion-menu.vue'
+const navActionsMeta = import.meta.glob('../components/main-nav-actions/*.vue', { eager: true })
+const navActions = {}
+
+for (const [path, module] of Object.entries(navActionsMeta)) {
+    // 从路径中提取组件名称（例如从 './components/Button.vue' 中提取 'Button'）
+    const componentName = path.replace(/\.\.\/components\/main-nav-actions\/(.*)\.vue$/, '$1')
+    // 默认导出的才是组件
+    navActions[componentName] = module.default
+}
+
 
 const iframeRef = ref(null)
 const props = defineProps(['system_menus_tree', 'system_menus_list'])
-const theme = ref(window.localStorage.getItem('arco-theme') || 'light')
 const contentMask = ref(false)
 const fullScreen = ref(false)
 const currentMainMenuIndex = ref(0)
@@ -157,7 +115,7 @@ const openMenus = ref([])
 const currOpenMenuCode = ref(window.localStorage.getItem('currOpenMenuCode') || '')
 
 let storageOpenMenuCodes = window.localStorage.getItem('openMenus')
-onMounted(()=>{
+onMounted(() => {
     if (storageOpenMenuCodes) {
         storageOpenMenuCodes = JSON.parse(storageOpenMenuCodes)
         storageOpenMenuCodes.forEach((code, index) => {
@@ -171,6 +129,11 @@ onMounted(()=>{
         })
     }
 })
+
+const formatComponentName = (name) => {
+    // 转换为驼峰命名并添加空格
+    return name.replace(/([A-Z])/g, ' $1').trim()
+}
 
 const subMenus = computed(() => {
     const currentMainMenu = props.system_menus_tree[currentMainMenuIndex.value]
@@ -205,126 +168,9 @@ const recursionFindInitMainMenuIndex = (menus, is_main = false, index = 0) => {
 
 currentMainMenuIndex.value = recursionFindInitMainMenuIndex(props.system_menus_tree, true)
 
-const changeTheme = (t) => {
-    document.body.setAttribute('arco-theme', t)
-    window.localStorage.setItem('arco-theme', t)
-    theme.value = t
-    iframeRef.value.forEach((item) => {
-        item.contentWindow.changeTheme && item.contentWindow.changeTheme(t)
-    })
-}
 
-function openFullscreen() {
-    const elem = document.getElementById('app')
-    // 标准方法
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    }
-    // WebKit内核浏览器
-    else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-    }
-    // Firefox
-    else if (elem.mozRequestFullScreen) {
-        elem.mozRequestFullScreen();
-    }
-    // IE/Edge
-    else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen();
-    }
-}
 
-// 退出全屏函数
-function closeFullscreen() {
-    // 标准方法
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    }
-    // WebKit内核浏览器
-    else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-    }
-    // Firefox
-    else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-    }
-    // IE/Edge
-    else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-    }
-}
 
-document.addEventListener('fullscreenchange', handleFullscreenChange);
-document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-document.addEventListener('mozfullscreenchange', handleFullscreenChange);
-document.addEventListener('MSFullscreenChange', handleFullscreenChange);
-
-// 检查当前是否处于全屏状态
-function isFullscreen() {
-    fullScreen.value = document.fullscreenElement ||
-        document.webkitFullscreenElement ||
-        document.mozFullScreenElement ||
-        document.msFullscreenElement || (window.innerWidth === screen.width && window.innerHeight === screen.height)
-}
-
-function handleFullscreenChange() {
-    isFullscreen()
-}
-
-window.addEventListener('resize', isFullscreen);
-
-const messages = ref([
-    {
-        title: '系统消息',
-        description: '您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息',
-        avatar: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp',
-    },
-    {
-        title: '系统消息',
-        description: '您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息',
-        avatar: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp',
-    },
-    {
-        title: '系统消息',
-        description: '您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息',
-        avatar: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp',
-    },
-    {
-        title: '系统消息',
-        description: '您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息',
-        avatar: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp',
-    },
-    {
-        title: '系统消息',
-        description: '您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息',
-        avatar: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp',
-    },
-    {
-        title: '系统消息',
-        description: '您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息',
-        avatar: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp',
-    },
-    {
-        title: '系统消息',
-        description: '您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息',
-        avatar: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp',
-    },
-    {
-        title: '系统消息',
-        description: '您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息',
-        avatar: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp',
-    },
-    {
-        title: '系统消息',
-        description: '您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息',
-        avatar: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp',
-    },
-    {
-        title: '系统消息',
-        description: '您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息您有一条新的系统消息',
-        avatar: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/3ee5f13fb09879ecb5185e440cef6eb9.png~tplv-uwbnlip3yd-webp.webp',
-    },
-])
 
 const openMenu = (menu) => {
     if (menu.type === 'M' || menu.type === 'I') {
@@ -367,7 +213,7 @@ const handleClickCloseTab = (tab, index) => {
     }
 }
 
-const handleClickRefresh = (tab,index) => {
+const handleClickRefresh = (tab, index) => {
     handleClickTab(tab)
     iframeRef.value[index].contentWindow.location.reload()
 }

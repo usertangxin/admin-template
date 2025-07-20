@@ -25,6 +25,17 @@
                             </a-tooltip>
                         </slot>
                         <slot name="refresh-after"></slot>
+                        <slot name="fullscreen-before"></slot>
+                        <slot name="fullscreen">
+                            <a-tooltip mini content="全屏">
+                                <a-button status="normal" @click="changeFullScreen">
+                                    <template #icon>
+                                        <icon icon="a fullscreen"></icon>
+                                    </template>
+                                </a-button>
+                            </a-tooltip>
+                        </slot>
+                        <slot name="fullscreen-after"></slot>
                         <a-divider direction="vertical"></a-divider>
                         <slot name="submit-before"></slot>
                         <slot name="submit">
@@ -59,6 +70,7 @@
 import { ref, watch } from 'vue'
 import { router, usePage } from '@inertiajs/vue3';
 import { recursiveForEach, recursiveMap } from '../util';
+import { changeFullScreen } from '../util'
 
 const page = usePage();
 

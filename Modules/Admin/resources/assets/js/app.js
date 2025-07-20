@@ -6,9 +6,9 @@ import NotFoundPage from '/Modules/Admin/resources/assets/js/pages/404.vue'
 
 createInertiaApp({
   resolve: name => {
-    const pages = import.meta.glob('./pages/**/*.vue', { eager: true })
+    const pages = import.meta.glob('./pages/**/!(*components*/**).vue', { eager: true })
     let page = pages[`./pages/${name}.vue`]
-    if(!page) {
+    if (!page) {
       page = NotFoundPage
     }
     if (page.default) {

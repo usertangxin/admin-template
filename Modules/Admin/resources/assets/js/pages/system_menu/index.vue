@@ -16,7 +16,6 @@
 
 <script setup>
 import { ref } from 'vue';
-import { Message } from '@arco-design/web-vue';
 import { provideIndexShareStore } from '../../IndexShare';
 
 const props = defineProps(['tree', 'list'])

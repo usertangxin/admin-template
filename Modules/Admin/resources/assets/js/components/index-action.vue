@@ -38,6 +38,17 @@
                             </a-tooltip>
                         </slot>
                         <slot name="refresh-after"></slot>
+                        <slot name="fullscreen-before"></slot>
+                        <slot name="fullscreen">
+                            <a-tooltip mini content="全屏">
+                                <a-button status="normal" @click="changeFullScreen">
+                                    <template #icon>
+                                        <icon icon="a fullscreen"></icon>
+                                    </template>
+                                </a-button>
+                            </a-tooltip>
+                        </slot>
+                        <slot name="fullscreen-after"></slot>
                         <a-divider direction="vertical"></a-divider>
                         <template v-if="page.props.__page_index__">
                             <slot name="create-before"></slot>
@@ -74,9 +85,21 @@
                         <slot name="search-input-before"></slot>
                         <slot name="search-input">
                             <a-input-search v-model="store.searchQuery.fast_search" @search="store.resetSearchQuery"
-                                @press-enter="store.resetSearchQuery" placeholder="请输入搜索内容" />
+                                @press-enter="store.resetSearchQuery" placeholder="请输入内容并回车" />
                         </slot>
                         <slot name="search-input-after"></slot>
+                        <slot name="search-before"></slot>
+                        <slot name="search">
+                            <a-tooltip mini content="更多搜索选项" position="br">
+                                <a-button status="normal">
+                                    <template #icon>
+                                        <icon icon="fas magnifying-glass-arrow-right"></icon>
+                                    </template>
+                                </a-button>
+                            </a-tooltip>
+                        </slot>
+                        <slot name="search-after"></slot>
+                        <a-divider direction="vertical"></a-divider>
                         <slot name="columns-before"></slot>
                         <slot name="columns">
                             <a-dropdown position="br" :popup-max-height="false">
@@ -96,17 +119,6 @@
                             </a-dropdown>
                         </slot>
                         <slot name="columns-after"></slot>
-                        <slot name="search-before"></slot>
-                        <slot name="search">
-                            <a-tooltip mini content="更多搜索选项" position="br">
-                                <a-button type="primary" status="normal">
-                                    <template #icon>
-                                        <icon icon="a search"></icon>
-                                    </template>
-                                </a-button>
-                            </a-tooltip>
-                        </slot>
-                        <slot name="search-after"></slot>
                     </slot>
                     <slot name="right-after"></slot>
                 </a-space>
@@ -120,6 +132,7 @@ import { ref, watch } from 'vue'
 import { router, usePage } from '@inertiajs/vue3';
 import { useInjectIndexShareStore } from '../IndexShare';
 import { recursiveForEach, recursiveMap } from '../util';
+import { changeFullScreen } from '../util'
 
 const page = usePage();
 const store = useInjectIndexShareStore()

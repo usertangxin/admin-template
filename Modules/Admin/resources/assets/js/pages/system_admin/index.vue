@@ -6,7 +6,6 @@
 </template>
 
 <script setup>
-const props = defineProps(['current_page', 'data', 'per_page', 'last_page', 'total'])
 import { provideIndexShareStore } from '../../IndexShare'
 
 const store = provideIndexShareStore({
