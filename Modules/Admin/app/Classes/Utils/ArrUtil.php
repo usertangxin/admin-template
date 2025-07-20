@@ -9,13 +9,13 @@ class ArrUtil
     /**
      * 数组转换为树结构
      *
-     * @param  array $items        原始数组
+     * @param  mixed $items        原始数组
      * @param  mixed $for_key      用于关联的键名
      * @param  mixed $local_key    本地键名
      * @param  mixed $sub_coll_key 子集合键名
      * @return array 转换后的树结构数组
      */
-    public static function convertToTree(array $items, $for_key, $local_key, $sub_coll_key): array
+    public static function convertToTree(mixed $items, $for_key, $local_key, $sub_coll_key): array
     {
         // 首先将数组转换为以 code 为键的关联数组，便于快速查找
         $itemsByCode = [];

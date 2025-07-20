@@ -1,16 +1,19 @@
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
-import Size from './layouts/size.vue';
-import useComm from './useComm.js'
+import Size from '/Modules/Admin/resources/assets/js//layouts/size.vue';
+import useComm from '/Modules/Admin/resources/assets/js/useComm.js'
+import NotFoundPage from '/Modules/Admin/resources/assets/js/pages/404.vue'
 
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./pages/**/*.vue', { eager: true })
     let page = pages[`./pages/${name}.vue`]
     if(!page) {
-      page = pages[`./pages/404.vue`]
+      page = NotFoundPage
     }
-    page.default.layout = page.default.layout || Size
+    if (page.default) {
+      page.default.layout = page.default.layout || Size
+    }
     return page
   },
   setup({ el, App, props, plugin }) {

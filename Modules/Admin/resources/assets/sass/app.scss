@@ -30,7 +30,7 @@ body, html {
 }
 
 .arco-scrollbar-track-direction-vertical {
-    width: 2px;
+    width: 2px !important;
 
     .arco-scrollbar-thumb-bar {
         width: 2px !important;
@@ -40,7 +40,7 @@ body, html {
 }
 
 .arco-scrollbar-track-direction-horizontal {
-    height: 2px;
+    height: 2px !important;
 
     .arco-scrollbar-thumb-bar {
         height: 2px !important;

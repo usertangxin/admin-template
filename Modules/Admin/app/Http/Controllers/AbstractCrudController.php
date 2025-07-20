@@ -33,6 +33,14 @@ abstract class AbstractCrudController extends AbstractController
     }
 
     /**
+     * 每页最大条数
+     */
+    protected function getMaxPerPage(): int
+    {
+        return 100;
+    }
+
+    /**
      * 排序
      *
      * @return mixed
@@ -90,8 +98,9 @@ abstract class AbstractCrudController extends AbstractController
     {
         $listType = \request('__list_type__', 'list');
         $where = $this->searchWhere();
+        $model = $this->getModel();
         /** @var AbstractModel|AbstractSoftDelModel $query */
-        $query = ModelUtil::bindSearch($this->getModel(), $where);
+        $query = ModelUtil::bindSearch($model->newInstance(), $where);
         if (! empty($with = $this->with())) {
             $query = $query->with($with);
         }
@@ -105,22 +114,21 @@ abstract class AbstractCrudController extends AbstractController
             $query = $query->orderBy($key, $value);
         }
         switch ($listType) {
-            case 'list':
-                $data = $query->paginate(\request('__per_page__', 10), pageName: '__page__');
-                break;
             case 'tree':
-                $data = ($this->getTreeCollection())::new($query->get())->toArray();
+                $data = ($this->getTreeCollection())::new($query->get())->toTree();
                 break;
             case 'all':
                 $data = $query->get();
                 break;
             default:
-                $data = $query->paginate(\request('__per_page__', 10), pageName: '__page__');
+                $data = $query->paginate(\min($this->getMaxPerPage(), \request('__per_page__', 10)), pageName: '__page__');
                 break;
         }
         if (! empty($resourceCollection = $this->getResource())) {
             $data = new $resourceCollection($data);
         }
+
+        Inertia::share('__page_index__', true);
 
         return $this->success($data);
     }
@@ -138,6 +146,8 @@ abstract class AbstractCrudController extends AbstractController
         if (! empty($resourceCollection = $this->getResource())) {
             $data = new $resourceCollection($data);
         }
+
+        Inertia::share('__page_read__', true);
 
         return $this->success($data);
     }
@@ -164,6 +174,8 @@ abstract class AbstractCrudController extends AbstractController
             $result = new $resourceCollection($result);
         }
 
+        Inertia::share('__page_create__', true);
+
         return $this->success($result);
     }
 
@@ -178,6 +190,8 @@ abstract class AbstractCrudController extends AbstractController
     #[SystemMenu('编辑')]
     public function update()
     {
+        Inertia::share('__page_update__', true);
+
         $id = \request('id');
         if (\request()->method() == 'GET') {
             $data = $this->getModel()->find($id);
@@ -185,7 +199,7 @@ abstract class AbstractCrudController extends AbstractController
                 $data = new $resourceCollection($data);
             }
 
-            return $this->inertia($data);
+            return $this->success($data);
         }
 
         $data = request()->all();
@@ -213,6 +227,8 @@ abstract class AbstractCrudController extends AbstractController
             $result = new $resourceCollection($result);
         }
 
+        Inertia::share('__page_change_status__', true);
+
         return $this->success($result);
     }
 
@@ -225,6 +241,8 @@ abstract class AbstractCrudController extends AbstractController
     public function destroy()
     {
         $id = \request('id');
+
+        Inertia::share('__page_destroy__', true);
 
         return $this->success($this->getModel()->destroy($id));
     }
@@ -255,17 +273,14 @@ abstract class AbstractCrudController extends AbstractController
             $query = $query->orderBy($key, $value);
         }
         switch ($listType) {
-            case 'list':
-                $data = $query->paginate(\request('__per_page__', 10), pageName: '__page__');
-                break;
             case 'tree':
-                $data = ($this->getTreeCollection())::new($query->get())->toArray();
+                $data = ($this->getTreeCollection())::new($query->get())->toTree();
                 break;
             case 'all':
                 $data = $query->get();
                 break;
             default:
-                $data = $query->paginate(\request('__per_page__', 10), pageName: '__page__');
+                $data = $query->paginate(\min($this->getMaxPerPage(), \request('__per_page__', 10)), pageName: '__page__');
                 break;
         }
         if (! empty($resourceCollection = $this->getResource())) {
@@ -275,7 +290,7 @@ abstract class AbstractCrudController extends AbstractController
         $shortName = \class_basename(\request()->route()->getControllerClass());
         $prefix = Str::of($shortName)->replace('Controller', '')->snake('_');
 
-        Inertia::share('__recycle__', true);
+        Inertia::share('__page_recycle__', true);
 
         return $this->success($data, view: $prefix . '/index');
     }
@@ -292,6 +307,8 @@ abstract class AbstractCrudController extends AbstractController
     {
         $ids = request('ids');
 
+        Inertia::share('__page_recovery__', true);
+
         return $this->success($this->getModel()->withTrashed()->whereIn('id', $ids)->restore());
     }
 
@@ -306,6 +323,8 @@ abstract class AbstractCrudController extends AbstractController
     public function realDestroy()
     {
         $ids = request('ids');
+
+        Inertia::share('__page_real_destroy__', true);
 
         return $this->success($this->getModel()->withTrashed()->whereIn('id', $ids)->forceDelete());
     }

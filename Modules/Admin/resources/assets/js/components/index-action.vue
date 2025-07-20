@@ -5,7 +5,16 @@
                 <a-space>
                     <slot name="left-before"></slot>
                     <slot name="left">
-                        <template v-if="!page.props.__recycle__">
+                        <template v-if="!page.props.__page_index__">
+                            <a-tooltip mini content="首页">
+                                <a-button @click="toIndex">
+                                    <template #icon>
+                                        <icon icon="fas home"></icon>
+                                    </template>
+                                </a-button>
+                            </a-tooltip>
+                        </template>
+                        <template v-if="page.props.__page_index__">
                             <slot name="recycle-before"></slot>
                             <slot name="recycle">
                                 <a-tooltip mini content="回收站">
@@ -18,15 +27,6 @@
                             </slot>
                             <slot name="recycle-after"></slot>
                         </template>
-                        <template v-else>
-                            <a-tooltip mini content="返回">
-                                <a-button status="normal" @click="toIndex">
-                                    <template #icon>
-                                        <icon icon="fas arrow-left"></icon>
-                                    </template>
-                                </a-button>
-                            </a-tooltip>
-                        </template>
                         <slot name="refresh-before"></slot>
                         <slot name="refresh">
                             <a-tooltip mini content="刷新">
@@ -38,10 +38,11 @@
                             </a-tooltip>
                         </slot>
                         <slot name="refresh-after"></slot>
-                        <template v-if="!page.props.__recycle__">
+                        <a-divider direction="vertical"></a-divider>
+                        <template v-if="page.props.__page_index__">
                             <slot name="create-before"></slot>
                             <slot name="create">
-                                <a-button type="primary" status="normal">创建</a-button>
+                                <a-button @click="toCreate" type="primary" status="normal">创建</a-button>
                             </slot>
                             <slot name="create-after"></slot>
                             <slot name="destroy-before"></slot>
@@ -50,7 +51,7 @@
                             </slot>
                             <slot name="destroy-after"></slot>
                         </template>
-                        <template v-else>
+                        <template v-if="page.props.__page_recycle__">
                             <slot name="recovery-before"></slot>
                             <slot name="recovery">
                                 <a-button type="primary" status="success">恢复</a-button>
@@ -161,11 +162,21 @@ watch(selectedKeys, (newVal, oldVal) => {
 })
 
 const toRecycle = () => {
-    router.visit('./recycle')
+    router.visit('./recycle', {
+        preserveState: true,
+    })
 }
 
 const toIndex = () => {
-    router.visit('./index')
+    router.visit('./index', {
+        preserveState: true,
+    })
+}
+
+const toCreate = () => {
+    router.visit('./create', {
+        preserveState: true,
+    })
 }
 
 </script>
