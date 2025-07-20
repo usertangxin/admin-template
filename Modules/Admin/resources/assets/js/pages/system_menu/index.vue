@@ -15,10 +15,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { provideIndexShareStore } from '../../IndexShare';
 
-const props = defineProps(['tree', 'list'])
+const props = defineProps(['data'])
+const tree = computed(() => props.data.tree)
+const list = computed(() => props.data.list)
 
 const tableRef = ref(null);
 

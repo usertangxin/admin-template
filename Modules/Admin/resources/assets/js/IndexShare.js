@@ -6,8 +6,8 @@ const page = usePage()
 export function useIndexShareStore() {
     /** 搜索参数 */
     const searchQuery = reactive({
-        __page__: page.props.current_page,
-        __per_page__: page.props.per_page,
+        __page__: page.props.meta?.current_page ?? 0,
+        __per_page__: page.props.meta?.per_page ?? 0,
         fast_search: '',
     })
     /** 内部是否调用fetchListData */

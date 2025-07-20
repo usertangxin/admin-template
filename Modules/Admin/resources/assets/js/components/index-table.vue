@@ -61,7 +61,7 @@ const pagination = computed(() => {
     return {
         current: store.searchQuery.__page__,
         pageSize: store.searchQuery.__per_page__,
-        total: page.props.total ?? 0,
+        total: page.props.meta?.total ?? 0,
         showPageSize: true,
     }
 })

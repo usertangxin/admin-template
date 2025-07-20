@@ -45,7 +45,14 @@ import { Message } from '@arco-design/web-vue';
 import { colorMatch } from '../../util';
 import { provideIndexShareStore } from '../../IndexShare';
 
-const props = defineProps(['list', 'group_list'])
+const props = defineProps(['data'])
+const list = computed(function () {
+    return props.data.list;
+})
+const group_list = computed(function () {
+    return props.data.group_list;
+})
+
 const groupHeight = ref(0)
 
 const store = provideIndexShareStore({
@@ -74,7 +81,7 @@ window.addEventListener('resize', () => {
 
 const origin_kvs = {};
 
-props.list.forEach(element => {
+list.value.forEach(element => {
     if (element.key) {
         origin_kvs[element.key] = element.value;
     }
@@ -83,8 +90,8 @@ props.list.forEach(element => {
 const current_group_index = ref(0);
 
 const current_group_list = computed(function () {
-    const group_code = props.group_list[current_group_index.value].code;
-    const config_list = props.list.filter(function (item) {
+    const group_code = group_list.value[current_group_index.value].code;
+    const config_list = list.value.filter(function (item) {
         return item.code == group_code;
     })
     return config_list;
