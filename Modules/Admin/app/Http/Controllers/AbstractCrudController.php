@@ -41,6 +41,17 @@ abstract class AbstractCrudController extends AbstractController
     }
 
     /**
+     * 视图前缀
+     */
+    protected function getViewPrefix(): string
+    {
+        $shortName = \class_basename($this);
+        $prefix = Str::of($shortName)->replace('Controller', '')->snake('_');
+
+        return $prefix;
+    }
+
+    /**
      * 排序
      *
      * @return mixed
@@ -49,7 +60,7 @@ abstract class AbstractCrudController extends AbstractController
      */
     protected function orderBy()
     {
-        return request('order_by', ['create_time' => 'desc']);
+        return request('order_by', ['id' => 'desc']);
     }
 
     /**
@@ -125,7 +136,7 @@ abstract class AbstractCrudController extends AbstractController
                 break;
         }
         if (! empty($resourceCollection = $this->getResource())) {
-            $data = new $resourceCollection($data);
+            $data = $resourceCollection::collection($data);
         }
 
         Inertia::share('__page_index__', true);
@@ -149,7 +160,7 @@ abstract class AbstractCrudController extends AbstractController
 
         Inertia::share('__page_read__', true);
 
-        return $this->success($data);
+        return $this->success($data, view: $this->getViewPrefix() . '/save');
     }
 
     /**
@@ -163,8 +174,10 @@ abstract class AbstractCrudController extends AbstractController
     #[SystemMenu('创建')]
     public function create()
     {
+        Inertia::share('__page_create__', true);
+
         if (\request()->method() == 'GET') {
-            return $this->inertia();
+            return $this->success(view: $this->getViewPrefix() . '/save');
         }
 
         $data = request()->all();
@@ -174,9 +187,7 @@ abstract class AbstractCrudController extends AbstractController
             $result = new $resourceCollection($result);
         }
 
-        Inertia::share('__page_create__', true);
-
-        return $this->success($result);
+        return $this->success($result, view: $this->getViewPrefix() . '/save');
     }
 
     /**
@@ -199,7 +210,7 @@ abstract class AbstractCrudController extends AbstractController
                 $data = new $resourceCollection($data);
             }
 
-            return $this->success($data);
+            return $this->success($data, view: $this->getViewPrefix() . '/save');
         }
 
         $data = request()->all();
@@ -209,7 +220,7 @@ abstract class AbstractCrudController extends AbstractController
             $result = new $resourceCollection($result);
         }
 
-        return $this->success($result);
+        return $this->success($result, view: $this->getViewPrefix() . '/save');
     }
 
     /**
@@ -284,15 +295,12 @@ abstract class AbstractCrudController extends AbstractController
                 break;
         }
         if (! empty($resourceCollection = $this->getResource())) {
-            $data = new $resourceCollection($data);
+            $data = $resourceCollection::collection($data);
         }
-
-        $shortName = \class_basename(\request()->route()->getControllerClass());
-        $prefix = Str::of($shortName)->replace('Controller', '')->snake('_');
 
         Inertia::share('__page_recycle__', true);
 
-        return $this->success($data, view: $prefix . '/index');
+        return $this->success($data, view: $this->getViewPrefix() . '/index');
     }
 
     /**

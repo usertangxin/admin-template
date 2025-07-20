@@ -30,7 +30,7 @@ abstract class AbstractController
         }
 
         if ($data instanceof JsonResource) {
-            $data = $data->toArray(\request());
+            $data = (array) $data->toResponse(\request())->getData();
         }
 
         return Inertia::render($view, $data);
@@ -47,10 +47,10 @@ abstract class AbstractController
      *
      * @throws BindingResolutionException
      */
-    protected function success($data = null, $message = '', $code = 0, $view = null)
+    protected function success($data = [], $message = '', $code = 0, $view = null)
     {
         if (\request()->expectsJson()) {
-            return response()->json([
+            return new JsonResource([
                 'code'    => $code,
                 'message' => $message,
                 'data'    => $data,
@@ -76,9 +76,10 @@ abstract class AbstractController
     protected function fail($message = 'fail', $code = 400, $view = null)
     {
         if (\request()->expectsJson()) {
-            return response()->json([
+            return new JsonResource([
                 'code'    => $code,
                 'message' => $message,
+                'data'    => [],
             ]);
         }
 

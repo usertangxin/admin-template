@@ -1,5 +1,5 @@
 <template>
-    <div class="-m-3 p-3 mb-3 form-action sticky top-0">
+    <div class="-m-3 p-3 mb-3 form-action sticky top-0 z-10">
         <a-row>
             <a-col flex="auto">
                 <a-space>
@@ -37,20 +37,22 @@
                         </slot>
                         <slot name="fullscreen-after"></slot>
                         <a-divider direction="vertical"></a-divider>
-                        <slot name="submit-before"></slot>
-                        <slot name="submit">
-                            <a-button type="primary">
-                                提交
-                            </a-button>
-                        </slot>
-                        <slot name="submit-after"></slot>
-                        <slot name="reset-before"></slot>
-                        <slot name="reset">
-                            <a-button type="secondary">
-                                重置
-                            </a-button>
-                        </slot>
-                        <slot name="reset-after"></slot>
+                        <template v-if="page.props.__page_create__ || page.props.__page_update__">
+                            <slot name="reset-before"></slot>
+                            <slot name="reset">
+                                <a-button type="secondary">
+                                    重置
+                                </a-button>
+                            </slot>
+                            <slot name="reset-after"></slot>
+                            <slot name="submit-before"></slot>
+                            <slot name="submit">
+                                <a-button type="primary">
+                                    提交
+                                </a-button>
+                            </slot>
+                            <slot name="submit-after"></slot>
+                        </template>
                     </slot>
                     <slot name="left-after"></slot>
                 </a-space>

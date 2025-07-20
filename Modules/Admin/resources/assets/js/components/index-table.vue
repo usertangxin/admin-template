@@ -5,7 +5,12 @@
         @page-size-change="handlePageSizeChange" v-bind="attrs">
         <template v-for="(column, index) in comColumns" :key="index" v-slot:[column.slotName]="scope">
             <slot :name="column.slotName" v-bind="scope">
-                <template v-if="!column.type">
+                <template v-if="column.slotName === '__action__'">
+                    <a-space>
+                        <a-button type="text" @click="handleDetail(scope.record)">详情</a-button>
+                    </a-space>
+                </template>
+                <template v-else-if="!column.type">
                     {{ scope.record[column.dataIndex] || '' }}
                 </template>
                 <template v-else-if="column.type === 'image'">
@@ -41,7 +46,7 @@
 <script setup>
 import { computed, ref, useAttrs, defineExpose, watch } from 'vue';
 import { useInjectIndexShareStore } from '../IndexShare'
-import { usePage } from '@inertiajs/vue3';
+import { router, usePage } from '@inertiajs/vue3';
 import { recursiveFilter } from '../util';
 import _ from 'lodash'
 
@@ -129,6 +134,13 @@ const analysisMedia = (url) => {
     }
 
     return [url]; // 单个URL作为数组返回
+}
+
+const handleDetail = (record) => {
+    router.visit('./read?id=' + record.id, {
+        preserveState: true,
+        preserveScroll: true,
+    })
 }
 
 defineExpose({

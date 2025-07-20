@@ -18,6 +18,7 @@ import IndexTable from './components/index-table.vue'
 import DictTag from './components/dict-tag.vue'
 import IndexAction from './components/index-action.vue'
 import FormAction from './components/form-action.vue'
+import FormCol from './components/form-col.vue'
 
 document.body.setAttribute('arco-theme', window.localStorage.getItem('arco-theme') || 'light')
 
@@ -55,6 +56,7 @@ const useComm = {
         .component('dict-tag', DictTag)
         .component('index-action', IndexAction)
         .component('form-action', FormAction)
+        .component('form-col', FormCol)
     }
 }
 
