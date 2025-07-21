@@ -3,11 +3,13 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use InvalidArgumentException;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\DataBase\TreeCollection;
+use Modules\Admin\Classes\Interfaces\TreeCollectionInterface;
 use Modules\Admin\Classes\Utils\ModelUtil;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
@@ -58,13 +60,15 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @throws BindingResolutionException
      */
-    protected function orderBy()
+    protected function orderBy(): array
     {
         return request('__order_by__', ['id' => 'desc']);
     }
 
     /**
      * 资源
+     *
+     * @return class-string<JsonResource>
      */
     protected function getResource(): ?string
     {
@@ -73,13 +77,24 @@ abstract class AbstractCrudController extends AbstractController
 
     /**
      * 树集合
+     *
+     * @return class-string<TreeCollectionInterface>
      */
     protected function getTreeCollection(): string
     {
         return TreeCollection::class;
     }
 
-    protected function validator($scene, $data) {}
+    protected function validate(): array
+    {
+        $model_classname = get_class($this->getModel());
+        $request_classname = Str::replace('\\Models\\', '\\Http\\Requests\\', $model_classname) . 'Request';
+        /** @var \Illuminate\Foundation\Http\FormRequest */
+        $request = \app()->make($request_classname);
+        $data = $request->validated();
+
+        return $data;
+    }
 
     /**
      * 关联预加载
@@ -191,8 +206,7 @@ abstract class AbstractCrudController extends AbstractController
             return $this->success(view: $this->getViewPrefix() . '/save');
         }
 
-        $data = request()->all();
-        $this->validator('save', $data);
+        $data = $this->validate();
         $result = $this->getModel()->create($data);
         if (! empty($resourceCollection = $this->getResource())) {
             $result = new $resourceCollection($result);
@@ -224,8 +238,7 @@ abstract class AbstractCrudController extends AbstractController
             return $this->success($data, view: $this->getViewPrefix() . '/save');
         }
 
-        $data = request()->all();
-        $this->validator('update', $data);
+        $data = $this->validate();
         $result = $this->getModel()->find($id)->update($data);
         if (! empty($resourceCollection = $this->getResource())) {
             $result = new $resourceCollection($result);

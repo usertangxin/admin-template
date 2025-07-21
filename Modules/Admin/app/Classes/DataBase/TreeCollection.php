@@ -3,9 +3,10 @@
 namespace Modules\Admin\Classes\DataBase;
 
 use Illuminate\Database\Eloquent\Collection;
+use Modules\Admin\Classes\Interfaces\TreeCollectionInterface;
 use Modules\Admin\Classes\Utils\ArrUtil;
 
-class TreeCollection extends Collection
+class TreeCollection extends Collection implements TreeCollectionInterface
 {
     public $for_key = 'parent_id';
 
@@ -13,7 +14,7 @@ class TreeCollection extends Collection
 
     public $sub_coll_key = 'children';
 
-    public function toTree()
+    public function toTree(): static
     {
         $items = $this->toArray();
         $tree = ArrUtil::convertToTree($items, $this->for_key, $this->local_key, $this->sub_coll_key);
@@ -22,7 +23,7 @@ class TreeCollection extends Collection
         return $this;
     }
 
-    public static function new(mixed $items = [], string $for_key = 'parent_id', string $local_key = 'id', string $sub_coll_key = 'children')
+    public static function new(mixed $items = [], string $for_key = 'parent_id', string $local_key = 'id', string $sub_coll_key = 'children'): static
     {
         $tree = new static($items);
         $tree->for_key = $for_key;

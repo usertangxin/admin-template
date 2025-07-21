@@ -62,6 +62,15 @@ class CrudTest extends AbstractAuthTestCase
     public function test_create(): void
     {
         //
+        $auth = $this->auth();
+        $response = $auth->postJson('/web/admin/CrudTest/create', [
+            'name' => 'asdf',
+        ]);
+        $response->assertStatus(200);
+        $response = $auth->postJson('/web/admin/CrudTest/create', [
+            'name' => 'asdf',
+        ]);
+        $response->assertStatus(422);
     }
 
     public function test_update(): void
