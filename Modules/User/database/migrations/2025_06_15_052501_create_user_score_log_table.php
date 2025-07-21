@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('after')->comment('变更后');
             $table->string('memo')->comment('备注');
             $table->unsignedInteger('created_by')->nullable()->comment('创建者');
-            $table->dateTime('create_time')->nullable()->comment('创建时间');
+            $table->dateTime('created_at')->nullable()->comment('创建时间');
         });
     }
 

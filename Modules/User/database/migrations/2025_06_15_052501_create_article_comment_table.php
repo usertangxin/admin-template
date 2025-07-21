@@ -24,9 +24,9 @@ return new class extends Migration
             $table->string('ip_location')->nullable()->comment('IP所属地');
             $table->string('os', 50)->nullable()->comment('操作系统');
             $table->string('browser', 50)->nullable()->comment('浏览器');
-            $table->dateTime('create_time')->nullable()->comment('创建时间');
-            $table->dateTime('update_time')->nullable()->comment('更新时间');
-            $table->dateTime('delete_time')->nullable()->comment('删除时间');
+            $table->dateTime('created_at')->nullable()->comment('创建时间');
+            $table->dateTime('updated_at')->nullable()->comment('更新时间');
+            $table->dateTime('deleted_at')->nullable()->comment('删除时间');
         });
     }
 

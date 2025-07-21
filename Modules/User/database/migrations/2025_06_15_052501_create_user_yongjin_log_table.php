@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('before', 10, 0)->comment('变更前');
             $table->decimal('after', 10, 0)->comment('变更后');
             $table->string('memo')->comment('备注');
-            $table->dateTime('create_time')->nullable()->comment('创建时间');
+            $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->unsignedInteger('created_by')->nullable()->comment('创建者');
         });
     }

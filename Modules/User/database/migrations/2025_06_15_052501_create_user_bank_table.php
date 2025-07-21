@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('bank_name')->comment('开户行');
             $table->string('bank_number')->comment('银行卡号');
             $table->string('bank_phone')->comment('预留手机号');
-            $table->dateTime('create_time')->nullable()->comment('添加时间');
-            $table->dateTime('update_time')->nullable()->comment('更新时间');
+            $table->dateTime('created_at')->nullable()->comment('添加时间');
+            $table->dateTime('updated_at')->nullable()->comment('更新时间');
         });
     }
 

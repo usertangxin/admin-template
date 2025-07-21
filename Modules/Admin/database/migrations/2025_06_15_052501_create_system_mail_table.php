@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('content', 500)->nullable()->comment('邮箱内容');
             $table->string('status', 20)->nullable()->comment('发送状态');
             $table->string('response', 500)->nullable()->comment('返回结果');
-            $table->dateTime('create_time')->nullable()->comment('创建时间');
-            $table->dateTime('update_time')->nullable()->comment('修改时间');
-            $table->dateTime('delete_time')->nullable()->comment('删除时间');
+            $table->dateTime('created_at')->nullable()->comment('创建时间');
+            $table->dateTime('updated_at')->nullable()->comment('修改时间');
+            $table->dateTime('deleted_at')->nullable()->comment('删除时间');
         });
     }
 

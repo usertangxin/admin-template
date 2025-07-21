@@ -25,8 +25,8 @@ return new class extends Migration
             $table->string('district_code')->nullable()->comment('区code');
             $table->string('detail')->comment('详细地址');
             $table->unsignedTinyInteger('is_default')->default(2)->comment('是否是详细地址:dict=yes_or_no');
-            $table->dateTime('create_time')->nullable()->comment('插入时间');
-            $table->dateTime('update_time')->nullable()->comment('更新时间');
+            $table->dateTime('created_at')->nullable()->comment('插入时间');
+            $table->dateTime('updated_at')->nullable()->comment('更新时间');
         });
     }
 

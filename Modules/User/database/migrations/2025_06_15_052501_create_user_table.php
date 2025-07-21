@@ -34,9 +34,9 @@ return new class extends Migration
             $table->string('last_login_ip')->nullable()->comment('最后登录IP');
             $table->string('last_login_type')->nullable()->comment('最后登录方式');
             $table->boolean('status')->nullable()->default(true)->comment('状态:dict=data_status');
-            $table->dateTime('create_time')->nullable()->comment('创建时间');
-            $table->dateTime('update_time')->nullable()->comment('更新时间');
-            $table->dateTime('delete_time')->nullable()->comment('删除时间');
+            $table->dateTime('created_at')->nullable()->comment('创建时间');
+            $table->dateTime('updated_at')->nullable()->comment('更新时间');
+            $table->dateTime('deleted_at')->nullable()->comment('删除时间');
             $table->string('mini_openid')->nullable()->comment('小程序openid');
             $table->string('official_openid')->nullable()->comment('公众号openid');
             $table->string('alipay_name')->nullable()->comment('支付宝账户姓名');

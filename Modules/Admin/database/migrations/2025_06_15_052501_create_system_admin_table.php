@@ -24,15 +24,15 @@ return new class extends Migration
             $table->unsignedInteger('dept_id')->nullable()->index('system_admin_dept_id')->comment('部门ID');
             $table->string('status')->nullable()->default('normal')->comment('状态:dict=data_status');
             $table->string('login_ip', 45)->nullable()->comment('最后登陆IP');
-            $table->dateTime('login_time')->nullable()->comment('最后登陆时间');
+            $table->dateTime('login_at')->nullable()->comment('最后登陆时间');
             $table->string('backend_setting', 500)->nullable()->comment('后台设置数据');
             $table->text('remark')->nullable()->comment('备注');
             $table->rememberToken()->nullable()->comment('记住我');
             $table->integer('created_by')->nullable()->comment('创建者');
             $table->integer('updated_by')->nullable()->comment('更新者');
-            $table->dateTime('create_time')->nullable()->comment('创建时间');
-            $table->dateTime('update_time')->nullable()->comment('修改时间');
-            $table->dateTime('delete_time')->nullable()->comment('删除时间');
+            $table->dateTime('created_at')->nullable()->comment('创建时间');
+            $table->dateTime('updated_at')->nullable()->comment('修改时间');
+            $table->dateTime('deleted_at')->nullable()->comment('删除时间');
         });
     }
 

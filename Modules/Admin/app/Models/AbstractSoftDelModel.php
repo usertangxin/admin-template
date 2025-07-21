@@ -8,5 +8,5 @@ abstract class AbstractSoftDelModel extends AbstractModel
 {
     use SoftDeletes;
 
-    const DELETED_AT = 'delete_time';
+    const DELETED_AT = 'deleted_at';
 }

@@ -17,9 +17,9 @@ const store = provideIndexShareStore({
         { title: '电子邮箱', dataIndex: 'email' },
         { title: '状态', dataIndex: 'status', type: 'dict_tag', dict: 'data_status' },
         { title: '备注', dataIndex: 'remark', },
-        { title: '创建时间', dataIndex: 'create_time', show: false, },
+        { title: '创建时间', dataIndex: 'created_at', show: false, },
         { title: '最后登陆IP', dataIndex: 'login_ip', show: false, },
-        { title: '最后登陆时间', dataIndex: 'login_time', show: false, },
+        { title: '最后登陆时间', dataIndex: 'login_at', show: false, },
     ],
 })
 

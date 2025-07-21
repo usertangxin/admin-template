@@ -15,7 +15,7 @@ return new class extends Migration
             $table->comment('用户签到日志表');
             $table->increments('id')->comment('编号');
             $table->unsignedInteger('user_id')->comment('用户编号');
-            $table->dateTime('create_time')->comment('创建时间');
+            $table->dateTime('created_at')->comment('创建时间');
         });
     }
 

@@ -24,10 +24,10 @@ return new class extends Migration
             $table->string('db_password')->comment('数据库密码');
             $table->string('db_hostport')->comment('数据库连接端口');
             $table->boolean('status')->nullable()->default(true)->comment('状态:dict=data_status');
-            $table->dateTime('create_time')->nullable()->comment('创建时间');
-            $table->dateTime('update_time')->nullable()->comment('更新时间');
-            $table->dateTime('delete_time')->nullable()->comment('删除时间');
-            $table->dateTime('expired_time')->nullable()->comment('到期时间');
+            $table->dateTime('created_at')->nullable()->comment('创建时间');
+            $table->dateTime('updated_at')->nullable()->comment('更新时间');
+            $table->dateTime('deleted_at')->nullable()->comment('删除时间');
+            $table->dateTime('expired_at')->nullable()->comment('到期时间');
         });
     }
 

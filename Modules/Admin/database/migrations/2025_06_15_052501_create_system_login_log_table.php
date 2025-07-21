@@ -21,13 +21,13 @@ return new class extends Migration
             $table->string('browser', 50)->nullable()->comment('浏览器');
             $table->string('status', 20)->nullable()->comment('登录状态:dict=success_or_fail');
             $table->string('message', 50)->nullable()->comment('提示消息');
-            $table->dateTime('login_time')->useCurrentOnUpdate()->useCurrent()->comment('登录时间');
+            $table->dateTime('login_at')->useCurrentOnUpdate()->useCurrent()->comment('登录时间');
             $table->string('remark')->nullable()->comment('备注');
             $table->integer('created_by')->nullable()->comment('创建者');
             $table->integer('updated_by')->nullable()->comment('更新者');
-            $table->dateTime('create_time')->nullable()->comment('创建时间');
-            $table->dateTime('update_time')->nullable()->comment('更新时间');
-            $table->dateTime('delete_time')->nullable()->comment('删除时间');
+            $table->dateTime('created_at')->nullable()->comment('创建时间');
+            $table->dateTime('updated_at')->nullable()->comment('更新时间');
+            $table->dateTime('deleted_at')->nullable()->comment('删除时间');
         });
     }
 

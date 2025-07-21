@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('remark')->nullable()->comment('备注');
             $table->integer('created_by')->nullable()->comment('创建人');
             $table->integer('updated_by')->nullable()->comment('更新人');
-            $table->dateTime('create_time')->nullable()->comment('创建时间');
-            $table->dateTime('update_time')->nullable()->comment('修改时间');
-            $table->dateTime('delete_time')->nullable()->comment('删除时间');
+            $table->dateTime('created_at')->nullable()->comment('创建时间');
+            $table->dateTime('updated_at')->nullable()->comment('修改时间');
+            $table->dateTime('deleted_at')->nullable()->comment('删除时间');
         });
     }
 

@@ -25,9 +25,9 @@ return new class extends Migration
             $table->boolean('audit_status')->nullable()->comment('审核状态:dict=audit_status');
             $table->unsignedInteger('created_by')->nullable()->comment('创建者');
             $table->unsignedInteger('updated_by')->nullable()->comment('更新者');
-            $table->dateTime('create_time')->nullable()->comment('创建时间');
-            $table->dateTime('update_time')->nullable()->comment('修改时间');
-            $table->dateTime('delete_time')->nullable()->comment('删除时间');
+            $table->dateTime('created_at')->nullable()->comment('创建时间');
+            $table->dateTime('updated_at')->nullable()->comment('修改时间');
+            $table->dateTime('deleted_at')->nullable()->comment('删除时间');
             $table->string('ip', 45)->nullable()->comment('登录IP地址');
             $table->string('ip_location')->nullable()->comment('IP所属地');
             $table->string('os', 50)->nullable()->comment('操作系统');
