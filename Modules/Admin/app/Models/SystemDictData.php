@@ -4,5 +4,5 @@ namespace Modules\Admin\Models;
 
 class SystemDictData extends AbstractModel
 {
-    protected $table = 'system_dict_data';
+    protected $table = 'system_dict_datas';
 }

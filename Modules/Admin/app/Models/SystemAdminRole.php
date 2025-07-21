@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class SystemAdminRole extends Pivot
 {
-    protected $table = 'system_admin_role';
+    protected $table = 'system_admin_roles';
 
     public $incrementing = true;
 

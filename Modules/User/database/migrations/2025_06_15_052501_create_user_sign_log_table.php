@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_sign_log', function (Blueprint $table) {
+        Schema::create('user_sign_logs', function (Blueprint $table) {
             $table->comment('用户签到日志表');
             $table->increments('id')->comment('编号');
             $table->unsignedInteger('user_id')->comment('用户编号');

@@ -6,5 +6,5 @@ namespace Modules\Admin\Models;
 
 class SystemNotice extends AbstractSoftDelModel
 {
-    protected $table = 'system_notice';
+    protected $table = 'system_notices';
 }

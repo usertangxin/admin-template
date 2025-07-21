@@ -6,5 +6,5 @@ namespace Modules\Admin\Models;
 
 class SystemLoginLog extends AbstractSoftDelModel
 {
-    protected $table = 'system_login_log';
+    protected $table = 'system_login_logs';
 }

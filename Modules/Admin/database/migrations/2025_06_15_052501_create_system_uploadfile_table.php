@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_uploadfile', function (Blueprint $table) {
+        Schema::create('system_uploadfiles', function (Blueprint $table) {
             $table->comment('附件管理表');
             $table->increments('id')->comment('主键');
             $table->string('storage_mode')->nullable()->default('local')->comment('存储模式:dict=upload_mode');

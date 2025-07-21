@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_admin_post', function (Blueprint $table) {
+        Schema::create('system_admin_posts', function (Blueprint $table) {
             $table->comment('系统管理员与岗位关联表');
             $table->increments('id')->comment('主键');
             $table->unsignedInteger('admin_id')->index('system_admin_post_idx_admin_id')->comment('系统管理员主键');

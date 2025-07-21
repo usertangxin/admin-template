@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class SystemDeptLeader extends Pivot
 {
-    protected $table = 'system_dept_leader';
+    protected $table = 'system_dept_leaders';
 
     public $incrementing = true;
 

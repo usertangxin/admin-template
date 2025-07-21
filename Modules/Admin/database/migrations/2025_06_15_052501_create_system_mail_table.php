@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_mail', function (Blueprint $table) {
+        Schema::create('system_mails', function (Blueprint $table) {
             $table->comment('邮件记录');
             $table->increments('id')->comment('编号');
             $table->string('gateway', 50)->nullable()->comment('网关');

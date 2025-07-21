@@ -6,5 +6,5 @@ namespace Modules\Admin\Models;
 
 class SystemPost extends AbstractSoftDelModel
 {
-    protected $table = 'system_post';
+    protected $table = 'system_posts';
 }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_oper_log', function (Blueprint $table) {
+        Schema::create('system_oper_logs', function (Blueprint $table) {
             $table->comment('操作日志表');
             $table->bigIncrements('id')->comment('主键');
             $table->string('admin_name', 20)->nullable()->index('system_oper_log_admin_name')->comment('系统管理员名');

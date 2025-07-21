@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class SystemRoleMenu extends Pivot
 {
-    protected $table = 'system_role_menu';
+    protected $table = 'system_role_menus';
 
     public $incrementing = true;
 

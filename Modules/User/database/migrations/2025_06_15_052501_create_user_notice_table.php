@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_notice', function (Blueprint $table) {
+        Schema::create('user_notices', function (Blueprint $table) {
             $table->comment('用户公告');
             $table->increments('id')->comment('主键');
             $table->string('title')->nullable()->comment('标题');

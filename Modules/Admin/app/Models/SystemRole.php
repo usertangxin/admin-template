@@ -4,7 +4,7 @@ namespace Modules\Admin\Models;
 
 class SystemRole extends AbstractSoftDelModel
 {
-    protected $table = 'system_role';
+    protected $table = 'system_roles';
 
     public function depts()
     {

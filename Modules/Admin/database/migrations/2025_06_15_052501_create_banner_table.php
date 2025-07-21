@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('banner', function (Blueprint $table) {
+        Schema::create('banners', function (Blueprint $table) {
             $table->comment('轮播图表');
             $table->increments('id')->comment('编号');
             $table->text('img')->nullable()->comment('图片');

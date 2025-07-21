@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_role', function (Blueprint $table) {
+        Schema::create('system_roles', function (Blueprint $table) {
             $table->comment('角色信息表');
             $table->increments('id')->comment('主键');
             $table->unsignedInteger('parent_id')->nullable()->comment('父ID');

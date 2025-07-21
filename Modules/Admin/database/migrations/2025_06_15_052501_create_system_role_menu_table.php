@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_role_menu', function (Blueprint $table) {
+        Schema::create('system_role_menus', function (Blueprint $table) {
             $table->comment('角色与菜单关联表');
             $table->increments('id')->comment('编号');
             $table->unsignedInteger('role_id')->index('system_role_menu_idx_role_id')->comment('角色主键');

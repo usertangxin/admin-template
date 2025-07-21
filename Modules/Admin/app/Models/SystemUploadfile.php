@@ -6,5 +6,5 @@ namespace Modules\Admin\Models;
 
 class SystemUploadfile extends AbstractSoftDelModel
 {
-    protected $table = 'system_uploadfile';
+    protected $table = 'system_uploadfiles';
 }

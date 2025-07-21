@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_dept', function (Blueprint $table) {
+        Schema::create('system_depts', function (Blueprint $table) {
             $table->comment('部门信息表');
             $table->increments('id')->comment('主键');
             $table->unsignedInteger('parent_id')->nullable()->index('system_dept_parent_id')->comment('父ID');

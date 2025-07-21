@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_money_log', function (Blueprint $table) {
+        Schema::create('user_money_logs', function (Blueprint $table) {
             $table->comment('用户余额变更表');
             $table->increments('id')->comment('编号');
             $table->unsignedInteger('user_id')->comment('用户编号');

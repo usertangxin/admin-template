@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_login_log', function (Blueprint $table) {
+        Schema::create('user_login_logs', function (Blueprint $table) {
             $table->comment('用户登录日志');
             $table->increments('id')->comment('主键');
             $table->string('username', 20)->nullable()->comment('用户名');
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('ip_location')->nullable()->comment('IP所属地');
             $table->string('os', 50)->nullable()->comment('操作系统');
             $table->string('browser', 50)->nullable()->comment('浏览器');
-            $table->smallInteger('status')->nullable()->default(1)->comment('登录状态 (1成功 2失败)');
+            $table->string('status')->nullable()->comment('登录状态:dict=success_or_fail');
             $table->string('message', 50)->nullable()->comment('提示消息');
             $table->dateTime('login_time')->useCurrentOnUpdate()->useCurrent()->comment('登录时间');
             $table->string('remark')->nullable()->comment('备注');

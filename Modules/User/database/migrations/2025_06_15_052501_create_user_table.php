@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->comment('用户表');
             $table->increments('id')->comment('编号');
             $table->unsignedInteger('parent_id')->default(0)->comment('上级编号');
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->decimal('money_freeze', 15)->unsigned()->default(0)->comment('冻结余额');
             $table->unsignedInteger('score')->default(0)->comment('积分');
             $table->unsignedInteger('score_freeze')->default(0)->comment('冻结积分');
-            $table->unsignedTinyInteger('sex')->default(1)->comment('性别:dict=sex');
+            $table->string('sex')->default('unknown')->comment('性别:dict=sex');
             $table->string('avatar')->nullable()->comment('头像');
             $table->dateTime('birthday')->nullable()->comment('生日');
             $table->unsignedInteger('vip')->default(0)->comment('会员等级');

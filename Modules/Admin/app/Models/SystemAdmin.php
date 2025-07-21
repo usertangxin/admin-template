@@ -16,7 +16,7 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
 
-    protected $table = 'system_admin';
+    protected $table = 'system_admins';
 
     protected function casts()
     {

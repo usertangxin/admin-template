@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_score_log', function (Blueprint $table) {
+        Schema::create('user_score_logs', function (Blueprint $table) {
             $table->comment('用户积分变更记录表');
             $table->increments('id')->comment('编号');
             $table->unsignedInteger('user_id')->comment('用户编号');

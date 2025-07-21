@@ -6,5 +6,5 @@ namespace Modules\Admin\Models;
 
 class SystemDictType extends AbstractSoftDelModel
 {
-    protected $table = 'system_dict_type';
+    protected $table = 'system_dict_types';
 }

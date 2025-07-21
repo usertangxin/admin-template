@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_post', function (Blueprint $table) {
+        Schema::create('system_posts', function (Blueprint $table) {
             $table->comment('岗位信息表');
             $table->increments('id')->comment('主键');
             $table->string('name', 50)->nullable()->comment('岗位名称');

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('crud_test', function (Blueprint $table) {
+        Schema::create('crud_tests', function (Blueprint $table) {
             $table->id();
             $table->comment('CRUD功能性测试');
             $table->string('name')->nullable()->comment('名称');

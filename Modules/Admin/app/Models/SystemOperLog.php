@@ -6,5 +6,5 @@ namespace Modules\Admin\Models;
 
 class SystemOperLog extends AbstractSoftDelModel
 {
-    protected $table = 'system_oper_log';
+    protected $table = 'system_oper_logs';
 }

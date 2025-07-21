@@ -12,7 +12,7 @@ class CrudTest extends AbstractSoftDelModel
 {
     use HasFactory;
 
-    protected $table = 'crud_test';
+    protected $table = 'crud_tests';
 
     #[Scope]
     protected function fast_search(Builder $builder, $value)

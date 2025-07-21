@@ -4,7 +4,7 @@ namespace Modules\Admin\Models;
 
 class SystemDept extends AbstractSoftDelModel
 {
-    protected $table = 'system_dept';
+    protected $table = 'system_depts';
 
     public function leader()
     {

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('article_comment', function (Blueprint $table) {
+        Schema::create('article_comments', function (Blueprint $table) {
             $table->comment('文章评论');
             $table->increments('id');
             $table->unsignedInteger('parent_id')->nullable()->default(0)->comment('父评论编号');
