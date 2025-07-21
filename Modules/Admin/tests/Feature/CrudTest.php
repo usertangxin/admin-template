@@ -21,7 +21,7 @@ class CrudTest extends AbstractAuthTestCase
         $response->assertJsonCount(12, 'data');
         $response->assertJson([
             'meta' => [
-                'current_page' => 1
+                'current_page' => 1,
             ],
             'links' => [],
         ]);
@@ -52,6 +52,11 @@ class CrudTest extends AbstractAuthTestCase
         // 测试存在字段但不存在搜索范围的搜索
         $response = $auth->getJson('/web/admin/CrudTest/index?__list_type__=all&name=asdf');
         $response->assertJsonCount(3, 'data');
+
+        CrudTestFactory::new()->count(2)->create(['name' => 'children ' . $faker->name(), 'parent_id' => 1]);
+        // 测试树状结构
+        $response = $auth->getJson('/web/admin/CrudTest/index?__list_type__=tree&__order_by__[id]=asc');
+        $response->assertJsonCount(2, 'data.0.children');
     }
 
     public function test_create(): void

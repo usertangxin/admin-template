@@ -31,6 +31,10 @@
                         <template #color="{ record }">
                             <a-tag v-if="record.color" :style="[...colorMatch(record.color)]" bordered>{{ record.label
                                 }}</a-tag>
+
+                        </template>
+                        <template #action-column="{record}">
+                            <a-space></a-space>
                         </template>
                     </index-table>
                 </a-card>

@@ -19,7 +19,7 @@ export function useIndexShareStore() {
         title: '操作',
         width: 120,
         fixed: 'right',
-        slotName: '__action__',
+        slotName: 'action-column',
     })
     /** 表格的数据 */
     const listData = computed(() => {

@@ -118,7 +118,7 @@ export function recursiveForEach(arr, iteratee, children_key = 'children', paren
 }
 
 export function openFullscreen() {
-    const elem = document.getElementById('app')
+    const elem = document.getElementsByTagName('html')[0]
     // 标准方法
     if (elem.requestFullscreen) {
         elem.requestFullscreen();

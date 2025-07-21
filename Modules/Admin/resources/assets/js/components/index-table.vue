@@ -5,7 +5,7 @@
         @page-size-change="handlePageSizeChange" v-bind="attrs">
         <template v-for="(column, index) in comColumns" :key="index" v-slot:[column.slotName]="scope">
             <slot :name="column.slotName" v-bind="scope">
-                <template v-if="column.slotName === '__action__'">
+                <template v-if="column.slotName === 'action-column'">
                     <a-space>
                         <a-button type="text" @click="handleDetail(scope.record)">详情</a-button>
                     </a-space>
