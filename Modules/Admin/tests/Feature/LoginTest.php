@@ -126,7 +126,7 @@ class LoginTest extends TestCase
         ]);
         $this->assertAuthenticated();
         $this->assertNotEmpty(Auth::user()->login_ip);
-        $this->assertNotEmpty(Auth::user()->login_at);
+        $this->assertNotEmpty(Auth::user()->logged_at);
     }
 
     /**

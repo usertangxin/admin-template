@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('browser', 50)->nullable()->comment('浏览器');
             $table->string('status', 20)->nullable()->comment('登录状态:dict=success_or_fail');
             $table->string('message', 50)->nullable()->comment('提示消息');
-            $table->dateTime('login_at')->useCurrentOnUpdate()->useCurrent()->comment('登录时间');
+            $table->dateTime('logged_at')->useCurrentOnUpdate()->useCurrent()->comment('登录时间');
             $table->string('remark')->nullable()->comment('备注');
             $table->integer('created_by')->nullable()->comment('创建者');
             $table->integer('updated_by')->nullable()->comment('更新者');

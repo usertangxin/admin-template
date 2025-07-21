@@ -19,7 +19,7 @@ const store = provideIndexShareStore({
         { title: '备注', dataIndex: 'remark', },
         { title: '创建时间', dataIndex: 'created_at', show: false, },
         { title: '最后登陆IP', dataIndex: 'login_ip', show: false, },
-        { title: '最后登陆时间', dataIndex: 'login_at', show: false, },
+        { title: '最后登陆时间', dataIndex: 'logged_at', show: false, },
     ],
 })
 

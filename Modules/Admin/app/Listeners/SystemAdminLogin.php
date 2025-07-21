@@ -19,7 +19,7 @@ class SystemAdminLogin
     {
         if ($event->user instanceof SystemAdmin) {
             $event->user->login_ip = \request()->ip();
-            $event->user->login_at = now();
+            $event->user->logged_at = now();
             $event->user->save();
         }
     }

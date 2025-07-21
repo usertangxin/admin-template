@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedInteger('dept_id')->nullable()->index('system_admin_dept_id')->comment('部门ID');
             $table->string('status')->nullable()->default('normal')->comment('状态:dict=data_status');
             $table->string('login_ip', 45)->nullable()->comment('最后登陆IP');
-            $table->dateTime('login_at')->nullable()->comment('最后登陆时间');
+            $table->dateTime('logged_at')->nullable()->comment('最后登陆时间');
             $table->string('backend_setting', 500)->nullable()->comment('后台设置数据');
             $table->text('remark')->nullable()->comment('备注');
             $table->rememberToken()->nullable()->comment('记住我');
