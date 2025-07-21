@@ -60,7 +60,7 @@ abstract class AbstractCrudController extends AbstractController
      */
     protected function orderBy()
     {
-        return request('order_by', ['id' => 'desc']);
+        return request('__order_by__', ['id' => 'desc']);
     }
 
     /**
@@ -94,7 +94,18 @@ abstract class AbstractCrudController extends AbstractController
      */
     protected function searchWhere(): array
     {
-        return [];
+        $where = [];
+        foreach (request()->all() as $key => $value) {
+            if (Str::contains($key, '__')) {
+                continue;
+            }
+            if ($value === '') {
+                continue;
+            }
+            $where[$key] = $value;
+        }
+
+        return $where;
     }
 
     /**

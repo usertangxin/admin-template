@@ -21,4 +21,3 @@ class CrudTestFactory extends Factory
         ];
     }
 }
-

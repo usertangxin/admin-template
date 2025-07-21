@@ -30,7 +30,7 @@ Route::middleware([HandleInertiaRequests::class])->group(function () {
         SystemMenuRegisterService::fastRoute(SystemMenuController::class);
         SystemMenuRegisterService::fastRoute(SystemAdminController::class);
 
-        if(app()->isLocal() || app()->runningUnitTests()) {
+        if (app()->isLocal() || app()->runningUnitTests()) {
             SystemMenuRegisterService::fastRoute(CrudTestController::class);
         }
 

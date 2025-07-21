@@ -4,6 +4,7 @@ namespace Modules\Admin\Classes\Utils;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 
 class ModelUtil
 {
@@ -19,13 +20,16 @@ class ModelUtil
      */
     public static function bindSearch($query, $where)
     {
+        $all_fields = Schema::getColumnListing($query->getModel()->getTable());
         foreach ($where as $key => $value) {
             if ($query->hasNamedScope($key)) {
                 // 如果存在本地查询范围，则调用该范围
                 $query = $query->{$key}($value);
             } else {
                 // 否则使用直接的字段查询
-                $query = $query->where($key, $value);
+                if (in_array($key, $all_fields)) {
+                    $query = $query->where($key, $value);
+                }
             }
         }
 
