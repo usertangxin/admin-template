@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('system_dict_type');
+        Schema::dropIfExists('system_dict_types');
     }
 };

@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('system_oper_log');
+        Schema::dropIfExists('system_oper_logs');
     }
 };

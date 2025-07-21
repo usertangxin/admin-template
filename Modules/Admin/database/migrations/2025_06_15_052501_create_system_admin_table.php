@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('system_admin');
+        Schema::dropIfExists('system_admins');
     }
 };

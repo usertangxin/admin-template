@@ -6,7 +6,7 @@ use Illuminate\Database\SQLiteDatabaseDoesNotExistException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Modules\Admin\Models\SystemDictData;
+use Modules\Admin\Models\SystemDict;
 
 class SystemDictService
 {
@@ -15,7 +15,7 @@ class SystemDictService
     protected static Collection $list;
 
     /**
-     * @var SystemDictData[]
+     * @var SystemDict[]
      */
     protected static $databaseConfig;
 
@@ -39,7 +39,7 @@ class SystemDictService
         if (\app()->runningInConsole()) {
             try {
                 DB::connection()->getPdo();
-                if (! Schema::hasTable(SystemDictData::query()->getModel()->getTable())) {
+                if (! Schema::hasTable(SystemDict::query()->getModel()->getTable())) {
                     $run_diff = false;
                 }
             } catch (SQLiteDatabaseDoesNotExistException $e) {
@@ -48,7 +48,7 @@ class SystemDictService
 
         }
         if ($run_diff) {
-            static::$databaseConfig ??= SystemDictData::all();
+            static::$databaseConfig ??= SystemDict::all();
             $kv = [];
             foreach (static::$databaseConfig as $config) {
                 $kv[$config->value] = $config;
