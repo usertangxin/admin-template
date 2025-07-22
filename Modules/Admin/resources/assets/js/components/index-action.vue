@@ -175,21 +175,19 @@ watch(selectedKeys, (newVal, oldVal) => {
 })
 
 const toRecycle = () => {
-    router.visit('./recycle', {
-        preserveState: true,
-    })
+    router.visit('./recycle')
 }
 
 const toIndex = () => {
-    router.visit('./index', {
-        preserveState: true,
-    })
+    if (history.length > 1) {
+        history.back()
+    } else {
+        router.visit('./index')
+    }
 }
 
 const toCreate = () => {
-    router.visit('./create', {
-        preserveState: true,
-    })
+    router.visit('./create')
 }
 
 </script>

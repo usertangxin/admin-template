@@ -69,9 +69,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
 import { router, usePage } from '@inertiajs/vue3';
-import { recursiveForEach, recursiveMap } from '../util';
 import { changeFullScreen } from '../util'
 
 const page = usePage();
@@ -80,16 +78,12 @@ const refreshList = () => {
     router.reload()
 }
 
-const toRecycle = () => {
-    router.visit('./recycle', {
-        preserveState: true,
-    })
-}
-
 const toIndex = () => {
-    router.visit('./index', {
-        preserveState: true,
-    })
+    if(history.length > 1) {
+        history.back()
+    } else {
+        router.visit('./index')
+    }
 }
 
 </script>

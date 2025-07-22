@@ -137,10 +137,7 @@ const analysisMedia = (url) => {
 }
 
 const handleDetail = (record) => {
-    router.visit('./read?id=' + record.id, {
-        preserveState: true,
-        preserveScroll: true,
-    })
+    router.visit('./read?id=' + record.id)
 }
 
 defineExpose({
