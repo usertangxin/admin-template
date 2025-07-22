@@ -16,6 +16,7 @@ return new class extends Migration
             $table->comment('CRUD功能性测试');
             $table->unsignedInteger('parent_id')->nullable()->default(0)->comment('父ID');
             $table->string('name')->nullable()->comment('名称');
+            $table->string('status')->nullable()->default('normal')->comment('状态:dict=data_status');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('更新时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');

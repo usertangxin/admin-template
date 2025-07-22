@@ -69,6 +69,16 @@ class SystemDictService
         return static::$list;
     }
 
+    public static function getValuesByCode($code)
+    {
+        return static::getList()->where('code', $code)->pluck('value');
+    }
+
+    public static function getListByCode($code)
+    {
+        return static::getList()->where('code', $code);
+    }
+
     public static function getListHash()
     {
         return \sha1(static::getList()->toJson());

@@ -59,26 +59,134 @@ class CrudTest extends AbstractAuthTestCase
         $response->assertJsonCount(2, 'data.0.children');
     }
 
+    public function test_read()
+    {
+        $auth = $this->auth();
+        $response = $auth->getJson('/web/admin/CrudTest/read?id=1');
+        $response->assertJson([
+            'code' => 404,
+        ]);
+        CrudTestFactory::new()->create();
+        $response = $auth->getJson('/web/admin/CrudTest/read?id=1');
+        $response->assertJson([
+            'code' => 0,
+        ]);
+        $response->assertJsonPath('data.id', 1);
+    }
+
     public function test_create(): void
     {
-        //
         $auth = $this->auth();
         $response = $auth->postJson('/web/admin/CrudTest/create', [
             'name' => 'asdf',
         ]);
         $response->assertStatus(200);
+        // 测试重复名称
         $response = $auth->postJson('/web/admin/CrudTest/create', [
             'name' => 'asdf',
         ]);
-        $response->assertStatus(422);
+        $response->assertJson(['code' => 422]);
     }
 
     public function test_update(): void
     {
+        $auth = $this->auth();
+        CrudTestFactory::new()->create();
+        $response = $auth->postJson('/web/admin/CrudTest/update', [
+            'id'   => 1,
+            'name' => 'asdf',
+        ]);
+        $response->assertStatus(200);
+        $response->assertJsonPath('data.name', 'asdf');
+        // 测试修改自身但是名称重复
+        $response = $auth->postJson('/web/admin/CrudTest/update', [
+            'id'   => 1,
+            'name' => 'asdf',
+        ]);
+        $response->assertStatus(200);
+
+        // 测试修改不存在的
+        $response = $auth->postJson('/web/admin/CrudTest/update', [
+            'id'   => 2,
+            'name' => 'asdf1',
+        ]);
+        $response->assertJson(['code' => 404]);
+
+        // 测试修改为重复名称
+        CrudTestFactory::new()->create();
+        $response = $auth->postJson('/web/admin/CrudTest/update', [
+            'id'   => 2,
+            'name' => 'asdf',
+        ]);
+        $response->assertJson(['code' => 422]);
+    }
+
+    public function test_destroy(): void
+    {
+        // 测试删除不存在的
+        $auth = $this->auth();
+        $response = $auth->deleteJson('/web/admin/CrudTest/destroy', [
+            'id' => 2,
+        ]);
+        $response->assertJson(['code' => 404]);
+
+        CrudTestFactory::new()->create();
+        $response = $auth->deleteJson('/web/admin/CrudTest/destroy', [
+            'id' => 1,
+        ]);
+        $response->assertJson(['code' => 0]);
+        
+        $response = $auth->getJson('/web/admin/CrudTest/read?id=1');
+        $response->assertJson(['code' => 0]);
+        $response->assertJsonMissing([
+            'deleted_at' => null,
+        ]);
+    }
+
+    public function test_change_status(): void
+    {
+        $this->auth();
+        CrudTestFactory::new()->create();
+        $response = $this->postJson('/web/admin/CrudTest/change-status', [
+            'id'     => 1,
+            'status' => 'disabled',
+        ]);
+        $response->assertJson(['code' => 0]);
+        $response->assertJsonPath('data.status', 'disabled');
+
+        $response = $this->postJson('/web/admin/CrudTest/change-status', [
+            'id'     => 1,
+            'status' => 'normal',
+        ]);
+        $response->assertJson(['code' => 0]);
+        $response->assertJsonPath('data.status', 'normal');
+
+        // 测试不存在的
+        $response = $this->postJson('/web/admin/CrudTest/change-status', [
+            'id'     => 2,
+            'status' => 'disabled',
+        ]);
+        $response->assertJson(['code' => 404]);
+
+        // 测试错误的状态
+        $response = $this->postJson('/web/admin/CrudTest/change-status', [
+            'id'     => 1,
+            'status' => 'aaaaaaaaaaa',
+        ]);
+        $response->assertJson(['code' => 422]);
+    }
+
+    public function test_recycle()
+    {
         //
     }
 
-    public function test_delete(): void
+    public function test_recovery()
+    {
+        //
+    }
+
+    public function test_real_destroy()
     {
         //
     }
