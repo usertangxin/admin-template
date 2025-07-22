@@ -84,7 +84,7 @@
                     <slot name="right">
                         <slot name="search-input-before"></slot>
                         <slot name="search-input">
-                            <a-input-search v-model="store.searchQuery.fast_search" @search="store.resetSearchQuery"
+                            <a-input-search v-model="store.searchQuery.value.fast_search" @search="store.resetSearchQuery"
                                 @press-enter="store.resetSearchQuery" placeholder="请输入内容并回车" />
                         </slot>
                         <slot name="search-input-after"></slot>
@@ -129,7 +129,7 @@
 
 <script setup>
 import { ref, watch } from 'vue'
-import { router, usePage } from '@inertiajs/vue3';
+import { router, usePage, useRemember } from '@inertiajs/vue3';
 import { useInjectIndexShareStore } from '../IndexShare';
 import { recursiveForEach, recursiveMap } from '../util';
 import { changeFullScreen } from '../util'
@@ -140,7 +140,7 @@ const refreshList = () => {
     store.fetchListData()
 }
 
-const selectedKeys = ref([])
+const selectedKeys = useRemember([], 'indexShareColumnsSelectedKeys' + window.location.href.split('?')[0])
 const columns = ref([])
 
 watch(store.columns, (newVal, oldVal) => {

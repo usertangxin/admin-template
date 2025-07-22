@@ -59,20 +59,20 @@ const data = store.listData
 
 const pagination = computed(() => {
     return {
-        current: store.searchQuery.__page__,
-        pageSize: store.searchQuery.__per_page__,
+        current: store.searchQuery.value.__page__,
+        pageSize: store.searchQuery.value.__per_page__,
         total: page.props.meta?.total ?? 0,
         showPageSize: true,
     }
 })
 
-watch(() => store.searchQuery.__page__, (newVal, oldVal) => {
+watch(() => store.searchQuery.value.__page__, (newVal, oldVal) => {
     if (newVal !== oldVal) {
         getList()
     }
 })
 
-watch(() => store.searchQuery.__per_page__, (newVal, oldVal) => {
+watch(() => store.searchQuery.value.__per_page__, (newVal, oldVal) => {
     if (newVal !== oldVal) {
         getList()
     }
