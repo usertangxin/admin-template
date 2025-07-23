@@ -5,6 +5,7 @@ namespace Modules\Admin\Models;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as BaseModel;
+use Modules\Admin\Models\Scopes\GlobalDataPermissionScope;
 
 // use Modules\Admin\Database\Factories\ModelFactory;
 
@@ -21,5 +22,10 @@ abstract class AbstractModel extends BaseModel
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format($this->dateFormat);
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(GlobalDataPermissionScope::class);
     }
 }
