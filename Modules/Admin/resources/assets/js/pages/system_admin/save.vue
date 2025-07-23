@@ -1,44 +1,87 @@
 <template>
     <div class="m-3 p-3 page-content">
-        <form-action></form-action>
-        <a-form class="pr-[15%]" :disabled="disabled">
-            <a-form-item label="头像">
+        <form-action @submit="handleSubmit" @reset="formRef.resetFields()"></form-action>
+        <a-form class="pr-[15%]" :disabled="disabled" ref="formRef" :model="formData" :rules="rules"
+            @submit="handleSubmit">
+            <a-form-item label="头像" field="avatar">
                 <a-avatar class="" shape="square" :size="100">
                     <template #trigger-icon>
                         <IconCamera />
                     </template>
                 </a-avatar>
             </a-form-item>
-            <a-form-item label="账号">
-                <a-input placeholder="请输入账号"></a-input>
+            <a-form-item label="账号" field="admin_name">
+                <a-input v-model="formData.admin_name" placeholder="请输入账号"></a-input>
             </a-form-item>
-            <a-form-item label="密码">
-                <a-input-password placeholder="不修改请留空"></a-input-password>
+            <a-form-item label="密码" field="password">
+                <a-input-password v-model="formData.password" placeholder="不修改请留空"></a-input-password>
             </a-form-item>
-            <a-form-item label="昵称">
-                <a-input placeholder="请输入昵称"></a-input>
+            <a-form-item label="昵称" field="nickname">
+                <a-input v-model="formData.nickname" placeholder="请输入昵称"></a-input>
             </a-form-item>
-            <a-form-item label="手机号">
-                <a-input placeholder="请输入手机号"></a-input>
+            <a-form-item label="手机号" field="mobile">
+                <a-input v-model="formData.mobile" placeholder="请输入手机号"></a-input>
             </a-form-item>
-            <a-form-item label="电子邮箱">
-                <a-input placeholder="请输入电子邮箱"></a-input>
+            <a-form-item label="电子邮箱" field="email">
+                <a-input v-model="formData.email" placeholder="请输入电子邮箱"></a-input>
             </a-form-item>
-            <a-form-item label="备注">
-                <a-textarea placeholder="请输入备注"></a-textarea>
+            <a-form-item label="备注" field="remark">
+                <a-textarea v-model="formData.remark" placeholder="请输入备注"></a-textarea>
             </a-form-item>
+            <button type="submit" hidden></button>
         </a-form>
-
     </div>
 </template>
 
 <script setup>
-import { usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { Message } from '@arco-design/web-vue';
+import _ from 'lodash';
+import { computed, reactive, ref } from 'vue';
+import { router } from '@inertiajs/vue3';
 
-const page = usePage();
+const props = defineProps(['data', '__page_read__'])
+const formRef = ref(null);
+
+const formData = reactive({
+    admin_name: '',
+    password: '',
+    nickname: '',
+    mobile: '',
+    email: '',
+    remark: '',
+})
+
+props.data && _.each(props.data, (item, key) => {
+    formData[key] = item;
+})
+
+const rules = {
+    admin_name: [
+        { required: true, message: '请输入账号' },
+        { minLength: 3, message: '账号长度不能小于3个字符' },
+    ],
+}
 
 const disabled = computed(() => {
-    return page.props.__page_read__ ? true : false;
+    return props.__page_read__ ? true : false;
 });
+
+
+const handleSubmit = () => {
+    formRef.value.validate((errors) => {
+        if (errors) {
+            _.each(errors, (item, key) => {
+                Message.error(item.message);
+            })
+            return
+        }
+        axios.post('', formData).then(res => {
+            if (res.code === 0) {
+                window.history.back()
+            }
+        })
+    })
+
+}
+
 </script>

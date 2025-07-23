@@ -40,14 +40,14 @@
                         <template v-if="page.props.__page_create__ || page.props.__page_update__">
                             <slot name="reset-before"></slot>
                             <slot name="reset">
-                                <a-button type="secondary">
+                                <a-button type="secondary" @click="handleReset">
                                     重置
                                 </a-button>
                             </slot>
                             <slot name="reset-after"></slot>
                             <slot name="submit-before"></slot>
                             <slot name="submit">
-                                <a-button type="primary">
+                                <a-button type="primary" @click="handleSubmit">
                                     提交
                                 </a-button>
                             </slot>
@@ -72,6 +72,8 @@
 import { router, usePage } from '@inertiajs/vue3';
 import { changeFullScreen } from '../util'
 
+const emits = defineEmits(['submit', 'reset'])
+
 const page = usePage();
 
 const refreshList = () => {
@@ -84,6 +86,14 @@ const toIndex = () => {
     } else {
         router.visit('./index')
     }
+}
+
+const handleSubmit = () => {
+    emits('submit')
+}
+
+const handleReset = () => {
+    emits('reset')
 }
 
 </script>

@@ -16,7 +16,7 @@ class SystemAdminSeeder extends Seeder
         if (! SystemAdmin::count()) {
             $admin = new SystemAdmin;
             $admin->admin_name = 'super admin';
-            $admin->password = Hash::make('123456');
+            $admin->password = 123456;
             $admin->nickname = 'Super Admin';
             $admin->save();
         }

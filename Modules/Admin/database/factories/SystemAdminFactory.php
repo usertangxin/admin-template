@@ -19,7 +19,7 @@ class SystemAdminFactory extends Factory
     {
         return [
             'admin_name' => $this->faker->unique()->userName,
-            'password'   => Hash::make('123456'),
+            'password'   => 123456,
             'nickname'   => $this->faker->name,
         ];
     }

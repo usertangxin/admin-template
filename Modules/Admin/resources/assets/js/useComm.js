@@ -1,4 +1,5 @@
 import './axios'
+import { router } from '@inertiajs/vue3';
 import ArcoVue from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import '@arco-design/web-vue/dist/arco.css';
@@ -25,6 +26,10 @@ document.body.setAttribute('arco-theme', window.localStorage.getItem('arco-theme
 window.changeTheme = (t) => {
   document.body.setAttribute('arco-theme', t)
 }
+
+window.addEventListener('popstate',function(){
+  router.reload()
+})
 
 // 合并所有图标集并去重
 const allIcons = [...Object.values(solid), ...Object.values(regular), ...Object.values(brands)];

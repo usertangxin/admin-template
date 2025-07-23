@@ -260,7 +260,7 @@ abstract class AbstractCrudController extends AbstractController
             $result = new $resourceCollection($result);
         }
 
-        return $this->success($result, view: $this->getViewPrefix() . '/save');
+        return $this->success($result, message: '创建成功', view: $this->getViewPrefix() . '/save');
     }
 
     /**
@@ -299,7 +299,7 @@ abstract class AbstractCrudController extends AbstractController
             $model = new $resourceCollection($model);
         }
 
-        return $this->success($model, message: '更新成功', view: $this->getViewPrefix() . '/save');
+        return $this->success($model, message: '编辑成功', view: $this->getViewPrefix() . '/save');
     }
 
     /**

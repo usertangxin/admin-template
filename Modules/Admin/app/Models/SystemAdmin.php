@@ -11,12 +11,15 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Support\Facades\Hash;
 
 class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
 
     protected $table = 'system_admins';
+
+    protected $fillable = ['admin_name', 'password', 'nickname', 'phone', 'email', 'avatar', 'remark'];
 
     protected function casts()
     {
@@ -30,12 +33,16 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
         'remember_token',
     ];
 
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
+
     #[Scope]
     protected function fast_search(Builder $query, $fast_search)
     {
         if (! empty($fast_search)) {
-            $query->
-            where('admin_name', 'like', '%' . $fast_search . '%')
+            $query->where('admin_name', 'like', '%' . $fast_search . '%')
                 ->orWhere('nickname', 'like', '%' . $fast_search . '%')
                 ->orWhere('email', 'like', '%' . $fast_search . '%')
                 ->orWhere('phone', 'like', '%' . $fast_search . '%');
