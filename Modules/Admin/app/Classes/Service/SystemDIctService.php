@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Modules\Admin\Models\SystemDict;
 
+/**
+ * 系统字典服务
+ * 请从容器中获取实例
+ * @package Modules\Admin\Classes\Service
+ */
 class SystemDictService
 {
     protected Collection $group;
@@ -19,7 +24,10 @@ class SystemDictService
      */
     protected $databaseConfig;
 
-    protected function __construct() {}
+    public static function getInstance(): static
+    {
+        return app(static::class);
+    }
 
     public function registerGroups(array $config_group)
     {

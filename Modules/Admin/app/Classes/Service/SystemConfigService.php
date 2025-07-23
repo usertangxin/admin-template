@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Modules\Admin\Models\SystemConfig;
 
+/**
+ * 系统配置服务
+ * 请从容器中获取实例
+ * @package Modules\Admin\Classes\Service
+ */
 class SystemConfigService
 {
     protected Collection $config_group;
@@ -16,7 +21,10 @@ class SystemConfigService
 
     protected \Illuminate\Database\Eloquent\Collection $databaseConfig;
 
-    protected function __construct() {}
+    public static function getInstance(): static
+    {
+        return app(static::class);
+    }
 
     public function registerGroups(array $config_group)
     {
