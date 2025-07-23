@@ -10,6 +10,7 @@ use InvalidArgumentException;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\DataBase\TreeCollection;
 use Modules\Admin\Classes\Interfaces\TreeCollectionInterface;
+use Modules\Admin\Classes\Service\SystemDictService;
 use Modules\Admin\Classes\Utils\ModelUtil;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
@@ -54,6 +55,14 @@ abstract class AbstractCrudController extends AbstractController
     }
 
     /**
+     * 状态字段和字典编码
+     */
+    protected function getStatusFieldAndDictCode(): array
+    {
+        return ['status', 'data_status'];
+    }
+
+    /**
      * 排序
      *
      * @return mixed
@@ -87,6 +96,22 @@ abstract class AbstractCrudController extends AbstractController
 
     protected function validate(): array
     {
+
+        if (\request()->route()->getActionMethod() === 'changeStatus') {
+            $systemDictService = app()->make(SystemDictService::class);
+            $statusFieldAndDictCode = $this->getStatusFieldAndDictCode();
+            $field = $statusFieldAndDictCode[0];
+            $dictCode = $statusFieldAndDictCode[1];
+
+            return \request()->validate([
+                'id'   => 'required',
+                $field => [
+                    'required',
+                    'in:' . \implode(',', $systemDictService->getValuesByCode($dictCode)->toArray()),
+                ],
+            ]);
+        }
+
         $model_classname = get_class($this->getModel());
         $request_classname = Str::replace('\\Models\\', '\\Http\\Requests\\', $model_classname) . 'Request';
         /** @var \Illuminate\Foundation\Http\FormRequest */
@@ -179,7 +204,10 @@ abstract class AbstractCrudController extends AbstractController
     public function read()
     {
         $id = \request('id');
-        $data = $this->getModel()->find($id);
+        $data = $this->getModel()->withTrashed()->find($id);
+        if (! $data) {
+            return $this->fail('数据不存在', 404, view: '404');
+        }
         if (! empty($resourceCollection = $this->getResource())) {
             $data = new $resourceCollection($data);
         }
@@ -239,12 +267,19 @@ abstract class AbstractCrudController extends AbstractController
         }
 
         $data = $this->validate();
-        $result = $this->getModel()->find($id)->update($data);
+        $model = $this->getModel()->find($id);
+        if (! $model) {
+            return $this->fail('数据不存在', 404, view: '404');
+        }
+        $result = $model->update($data);
+        if (! $result) {
+            return $this->fail('更新失败', view: $this->getViewPrefix() . '/save');
+        }
         if (! empty($resourceCollection = $this->getResource())) {
-            $result = new $resourceCollection($result);
+            $model = new $resourceCollection($model);
         }
 
-        return $this->success($result, view: $this->getViewPrefix() . '/save');
+        return $this->success($model, message: '更新成功', view: $this->getViewPrefix() . '/save');
     }
 
     /**
@@ -256,15 +291,24 @@ abstract class AbstractCrudController extends AbstractController
     public function changeStatus()
     {
         $id = \request('id');
-        $status = \request('status');
-        $result = $this->getModel()->find($id)->update(['status' => $status]);
+        $statusFieldAndDictCode = $this->getStatusFieldAndDictCode();
+        $field = $statusFieldAndDictCode[0];
+        $status = $this->validate()[$field];
+        $model = $this->getModel()->find($id);
+        if (! $model) {
+            return $this->fail('数据不存在', 404, view: '404');
+        }
+        $model->$field = $status;
+        if (! $model->save()) {
+            return $this->fail('切换状态失败');
+        }
         if (! empty($resourceCollection = $this->getResource())) {
-            $result = new $resourceCollection($result);
+            $model = new $resourceCollection($model);
         }
 
         Inertia::share('__page_change_status__', true);
 
-        return $this->success($result);
+        return $this->success($model, message: '切换状态成功');
     }
 
     /**
@@ -279,7 +323,17 @@ abstract class AbstractCrudController extends AbstractController
 
         Inertia::share('__page_destroy__', true);
 
-        return $this->success($this->getModel()->destroy($id));
+        $model = $this->getModel()->find($id);
+        if (! $model) {
+            return $this->fail('数据不存在', 404, view: '404');
+        }
+
+        $result = $model->delete();
+        if (! $result) {
+            return $this->fail('删除失败');
+        }
+
+        return $this->success(message: '删除成功');
     }
 
     /**

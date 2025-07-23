@@ -10,6 +10,17 @@ class AbstractAuthTestCase extends TestCase
 {
     use RefreshDatabase;
 
+    protected $autoAuth = true;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if ($this->autoAuth) {
+            $this->auth();
+        }
+    }
+
     protected function auth($admin = null, $guard = 'admin')
     {
         $admin = $admin ?? SystemAdminFactory::new()->create(['admin_name' => 'super admin']);

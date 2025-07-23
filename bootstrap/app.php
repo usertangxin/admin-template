@@ -4,7 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
-use Modules\Admin\Classes\Service\SystemMenuRegisterService;
+use Modules\Admin\Classes\Service\ResponseService;
+use Modules\Admin\Http\Middleware\AdminSupport;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,9 +16,12 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         //
+        $middleware->priority([
+            AdminSupport::class,
+        ]);
+
         $middleware->redirectGuestsTo(function (Request $request) {
-            $route_name = $request->route()->getName();
-            if ($route_name == 'web.admin.index' || (SystemMenuRegisterService::getBy($route_name, 'code') ?? false)) {
+            if (($request->get('__is_admin_background__'))) {
                 return route('web.admin.login');
             }
 
@@ -26,4 +30,9 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
+        $exceptions->render(function (Illuminate\Validation\ValidationException $exception, Request $request) {
+            if (($request->get('__is_admin_background__'))) {
+                return ResponseService::fail($exception->getMessage(), $exception->status, null, $exception->errors());
+            }
+        });
     })->create();

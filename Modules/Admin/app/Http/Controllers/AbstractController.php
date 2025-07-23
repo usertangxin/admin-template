@@ -4,12 +4,8 @@ namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Pagination\AbstractPaginator;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
-use Inertia\Inertia;
 use Inertia\Response;
+use Modules\Admin\Classes\Service\ResponseService;
 
 abstract class AbstractController
 {
@@ -24,17 +20,7 @@ abstract class AbstractController
      */
     protected function inertia($data = [], $view = null)
     {
-        if ($view === null) {
-            $action = \request()->route()->getActionMethod();
-            $shortName = \class_basename(\request()->route()->getControllerClass());
-            $prefix = Str::of($shortName)->replace('Controller', '')->snake('_');
-            $view = $prefix . '/' . $action;
-        }
-
-        $data = $this->analysisDataToResource($data);
-        $data = (array) $data->toResponse(\request())->getData();
-
-        return Inertia::render($view, $data);
+        return ResponseService::inertia($data, $view);
     }
 
     /**
@@ -50,21 +36,7 @@ abstract class AbstractController
      */
     protected function success($data = [], $message = '', $code = 0, $view = null)
     {
-        if (\request()->expectsJson()) {
-            $data = $this->analysisDataToResource($data);
-            $data = (array) $data->toResponse(\request())->getData();
-
-            return [
-                'code'    => $code,
-                'message' => $message,
-                ...$data,
-            ];
-        }
-
-        Inertia::share('__flush_success__', $message);
-        Inertia::share('__flush_code__', $code);
-
-        return $this->inertia($data, $view);
+        return ResponseService::success($data, $message, $code, $view);
     }
 
     /**
@@ -79,33 +51,6 @@ abstract class AbstractController
      */
     protected function fail($message = 'fail', $code = 400, $view = null)
     {
-        if (\request()->expectsJson()) {
-            return [
-                'code'    => $code,
-                'message' => $message,
-            ];
-        }
-
-        Inertia::share('__flush_message__', $message);
-        Inertia::share('__flush_code__', $code);
-
-        return $this->inertia([], $view);
-    }
-
-    /**
-     * 将数据转换为JsonResource
-     *
-     * @param  mixed        $data
-     * @return JsonResource
-     */
-    private function analysisDataToResource($data)
-    {
-        if ($data instanceof Collection || $data instanceof AbstractPaginator) {
-            $data = JsonResource::collection($data);
-        } elseif (! ($data instanceof JsonResource)) {
-            $data = new JsonResource($data);
-        }
-
-        return $data;
+        return ResponseService::fail($message, $code, $view);
     }
 }

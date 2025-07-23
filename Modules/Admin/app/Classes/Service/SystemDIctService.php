@@ -69,6 +69,16 @@ class SystemDictService
         return $this->list;
     }
 
+    public function getValuesByCode($code)
+    {
+        return $this->getList()->where('code', $code)->pluck('value');
+    }
+
+    public function getListByCode($code)
+    {
+        return $this->getList()->where('code', $code);
+    }
+
     public function getListHash()
     {
         return \sha1($this->getList()->toJson());

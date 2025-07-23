@@ -9,10 +9,11 @@ use Modules\Admin\Http\Controllers\SystemAdminController;
 use Modules\Admin\Http\Controllers\SystemConfigController;
 use Modules\Admin\Http\Controllers\SystemDictController;
 use Modules\Admin\Http\Controllers\SystemMenuController;
+use Modules\Admin\Http\Middleware\AdminSupport;
 use Modules\Admin\Http\Middleware\HandleInertiaRequests;
 use Modules\Admin\Http\Middleware\HandleInertiaShare;
 
-Route::middleware([HandleInertiaRequests::class])->group(function () {
+Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(function () {
 
     Route::get('login', [LoginController::class, 'view'])->name('login');
     Route::post('login', [LoginController::class, 'authenticate'])->name('login');
@@ -33,6 +34,5 @@ Route::middleware([HandleInertiaRequests::class])->group(function () {
         if (app()->isLocal() || app()->runningUnitTests()) {
             SystemMenuRegisterService::fastRoute(CrudTestController::class);
         }
-
     });
 });
