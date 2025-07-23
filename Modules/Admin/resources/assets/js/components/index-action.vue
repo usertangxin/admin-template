@@ -84,8 +84,15 @@
                     <slot name="right">
                         <slot name="search-input-before"></slot>
                         <slot name="search-input">
-                            <a-input-search v-model="store.searchQuery.value.fast_search" @search="store.resetSearchQuery"
-                                @press-enter="store.resetSearchQuery" placeholder="请输入内容并回车" />
+                            <a-input v-model="store.searchQuery.value.fast_search" @press-enter="store.resetSearchQuery"
+                                placeholder="请输入内容并回车" :allow-clear="true" @clear="store.resetSearchQuery">
+                                <template #suffix>
+                                    <div>
+                                        <icon class="cursor-pointer" icon="a search" @click="store.resetSearchQuery">
+                                        </icon>
+                                    </div>
+                                </template>
+                            </a-input>
                         </slot>
                         <slot name="search-input-after"></slot>
                         <slot name="search-before"></slot>
