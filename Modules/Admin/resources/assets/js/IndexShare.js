@@ -1,5 +1,6 @@
 import { computed, reactive, ref, provide, inject, watch } from 'vue'
 import { usePage, router, useRemember } from '@inertiajs/vue3'
+import _ from 'lodash'
 
 const page = usePage()
 
@@ -28,13 +29,9 @@ export function useIndexShareStore() {
 
     /** 刷新表格数据 */
     const fetchListData = () => {
-        innerFetchListData.value && router.visit('?' + Object.keys(searchQuery.value).map((item) => {
-            return searchQuery.value[item] ? item + '=' + searchQuery.value[item] : ''
-        }).filter((item) => {
-            return item !== ''
-        }).join('&'), {
-            preserveState: true
-        })
+        innerFetchListData.value && router.get('', _.pickBy(searchQuery.value, (item, key) => {
+            return item !== (void 0)
+        }), { preserveState: true, })
     }
 
     /** 重置搜索参数 */

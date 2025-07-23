@@ -41,12 +41,10 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
     #[Scope]
     protected function fast_search(Builder $query, $fast_search)
     {
-        if (! empty($fast_search)) {
-            $query->where('admin_name', 'like', '%' . $fast_search . '%')
-                ->orWhere('nickname', 'like', '%' . $fast_search . '%')
-                ->orWhere('email', 'like', '%' . $fast_search . '%')
-                ->orWhere('phone', 'like', '%' . $fast_search . '%');
-        }
+        $query->where('admin_name', 'like', '%' . $fast_search . '%')
+            ->orWhere('nickname', 'like', '%' . $fast_search . '%')
+            ->orWhere('email', 'like', '%' . $fast_search . '%')
+            ->orWhere('phone', 'like', '%' . $fast_search . '%');
     }
 
     public function roles()
