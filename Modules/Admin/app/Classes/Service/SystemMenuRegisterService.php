@@ -13,7 +13,6 @@ use Modules\Admin\Classes\Utils\SystemMenuType;
 /**
  * 系统菜单服务
  * 请从容器中获取实例
- * @package Modules\Admin\Classes\Service
  */
 class SystemMenuRegisterService
 {

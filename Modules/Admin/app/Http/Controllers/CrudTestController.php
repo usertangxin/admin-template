@@ -14,4 +14,18 @@ class CrudTestController extends AbstractCrudController
     {
         return new CrudTest;
     }
+
+    protected function getMakeHiddenFields(): array
+    {
+        return [
+            'test_hidden_field',
+        ];
+    }
+
+    protected function getMakeVisibleFields(): array
+    {
+        return [
+            'status',
+        ];
+    }
 }

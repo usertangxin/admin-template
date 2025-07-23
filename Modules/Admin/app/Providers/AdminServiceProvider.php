@@ -52,13 +52,13 @@ class AdminServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(SystemMenuRegisterService::class, function () {
-            return new SystemMenuRegisterService();
+            return new SystemMenuRegisterService;
         });
         $this->app->singleton(SystemConfigService::class, function () {
-            return new SystemConfigService();
+            return new SystemConfigService;
         });
         $this->app->singleton(SystemDictService::class, function () {
-            return new SystemDictService();
+            return new SystemDictService;
         });
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);

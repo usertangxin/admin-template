@@ -20,6 +20,10 @@ class CrudTest extends AbstractSoftDelModel
         $builder->where('name', 'like', '%' . $value . '%');
     }
 
+    protected $hidden = [
+        'status',
+    ];
+
     protected $fillable = [
         'name',
     ];

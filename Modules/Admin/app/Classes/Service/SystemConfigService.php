@@ -11,7 +11,6 @@ use Modules\Admin\Models\SystemConfig;
 /**
  * 系统配置服务
  * 请从容器中获取实例
- * @package Modules\Admin\Classes\Service
  */
 class SystemConfigService
 {

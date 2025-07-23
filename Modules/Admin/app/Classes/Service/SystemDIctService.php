@@ -11,7 +11,6 @@ use Modules\Admin\Models\SystemDict;
 /**
  * 系统字典服务
  * 请从容器中获取实例
- * @package Modules\Admin\Classes\Service
  */
 class SystemDictService
 {

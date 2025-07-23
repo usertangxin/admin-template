@@ -8,6 +8,9 @@ use Modules\Admin\Database\Factories\CrudTestFactory;
 
 class CrudTest extends AbstractAuthTestCase
 {
+    /**
+     * 测试列表
+     */
     public function test_index(): void
     {
         $faker = Container::getInstance()->make(Generator::class);
@@ -25,12 +28,20 @@ class CrudTest extends AbstractAuthTestCase
             ],
             'links' => [],
         ]);
+        $response->assertJsonMissing([
+            'test_hidden_field',
+        ]);
+        $response->assertJsonPath('data.0.status', 'normal');
+        
         // 测试每页条数
         $response = $this->getJson('/web/admin/CrudTest/index?__page__=2&__per_page__=12');
         $response->assertJsonCount(3, 'data');
         // 测试显示有所
         $response = $this->getJson('/web/admin/CrudTest/index?__list_type__=all');
         $response->assertJsonCount(15, 'data');
+        $response->assertJsonMissing([
+            'test_hidden_field',
+        ]);
         // 测试排序
         $response = $this->getJson('/web/admin/CrudTest/index?__list_type__=all&__order_by__[id]=asc');
         $response->assertJsonPath('data.0.id', 1);
@@ -59,6 +70,9 @@ class CrudTest extends AbstractAuthTestCase
         $response->assertJsonCount(2, 'data.0.children');
     }
 
+    /**
+     * 测试详情
+     */
     public function test_read()
     {
         $response = $this->getJson('/web/admin/CrudTest/read?id=1');
@@ -71,8 +85,13 @@ class CrudTest extends AbstractAuthTestCase
             'code' => 0,
         ]);
         $response->assertJsonPath('data.id', 1);
+        $response->assertJsonMissing(['test_hidden_field']);
+        $response->assertJsonPath('data.status', 'normal');
     }
 
+    /**
+     * 测试新增
+     */
     public function test_create(): void
     {
 
@@ -87,6 +106,9 @@ class CrudTest extends AbstractAuthTestCase
         $response->assertJson(['code' => 422]);
     }
 
+    /**
+     * 测试修改
+     */
     public function test_update(): void
     {
 
@@ -120,18 +142,21 @@ class CrudTest extends AbstractAuthTestCase
         $response->assertJson(['code' => 422]);
     }
 
+    /**
+     * 测试删除
+     */
     public function test_destroy(): void
     {
         // 测试删除不存在的
 
         $response = $this->deleteJson('/web/admin/CrudTest/destroy', [
-            'id' => 2,
+            'ids' => [2],
         ]);
         $response->assertJson(['code' => 404]);
 
         CrudTestFactory::new()->create();
         $response = $this->deleteJson('/web/admin/CrudTest/destroy', [
-            'id' => 1,
+            'ids' => [1],
         ]);
         $response->assertJson(['code' => 0]);
 
@@ -142,22 +167,27 @@ class CrudTest extends AbstractAuthTestCase
         ]);
     }
 
+    /**
+     * 测试状态变更
+     */
     public function test_change_status(): void
     {
-        CrudTestFactory::new()->create();
+        $model = CrudTestFactory::new()->create();
         $response = $this->postJson('/web/admin/CrudTest/change-status', [
             'id'     => 1,
             'status' => 'disabled',
         ]);
         $response->assertJson(['code' => 0]);
-        $response->assertJsonPath('data.status', 'disabled');
+        $model->refresh();
+        $this->assertEquals('disabled', $model->status);
 
         $response = $this->postJson('/web/admin/CrudTest/change-status', [
             'id'     => 1,
             'status' => 'normal',
         ]);
         $response->assertJson(['code' => 0]);
-        $response->assertJsonPath('data.status', 'normal');
+        $model->refresh();
+        $this->assertEquals('normal', $model->status);
 
         // 测试不存在的
         $response = $this->postJson('/web/admin/CrudTest/change-status', [
@@ -189,15 +219,40 @@ class CrudTest extends AbstractAuthTestCase
         $response = $this->getJson('/web/admin/CrudTest/recycle');
         $response->assertJsonCount(1, 'data');
         $response->assertJsonMissing(['deleted_at' => null]);
+        $response->assertJsonMissing([
+            'test_hidden_field',
+        ]);
+        $response->assertJsonPath('data.0.status', 'normal');
     }
 
+    /**
+     * 测试恢复
+     */
     public function test_recovery()
     {
-        //
+        $model = CrudTestFactory::new()->create();
+        $model->delete();
+        $response = $this->postJson('/web/admin/CrudTest/recovery', [
+            'ids' => $model->id,
+        ]);
+        $response->assertJson(['code' => 0]);
+        $response = $this->postJson('/web/admin/CrudTest/recovery', [
+            'ids' => $model->id,
+        ]);
+        $response->assertJson(['code' => 404]);
     }
 
+    /**
+     * 测试真实删除
+     */
     public function test_real_destroy()
     {
-        //
+        $model = CrudTestFactory::new()->create();
+        $response = $this->deleteJson('/web/admin/CrudTest/real-destroy', [
+            'ids' => $model->id,
+        ]);
+        $response->assertJson(['code' => 0]);
+        $response = $this->getJson('/web/admin/CrudTest/read?id=' . $model->id);
+        $response->assertJson(['code' => 404]);
     }
 }

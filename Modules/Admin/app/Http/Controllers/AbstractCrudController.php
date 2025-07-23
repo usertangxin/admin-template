@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use DB;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
@@ -20,17 +21,17 @@ abstract class AbstractCrudController extends AbstractController
     abstract protected function getModel(): AbstractModel|AbstractSoftDelModel|null;
 
     /**
-     * 显示字段 他会覆盖数据库中的$visible配置
+     * 显示字段
      */
-    protected function getVisibleFields(): array
+    protected function getMakeVisibleFields(): array
     {
         return [];
     }
 
     /**
-     * 隐藏字段 他会覆盖数据库中的$hidden配置
+     * 隐藏字段
      */
-    protected function getHiddenFields(): array
+    protected function getMakeHiddenFields(): array
     {
         return [];
     }
@@ -166,19 +167,11 @@ abstract class AbstractCrudController extends AbstractController
         if (! empty($with = $this->with())) {
             $query = $query->with($with);
         }
-        if (! empty($visible = $this->getVisibleFields())) {
-            $query = $query->setVisible($visible);
-        }
-        if (! empty($hidden = $this->getHiddenFields())) {
-            $query = $query->setHidden($hidden);
-        }
         foreach ($this->orderBy() as $key => $value) {
             $query = $query->orderBy($key, $value);
         }
         switch ($listType) {
             case 'tree':
-                $data = ($this->getTreeCollection())::new($query->get())->toTree();
-                break;
             case 'all':
                 $data = $query->get();
                 break;
@@ -186,6 +179,22 @@ abstract class AbstractCrudController extends AbstractController
                 $data = $query->paginate(\min($this->getMaxPerPage(), \request('__per_page__', 10)), pageName: '__page__');
                 break;
         }
+
+        if (! empty($visible = $this->getMakeVisibleFields())) {
+            $data->each(function ($item) use ($visible) {
+                $item->makeVisible($visible);
+            });
+        }
+        if (! empty($hidden = $this->getMakeHiddenFields())) {
+            $data->each(function ($item) use ($hidden) {
+                $item->makeHidden($hidden);
+            });
+        }
+
+        if ($listType === 'tree') {
+            $data = ($this->getTreeCollection())::new($data)->toTree();
+        }
+
         if (! empty($resourceCollection = $this->getResource())) {
             $data = $resourceCollection::collection($data);
         }
@@ -204,9 +213,19 @@ abstract class AbstractCrudController extends AbstractController
     public function read()
     {
         $id = \request('id');
-        $data = $this->getModel()->withTrashed()->find($id);
+        $query = $this->getModel()->withTrashed();
+        if (! empty($with = $this->with())) {
+            $query = $query->with($with);
+        }
+        $data = $query->find($id);
         if (! $data) {
             return $this->fail('数据不存在', 404, view: '404');
+        }
+        if (! empty($visible = $this->getMakeVisibleFields())) {
+            $data = $data->makeVisible($visible);
+        }
+        if (! empty($hidden = $this->getMakeHiddenFields())) {
+            $data = $data->makeHidden($hidden);
         }
         if (! empty($resourceCollection = $this->getResource())) {
             $data = new $resourceCollection($data);
@@ -302,13 +321,10 @@ abstract class AbstractCrudController extends AbstractController
         if (! $model->save()) {
             return $this->fail('切换状态失败');
         }
-        if (! empty($resourceCollection = $this->getResource())) {
-            $model = new $resourceCollection($model);
-        }
 
         Inertia::share('__page_change_status__', true);
 
-        return $this->success($model, message: '切换状态成功');
+        return $this->success([], message: '切换状态成功');
     }
 
     /**
@@ -319,18 +335,27 @@ abstract class AbstractCrudController extends AbstractController
     #[SystemMenu('删除')]
     public function destroy()
     {
-        $id = \request('id');
+        $ids = request('ids');
+        if (! is_array($ids)) {
+            $ids = explode(',', $ids);
+        }
 
         Inertia::share('__page_destroy__', true);
 
-        $model = $this->getModel()->find($id);
-        if (! $model) {
+        $result = $this->getModel()->whereIn('id', $ids)->get();
+        if (! $result || count($result) == 0) {
             return $this->fail('数据不存在', 404, view: '404');
         }
+        DB::beginTransaction();
+        try {
+            $result->each(function ($item) {
+                $item->delete();
+            });
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
 
-        $result = $model->delete();
-        if (! $result) {
-            return $this->fail('删除失败');
+            return $this->fail('删除失败:' . $e->getMessage());
         }
 
         return $this->success(message: '删除成功');
@@ -352,19 +377,11 @@ abstract class AbstractCrudController extends AbstractController
         if (! empty($with = $this->with())) {
             $query = $query->with($with);
         }
-        if (! empty($visible = $this->getVisibleFields())) {
-            $query = $query->setVisible($visible);
-        }
-        if (! empty($hidden = $this->getHiddenFields())) {
-            $query = $query->setHidden($hidden);
-        }
         foreach ($this->orderBy() as $key => $value) {
             $query = $query->orderBy($key, $value);
         }
         switch ($listType) {
             case 'tree':
-                $data = ($this->getTreeCollection())::new($query->get())->toTree();
-                break;
             case 'all':
                 $data = $query->get();
                 break;
@@ -372,6 +389,22 @@ abstract class AbstractCrudController extends AbstractController
                 $data = $query->paginate(\min($this->getMaxPerPage(), \request('__per_page__', 10)), pageName: '__page__');
                 break;
         }
+
+        if (! empty($visible = $this->getMakeVisibleFields())) {
+            $data->each(function ($item) use ($visible) {
+                $item->makeVisible($visible);
+            });
+        }
+        if (! empty($hidden = $this->getMakeHiddenFields())) {
+            $data->each(function ($item) use ($hidden) {
+                $item->makeHidden($hidden);
+            });
+        }
+
+        if ($listType === 'tree') {
+            $data = ($this->getTreeCollection())::new($data)->toTree();
+        }
+
         if (! empty($resourceCollection = $this->getResource())) {
             $data = $resourceCollection::collection($data);
         }
@@ -392,10 +425,29 @@ abstract class AbstractCrudController extends AbstractController
     public function recovery()
     {
         $ids = request('ids');
+        if (! is_array($ids)) {
+            $ids = explode(',', $ids);
+        }
 
         Inertia::share('__page_recovery__', true);
 
-        return $this->success($this->getModel()->withTrashed()->whereIn('id', $ids)->restore());
+        $result = $this->getModel()->onlyTrashed()->whereIn('id', $ids)->get();
+        if (! $result || count($result) == 0) {
+            return $this->fail('数据不存在', 404, view: '404');
+        }
+        DB::beginTransaction();
+        try {
+            $result->each(function ($item) {
+                $item->restore();
+            });
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+
+            return $this->fail('恢复失败:' . $e->getMessage());
+        }
+
+        return $this->success([], message: '恢复成功');
     }
 
     /**
@@ -409,9 +461,28 @@ abstract class AbstractCrudController extends AbstractController
     public function realDestroy()
     {
         $ids = request('ids');
+        if (! is_array($ids)) {
+            $ids = explode(',', $ids);
+        }
 
         Inertia::share('__page_real_destroy__', true);
 
-        return $this->success($this->getModel()->withTrashed()->whereIn('id', $ids)->forceDelete());
+        $result = $this->getModel()->withTrashed()->whereIn('id', $ids)->get();
+        if (! $result || count($result) == 0) {
+            return $this->fail('数据不存在', 404, view: '404');
+        }
+        DB::beginTransaction();
+        try {
+            $result->each(function ($item) {
+                $item->forceDelete();
+            });
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+
+            return $this->fail('永久删除失败:' . $e->getMessage());
+        }
+
+        return $this->success(message: '永久删除成功');
     }
 }
