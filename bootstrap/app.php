@@ -35,10 +35,4 @@ return Application::configure(basePath: dirname(__DIR__))
                 return ResponseService::fail($exception->getMessage(), $exception->status, null, $exception->errors());
             }
         });
-        $exceptions->render(function (\Illuminate\Auth\AuthenticationException $exception, Request $request) {
-            if (($request->get('__is_admin_background__'))) {
-                return ResponseService::fail($exception->getMessage(), 401, null);
-            }
-        });
-
     })->create();

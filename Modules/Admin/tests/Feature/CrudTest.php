@@ -12,12 +12,12 @@ class CrudTest extends AbstractAuthTestCase
     {
         $faker = Container::getInstance()->make(Generator::class);
         CrudTestFactory::new()->count(15)->create();
-        
+
         // 测试第二页
         $response = $this->getJson('/web/admin/CrudTest/index?__page__=2&__per_page__=10');
         $response->assertJsonCount(5, 'data');
         // 测试每页条数
-        $response = $this->getJson('/web/admin/CrudTest/index?__page__=1&&__per_page__=12');    
+        $response = $this->getJson('/web/admin/CrudTest/index?__page__=1&&__per_page__=12');
         $response->assertJsonCount(12, 'data');
         $response->assertJson([
             'meta' => [
@@ -35,7 +35,7 @@ class CrudTest extends AbstractAuthTestCase
         $response = $this->getJson('/web/admin/CrudTest/index?__list_type__=all&__order_by__[id]=asc');
         $response->assertJsonPath('data.0.id', 1);
         // 测试倒序
-        $response = $this->getJson('/web/admin/CrudTest/index?__list_type__=all&__order_by__[id]=desc');    
+        $response = $this->getJson('/web/admin/CrudTest/index?__list_type__=all&__order_by__[id]=desc');
         $response->assertJsonPath('data.0.id', 15);
 
         CrudTestFactory::new()->count(20)->create(['name' => $faker->name() . 'asdf' . $faker->name()]);
@@ -75,7 +75,7 @@ class CrudTest extends AbstractAuthTestCase
 
     public function test_create(): void
     {
-        
+
         $response = $this->postJson('/web/admin/CrudTest/create', [
             'name' => 'asdf',
         ]);
@@ -89,7 +89,7 @@ class CrudTest extends AbstractAuthTestCase
 
     public function test_update(): void
     {
-        
+
         CrudTestFactory::new()->create();
         $response = $this->postJson('/web/admin/CrudTest/update', [
             'id'   => 1,
@@ -123,7 +123,7 @@ class CrudTest extends AbstractAuthTestCase
     public function test_destroy(): void
     {
         // 测试删除不存在的
-        
+
         $response = $this->deleteJson('/web/admin/CrudTest/destroy', [
             'id' => 2,
         ]);
@@ -134,7 +134,7 @@ class CrudTest extends AbstractAuthTestCase
             'id' => 1,
         ]);
         $response->assertJson(['code' => 0]);
-        
+
         $response = $this->getJson('/web/admin/CrudTest/read?id=1');
         $response->assertJson(['code' => 0]);
         $response->assertJsonMissing([
@@ -174,9 +174,21 @@ class CrudTest extends AbstractAuthTestCase
         $response->assertJson(['code' => 422]);
     }
 
+    /**
+     * 测试回收站
+     */
     public function test_recycle()
     {
-        //
+        $model = CrudTestFactory::new()->create();
+        $response = $this->postJson('/web/admin/CrudTest/recycle');
+        $response->assertJson(['code' => 0]);
+        $response->assertJsonCount(0, 'data');
+        $model->delete();
+
+        CrudTestFactory::new()->count(12)->create();
+        $response = $this->getJson('/web/admin/CrudTest/recycle');
+        $response->assertJsonCount(1, 'data');
+        $response->assertJsonMissing(['deleted_at' => null]);
     }
 
     public function test_recovery()
