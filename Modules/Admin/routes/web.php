@@ -22,17 +22,17 @@ Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(fu
     Route::middleware(['auth:admin', HandleInertiaShare::class])->group(function () {
         Route::get('', function () {
             return Inertia::render('main', [
-                'system_menus_tree' => SystemMenuRegisterService::getSystemMenuTree(),
-                'system_menus_list' => SystemMenuRegisterService::getSystemMenuList(),
+                'system_menus_tree' => SystemMenuRegisterService::getInstance()->getSystemMenuTree(),
+                'system_menus_list' => SystemMenuRegisterService::getInstance()->getSystemMenuList(),
             ]);
         })->name('index');
-        SystemMenuRegisterService::fastRoute(SystemConfigController::class);
-        SystemMenuRegisterService::fastRoute(SystemDictController::class);
-        SystemMenuRegisterService::fastRoute(SystemMenuController::class);
-        SystemMenuRegisterService::fastRoute(SystemAdminController::class);
+        SystemMenuRegisterService::getInstance()->fastRoute(SystemConfigController::class);
+        SystemMenuRegisterService::getInstance()->fastRoute(SystemDictController::class);
+        SystemMenuRegisterService::getInstance()->fastRoute(SystemMenuController::class);
+        SystemMenuRegisterService::getInstance()->fastRoute(SystemAdminController::class);
 
         if (app()->isLocal() || app()->runningUnitTests()) {
-            SystemMenuRegisterService::fastRoute(CrudTestController::class);
+            SystemMenuRegisterService::getInstance()->fastRoute(CrudTestController::class);
         }
     });
 });

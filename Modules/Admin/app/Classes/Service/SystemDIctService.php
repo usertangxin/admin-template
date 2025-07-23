@@ -26,7 +26,7 @@ class SystemDictService
 
     public static function getInstance(): static
     {
-        return app(static::class);
+        return app(self::class);
     }
 
     public function registerGroups(array $config_group)

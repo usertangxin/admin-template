@@ -35,13 +35,13 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapSystemMenuGroup()
     {
-        SystemMenuRegisterService::pushSystemMenu((new SystemMenu('权限管理', type: SystemMenuType::GROUP, code: 'system.permission', icon: 'fas drum-steelpan')));
-        SystemMenuRegisterService::pushSystemMenu((new SystemMenu('常规管理', type: SystemMenuType::GROUP, code: 'system.setting', icon: 'fas gears')));
+        SystemMenuRegisterService::getInstance()->pushSystemMenu((new SystemMenu('权限管理', type: SystemMenuType::GROUP, code: 'system.permission', icon: 'fas drum-steelpan')));
+        SystemMenuRegisterService::getInstance()->pushSystemMenu((new SystemMenu('常规管理', type: SystemMenuType::GROUP, code: 'system.setting', icon: 'fas gears')));
         if (\env('APP_ENV') === 'local') {
-            SystemMenuRegisterService::pushSystemMenu(new SystemMenu('开发', type: SystemMenuType::GROUP, code: 'system.dev', icon: 'fas fa-code'));
-            SystemMenuRegisterService::pushSystemMenu(new SystemMenu('OpenApi', url: 'docs/api', type: SystemMenuType::MENU, code: 'scramble.docs.ui', icon: 'fas fa-code', parent_code: 'system.dev'));
-            SystemMenuRegisterService::pushSystemMenu(new SystemMenu('Telescope', url: 'telescope', type: SystemMenuType::MENU, code: 'laravel.telescope.view', icon: 'fas fa-microscope', parent_code: 'system.dev'));
-            SystemMenuRegisterService::pushSystemMenu(new SystemMenu('Font Awesome', url: 'https://fontawesome.com/search?ic=free', type: SystemMenuType::LINK, code: 'fontawesome.com', icon: 'fas fa-icons', parent_code: 'system.dev'));
+            SystemMenuRegisterService::getInstance()->pushSystemMenu(new SystemMenu('开发', type: SystemMenuType::GROUP, code: 'system.dev', icon: 'fas fa-code'));
+            SystemMenuRegisterService::getInstance()->pushSystemMenu(new SystemMenu('OpenApi', url: 'docs/api', type: SystemMenuType::MENU, code: 'scramble.docs.ui', icon: 'fas fa-code', parent_code: 'system.dev'));
+            SystemMenuRegisterService::getInstance()->pushSystemMenu(new SystemMenu('Telescope', url: 'telescope', type: SystemMenuType::MENU, code: 'laravel.telescope.view', icon: 'fas fa-microscope', parent_code: 'system.dev'));
+            SystemMenuRegisterService::getInstance()->pushSystemMenu(new SystemMenu('Font Awesome', url: 'https://fontawesome.com/search?ic=free', type: SystemMenuType::LINK, code: 'fontawesome.com', icon: 'fas fa-icons', parent_code: 'system.dev'));
         }
     }
 

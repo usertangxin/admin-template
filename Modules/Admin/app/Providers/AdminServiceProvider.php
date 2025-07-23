@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Classes\Service\SystemConfigService;
 use Modules\Admin\Classes\Service\SystemDictService;
+use Modules\Admin\Classes\Service\SystemMenuRegisterService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -50,6 +51,9 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->singleton(SystemMenuRegisterService::class, function () {
+            return new SystemMenuRegisterService();
+        });
         $this->app->singleton(SystemConfigService::class, function () {
             return new SystemConfigService();
         });

@@ -14,8 +14,8 @@ class SystemMenuController extends AbstractController
     public function index()
     {
         return $this->success([
-            'tree' => SystemMenuRegisterService::getSystemMenuTree(),
-            'list' => array_values(SystemMenuRegisterService::getSystemMenuList()),
+            'tree' => SystemMenuRegisterService::getInstance()->getSystemMenuTree(),
+            'list' => array_values(SystemMenuRegisterService::getInstance()->getSystemMenuList()),
         ]);
     }
 
@@ -26,11 +26,11 @@ class SystemMenuController extends AbstractController
         if (\file_exists($route_cache_file)) {
             Artisan::call('route:cache');
         }
-        $system_menus = SystemMenuRegisterService::getOriginSystemMenu();
+        $system_menus = SystemMenuRegisterService::getInstance()->getOriginSystemMenu();
         $tree = ArrUtil::convertToTree($system_menus, 'parent_code', 'code', 'children');
         if ($system_menus) {
-            SystemMenuRegisterService::writeMenuTreeToCacheFile($tree);
-            SystemMenuRegisterService::writeMenuToCacheFile($system_menus);
+            SystemMenuRegisterService::getInstance()->writeMenuTreeToCacheFile($tree);
+            SystemMenuRegisterService::getInstance()->writeMenuToCacheFile($system_menus);
         }
 
         return $this->success(message: '刷新菜单缓存成功');
@@ -39,7 +39,7 @@ class SystemMenuController extends AbstractController
     #[SystemMenu('删除系统菜单缓存')]
     public function deleteCache()
     {
-        SystemMenuRegisterService::deleteCacheFile();
+        SystemMenuRegisterService::getInstance()->deleteCacheFile();
 
         return $this->success(message: '删除菜单缓存成功');
     }

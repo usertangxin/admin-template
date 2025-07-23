@@ -10,13 +10,21 @@ use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Utils\ArrUtil;
 use Modules\Admin\Classes\Utils\SystemMenuType;
 
+/**
+ * 系统菜单服务
+ * 请从容器中获取实例
+ * @package Modules\Admin\Classes\Service
+ */
 class SystemMenuRegisterService
 {
-    private static $system_menus = [];
+    private $system_menus = [];
 
-    private function __construct() {}
+    public static function getInstance()
+    {
+        return app(self::class);
+    }
 
-    public static function fastRoute($controller)
+    public function fastRoute($controller)
     {
         Route::controller($controller)->group(function () use ($controller) {
             $ref = new \ReflectionClass($controller);
@@ -38,10 +46,10 @@ class SystemMenuRegisterService
                 $ctlSystemMenuAttr = $ctlSystemMenuAttrs[0]->newInstance();
                 $ctlSystemMenuAttr->type ??= SystemMenuType::GROUP;
                 $ctlSystemMenuAttr->code ??= $ref->getName();
-                if (isset(static::$system_menus[$ctlSystemMenuAttr->code])) {
+                if (isset($this->system_menus[$ctlSystemMenuAttr->code])) {
                     throw new \Exception('系统菜单编码重复:' . $ctlSystemMenuAttr->code);
                 }
-                // static::$system_menus[$ctlSystemMenuAttr->code] = (array) $ctlSystemMenuAttr;
+                // $this->system_menus[$ctlSystemMenuAttr->code] = (array) $ctlSystemMenuAttr;
             }
 
             $action_map = [];
@@ -71,7 +79,7 @@ class SystemMenuRegisterService
 
                     $uri = $prefix . '/' . Str::kebab($actionName);
                     $routeName = $prefix . '.' . Str::kebab($actionName);
-                    $fullUri = static::prefix($uri);
+                    $fullUri = $this->prefix($uri);
 
                     /** @var \Illuminate\Routing\Route $route */
                     $route = Route::$route_action($uri, [$controller, $name])->name($routeName);
@@ -90,45 +98,45 @@ class SystemMenuRegisterService
                     } else {
                         $mtdSystemMenuAttr->parent_code ??= preg_replace('/' . '.' . Str::kebab($actionName) . '(?=.*$)/', '', $route->getName(), 1) . '.index';
                     }
-                    // if(isset(static::$system_menus[$mtdSystemMenuAttr->code])) {
+                    // if(isset($this->system_menus[$mtdSystemMenuAttr->code])) {
                     //     throw new \Exception('系统菜单编码重复:' . $mtdSystemMenuAttr->code);
                     // }
-                    static::pushSystemMenu($mtdSystemMenuAttr);
+                    $this->pushSystemMenu($mtdSystemMenuAttr);
                 }
             }
         });
     }
 
-    public static function pushSystemMenu(SystemMenu $systemMenu)
+    public function pushSystemMenu(SystemMenu $systemMenu)
     {
         $menu = (array) $systemMenu;
         unset($menu['children']);
-        static::$system_menus[$systemMenu->code] = $menu;
+        $this->system_menus[$systemMenu->code] = $menu;
     }
 
-    public static function getOriginSystemMenu()
+    public function getOriginSystemMenu()
     {
-        return static::$system_menus;
+        return $this->system_menus;
     }
 
-    public static function getSystemMenuTree()
+    public function getSystemMenuTree()
     {
         $cache_file_path = \config('cache.stores.file.path') . '/system_menus_tree.php';
         $tree = null;
         if (! file_exists($cache_file_path)) {
-            if (! static::$system_menus) {
+            if (! $this->system_menus) {
                 // 如果是空值那么猜测是缓存了路由
                 // 这个时候就尝试刷新路由获取菜单树并缓存
                 $route_cache_file = app()->getCachedRoutesPath();
                 if (\file_exists($route_cache_file)) {
                     Artisan::call('route:cache');
-                    $tree = ArrUtil::convertToTree(static::$system_menus, 'parent_code', 'code', 'children');
+                    $tree = ArrUtil::convertToTree($this->system_menus, 'parent_code', 'code', 'children');
                     if ($tree) {
-                        static::writeMenuTreeToCacheFile($tree);
+                        $this->writeMenuTreeToCacheFile($tree);
                     }
                 }
             }
-            $tree ??= ArrUtil::convertToTree(static::$system_menus, 'parent_code', 'code', 'children');
+            $tree ??= ArrUtil::convertToTree($this->system_menus, 'parent_code', 'code', 'children');
 
             return $tree;
         }
@@ -137,22 +145,22 @@ class SystemMenuRegisterService
         return $tree;
     }
 
-    public static function getSystemMenuList()
+    public function getSystemMenuList()
     {
         $cache_file_path = \config('cache.stores.file.path') . '/system_menus.php';
         $menus = null;
         if (! file_exists($cache_file_path)) {
-            if (! static::$system_menus) {
+            if (! $this->system_menus) {
                 // 如果是空值那么猜测是缓存了路由
                 // 这个时候就尝试刷新路由获取菜单树并缓存
                 $route_cache_file = app()->getCachedRoutesPath();
                 if (\file_exists($route_cache_file)) {
                     Artisan::call('route:cache');
-                    static::writeMenuToCacheFile(static::$system_menus);
+                    $this->writeMenuToCacheFile($this->system_menus);
                 }
             }
 
-            return static::$system_menus;
+            return $this->system_menus;
         }
         $menus = include_once $cache_file_path;
 
@@ -168,9 +176,9 @@ class SystemMenuRegisterService
      *
      * @throws BindingResolutionException
      */
-    public static function getBy($value, $key)
+    public function getBy($value, $key)
     {
-        $list = static::getSystemMenuList();
+        $list = $this->getSystemMenuList();
         foreach ($list as $item) {
             if ($item[$key] == $value) {
                 return $item;
@@ -180,7 +188,7 @@ class SystemMenuRegisterService
         return null;
     }
 
-    public static function writeMenuTreeToCacheFile($tree)
+    public function writeMenuTreeToCacheFile($tree)
     {
         $cache_file_path = \config('cache.stores.file.path') . '/system_menus_tree.php';
         $treeCode = \var_export($tree, true);
@@ -192,7 +200,7 @@ EOF;
         file_put_contents($cache_file_path, $file_content);
     }
 
-    public static function writeMenuToCacheFile($menus)
+    public function writeMenuToCacheFile($menus)
     {
         $cache_file_path = \config('cache.stores.file.path') . '/system_menus.php';
         $menusCode = \var_export($menus, true);
@@ -204,7 +212,7 @@ EOF;
         file_put_contents($cache_file_path, $file_content);
     }
 
-    public static function deleteCacheFile()
+    public function deleteCacheFile()
     {
         $cache_tree_file_path = \config('cache.stores.file.path') . '/system_menus_tree.php';
         if (file_exists($cache_tree_file_path)) {
@@ -216,7 +224,7 @@ EOF;
         }
     }
 
-    private static function prefix($uri)
+    private function prefix($uri)
     {
         return trim(trim(Route::getLastGroupPrefix(), '/') . '/' . trim($uri, '/'), '/') ?: '/';
     }
