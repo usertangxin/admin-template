@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Classes\Service\SystemConfigService;
@@ -30,6 +31,8 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+
+        Model::preventSilentlyDiscardingAttributes(\app()->isLocal());
 
         $systemConfigService->registerGroups(\config('admin.system_config_group'));
         $systemConfigService->registerList(\config('admin.system_config_agreement'));
