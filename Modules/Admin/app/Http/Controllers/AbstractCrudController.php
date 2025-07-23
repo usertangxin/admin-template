@@ -56,7 +56,7 @@ abstract class AbstractCrudController extends AbstractController
     }
 
     /**
-     * 状态字段和字典编码
+     * 状态字段和字典编码 [字段,字典编码]
      */
     protected function getStatusFieldAndDictCode(): array
     {
@@ -99,7 +99,7 @@ abstract class AbstractCrudController extends AbstractController
     {
 
         if (\request()->route()->getActionMethod() === 'changeStatus') {
-            $systemDictService = app()->make(SystemDictService::class);
+            $systemDictService = SystemDictService::getInstance();
             $statusFieldAndDictCode = $this->getStatusFieldAndDictCode();
             $field = $statusFieldAndDictCode[0];
             $dictCode = $statusFieldAndDictCode[1];
@@ -212,6 +212,9 @@ abstract class AbstractCrudController extends AbstractController
     #[SystemMenu('详情')]
     public function read()
     {
+
+        Inertia::share('__page_read__', true);
+
         $id = \request('id');
         $query = $this->getModel()->withTrashed();
         if (! empty($with = $this->with())) {
@@ -230,8 +233,6 @@ abstract class AbstractCrudController extends AbstractController
         if (! empty($resourceCollection = $this->getResource())) {
             $data = new $resourceCollection($data);
         }
-
-        Inertia::share('__page_read__', true);
 
         return $this->success($data, view: $this->getViewPrefix() . '/save');
     }
@@ -309,6 +310,9 @@ abstract class AbstractCrudController extends AbstractController
     #[SystemMenu('切换状态')]
     public function changeStatus()
     {
+
+        Inertia::share('__page_change_status__', true);
+
         $id = \request('id');
         $statusFieldAndDictCode = $this->getStatusFieldAndDictCode();
         $field = $statusFieldAndDictCode[0];
@@ -321,8 +325,6 @@ abstract class AbstractCrudController extends AbstractController
         if (! $model->save()) {
             return $this->fail('切换状态失败');
         }
-
-        Inertia::share('__page_change_status__', true);
 
         return $this->success([], message: '切换状态成功');
     }
