@@ -10,30 +10,30 @@ use Modules\Admin\Models\SystemDict;
 
 class SystemDictService
 {
-    protected static Collection $group;
+    protected Collection $group;
 
-    protected static Collection $list;
+    protected Collection $list;
 
     /**
      * @var SystemDict[]
      */
-    protected static $databaseConfig;
+    protected $databaseConfig;
 
     protected function __construct() {}
 
-    public static function registerGroups(array $config_group)
+    public function registerGroups(array $config_group)
     {
-        static::getGroups()->push(...$config_group);
+        $this->getGroups()->push(...$config_group);
     }
 
-    public static function getGroups(): Collection
+    public function getGroups(): Collection
     {
-        static::$group ??= new Collection;
+        $this->group ??= new Collection;
 
-        return static::$group;
+        return $this->group;
     }
 
-    public static function registerList(array $config_list)
+    public function registerList(array $config_list)
     {
         $run_diff = true;
         if (\app()->runningInConsole()) {
@@ -48,9 +48,9 @@ class SystemDictService
 
         }
         if ($run_diff) {
-            static::$databaseConfig ??= SystemDict::all();
+            $this->databaseConfig ??= SystemDict::all();
             $kv = [];
-            foreach (static::$databaseConfig as $config) {
+            foreach ($this->databaseConfig as $config) {
                 $kv[$config->value] = $config;
             }
             foreach ($config_list as &$config) {
@@ -59,23 +59,23 @@ class SystemDictService
                 }
             }
         }
-        static::getList()->push(...$config_list);
+        $this->getList()->push(...$config_list);
     }
 
-    public static function getList(): Collection
+    public function getList(): Collection
     {
-        static::$list ??= new Collection;
+        $this->list ??= new Collection;
 
-        return static::$list;
+        return $this->list;
     }
 
-    public static function getListHash()
+    public function getListHash()
     {
-        return \sha1(static::getList()->toJson());
+        return \sha1($this->getList()->toJson());
     }
 
-    public static function getGroupsHash()
+    public function getGroupsHash()
     {
-        return \sha1(static::getGroups()->toJson());
+        return \sha1($this->getGroups()->toJson());
     }
 }

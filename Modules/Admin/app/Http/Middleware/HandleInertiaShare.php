@@ -17,12 +17,12 @@ class HandleInertiaShare
     /**
      * Handle an incoming request.
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, SystemDictService $systemDictService, SystemConfigService $systemConfigService)
     {
-        Inertia::share('system_dict_hash', SystemDictService::getListHash());
-        Inertia::share('system_dict_group_hash', SystemDictService::getGroupsHash());
-        Inertia::share('system_config_hash', SystemConfigService::getListHash());
-        Inertia::share('system_config_group_hash', SystemConfigService::getGroupsHash());
+        Inertia::share('system_dict_hash', $systemDictService->getListHash());
+        Inertia::share('system_dict_group_hash', $systemDictService->getGroupsHash());
+        Inertia::share('system_config_hash', $systemConfigService->getListHash());
+        Inertia::share('system_config_group_hash', $systemConfigService->getGroupsHash());
 
         return $next($request);
     }

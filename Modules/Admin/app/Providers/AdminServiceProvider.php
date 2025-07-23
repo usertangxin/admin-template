@@ -21,7 +21,7 @@ class AdminServiceProvider extends ServiceProvider
     /**
      * Boot the application events.
      */
-    public function boot(): void
+    public function boot(SystemConfigService $systemConfigService, SystemDictService $systemDictService): void
     {
         $this->registerCommands();
         $this->registerCommandSchedules();
@@ -30,18 +30,18 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
-        SystemConfigService::registerGroups(\config('admin.system_config_group'));
-        SystemConfigService::registerList(\config('admin.system_config_agreement'));
-        SystemConfigService::registerList(\config('admin.system_config_email'));
-        SystemConfigService::registerList(\config('admin.system_config_map'));
-        SystemConfigService::registerList(\config('admin.system_config_site'));
-        SystemConfigService::registerList(\config('admin.system_config_upload'));
-        SystemConfigService::registerList(\config('admin.system_config_wechat'));
+        $systemConfigService->registerGroups(\config('admin.system_config_group'));
+        $systemConfigService->registerList(\config('admin.system_config_agreement'));
+        $systemConfigService->registerList(\config('admin.system_config_email'));
+        $systemConfigService->registerList(\config('admin.system_config_map'));
+        $systemConfigService->registerList(\config('admin.system_config_site'));
+        $systemConfigService->registerList(\config('admin.system_config_upload'));
+        $systemConfigService->registerList(\config('admin.system_config_wechat'));
 
         $dict_groups = \config('admin.system_dict_type');
-        SystemDictService::registerGroups($dict_groups);
+        $systemDictService->registerGroups($dict_groups);
         foreach ($dict_groups as $dict_group) {
-            SystemDictService::registerList(\config('admin.dict.' . $dict_group['code']));
+            $systemDictService->registerList(\config('admin.dict.' . $dict_group['code']));
         }
     }
 
@@ -50,6 +50,12 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->singleton(SystemConfigService::class, function () {
+            return new SystemConfigService;
+        });
+        $this->app->singleton(SystemDictService::class, function () {
+            return new SystemDictService;
+        });
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
     }

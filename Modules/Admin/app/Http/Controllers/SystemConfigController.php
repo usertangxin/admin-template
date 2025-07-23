@@ -17,10 +17,10 @@ class SystemConfigController extends AbstractController
     }
 
     #[SystemMenu('系统配置', type: SystemMenuType::MENU, parent_code: 'system.setting', icon: 'fas gear')]
-    public function index()
+    public function index(SystemConfigService $systemConfigService)
     {
-        $data = SystemConfigService::getList();
-        $systemConfigGroup = SystemConfigService::getGroups();
+        $data = $systemConfigService->getList();
+        $systemConfigGroup = $systemConfigService->getGroups();
 
         return $this->success([
             'config_list'       => $data,

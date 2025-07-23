@@ -10,27 +10,27 @@ use Modules\Admin\Models\SystemConfig;
 
 class SystemConfigService
 {
-    protected static Collection $config_group;
+    protected Collection $config_group;
 
-    protected static Collection $config_list;
+    protected Collection $config_list;
 
-    protected static \Illuminate\Database\Eloquent\Collection $databaseConfig;
+    protected \Illuminate\Database\Eloquent\Collection $databaseConfig;
 
     protected function __construct() {}
 
-    public static function registerGroups(array $config_group)
+    public function registerGroups(array $config_group)
     {
-        static::getGroups()->push(...$config_group);
+        $this->getGroups()->push(...$config_group);
     }
 
-    public static function getGroups(): Collection
+    public function getGroups(): Collection
     {
-        static::$config_group ??= new Collection;
+        $this->config_group ??= new Collection;
 
-        return static::$config_group;
+        return $this->config_group;
     }
 
-    public static function registerList(array $config_list)
+    public function registerList(array $config_list)
     {
         $run_diff = true;
         if (\app()->runningInConsole()) {
@@ -44,9 +44,9 @@ class SystemConfigService
             }
         }
         if ($run_diff) {
-            static::$databaseConfig ??= SystemConfig::all();
+            $this->databaseConfig ??= SystemConfig::all();
             $kv = [];
-            foreach (static::$databaseConfig as $config) {
+            foreach ($this->databaseConfig as $config) {
                 $kv[$config->key] = $config['value'];
             }
             foreach ($config_list as &$config) {
@@ -55,23 +55,23 @@ class SystemConfigService
                 }
             }
         }
-        static::getList()->push(...$config_list);
+        $this->getList()->push(...$config_list);
     }
 
-    public static function getList(): Collection
+    public function getList(): Collection
     {
-        static::$config_list ??= new Collection;
+        $this->config_list ??= new Collection;
 
-        return static::$config_list;
+        return $this->config_list;
     }
 
-    public static function getListHash()
+    public function getListHash()
     {
-        return \sha1(static::getList()->toJson());
+        return \sha1($this->getList()->toJson());
     }
 
-    public static function getGroupsHash()
+    public function getGroupsHash()
     {
-        return \sha1(static::getGroups()->toJson());
+        return \sha1($this->getGroups()->toJson());
     }
 }
