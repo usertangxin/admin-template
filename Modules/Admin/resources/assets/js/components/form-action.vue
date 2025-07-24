@@ -6,10 +6,10 @@
                     <slot name="left-before"></slot>
                     <slot name="left">
                         <template v-if="!page.props.__page_index__">
-                            <a-tooltip mini content="首页">
+                            <a-tooltip mini content="上一页">
                                 <a-button @click="toIndex">
                                     <template #icon>
-                                        <icon icon="fas home"></icon>
+                                        <icon icon="fas arrow-left-long"></icon>
                                     </template>
                                 </a-button>
                             </a-tooltip>
@@ -57,7 +57,7 @@
                             <template v-if="!page.props.data.deleted_at">
                                 <slot name="update-before"></slot>
                                 <slot name="update">
-                                    <a-button status="warning" @click="handleGoUpdate">
+                                    <a-button type="primary" status="warning" @click="handleGoUpdate">
                                         去编辑
                                     </a-button>
                                 </slot>
@@ -65,7 +65,7 @@
                                 <slot name="destroy-before"></slot>
                                 <slot name="destroy">
                                     <a-popconfirm content="确定要删除吗？" @ok="handleDestroy">
-                                        <a-button status="danger">
+                                        <a-button type="primary" status="danger">
                                             删除
                                         </a-button>
                                     </a-popconfirm>
@@ -76,7 +76,7 @@
                                 <slot name="restore-before"></slot>
                                 <slot name="restore">
                                     <a-popconfirm content="确定要恢复吗？" @ok="handleRecovery">
-                                        <a-button status="success">
+                                        <a-button type="primary" status="success">
                                             恢复
                                         </a-button>
                                     </a-popconfirm>
@@ -85,7 +85,7 @@
                                 <slot name="real-destroy-before"></slot>
                                 <slot name="real-destroy">
                                     <a-popconfirm content="确定要永久删除吗？" @ok="handleRealDestroy">
-                                        <a-button status="danger">
+                                        <a-button type="primary" status="danger">
                                             永久删除
                                         </a-button>
                                     </a-popconfirm>

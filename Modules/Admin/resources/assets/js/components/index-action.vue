@@ -6,10 +6,10 @@
                     <slot name="left-before"></slot>
                     <slot name="left">
                         <template v-if="!page.props.__page_index__">
-                            <a-tooltip mini content="首页">
+                            <a-tooltip mini content="上一页">
                                 <a-button @click="toIndex">
                                     <template #icon>
-                                        <icon icon="fas home"></icon>
+                                        <icon icon="fas arrow-left-long"></icon>
                                     </template>
                                 </a-button>
                             </a-tooltip>
@@ -69,7 +69,7 @@
                             <slot name="recovery-before"></slot>
                             <slot name="recovery">
                                 <a-popconfirm content="确认恢复选中项吗？" @ok="handleRecovery">
-                                    <a-button status="success"
+                                    <a-button type="primary" status="success"
                                         :disabled="store.selectedKeys.value.length === 0">恢复</a-button>
                                 </a-popconfirm>
                             </slot>
@@ -77,7 +77,7 @@
                             <slot name="real-destroy-before"></slot>
                             <slot name="real-destroy">
                                 <a-popconfirm content="确认永久删除选中项吗？" @ok="handleRealDestroy">
-                                    <a-button status="danger"
+                                    <a-button type="primary" status="danger"
                                         :disabled="store.selectedKeys.value.length === 0">永久删除</a-button>
                                 </a-popconfirm>
                             </slot>
