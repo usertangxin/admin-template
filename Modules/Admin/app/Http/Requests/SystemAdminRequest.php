@@ -4,6 +4,7 @@ namespace Modules\Admin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Modules\Admin\Classes\Service\SystemDictService;
 
 class SystemAdminRequest extends FormRequest
 {
@@ -19,6 +20,11 @@ class SystemAdminRequest extends FormRequest
             'phone'      => 'nullable|string',
             'email'      => 'nullable|email',
             'remark'     => 'nullable|string',
+            'status' => [
+                'nullable',
+                'required',
+                'in:' . \implode(',', SystemDictService::getInstance()->getValuesByCode('data_status')->toArray()),
+            ],
         ];
 
         if (\request()->route()->getActionMethod() == 'create') {

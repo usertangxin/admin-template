@@ -18,6 +18,8 @@ class SystemAdminFactory extends Factory
     {
         return [
             'admin_name' => $this->faker->unique()->userName,
+            'phone'      => $this->faker->phoneNumber,
+            'email'      => $this->faker->email,
             'password'   => 123456,
             'nickname'   => $this->faker->name,
         ];

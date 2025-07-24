@@ -9,21 +9,31 @@
                 <template v-if="column.slotName === 'action-column'">
                     <a-space wrap class="-mb-2">
                         <slot name="action-column-before"></slot>
-                        <a-button size="mini" type="primary" @click="handleDetail(scope.record)">详情</a-button>
+                        <a-button size="medium" type="primary" @click="handleDetail(scope.record)">
+                            详情
+                        </a-button>
                         <template v-if="page.props.__page_index__">
-                            <a-button size="mini" status="warning" @click="handleUpdate(scope.record)">编辑</a-button>
+                            <a-button size="medium" status="warning" @click="handleUpdate(scope.record)">
+                                编辑
+                            </a-button>
                             <a-popconfirm content="确定删除吗？" @ok="handleDestroy(scope.record)">
-                                <a-button size="mini" status="danger">删除</a-button>
+                                <a-button size="medium" status="danger">
+                                    删除
+                                </a-button>
                             </a-popconfirm>
                         </template>
                         <template v-if="page.props.__page_recycle__">
                             <a-popconfirm content="确定永久删除吗？" @ok="handleRealDestroy(scope.record)">
-                                <a-button size="mini" status="danger">永久删除</a-button>
+                                <a-button size="medium" status="danger">
+                                    永久删除
+                                </a-button>
                             </a-popconfirm>
                         </template>
                         <template v-if="page.props.__page_recycle__">
                             <a-popconfirm content="确定恢复吗？" @ok="handleRecovery(scope.record)">
-                                <a-button size="mini" status="success">恢复</a-button>
+                                <a-button size="medium" status="success">
+                                    恢复
+                                </a-button>
                             </a-popconfirm>
                         </template>
                         <slot name="action-column-after"></slot>

@@ -28,6 +28,11 @@
             <a-form-item label="备注" field="remark">
                 <a-textarea v-model="formData.remark" placeholder="请输入备注"></a-textarea>
             </a-form-item>
+            <a-form-item label="状态" field="status">
+                <dict-radio code="data_status" type="info"
+                    :merge="{ normal: { remark: '管理员正常登录' }, disabled: { remark: '管理员不允许登录' } }"
+                    v-model="formData.status"></dict-radio>
+            </a-form-item>
             <button type="submit" hidden></button>
         </a-form>
     </div>
@@ -36,7 +41,7 @@
 <script setup>
 import { Message } from '@arco-design/web-vue';
 import _ from 'lodash';
-import { computed, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref, watch } from 'vue';
 import { router } from '@inertiajs/vue3';
 
 const props = defineProps(['data', '__page_read__'])
@@ -51,8 +56,12 @@ const formData = reactive({
     remark: '',
 })
 
-props.data && _.each(props.data, (item, key) => {
-    formData[key] = item;
+watch(() => props.data, (newVal, oldVal) => {
+    props.data && _.each(props.data, (item, key) => {
+        formData[key] = item;
+    })
+},{
+    immediate: true,
 })
 
 const rules = {

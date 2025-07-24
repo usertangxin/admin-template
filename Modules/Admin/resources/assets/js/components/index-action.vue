@@ -69,7 +69,7 @@
                             <slot name="recovery-before"></slot>
                             <slot name="recovery">
                                 <a-popconfirm content="确认恢复选中项吗？" @ok="handleRecovery">
-                                    <a-button type="primary" status="success"
+                                    <a-button status="success"
                                         :disabled="store.selectedKeys.value.length === 0">恢复</a-button>
                                 </a-popconfirm>
                             </slot>
@@ -77,7 +77,7 @@
                             <slot name="real-destroy-before"></slot>
                             <slot name="real-destroy">
                                 <a-popconfirm content="确认永久删除选中项吗？" @ok="handleRealDestroy">
-                                    <a-button type="primary" status="danger"
+                                    <a-button status="danger"
                                         :disabled="store.selectedKeys.value.length === 0">永久删除</a-button>
                                 </a-popconfirm>
                             </slot>

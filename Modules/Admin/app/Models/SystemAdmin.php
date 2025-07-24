@@ -19,7 +19,7 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
 
     protected $table = 'system_admins';
 
-    protected $fillable = ['admin_name', 'password', 'nickname', 'phone', 'email', 'avatar', 'remark'];
+    protected $fillable = ['admin_name', 'password', 'nickname', 'phone', 'email', 'avatar', 'remark', 'status'];
 
     protected $hidden = [
         'password',
@@ -31,6 +31,19 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
         static::deleting(function ($model) {
             if ($model->disable_destroy) {
                 throw new \Exception($model->nickname . '禁止删除');
+            }
+        });
+        static::updating(function ($model) {
+            if ($model->disable_destroy) {
+
+                if (\request()->user()->id != $model->id) {
+                    throw new \Exception($model->nickname . '禁止编辑');
+                }
+
+                if ($model->isDirty('status')) {
+                    throw new \Exception($model->nickname . '禁止更新状态');
+                }
+                
             }
         });
     }

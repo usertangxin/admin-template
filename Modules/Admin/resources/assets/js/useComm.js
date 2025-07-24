@@ -20,6 +20,7 @@ import DictTag from './components/dict-tag.vue'
 import IndexAction from './components/index-action.vue'
 import FormAction from './components/form-action.vue'
 import FormCol from './components/form-col.vue'
+import DictRadio from './components/dict-radio.vue'
 
 document.body.setAttribute('arco-theme', window.localStorage.getItem('arco-theme') || 'light')
 
@@ -62,6 +63,7 @@ const useComm = {
       .component('icon', Icon)
       .component('index-table', IndexTable)
       .component('dict-tag', DictTag)
+      .component('dict-radio', DictRadio)
       .component('index-action', IndexAction)
       .component('form-action', FormAction)
       .component('form-col', FormCol)

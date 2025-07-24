@@ -5,7 +5,7 @@
                 <recursion-menu :menus="item.children"></recursion-menu>
             </a-menu-item-group>
         </template>
-        <a-menu-item v-else-if="item.type === 'M'" :key="item.code">
+        <a-menu-item v-else-if="item.type" :key="item.code">
             <template #icon>
                 <icon :icon="item.icon" style="font-size: 18px;"></icon>
             </template>
