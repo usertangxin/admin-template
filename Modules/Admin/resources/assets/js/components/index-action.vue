@@ -110,7 +110,7 @@
                         <slot name="columns-before"></slot>
                         <slot name="columns">
                             <a-dropdown position="br" :popup-max-height="false">
-                                <a-tooltip mimi content="控制显示列">
+                                <a-tooltip mimi position="br" content="控制显示列">
                                     <a-button>
                                         <template #icon>
                                             <icon icon="fas table-columns"></icon>
