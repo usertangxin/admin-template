@@ -21,17 +21,26 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
 
     protected $fillable = ['admin_name', 'password', 'nickname', 'phone', 'email', 'avatar', 'remark'];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected static function booted()
+    {
+        static::deleting(function ($model) {
+            if ($model->disable_destroy) {
+                throw new \Exception($model->nickname . '禁止删除');
+            }
+        });
+    }
+
     protected function casts()
     {
         return [
             'backend_setting' => 'json',
         ];
     }
-
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
 
     public function setPasswordAttribute($value)
     {

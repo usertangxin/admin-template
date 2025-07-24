@@ -3,7 +3,6 @@
 namespace Modules\Admin\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 
 class SystemAdminFactory extends Factory
 {

@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('backend_setting', 500)->nullable()->comment('后台设置数据');
             $table->text('remark')->nullable()->comment('备注');
             $table->rememberToken()->nullable()->comment('记住我');
+            $table->boolean('disable_destroy')->default(false)->comment('禁止删除');
             $table->integer('created_by')->nullable()->comment('创建者');
             $table->integer('updated_by')->nullable()->comment('更新者');
             $table->dateTime('created_at')->nullable()->comment('创建时间');

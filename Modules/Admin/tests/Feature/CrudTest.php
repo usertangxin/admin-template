@@ -32,7 +32,7 @@ class CrudTest extends AbstractAuthTestCase
             'test_hidden_field',
         ]);
         $response->assertJsonPath('data.0.status', 'normal');
-        
+
         // 测试每页条数
         $response = $this->getJson('/web/admin/CrudTest/index?__page__=2&__per_page__=12');
         $response->assertJsonCount(3, 'data');

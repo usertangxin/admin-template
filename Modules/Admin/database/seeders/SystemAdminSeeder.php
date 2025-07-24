@@ -3,7 +3,6 @@
 namespace Modules\Admin\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Modules\Admin\Models\SystemAdmin;
 
 class SystemAdminSeeder extends Seeder
@@ -18,6 +17,7 @@ class SystemAdminSeeder extends Seeder
             $admin->admin_name = 'super admin';
             $admin->password = 123456;
             $admin->nickname = 'Super Admin';
+            $admin->disable_destroy = true;
             $admin->save();
         }
     }
