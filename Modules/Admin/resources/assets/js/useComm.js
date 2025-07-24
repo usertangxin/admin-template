@@ -27,8 +27,11 @@ window.changeTheme = (t) => {
   document.body.setAttribute('arco-theme', t)
 }
 
-window.addEventListener('popstate',function(){
-  router.reload()
+window.addEventListener('popstate', function () {
+  // 这里需要加一个延迟，否则首次返回时页面时 remember 数据会丢失
+  setTimeout(() => {
+    router.reload()
+  }, 0);
 })
 
 // 合并所有图标集并去重
@@ -49,20 +52,20 @@ library.add(
 );
 
 const useComm = {
-    install(app,options) {
-        app.use(ArcoVue)
-        .use(ArcoVueIcon)
-        .use(ZiggyVue)
-        .component('font-awesome-icon', FontAwesomeIcon)
-        .component('fas-icon',FasIcon)
-        .component('a-icon', AIcon)
-        .component('icon', Icon)
-        .component('index-table', IndexTable)
-        .component('dict-tag', DictTag)
-        .component('index-action', IndexAction)
-        .component('form-action', FormAction)
-        .component('form-col', FormCol)
-    }
+  install(app, options) {
+    app.use(ArcoVue)
+      .use(ArcoVueIcon)
+      .use(ZiggyVue)
+      .component('font-awesome-icon', FontAwesomeIcon)
+      .component('fas-icon', FasIcon)
+      .component('a-icon', AIcon)
+      .component('icon', Icon)
+      .component('index-table', IndexTable)
+      .component('dict-tag', DictTag)
+      .component('index-action', IndexAction)
+      .component('form-action', FormAction)
+      .component('form-col', FormCol)
+  }
 }
 
 export default useComm

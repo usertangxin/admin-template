@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Message } from '@arco-design/web-vue';
+import nProgress from 'nprogress';
 
 const instance = axios.create({
     headers: {
@@ -7,7 +8,13 @@ const instance = axios.create({
     }
 })
 
+instance.interceptors.request.use(function (config) {
+    nProgress.inc()
+    return config
+})
+
 instance.interceptors.response.use(function (response) {
+    nProgress.done()
     const data = response.data
     if (response.config.method !== 'get') {
         if (data.code === 0) {

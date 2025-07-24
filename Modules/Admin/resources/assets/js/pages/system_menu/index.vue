@@ -15,7 +15,7 @@
                 <block/>
             </template>
         </index-action>
-        <index-table ref="tableRef" row-key="code" :pagination="false" v-model:expandedKeys="expandedKeys" :data="tree">
+        <index-table ref="tableRef" :row-selection="false" row-key="code" :pagination="false" v-model:expandedKeys="expandedKeys" :data="tree">
         </index-table>
     </div>
 </template>

@@ -26,6 +26,8 @@ export function useIndexShareStore() {
     const listData = computed(() => {
         return page.props.data
     })
+    /** 选中的行 */
+    const selectedKeys = useRemember([], 'indexShareSelectedKeys' + window.location.href.split('?')[0])
 
     /** 刷新表格数据 */
     const fetchListData = () => {
@@ -68,6 +70,7 @@ export function useIndexShareStore() {
         columns,
         innerFetchListData,
         actionColumn,
+        selectedKeys,
         listData,
         fetchListData,
         resetSearchQuery,

@@ -58,19 +58,28 @@
                             <slot name="create-after"></slot>
                             <slot name="destroy-before"></slot>
                             <slot name="destroy">
-                                <a-button type="primary" status="danger">删除</a-button>
+                                <a-popconfirm content="确认删除选中项吗？" @ok="handleDestroy">
+                                    <a-button type="primary" status="danger"
+                                        :disabled="store.selectedKeys.value.length === 0">删除</a-button>
+                                </a-popconfirm>
                             </slot>
                             <slot name="destroy-after"></slot>
                         </template>
                         <template v-if="page.props.__page_recycle__">
                             <slot name="recovery-before"></slot>
                             <slot name="recovery">
-                                <a-button type="primary" status="success">恢复</a-button>
+                                <a-popconfirm content="确认恢复选中项吗？" @ok="handleRecovery">
+                                    <a-button type="primary" status="success"
+                                        :disabled="store.selectedKeys.value.length === 0">恢复</a-button>
+                                </a-popconfirm>
                             </slot>
                             <slot name="recovery-after"></slot>
                             <slot name="real-destroy-before"></slot>
                             <slot name="real-destroy">
-                                <a-button type="primary" status="danger">永久删除</a-button>
+                                <a-popconfirm content="确认永久删除选中项吗？" @ok="handleRealDestroy">
+                                    <a-button type="primary" status="danger"
+                                        :disabled="store.selectedKeys.value.length === 0">永久删除</a-button>
+                                </a-popconfirm>
                             </slot>
                             <slot name="real-destroy-after"></slot>
                         </template>
@@ -195,6 +204,35 @@ const toIndex = () => {
 
 const toCreate = () => {
     router.visit('./create')
+}
+
+const handleDestroy = () => {
+    axios.delete('./destroy', {
+        data: {
+            ids: store.selectedKeys.value,
+        }
+    }).then(() => {
+        store.selectedKeys.value = []
+        router.reload();
+    })
+}
+
+const handleRealDestroy = () => {
+    axios.delete('./real-destroy', {
+        data: {
+            ids: store.selectedKeys.value,
+        }
+    }).then(() => {
+        store.selectedKeys.value = []
+        router.reload();
+    })
+}
+
+const handleRecovery = () => {
+    axios.post('./recovery', { ids: store.selectedKeys.value, }).then(() => {
+        store.selectedKeys.value = []
+        router.reload();
+    })
 }
 
 </script>

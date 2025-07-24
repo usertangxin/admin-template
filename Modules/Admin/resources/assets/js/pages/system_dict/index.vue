@@ -26,7 +26,7 @@
             <a-col flex="1">
                 <a-card
                     :title="'字典项（ 「 ' + group_list[current_group_index].name + ' 」相关 ）' + group_list[current_group_index].code">
-                    <index-table :data="current_group_list" :pagination="pagination"
+                    <index-table :data="current_group_list" :pagination="pagination" :row-selection="false"
                         @page-change="pagination.current = $event">
                         <template #color="{ record }">
                             <a-tag v-if="record.color" :style="[...colorMatch(record.color)]" bordered>{{ record.label
