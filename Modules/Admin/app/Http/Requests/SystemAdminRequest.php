@@ -4,6 +4,7 @@ namespace Modules\Admin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class SystemAdminRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class SystemAdminRequest extends FormRequest
     {
         $rules = [
             'avatar' => 'nullable|string',
-            'admin_name' => 'required|string|unique:system_admins',
+            'admin_name' => ['required', 'string', Rule::unique('system_admins')->ignore($this->id)],
             'nickname' => 'nullable|string',
             'phone' => 'nullable|string',
             'email' => 'nullable|email',

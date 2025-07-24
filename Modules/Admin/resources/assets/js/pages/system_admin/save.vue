@@ -19,8 +19,8 @@
             <a-form-item label="昵称" field="nickname">
                 <a-input v-model="formData.nickname" placeholder="请输入昵称"></a-input>
             </a-form-item>
-            <a-form-item label="手机号" field="mobile">
-                <a-input v-model="formData.mobile" placeholder="请输入手机号"></a-input>
+            <a-form-item label="手机号" field="phone">
+                <a-input v-model="formData.phone" placeholder="请输入手机号"></a-input>
             </a-form-item>
             <a-form-item label="电子邮箱" field="email">
                 <a-input v-model="formData.email" placeholder="请输入电子邮箱"></a-input>
@@ -46,7 +46,7 @@ const formData = reactive({
     admin_name: '',
     password: '',
     nickname: '',
-    mobile: '',
+    phone: '',
     email: '',
     remark: '',
 })

@@ -6,8 +6,21 @@
         <template v-for="(column, index) in comColumns" :key="index" v-slot:[column.slotName]="scope">
             <slot :name="column.slotName" v-bind="scope">
                 <template v-if="column.slotName === 'action-column'">
-                    <a-space>
-                        <a-button type="text" @click="handleDetail(scope.record)">详情</a-button>
+                    <a-space wrap>
+                        <slot name="action-column-before"></slot>
+                        <a-link class="text-nowrap" @click="handleDetail(scope.record)">详情</a-link>
+                        <template v-if="page.props.__page_index__">
+                            <a-link class="text-nowrap" status="warning" @click="handleUpdate(scope.record)">编辑</a-link>
+                            <a-popconfirm content="确定删除吗？" @ok="handleDestroy(scope.record)">
+                                <a-link class="text-nowrap" status="danger">删除</a-link>
+                            </a-popconfirm>
+                        </template>
+                        <template v-if="page.props.__page_recycle__">
+                            <a-popconfirm content="确定永久删除吗？" @ok="handleRealDestroy(scope.record)">
+                                <a-link class="text-nowrap" status="danger">永久删除</a-link>
+                            </a-popconfirm>
+                        </template>
+                        <slot name="action-column-after"></slot>
                     </a-space>
                 </template>
                 <template v-else-if="!column.type">
@@ -138,6 +151,30 @@ const analysisMedia = (url) => {
 
 const handleDetail = (record) => {
     router.visit('./read?id=' + record.id)
+}
+
+const handleUpdate = (record) => {
+    router.visit('./update?id=' + record.id)
+}
+
+const handleDestroy = (record) => {
+    axios.delete('./destroy', {
+        data: {
+            ids: record.id,
+        }
+    }).then(()=>{
+        router.reload();
+    })
+}
+
+const handleRealDestroy = (record) => {
+    axios.delete('./real-destroy', {
+        data: {
+            ids: record.id,
+        }
+    }).then(()=>{
+        router.reload();
+    })
 }
 
 defineExpose({

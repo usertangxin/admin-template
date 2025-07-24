@@ -18,7 +18,7 @@ export function useIndexShareStore() {
     /** 操作列 */
     const actionColumn = ref({
         title: '操作',
-        width: 120,
+        // width: 120,
         fixed: 'right',
         slotName: 'action-column',
     })

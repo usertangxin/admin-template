@@ -79,6 +79,11 @@
                 </div>
             </div>
             <div class="flex-1 page-content">
+                <div class="relative">
+                    <div v-show="showNProgress" class="absolute top-0 left-0 right-0 ">
+                        <div class="w-full h-[35px]" id="NProgress-container"></div>
+                    </div>
+                </div>
                 <div class="absolute top-0 left-0 w-full h-full" v-if="contentMask">
                     <!-- 
                     由于 a-popover click 触发方式问题，iframe区域无法穿透事件，故此有了此元素，
@@ -86,7 +91,7 @@
                       -->
                 </div>
                 <iframe v-for="item in openMenus" :key="item.code" v-show="item.code == currOpenMenuCode"
-                    frameborder="0" ref="iframeRef" :src="item.open_url" width="100%" height="100%"></iframe>
+                    frameborder="0" ref="iframeRef" :src="item.open_url" @load="endNProgress" width="100%" height="100%"></iframe>
             </div>
         </div>
     </div>
@@ -95,6 +100,14 @@
 import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { Message } from '@arco-design/web-vue';
 import RecursionMenu from '../components/recursion-menu.vue'
+import nProgress from 'nprogress';
+import _ from 'lodash';
+
+const showNProgress = ref(false)
+const nProgressObj = nProgress.configure({
+    parent: '#NProgress-container',
+})
+
 const navActionsMeta = import.meta.glob('../components/main-nav-actions/*.vue', { eager: true })
 const navActions = {}
 
@@ -128,6 +141,7 @@ onMounted(() => {
             }
         })
     }
+    startNProgress()
 })
 
 const formatComponentName = (name) => {
@@ -241,6 +255,18 @@ const onPopupVisibleChange = (visible) => {
 const handleClickMainMenu = (item, index) => {
     currentMainMenuIndex.value = index
     openMenu(item)
+}
+
+const startNProgress = () => {
+    showNProgress.value = true
+    nProgressObj.inc()
+}
+
+const endNProgress = () => {
+    nProgressObj.done()
+    setTimeout(() => {
+        showNProgress.value = false
+    }, 1000);
 }
 
 const logout = () => {
