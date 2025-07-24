@@ -91,13 +91,14 @@
                       -->
                 </div>
                 <iframe v-for="item in openMenus" :key="item.code" v-show="item.code == currOpenMenuCode"
-                    frameborder="0" ref="iframeRef" :src="item.open_url" @load="endNProgress" width="100%" height="100%"></iframe>
+                    frameborder="0" ref="iframeRef" :src="item.open_url" @load="endNProgress" width="100%"
+                    height="100%"></iframe>
             </div>
         </div>
     </div>
 </template>
 <script setup>
-import { computed, defineComponent, onMounted, ref, watch } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch, nextTick } from 'vue';
 import { Message } from '@arco-design/web-vue';
 import RecursionMenu from '../components/recursion-menu.vue'
 import nProgress from 'nprogress';
@@ -229,6 +230,7 @@ const handleClickCloseTab = (tab, index) => {
 
 const handleClickRefresh = (tab, index) => {
     handleClickTab(tab)
+    startNProgress()
     iframeRef.value[index].contentWindow.location.reload()
 }
 
@@ -272,6 +274,18 @@ const endNProgress = () => {
 const logout = () => {
     window.location.href = route('web.admin.logout');
 }
+
+watch(() => currOpenMenuCode.value, () => {
+    nextTick(() => {
+        _.forEach(openMenus.value, (item, index) => {
+            if (item.code == currOpenMenuCode.value) {
+                if (iframeRef.value[index].contentWindow.document.getElementsByTagName('div').length == 0) {
+                    startNProgress()
+                }
+            }
+        })
+    })
+})
 
 </script>
 
