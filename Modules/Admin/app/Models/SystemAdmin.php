@@ -29,12 +29,12 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
     protected static function booted()
     {
         static::deleting(function ($model) {
-            if ($model->disable_destroy) {
+            if ($model->is_root) {
                 throw new \Exception($model->nickname . '禁止删除');
             }
         });
         static::updating(function ($model) {
-            if ($model->disable_destroy) {
+            if ($model->is_root) {
 
                 if (\request()->user()->id != $model->id) {
                     throw new \Exception($model->nickname . '禁止编辑');
@@ -57,6 +57,9 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
 
     public function setPasswordAttribute($value)
     {
+        if (empty($value)) {
+            return;
+        }
         $this->attributes['password'] = Hash::make($value);
     }
 

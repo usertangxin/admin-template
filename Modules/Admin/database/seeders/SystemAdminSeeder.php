@@ -17,7 +17,7 @@ class SystemAdminSeeder extends Seeder
             $admin->admin_name = 'super admin';
             $admin->password = 123456;
             $admin->nickname = 'Super Admin';
-            $admin->disable_destroy = true;
+            $admin->is_root = true;
             $admin->save();
         }
     }
