@@ -4,6 +4,7 @@ namespace Modules\Admin\Classes\Service;
 
 use Modules\Admin\Classes\Interfaces\UploadFileConstraintInterface;
 use Modules\Admin\Classes\Interfaces\UploadFileStorageInterface;
+use Modules\Admin\Models\SystemUploadfile;
 
 class UploadFileService
 {
@@ -55,5 +56,20 @@ class UploadFileService
 
         // \dd($result);
         return $result;
+    }
+
+    public function delete($ids)
+    {
+        if (! \is_array($ids)) {
+            $ids = \explode(',', $ids);
+        }
+        $systemUploadfiles = SystemUploadfile::whereIn('id', $ids)->get();
+        foreach ($systemUploadfiles as $systemUploadfile) {
+            $storage = $this->file_storage[$systemUploadfile->storage_mode] ?? null;
+            if (empty($storage)) {
+                continue;
+            }
+            $storage->delete($systemUploadfile->storage_path);
+        }
     }
 }

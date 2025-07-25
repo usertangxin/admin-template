@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Classes\Storage;
 
+use Illuminate\Filesystem\LocalFilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Modules\Admin\Classes\Interfaces\UploadFileStorageInterface;
@@ -15,17 +16,22 @@ class PublicStorage implements UploadFileStorageInterface
         return 'public';
     }
 
-    public function storage($files, $upload_mode): array
+    public function getDisk(): LocalFilesystemAdapter
     {
-        $systemConfigService = SystemConfigService::getInstance();
-        $domain = $systemConfigService->getValueByKey('public_domain');
-
-        $disk = Storage::build([
+        return Storage::build([
             'driver'     => 'local',
             'root'       => storage_path('app/public'),
             'throw'      => false,
             'report'     => false,
         ]);
+    }
+
+    public function storage($files, $upload_mode): array
+    {
+        $systemConfigService = SystemConfigService::getInstance();
+        $domain = $systemConfigService->getValueByKey('public_domain');
+
+        $disk = $this->getDisk();
 
         $arr = [];
 
@@ -53,5 +59,11 @@ class PublicStorage implements UploadFileStorageInterface
         }
 
         return $arr;
+    }
+
+    public function delete($path): bool
+    {
+        $disk = $this->getDisk();
+        return $disk->delete($path);
     }
 }

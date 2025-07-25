@@ -9,6 +9,8 @@ interface UploadFileStorageInterface
      */
     public function storage_mode(): string;
 
+    public function getDisk(): \Illuminate\Filesystem\LocalFilesystemAdapter;
+
     /**
      * 存储文件
      *
@@ -16,4 +18,6 @@ interface UploadFileStorageInterface
      * @param string                          $upload_mode 上传模式
      */
     public function storage($files, $upload_mode): array;
+
+    public function delete($path): bool;
 }
