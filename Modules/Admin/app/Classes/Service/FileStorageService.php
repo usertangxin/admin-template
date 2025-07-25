@@ -6,7 +6,7 @@ use Modules\Admin\Classes\Interfaces\UploadFileConstraintInterface;
 use Modules\Admin\Classes\Interfaces\UploadFileStorageInterface;
 use Modules\Admin\Models\SystemUploadfile;
 
-class UploadFileService
+class FileStorageService
 {
     /**
      * 文件限制
@@ -32,7 +32,7 @@ class UploadFileService
         $this->file_storage[$storage->storage_mode()] = $storage;
     }
 
-    public function upload()
+    public function upload($path = '')
     {
         $storage_mode = \request('storage_mode', SystemConfigService::getInstance()->getValueByKey('storage_mode'));
         $upload_mode = \request('upload_mode', 'file');
@@ -52,9 +52,13 @@ class UploadFileService
             $files = [$files];
         }
         $files = $constraint->check($files);
-        $result = $storage->storage($files, $upload_mode);
+        // 过滤掉 $path 中所有敏感字符串
+        $sensitiveStrings = ['../', '..\\', './', '.\\', '~', '|', ';', '&', '`', '$', '<', '>', '?', '*', '"', "'", '{', '}', '[', ']'];
+        foreach ($sensitiveStrings as $sensitiveString) {
+            $path = str_replace($sensitiveString, '', $path);
+        }
+        $result = $storage->storage($files, $upload_mode, $path);
 
-        // \dd($result);
         return $result;
     }
 
@@ -63,13 +67,25 @@ class UploadFileService
         if (! \is_array($ids)) {
             $ids = \explode(',', $ids);
         }
+        /** @var SystemUploadfile[] $systemUploadfiles */
         $systemUploadfiles = SystemUploadfile::whereIn('id', $ids)->get();
+        $success_paths = [];
+        $fail_paths = [];
         foreach ($systemUploadfiles as $systemUploadfile) {
             $storage = $this->file_storage[$systemUploadfile->storage_mode] ?? null;
             if (empty($storage)) {
                 continue;
             }
-            $storage->delete($systemUploadfile->storage_path);
+            if ($storage->delete($systemUploadfile->storage_path)) {
+                $systemUploadfile->delete();
+                $success_paths[] = $systemUploadfile->storage_path;
+            } else {
+                $fail_paths[] = $systemUploadfile->storage_path;
+            }
         }
+        return [
+            'success_paths' => $success_paths,
+            'fail_paths' => $fail_paths,
+        ];
     }
 }

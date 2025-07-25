@@ -11,22 +11,42 @@ use Modules\Admin\Models\SystemUploadfile;
 
 class PublicStorage implements UploadFileStorageInterface
 {
+
+    protected function getConfig(): array
+    {
+        return [
+            'driver'     => 'local',
+            'root'       => storage_path('app/public'),
+            'visibility' => 'public',
+            'throw'      => true,
+            'report'     => false,
+        ];
+    }
+
+    public function __construct()
+    {
+        \config([
+            'filesystems.disks.public' => $this->getConfig(),
+            'filesystems.links' => \array_merge(
+                \config('filesystems.links'),
+                [
+                    public_path('storage') => storage_path('app/public'),
+                ]
+            ),
+        ]);
+    }
+
     public function storage_mode(): string
     {
         return 'public';
     }
 
-    public function getDisk(): LocalFilesystemAdapter
+    protected function getDisk(): LocalFilesystemAdapter
     {
-        return Storage::build([
-            'driver'     => 'local',
-            'root'       => storage_path('app/public'),
-            'throw'      => false,
-            'report'     => false,
-        ]);
+        return Storage::build($this->getConfig());
     }
 
-    public function storage($files, $upload_mode): array
+    public function storage($files, $upload_mode, $path = ''): array
     {
         $systemConfigService = SystemConfigService::getInstance();
         $domain = $systemConfigService->getValueByKey('public_domain');
@@ -41,15 +61,15 @@ class PublicStorage implements UploadFileStorageInterface
             if ($systemUploadfile) {
                 $arr[] = $systemUploadfile->toArray();
             } else {
-                $path = $disk->putFile($upload_mode, $file);
+                $path = $disk->putFile($upload_mode . '/' . $path, $file);
                 $data = [
                     'storage_mode' => $this->storage_mode(),
                     'origin_name'  => $file->getClientOriginalName(),
                     'object_name'  => Str::of($path)->after($upload_mode . '/')->toString(),
                     'hash'         => $hash,
                     'mime_type'    => $file->getMimeType(),
-                    'storage_path' => 'storage/' . $path,
-                    'suffix'       => $file->getClientOriginalExtension(),
+                    'storage_path' => $path,
+                    'suffix'       => $file->extension(),
                     'size_byte'    => $file->getSize(),
                     'url'          => $domain . '/storage/' . $path,
                 ];
@@ -61,10 +81,13 @@ class PublicStorage implements UploadFileStorageInterface
         return $arr;
     }
 
-    public function delete($path): bool
+    public function delete($paths): bool
     {
-        $disk = $this->getDisk();
+        return $this->getDisk()->delete($paths);
+    }
 
-        return $disk->delete($path);
+    public function __call($name, $arguments)
+    {
+        return $this->getDisk()->$name(...$arguments);
     }
 }

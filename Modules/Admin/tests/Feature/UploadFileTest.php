@@ -3,6 +3,7 @@
 namespace Modules\Admin\Tests\Feature;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class UploadFileTest extends AbstractAuthTestCase
 {
@@ -24,6 +25,7 @@ class UploadFileTest extends AbstractAuthTestCase
             'file' => UploadedFile::fake()->image('test.jpg'),
         ]);
         $response->assertJson(['code' => 0]);
+        $this->assertTrue(Storage::disk('public')->delete($response->json('data.0.storage_path')));
 
         $response = $this->postJson('/web/admin/SystemUploadFile/upload', [
             'file'        => UploadedFile::fake()->image('test.png'),

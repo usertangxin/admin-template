@@ -9,15 +9,14 @@ interface UploadFileStorageInterface
      */
     public function storage_mode(): string;
 
-    public function getDisk(): \Illuminate\Filesystem\LocalFilesystemAdapter;
-
     /**
      * 存储文件
      *
      * @param \Illuminate\Http\UploadedFile[] $files
      * @param string                          $upload_mode 上传模式
+     * @param string                          $path 路径
      */
-    public function storage($files, $upload_mode): array;
+    public function storage($files, $upload_mode, $path = ''): array;
 
-    public function delete($path): bool;
+    public function delete($paths): bool;
 }

@@ -3,7 +3,7 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Modules\Admin\Classes\Attrs\SystemMenu;
-use Modules\Admin\Classes\Service\UploadFileService;
+use Modules\Admin\Classes\Service\FileStorageService;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Models\SystemUploadfile;
@@ -17,9 +17,9 @@ class SystemUploadFileController extends AbstractCrudController
     }
 
     #[SystemMenu('上传文件')]
-    public function postUpload(UploadFileService $uploadFileService)
+    public function postUpload(FileStorageService $fileStorageService)
     {
-        $arr = $uploadFileService->upload();
+        $arr = $fileStorageService->upload();
 
         // \dd($arr);
         return $this->success($arr);

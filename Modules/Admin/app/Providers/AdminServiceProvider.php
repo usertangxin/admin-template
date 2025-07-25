@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Classes\Service\SystemConfigService;
 use Modules\Admin\Classes\Service\SystemDictService;
 use Modules\Admin\Classes\Service\SystemMenuRegisterService;
-use Modules\Admin\Classes\Service\UploadFileService;
+use Modules\Admin\Classes\Service\FileStorageService;
 use Modules\Admin\Classes\Storage\Constraint\AudioConstraint;
 use Modules\Admin\Classes\Storage\Constraint\DocumentConstraint;
 use Modules\Admin\Classes\Storage\Constraint\FileConstraint;
@@ -30,7 +30,7 @@ class AdminServiceProvider extends ServiceProvider
     /**
      * Boot the application events.
      */
-    public function boot(SystemConfigService $systemConfigService, SystemDictService $systemDictService, UploadFileService $uploadFileService): void
+    public function boot(SystemConfigService $systemConfigService, SystemDictService $systemDictService, FileStorageService $fileStorageService): void
     {
         $this->registerCommands();
         $this->registerCommandSchedules();
@@ -55,13 +55,13 @@ class AdminServiceProvider extends ServiceProvider
             $systemDictService->registerList(\config('admin.dict.' . $dict_group['code']));
         }
 
-        $uploadFileService->registerFileConstraint(new FileConstraint);
-        $uploadFileService->registerFileConstraint(new ImageConstraint);
-        $uploadFileService->registerFileConstraint(new DocumentConstraint);
-        $uploadFileService->registerFileConstraint(new VideoConstraint);
-        $uploadFileService->registerFileConstraint(new AudioConstraint);
+        $fileStorageService->registerFileConstraint($this->app->make(FileConstraint::class));
+        $fileStorageService->registerFileConstraint($this->app->make(ImageConstraint::class));
+        $fileStorageService->registerFileConstraint($this->app->make(DocumentConstraint::class));
+        $fileStorageService->registerFileConstraint($this->app->make(VideoConstraint::class));
+        $fileStorageService->registerFileConstraint($this->app->make(AudioConstraint::class));
 
-        $uploadFileService->registerFileStorage(new PublicStorage);
+        $fileStorageService->registerFileStorage($this->app->make(PublicStorage::class));
     }
 
     /**
@@ -78,8 +78,8 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->singleton(SystemDictService::class, function () {
             return new SystemDictService;
         });
-        $this->app->singleton(UploadFileService::class, function () {
-            return new UploadFileService;
+        $this->app->singleton(FileStorageService::class, function () {
+            return new FileStorageService;
         });
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
