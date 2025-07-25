@@ -71,8 +71,8 @@
                                 <a-doption @click="logout">退出登录</a-doption>
                             </a-dgroup>
                             <a-dgroup title="缓存">
-                                <a-doption>清理系统缓存</a-doption>
-                                <a-doption>清理浏览器缓存</a-doption>
+                                <a-doption @click="clearSystemCache">清理系统缓存</a-doption>
+                                <a-doption @click="clearBrowserCache">清理浏览器缓存</a-doption>
                             </a-dgroup>
                         </template>
                     </a-dropdown>
@@ -99,7 +99,7 @@
 </template>
 <script setup>
 import { computed, defineComponent, onMounted, ref, watch, nextTick } from 'vue';
-import { Message } from '@arco-design/web-vue';
+import { Message, Modal } from '@arco-design/web-vue';
 import RecursionMenu from '../components/recursion-menu.vue'
 import nProgress from 'nprogress';
 import _ from 'lodash';
@@ -258,6 +258,25 @@ const onPopupVisibleChange = (visible) => {
 const handleClickMainMenu = (item, index) => {
     currentMainMenuIndex.value = index
     openMenu(item)
+}
+
+const clearSystemCache = async () => {
+    await axios.post(route('web.admin.clear-system-cache'))
+    window.location.reload()
+}
+
+const clearBrowserCache = () => {
+    Modal.info({
+        title: '提示',
+        content: '确定要清理吗？这会导致未保存的数据丢失',
+        closable: true,
+        hideCancel: false,
+        onCancel: () => { },
+        onOk: () => {
+            localStorage.clear();
+            window.location.reload()
+        }
+    })
 }
 
 const startNProgress = () => {

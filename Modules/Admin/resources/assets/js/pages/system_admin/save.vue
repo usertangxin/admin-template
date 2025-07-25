@@ -54,13 +54,14 @@ const formData = reactive({
     phone: '',
     email: '',
     remark: '',
+    status: 'normal',
 })
 
 watch(() => props.data, (newVal, oldVal) => {
     props.data && _.each(props.data, (item, key) => {
         formData[key] = item;
     })
-},{
+}, {
     immediate: true,
 })
 

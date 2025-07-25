@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Modules\Admin\Classes\Service\ResponseService;
 use Modules\Admin\Classes\Service\SystemMenuRegisterService;
 use Modules\Admin\Http\Controllers\CrudTestController;
 use Modules\Admin\Http\Controllers\LoginController;
@@ -27,6 +28,10 @@ Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(fu
                 'auth'              => Auth::user(),
             ]);
         })->name('index');
+        Route::post('clear-system-cache', function(){
+            Cache::clear();
+            return ResponseService::success(message: '清理系统缓存成功');
+        })->name('clear-system-cache');
         SystemMenuRegisterService::getInstance()->fastRoute(SystemConfigController::class);
         SystemMenuRegisterService::getInstance()->fastRoute(SystemDictController::class);
         SystemMenuRegisterService::getInstance()->fastRoute(SystemMenuController::class);
