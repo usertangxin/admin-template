@@ -7,9 +7,9 @@ use Modules\Admin\Classes\Interfaces\UploadFileStorageInterface;
 
 class UploadFileService
 {
-
     /**
      * 文件限制
+     *
      * @var array<string, UploadFileConstraintInterface>
      */
     protected $file_constraint = [
@@ -37,6 +37,7 @@ class UploadFileService
 
     /**
      * 文件存储
+     *
      * @var array<string, UploadFileStorageInterface>
      */
     protected $file_storage = [];
@@ -67,11 +68,12 @@ class UploadFileService
         if (empty($storage)) {
             throw new \Exception('存储模式不存在');
         }
-        if (!\is_array($files)) {
+        if (! \is_array($files)) {
             $files = [$files];
         }
         $files = $constraint->check($files);
         $result = $storage->storage($files, $upload_mode);
+
         // \dd($result);
         return $result;
     }

@@ -6,27 +6,27 @@ use Illuminate\Support\Str;
 use Modules\Admin\Classes\Interfaces\UploadFileConstraintInterface;
 use Modules\Admin\Classes\Service\SystemConfigService;
 
-class FileConstraint implements UploadFileConstraintInterface
+class DocumentConstraint implements UploadFileConstraintInterface
 {
     public function upload_mode(): string
     {
-        return 'file';
+        return 'document';
     }
 
     public function check($files): array
     {
-        $allow = SystemConfigService::getInstance()->getValueByKey('upload_allow_file');
-        $size = SystemConfigService::getInstance()->getValueByKey('upload_size');
+        $allow = SystemConfigService::getInstance()->getValueByKey('upload_allow_document');
+        $size = SystemConfigService::getInstance()->getValueByKey('upload_size_document');
 
         $allow = explode(',', Str::of($allow)->replace('/s+/', '')->toString());
 
         foreach ($files as $file) {
             $ext = $file->getClientOriginalExtension();
             if (! in_array($ext, $allow)) {
-                throw new \Exception('文件类型只允许：' . $allow);
+                throw new \Exception('文档类型只允许：' . $allow);
             }
             if ($file->getSize() > $size) {
-                throw new \Exception('文件大小超出限制：' . $size);
+                throw new \Exception('文档大小超出限制：' . $size);
             }
         }
 

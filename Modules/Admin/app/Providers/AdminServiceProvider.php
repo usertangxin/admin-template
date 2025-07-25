@@ -9,7 +9,11 @@ use Modules\Admin\Classes\Service\SystemConfigService;
 use Modules\Admin\Classes\Service\SystemDictService;
 use Modules\Admin\Classes\Service\SystemMenuRegisterService;
 use Modules\Admin\Classes\Service\UploadFileService;
+use Modules\Admin\Classes\Storage\Constraint\AudioConstraint;
+use Modules\Admin\Classes\Storage\Constraint\DocumentConstraint;
 use Modules\Admin\Classes\Storage\Constraint\FileConstraint;
+use Modules\Admin\Classes\Storage\Constraint\ImageConstraint;
+use Modules\Admin\Classes\Storage\Constraint\VideoConstraint;
 use Modules\Admin\Classes\Storage\PublicStorage;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
@@ -51,8 +55,13 @@ class AdminServiceProvider extends ServiceProvider
             $systemDictService->registerList(\config('admin.dict.' . $dict_group['code']));
         }
 
-        $uploadFileService->registerFileConstraint(new FileConstraint());
-        $uploadFileService->registerFileStorage(new PublicStorage());
+        $uploadFileService->registerFileConstraint(new FileConstraint);
+        $uploadFileService->registerFileConstraint(new ImageConstraint);
+        $uploadFileService->registerFileConstraint(new DocumentConstraint);
+        $uploadFileService->registerFileConstraint(new VideoConstraint);
+        $uploadFileService->registerFileConstraint(new AudioConstraint);
+
+        $uploadFileService->registerFileStorage(new PublicStorage);
     }
 
     /**

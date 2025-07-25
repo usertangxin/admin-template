@@ -29,8 +29,9 @@ Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(fu
                 'auth'              => Auth::user(),
             ]);
         })->name('index');
-        Route::post('clear-system-cache', function(){
+        Route::post('clear-system-cache', function () {
             Cache::clear();
+
             return ResponseService::success(message: '清理系统缓存成功');
         })->name('clear-system-cache');
         SystemMenuRegisterService::getInstance()->fastRoute(SystemConfigController::class);

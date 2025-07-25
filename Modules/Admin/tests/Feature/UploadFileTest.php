@@ -3,8 +3,6 @@
 namespace Modules\Admin\Tests\Feature;
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use Tests\TestCase;
 
 class UploadFileTest extends AbstractAuthTestCase
 {

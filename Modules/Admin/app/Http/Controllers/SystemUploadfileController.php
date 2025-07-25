@@ -13,13 +13,14 @@ class SystemUploadFileController extends AbstractCrudController
 {
     protected function getModel(): AbstractModel|AbstractSoftDelModel|null
     {
-        return new SystemUploadfile();
+        return new SystemUploadfile;
     }
 
     #[SystemMenu('上传文件')]
     public function postUpload(UploadFileService $uploadFileService)
     {
         $arr = $uploadFileService->upload();
+
         // \dd($arr);
         return $this->success($arr);
     }

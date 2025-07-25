@@ -10,7 +10,6 @@ use Modules\Admin\Models\SystemUploadfile;
 
 class PublicStorage implements UploadFileStorageInterface
 {
-
     public function storage_mode(): string
     {
         return 'public';
@@ -39,14 +38,14 @@ class PublicStorage implements UploadFileStorageInterface
                 $path = $disk->putFile($upload_mode, $file);
                 $data = [
                     'storage_mode' => $this->storage_mode(),
-                    'origin_name' => $file->getClientOriginalName(),
-                    'object_name' => Str::of($path)->after($upload_mode . '/')->toString(),
-                    'hash' => $hash,
-                    'mime_type' => $file->getMimeType(),
+                    'origin_name'  => $file->getClientOriginalName(),
+                    'object_name'  => Str::of($path)->after($upload_mode . '/')->toString(),
+                    'hash'         => $hash,
+                    'mime_type'    => $file->getMimeType(),
                     'storage_path' => 'storage/' . $path,
-                    'suffix' => $file->getClientOriginalExtension(),
-                    'size_byte' => $file->getSize(),
-                    'url' => $domain . '/storage/' . $path,
+                    'suffix'       => $file->getClientOriginalExtension(),
+                    'size_byte'    => $file->getSize(),
+                    'url'          => $domain . '/storage/' . $path,
                 ];
                 SystemUploadfile::create($data);
                 $arr[] = $data;
