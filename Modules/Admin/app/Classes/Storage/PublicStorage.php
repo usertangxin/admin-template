@@ -64,6 +64,7 @@ class PublicStorage implements UploadFileStorageInterface
     public function delete($path): bool
     {
         $disk = $this->getDisk();
+
         return $disk->delete($path);
     }
 }
