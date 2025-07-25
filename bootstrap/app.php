@@ -35,4 +35,10 @@ return Application::configure(basePath: dirname(__DIR__))
                 return ResponseService::fail($exception->getMessage(), $exception->status, null, $exception->errors());
             }
         });
+
+        $exceptions->render(function (Throwable $exception, Request $request) {
+            if (($request->get('__is_admin_background__'))) {
+                return ResponseService::fail($exception->getMessage(), 500, null, app()->isLocal() ? ['trace' => $exception->getTrace()] : []);
+            }
+        });
     })->create();

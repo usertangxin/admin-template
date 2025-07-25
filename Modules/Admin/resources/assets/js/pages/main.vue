@@ -63,7 +63,7 @@
                             <a-avatar shape="square">
                                 <IconUser />
                             </a-avatar>
-                            <span>Super Admin</span>
+                            <span>{{ auth.nickname }}</span>
                         </a-space>
                         <template #content>
                             <a-dgroup title="个人">
@@ -104,6 +104,8 @@ import RecursionMenu from '../components/recursion-menu.vue'
 import nProgress from 'nprogress';
 import _ from 'lodash';
 
+const props = defineProps(['system_menus_tree', 'system_menus_list', 'auth'])
+
 const showNProgress = ref(false)
 const nProgressObj = nProgress.configure({
     parent: '#NProgress-container',
@@ -121,7 +123,6 @@ for (const [path, module] of Object.entries(navActionsMeta)) {
 
 
 const iframeRef = ref(null)
-const props = defineProps(['system_menus_tree', 'system_menus_list'])
 const contentMask = ref(false)
 const fullScreen = ref(false)
 const currentMainMenuIndex = ref(0)

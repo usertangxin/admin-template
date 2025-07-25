@@ -20,7 +20,7 @@ class SystemAdminRequest extends FormRequest
             'phone'      => 'nullable|string',
             'email'      => 'nullable|email',
             'remark'     => 'nullable|string',
-            'status' => [
+            'status'     => [
                 'nullable',
                 'required',
                 'in:' . \implode(',', SystemDictService::getInstance()->getValuesByCode('data_status')->toArray()),

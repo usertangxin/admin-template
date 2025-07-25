@@ -24,6 +24,7 @@ Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(fu
             return Inertia::render('main', [
                 'system_menus_tree' => SystemMenuRegisterService::getInstance()->getSystemMenuTree(),
                 'system_menus_list' => SystemMenuRegisterService::getInstance()->getSystemMenuList(),
+                'auth'              => Auth::user(),
             ]);
         })->name('index');
         SystemMenuRegisterService::getInstance()->fastRoute(SystemConfigController::class);

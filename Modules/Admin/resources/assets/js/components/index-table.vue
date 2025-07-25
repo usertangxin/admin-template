@@ -92,6 +92,8 @@ const pagination = computed(() => {
         pageSize: store.searchQuery.value.__per_page__,
         total: page.props.meta?.total ?? 0,
         showPageSize: true,
+        showTotal: true,
+        showJumper: true,
     }
 })
 

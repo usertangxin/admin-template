@@ -357,7 +357,7 @@ abstract class AbstractCrudController extends AbstractController
         } catch (\Throwable $e) {
             DB::rollBack();
 
-            return $this->fail('删除失败：' . $e->getMessage());
+            throw $e;
         }
 
         return $this->success(message: '删除成功');
@@ -446,7 +446,7 @@ abstract class AbstractCrudController extends AbstractController
         } catch (\Throwable $e) {
             DB::rollBack();
 
-            return $this->fail('恢复失败：' . $e->getMessage());
+            throw $e;
         }
 
         return $this->success([], message: '恢复成功');
