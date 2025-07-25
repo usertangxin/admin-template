@@ -16,7 +16,7 @@ class SystemConfigController extends AbstractController
         return new SystemConfig;
     }
 
-    #[SystemMenu('系统配置', type: SystemMenuType::MENU, parent_code: 'system.setting', icon: 'fas gear')]
+    #[SystemMenu('系统配置', type: SystemMenuType::MENU, parent_code: 'system.basic', icon: 'fas gear')]
     public function index(SystemConfigService $systemConfigService)
     {
         $data = $systemConfigService->getList();

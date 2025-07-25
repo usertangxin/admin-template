@@ -81,7 +81,7 @@ export function useIndexShareStore() {
     }
 }
 
-export function provideIndexShareStore(props) {
+export function provideIndexShareStore(props = {}) {
     const store = useIndexShareStore()
     if (props.columns && router.restore('indexShareColumns' + window.location.href.split('?')[0])?.length < 1) {
         store.columns.value = props.columns

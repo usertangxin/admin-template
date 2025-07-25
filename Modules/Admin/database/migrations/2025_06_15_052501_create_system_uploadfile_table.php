@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('system_uploadfiles', function (Blueprint $table) {
             $table->comment('附件管理表');
             $table->increments('id')->comment('主键');
-            $table->string('storage_mode')->nullable()->default('local')->comment('存储模式:dict=upload_mode');
+            $table->string('storage_mode')->nullable()->default('public')->comment('存储模式:dict=upload_mode');
             $table->string('origin_name')->nullable()->comment('原文件名');
             $table->string('object_name', 50)->nullable()->comment('新文件名');
-            $table->string('hash', 64)->nullable()->unique('hash')->comment('文件hash');
+            $table->string('hash', 64)->nullable()->unique('system_uploadfiles_hash')->comment('文件hash');
             $table->string('mime_type')->nullable()->comment('资源类型');
             $table->string('storage_path', 100)->nullable()->index('system_uploadfile_storage_path')->comment('存储目录');
             $table->string('suffix', 10)->nullable()->comment('文件后缀');

@@ -29,7 +29,7 @@
         </div>
         <div class="flex-1 flex flex-col">
             <div class="header">
-                <div class="flex-1 h-full relative">
+                <div class="flex-1 h-full relative left">
                     <div class=" absolute top-0 left-0 right-0 bottom-0">
                         <a-scrollbar style="height: 60px;overflow-x: scroll;width: 100%;">
                             <div class="tabs">
@@ -52,12 +52,11 @@
                         </a-scrollbar>
                     </div>
                 </div>
-                <div class="right">
+                <div class="right h-full pl-3 ml-2">
                     <template v-for="(item, index) in navActions">
-                        <a-divider direction="vertical" />
                         <component :is="item" style="font-size: 25px;"></component>
+                        <a-divider direction="vertical" />
                     </template>
-                    <a-divider direction="vertical" />
                     <a-dropdown trigger="click" @popup-visible-change="onPopupVisibleChange">
                         <a-space class="cursor-pointer">
                             <a-avatar shape="square">
@@ -413,8 +412,8 @@ watch(() => currOpenMenuCode.value, () => {
     height: 60px;
     color: var(--color-text-1);
     box-sizing: border-box;
-    border-bottom: 1px solid var(--color-border-3);
-    background-color: var(--color-bg-2);
+    // border-bottom: 1px solid var(--color-border-3);
+    // background-color: var(--color-bg-2);
     display: flex;
     align-items: center;
 
@@ -439,8 +438,8 @@ watch(() => currOpenMenuCode.value, () => {
             &.active {
                 background-color: rgba(var(--primary-6), .05);
                 color: rgb(var(--primary-6));
-                border-left: 1px solid var(--color-border-3);
-                border-right: 1px solid var(--color-border-3);
+                // border-left: 1px solid var(--color-border-3);
+                // border-right: 1px solid var(--color-border-3);
 
                 &:first-child {
                     border-left: 0;
@@ -449,10 +448,19 @@ watch(() => currOpenMenuCode.value, () => {
         }
     }
 
+    .left {
+        border-right: 1px solid var(--color-border-3);
+        border-bottom: 1px solid var(--color-border-3);
+        background-color: var(--color-bg-2);
+    }
+
     .right {
         display: flex;
         align-items: center;
-        margin-right: 10px;
+        padding-right: 10px;
+        border-left: 1px solid var(--color-border-3);
+        border-bottom: 1px solid var(--color-border-3);
+        background-color: var(--color-bg-2);
     }
 }
 </style>
