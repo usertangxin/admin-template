@@ -8,6 +8,9 @@ use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Classes\Service\SystemConfigService;
 use Modules\Admin\Classes\Service\SystemDictService;
 use Modules\Admin\Classes\Service\SystemMenuRegisterService;
+use Modules\Admin\Classes\Service\UploadFileService;
+use Modules\Admin\Classes\Storage\Constraint\FileConstraint;
+use Modules\Admin\Classes\Storage\PublicStorage;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -23,7 +26,7 @@ class AdminServiceProvider extends ServiceProvider
     /**
      * Boot the application events.
      */
-    public function boot(SystemConfigService $systemConfigService, SystemDictService $systemDictService): void
+    public function boot(SystemConfigService $systemConfigService, SystemDictService $systemDictService, UploadFileService $uploadFileService): void
     {
         $this->registerCommands();
         $this->registerCommandSchedules();
@@ -47,6 +50,9 @@ class AdminServiceProvider extends ServiceProvider
         foreach ($dict_groups as $dict_group) {
             $systemDictService->registerList(\config('admin.dict.' . $dict_group['code']));
         }
+
+        $uploadFileService->registerFileConstraint(new FileConstraint());
+        $uploadFileService->registerFileStorage(new PublicStorage());
     }
 
     /**
@@ -62,6 +68,9 @@ class AdminServiceProvider extends ServiceProvider
         });
         $this->app->singleton(SystemDictService::class, function () {
             return new SystemDictService;
+        });
+        $this->app->singleton(UploadFileService::class, function () {
+            return new UploadFileService;
         });
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);

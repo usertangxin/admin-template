@@ -52,7 +52,7 @@
                         </a-scrollbar>
                     </div>
                 </div>
-                <div class="right h-full pl-3 ml-2">
+                <div class="right h-full pl-3 ml-1">
                     <template v-for="(item, index) in navActions">
                         <component :is="item" style="font-size: 25px;"></component>
                         <a-divider direction="vertical" />

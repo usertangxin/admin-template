@@ -11,7 +11,7 @@ return [
     [
         'group'              => 'upload_config',
         'key'                => 'upload_allow_file',
-        'value'              => 'txt,doc,docx,xls,xlsx,ppt,pptx,rar,zip,7z,gz,pdf,wps,md,mp3,mp4,mov,jpg,jpeg,png,gif,svg,bmp,JPG,JPEG,PNG',
+        'value'              => 'jpg,jpeg,png,gif,svg,bmp,doc,docx,xls,xlsx,ppt,pptx,pdf,md,mp3,mp4,mov',
         'name'               => '文件类型',
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
@@ -22,7 +22,7 @@ return [
     [
         'group'              => 'upload_config',
         'key'                => 'upload_allow_image',
-        'value'              => 'jpg,jpeg,png,gif,svg,bmp,JPG,JPEG,PNG',
+        'value'              => 'jpg,jpeg,png,gif,svg,bmp',
         'name'               => '图片类型',
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
@@ -53,6 +53,17 @@ return [
         'input_attr'         => null,
     ],
     [
+        'group'              => 'upload_config',
+        'key'                => 'upload_allow_document',
+        'value'              => 'txt,doc,docx,xls,xlsx,ppt,pptx,pdf,md',
+        'name'               => '文稿类型',
+        'input_type'         => SystemConfigInputType::INPUT,
+        'config_select_data' => null,
+        'remark'             => '',
+        'bind_p_config'      => '',
+        'input_attr'         => null,
+    ],
+    [
         'group'      => 'upload_config',
         'name'       => '大小限制',
         'input_type' => SystemConfigInputType::DIVIDER,
@@ -61,7 +72,7 @@ return [
         'group'              => 'upload_config',
         'key'                => 'upload_size',
         'value'              => '10485760',
-        'name'               => '上传大小',
+        'name'               => '上传文件大小',
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '单位Byte,1MB=1024*1024Byte',
@@ -102,13 +113,24 @@ return [
         'input_attr'         => null,
     ],
     [
+        'group'              => 'upload_config',
+        'key'                => 'upload_size_document',
+        'value'              => '10485760',
+        'name'               => '上传文稿大小',
+        'input_type'         => SystemConfigInputType::INPUT,
+        'config_select_data' => null,
+        'remark'             => '单位Byte,1MB=1024*1024Byte',
+        'bind_p_config'      => '',
+        'input_attr'         => null,
+    ],
+    [
         'group'      => 'upload_config',
         'name'       => '存储类型',
         'input_type' => SystemConfigInputType::DIVIDER,
     ],
     [
         'group'              => 'upload_config',
-        'key'                => 'upload_mode',
+        'key'                => 'storage_mode',
         'value'              => 'public',
         'name'               => '默认存储',
         'input_type'         => SystemConfigInputType::RADIO,
@@ -126,46 +148,13 @@ return [
     ],
     [
         'group'              => 'upload_config',
-        'key'                => 'local_root',
-        'value'              => 'app/private',
-        'name'               => '本地存储路径',
-        'input_type'         => SystemConfigInputType::INPUT,
-        'config_select_data' => null,
-        'remark'             => '本地存储文件路径',
-        'bind_p_config'      => 'upload_mode',
-        'input_attr'         => null,
-    ],
-    [
-        'group'              => 'upload_config',
-        'key'                => 'public_root',
-        'value'              => 'app/public',
-        'name'               => '本地存储路径',
-        'input_type'         => SystemConfigInputType::INPUT,
-        'config_select_data' => null,
-        'remark'             => '本地存储文件路径',
-        'bind_p_config'      => 'upload_mode',
-        'input_attr'         => null,
-    ],
-    [
-        'group'              => 'upload_config',
         'key'                => 'public_domain',
         'value'              => 'http://127.0.0.1:8000',
         'name'               => '本地存储域名',
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '本地存储域名',
-        'bind_p_config'      => 'upload_mode',
-        'input_attr'         => null,
-    ],
-    [
-        'group'              => 'upload_config',
-        'key'                => 'public_uri',
-        'value'              => 'storage',
-        'name'               => '本地访问路径',
-        'input_type'         => SystemConfigInputType::INPUT,
-        'config_select_data' => null,
-        'remark'             => '访问是通过domain + uri',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -176,7 +165,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '七牛云存储secretId',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -187,7 +176,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '七牛云存储secretKey',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -198,7 +187,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '七牛云存储bucket',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -209,7 +198,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '七牛云存储dirname',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -220,7 +209,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '七牛云存储domain',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -231,7 +220,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '腾讯云存储secretId',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -242,7 +231,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '腾讯云secretKey',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -253,7 +242,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '腾讯云存储bucket',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -264,7 +253,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '腾讯云存储dirname',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -275,7 +264,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '腾讯云存储domain',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -286,7 +275,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '腾讯云存储region',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -297,7 +286,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '阿里云存储accessKeyId',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -308,7 +297,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '阿里云存储accessKeySecret',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -319,7 +308,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '阿里云存储bucket',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -330,7 +319,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '阿里云存储dirname',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -341,7 +330,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '阿里云存储domain',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -352,7 +341,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '阿里云存储endpoint',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -363,7 +352,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -374,7 +363,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -385,7 +374,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -396,7 +385,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -407,7 +396,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -418,7 +407,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -429,7 +418,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -440,7 +429,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -451,7 +440,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
     [
@@ -462,7 +451,7 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '',
-        'bind_p_config'      => 'upload_mode',
+        'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
 

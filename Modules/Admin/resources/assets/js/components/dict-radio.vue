@@ -1,6 +1,6 @@
 <template>
     <a-radio-group v-bind="$attrs">
-        <template v-for="(item, index) in dict_value_group_by_code[code]" :key="index">
+        <template v-for="(item, index) in dict_group_by_code[code]" :key="index">
             <a-radio :value="item.value">
                 <template v-if="type === 'normal'">{{ item.label }}</template>
                 <template v-if="type === 'info'" #radio="{ checked }">
@@ -26,7 +26,7 @@ import * as dict from '../data-share/dict'
 import { defineProps } from 'vue'
 import { colorMatch } from '../util'
 
-const dict_value_group_by_code = dict.dict_value_group_by_code
+const dict_group_by_code = dict.dict_group_by_code
 const props = defineProps({
     code: {
         type: String,

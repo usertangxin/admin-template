@@ -4,11 +4,7 @@
         <a-form class="pr-[15%]" :disabled="disabled" ref="formRef" :model="formData" :rules="rules"
             @submit="handleSubmit">
             <a-form-item label="头像" field="avatar">
-                <a-avatar class="" shape="square" :size="100">
-                    <template #trigger-icon>
-                        <IconCamera />
-                    </template>
-                </a-avatar>
+                <upload-file></upload-file>
             </a-form-item>
             <a-form-item label="账号" field="admin_name">
                 <a-input v-model="formData.admin_name" placeholder="请输入账号"></a-input>

@@ -17,12 +17,11 @@ return new class extends Migration
             $table->string('storage_mode')->nullable()->default('public')->comment('存储模式:dict=upload_mode');
             $table->string('origin_name')->nullable()->comment('原文件名');
             $table->string('object_name', 50)->nullable()->comment('新文件名');
-            $table->string('hash', 64)->nullable()->unique('system_uploadfiles_hash')->comment('文件hash');
+            $table->string('hash', 64)->nullable()->index('system_uploadfiles_hash')->comment('文件hash');
             $table->string('mime_type')->nullable()->comment('资源类型');
             $table->string('storage_path', 100)->nullable()->index('system_uploadfile_storage_path')->comment('存储目录');
             $table->string('suffix', 10)->nullable()->comment('文件后缀');
             $table->bigInteger('size_byte')->nullable()->comment('字节数');
-            $table->string('size_info', 50)->nullable()->comment('文件大小');
             $table->string('url')->nullable()->comment('url地址');
             $table->string('remark')->nullable()->comment('备注');
             $table->integer('created_by')->nullable()->comment('创建者');

@@ -45,7 +45,7 @@ const dict_map = computed(() => {
     return map
 })
 
-const dict_value_group_by_code = computed(() => {
+const dict_group_by_code = computed(() => {
     const map = {}
     dict_list.value.forEach(item => {
         if (!map[item.code]) {
@@ -61,5 +61,5 @@ export {
     dict_group_list,
     dict_group_map,
     dict_map,
-    dict_value_group_by_code,
+    dict_group_by_code,
 }

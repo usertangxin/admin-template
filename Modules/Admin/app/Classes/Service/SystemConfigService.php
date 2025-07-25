@@ -72,6 +72,11 @@ class SystemConfigService
         return $this->config_list;
     }
 
+    public function getValueByKey(string $key)
+    {
+        return $this->getList()->firstWhere('key', $key)['value'] ?? null;
+    }
+
     public function getListHash()
     {
         return \sha1($this->getList()->toJson());

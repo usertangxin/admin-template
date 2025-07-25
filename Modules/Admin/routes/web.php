@@ -10,7 +10,7 @@ use Modules\Admin\Http\Controllers\SystemAdminController;
 use Modules\Admin\Http\Controllers\SystemConfigController;
 use Modules\Admin\Http\Controllers\SystemDictController;
 use Modules\Admin\Http\Controllers\SystemMenuController;
-use Modules\Admin\Http\Controllers\SystemUploadfileController;
+use Modules\Admin\Http\Controllers\SystemUploadFileController;
 use Modules\Admin\Http\Middleware\AdminSupport;
 use Modules\Admin\Http\Middleware\HandleInertiaRequests;
 use Modules\Admin\Http\Middleware\HandleInertiaShare;
@@ -37,7 +37,7 @@ Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(fu
         SystemMenuRegisterService::getInstance()->fastRoute(SystemDictController::class);
         SystemMenuRegisterService::getInstance()->fastRoute(SystemMenuController::class);
         SystemMenuRegisterService::getInstance()->fastRoute(SystemAdminController::class);
-        SystemMenuRegisterService::getInstance()->fastRoute(SystemUploadfileController::class);
+        SystemMenuRegisterService::getInstance()->fastRoute(SystemUploadFileController::class);
 
         if (app()->isLocal() || app()->runningUnitTests()) {
             SystemMenuRegisterService::getInstance()->fastRoute(CrudTestController::class);
