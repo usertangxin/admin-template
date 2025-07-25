@@ -12,28 +12,7 @@ class UploadFileService
      *
      * @var array<string, UploadFileConstraintInterface>
      */
-    protected $file_constraint = [
-        // 'file' => [
-        //     'allow' => 'upload_allow_file',
-        //     'size' => 'upload_size'
-        // ],
-        // 'image' => [
-        //     'allow' => 'upload_allow_image',
-        //     'size' => 'upload_size_image'
-        // ],
-        // 'video' => [
-        //     'allow' => 'upload_allow_video',
-        //     'size' => 'upload_size_video'
-        // ],
-        // 'audio' => [
-        //     'allow' => 'upload_allow_audio',
-        //     'size' => 'upload_size_audio'
-        // ],
-        // 'document' => [
-        //     'allow' => 'upload_allow_document',
-        //     'size' => 'upload_size_document'
-        // ],
-    ];
+    protected $file_constraint = [];
 
     /**
      * 文件存储

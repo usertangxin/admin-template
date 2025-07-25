@@ -15,15 +15,15 @@ class VideoConstraint implements UploadFileConstraintInterface
 
     public function check($files): array
     {
-        $allow = SystemConfigService::getInstance()->getValueByKey('upload_allow_video');
+        $allow_str = SystemConfigService::getInstance()->getValueByKey('upload_allow_video');
         $size = SystemConfigService::getInstance()->getValueByKey('upload_size_video');
 
-        $allow = explode(',', Str::of($allow)->replace('/s+/', '')->toString());
+        $allow = explode(',', Str::of($allow_str)->replace('/s+/', '')->toString());
 
         foreach ($files as $file) {
             $ext = $file->getClientOriginalExtension();
             if (! in_array($ext, $allow)) {
-                throw new \Exception('视频类型只允许：' . $allow);
+                throw new \Exception('视频类型只允许：' . $allow_str);
             }
             if ($file->getSize() > $size) {
                 throw new \Exception('视频大小超出限制：' . $size);
