@@ -52,22 +52,23 @@ const props = defineProps({
     border: 1px solid var(--color-border-2);
     /* border-radius: 4px; */
     box-sizing: border-box;
+    margin-left: -5px;
 }
 
 .custom-radio-card-mask {
-    height: 14px;
-    width: 14px;
+    height: 15px;
+    width: 15px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 100%;
-    border: 1px solid var(--color-border-2);
+    border: 2px solid var(--color-border-2);
     box-sizing: border-box;
 }
 
 .custom-radio-card-mask-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 100%;
 }
 
