@@ -171,14 +171,23 @@ return [
         'key'                => 'local_status',
         'value'              => 'normal',
         'name'               => '本地私有状态',
-        'input_type'         => SystemConfigInputType::RADIO,
-        'config_select_data' => [
-            ['label' => '启用', 'value' => 'normal'],
-            ['label' => '停用', 'value' => 'disabled'],
-        ],
+        'input_type'         => SystemConfigInputType::DICT_RADIO,
         'remark'             => '本地私有状态',
         'bind_p_config'      => 'storage_mode',
-        'input_attr'         => null,
+        'input_attr'         => [
+            'code' => 'data_status',
+            'type' => 'info',
+            'merge' => [
+                'normal' => [
+                    'label' => '启用',
+                    'remark' => '正常上传文件</br>此存储外部无法访问',
+                ],
+                'disabled' => [
+                    'label' => '停用',
+                    'remark' => '上传到此存储将不可用</br>已上传文件不受影响',
+                ],
+            ]
+        ],
     ],
     /*
     |--------------------------------------------------------------------------
@@ -190,14 +199,27 @@ return [
         'key'                => 'public_status',
         'value'              => 'normal',
         'name'               => '本地存储状态',
-        'input_type'         => SystemConfigInputType::RADIO,
+        'input_type'         => SystemConfigInputType::DICT_RADIO,
         'config_select_data' => [
             ['label' => '启用', 'value' => 'normal'],
             ['label' => '停用', 'value' => 'disabled'],
         ],
         'remark'             => '本地存储状态',
         'bind_p_config'      => 'storage_mode',
-        'input_attr'         => null,
+        'input_attr'         => [
+            'code' => 'data_status',
+            'type' => 'info',
+            'merge' => [
+                'normal' => [
+                    'label' => '启用',
+                    'remark' => '正常上传文件对外可访问</br>需注意服务器带宽资源消耗',
+                ],
+                'disabled' => [
+                    'label' => '停用',
+                    'remark' => '上传到此存储将不可用</br>已上传文件不受影响',
+                ],
+            ]
+        ],
     ],
     [
         'group'              => 'upload_config',
@@ -220,14 +242,27 @@ return [
         'key'                => 'qiniu_status',
         'value'              => 'disabled',
         'name'               => '七牛云状态',
-        'input_type'         => SystemConfigInputType::RADIO,
+        'input_type'         => SystemConfigInputType::DICT_RADIO,
         'config_select_data' => [
             ['label' => '启用', 'value' => 'normal'],
             ['label' => '停用', 'value' => 'disabled'],
         ],
         'remark'             => '七牛云状态',
         'bind_p_config'      => 'storage_mode',
-        'input_attr'         => null,
+        'input_attr'         => [
+            'code' => 'data_status',
+            'type' => 'info',
+            'merge' => [
+                'normal' => [
+                    'label' => '启用',
+                    'remark' => '正常上传文件</br>更多信息请访问<a class="arco-link arco-link-status-normal" style="padding: 0 2px;line-height:1;" href="https://developer.qiniu.com/kodo" target="_blank">七牛云</a>',
+                ],
+                'disabled' => [
+                    'label' => '停用',
+                    'remark' => '上传到此存储将不可用</br>已上传文件不受影响',
+                ],
+            ]
+        ],
     ],
     [
         'group'              => 'upload_config',
@@ -294,14 +329,27 @@ return [
         'key'                => 'cos_status',
         'value'              => 'disabled',
         'name'               => '腾讯云状态',
-        'input_type'         => SystemConfigInputType::RADIO,
+        'input_type'         => SystemConfigInputType::DICT_RADIO,
         'config_select_data' => [
             ['label' => '启用', 'value' => 'normal'],
             ['label' => '停用', 'value' => 'disabled'],
         ],
         'remark'             => '腾讯云状态',
         'bind_p_config'      => 'storage_mode',
-        'input_attr'         => null,
+        'input_attr'         => [
+            'code' => 'data_status',
+            'type' => 'info',
+            'merge' => [
+                'normal' => [
+                    'label' => '启用',
+                    'remark' => '正常上传文件</br>更多信息请访问<a class="arco-link arco-link-status-normal" style="padding: 0 2px;line-height:1;" href="https://cloud.tencent.com/document/product/436" target="_blank">腾讯云</a>',
+                ],
+                'disabled' => [
+                    'label' => '停用',
+                    'remark' => '上传到此存储将不可用</br>已上传文件不受影响',
+                ],
+            ]
+        ],
     ],
     [
         'group'              => 'upload_config',
@@ -379,14 +427,27 @@ return [
         'key'                => 'oss_status',
         'value'              => 'disabled',
         'name'               => '阿里云状态',
-        'input_type'         => SystemConfigInputType::RADIO,
+        'input_type'         => SystemConfigInputType::DICT_RADIO,
         'config_select_data' => [
             ['label' => '启用', 'value' => 'normal'],
             ['label' => '停用', 'value' => 'disabled'],
         ],
         'remark'             => '阿里云状态',
         'bind_p_config'      => 'storage_mode',
-        'input_attr'         => null,
+        'input_attr'         => [
+            'code' => 'data_status',
+            'type' => 'info',
+            'merge' => [
+                'normal' => [
+                    'label' => '启用',
+                    'remark' => '正常上传文件</br>更多信息请访问<a class="arco-link arco-link-status-normal" style="padding: 0 2px;line-height:1;" href="https://help.aliyun.com/zh/oss/" target="_blank">阿里云</a>',
+                ],
+                'disabled' => [
+                    'label' => '停用',
+                    'remark' => '上传到此存储将不可用</br>已上传文件不受影响',
+                ],
+            ]
+        ],
     ],
     [
         'group'              => 'upload_config',
@@ -464,14 +525,27 @@ return [
         'key'                => 's3_status',
         'value'              => 'disabled',
         'name'               => 's3状态',
-        'input_type'         => SystemConfigInputType::RADIO,
+        'input_type'         => SystemConfigInputType::DICT_RADIO,
         'config_select_data' => [
             ['label' => '启用', 'value' => 'normal'],
             ['label' => '停用', 'value' => 'disabled'],
         ],
         'remark'             => 's3状态',
         'bind_p_config'      => 'storage_mode',
-        'input_attr'         => null,
+        'input_attr'         => [
+            'code' => 'data_status',
+            'type' => 'info',
+            'merge' => [
+                'normal' => [
+                    'label' => '启用',
+                    'remark' => '正常上传文件</br>更多信息请访问<a class="arco-link arco-link-status-normal" style="padding: 0 2px;line-height:1;" href="https://www.amazonaws.cn/s3/" target="_blank">亚马逊s3</a>',
+                ],
+                'disabled' => [
+                    'label' => '停用',
+                    'remark' => '上传到此存储将不可用</br>已上传文件不受影响',
+                ],
+            ]
+        ],
     ],
     [
         'group'              => 'upload_config',

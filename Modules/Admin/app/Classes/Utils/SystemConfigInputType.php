@@ -16,6 +16,8 @@ class SystemConfigInputType
 
     const RADIO = 'radio';
 
+    const DICT_RADIO = 'dictRadio';
+
     const WANG_EDITOR = 'wangEditor';
 
     const UPLOAD_FILE = 'uploadFile';

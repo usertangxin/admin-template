@@ -36,6 +36,18 @@
             <RecursionConfig v-if="config.value" :config_list="props.config_list" :p_config="config.key"
                 :p_config_value="config.value"></RecursionConfig>
         </template>
+        <template v-else-if="config.input_type === 'dictRadio'">
+            <a-col :span="24">
+                <a-form-item :label="config.name" :field="config.key">
+                    <dict-radio v-model="config.value" v-bind="config.input_attr || {}"></dict-radio>
+                    <template #extra>
+                        <div>{{ config.remark }}</div>
+                    </template>
+                </a-form-item>
+            </a-col>
+            <RecursionConfig v-if="config.value" :config_list="props.config_list" :p_config="config.key"
+                :p_config_value="config.value"></RecursionConfig>
+        </template>
         <template v-else-if="config.input_type == 'tabs'">
             <a-col :span="24">
                 <a-form-item :label="config.name" :field="config.key">
