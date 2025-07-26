@@ -3,6 +3,11 @@
 use Modules\Admin\Classes\Utils\SystemConfigInputType;
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | 类型限制
+    |--------------------------------------------------------------------------
+    */
     [
         'group'      => 'upload_config',
         'name'       => '类型限制',
@@ -63,6 +68,11 @@ return [
         'bind_p_config'      => '',
         'input_attr'         => null,
     ],
+    /*
+    |--------------------------------------------------------------------------
+    | 大小限制
+    |--------------------------------------------------------------------------
+    */
     [
         'group'      => 'upload_config',
         'name'       => '大小限制',
@@ -123,6 +133,11 @@ return [
         'bind_p_config'      => '',
         'input_attr'         => null,
     ],
+    /*
+    |--------------------------------------------------------------------------
+    | 存储类型
+    |--------------------------------------------------------------------------
+    */
     [
         'group'      => 'upload_config',
         'name'       => '存储类型',
@@ -146,6 +161,44 @@ return [
         'bind_p_config' => '',
         'input_attr'    => null,
     ],
+    /*
+    |--------------------------------------------------------------------------
+    | 存储类型 - 本地私有
+    |--------------------------------------------------------------------------
+    */
+    [
+        'group'              => 'upload_config',
+        'key'                => 'local_status',
+        'value'              => 'normal',
+        'name'               => '本地私有状态',
+        'input_type'         => SystemConfigInputType::RADIO,
+        'config_select_data' => [
+            ['label' => '正常', 'value' => 'normal'],
+            ['label' => '停用', 'value' => 'disabled'],
+        ],
+        'remark'             => '本地私有状态',
+        'bind_p_config'      => 'storage_mode',
+        'input_attr'         => null,
+    ],
+    /*
+    |--------------------------------------------------------------------------
+    | 存储类型 - 本地公开
+    |--------------------------------------------------------------------------
+    */
+    [
+        'group'              => 'upload_config',
+        'key'                => 'public_status',
+        'value'              => 'normal',
+        'name'               => '本地存储状态',
+        'input_type'         => SystemConfigInputType::RADIO,
+        'config_select_data' => [
+            ['label' => '正常', 'value' => 'normal'],
+            ['label' => '停用', 'value' => 'disabled'],
+        ],
+        'remark'             => '本地存储状态',
+        'bind_p_config'      => 'storage_mode',
+        'input_attr'         => null,
+    ],
     [
         'group'              => 'upload_config',
         'key'                => 'public_domain',
@@ -154,6 +207,25 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '本地存储域名',
+        'bind_p_config'      => 'storage_mode',
+        'input_attr'         => null,
+    ],
+    /*
+    |--------------------------------------------------------------------------
+    | 存储类型 - 七牛云
+    |--------------------------------------------------------------------------
+    */
+    [
+        'group'              => 'upload_config',
+        'key'                => 'qiniu_status',
+        'value'              => 'disabled',
+        'name'               => '七牛云状态',
+        'input_type'         => SystemConfigInputType::RADIO,
+        'config_select_data' => [
+            ['label' => '正常', 'value' => 'normal'],
+            ['label' => '停用', 'value' => 'disabled'],
+        ],
+        'remark'             => '七牛云状态',
         'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
@@ -209,6 +281,25 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '七牛云存储domain',
+        'bind_p_config'      => 'storage_mode',
+        'input_attr'         => null,
+    ],
+    /*
+    |--------------------------------------------------------------------------
+    | 存储类型 - 腾讯云
+    |--------------------------------------------------------------------------
+    */
+    [
+        'group'              => 'upload_config',
+        'key'                => 'cos_status',
+        'value'              => 'disabled',
+        'name'               => '腾讯云状态',
+        'input_type'         => SystemConfigInputType::RADIO,
+        'config_select_data' => [
+            ['label' => '正常', 'value' => 'normal'],
+            ['label' => '停用', 'value' => 'disabled'],
+        ],
+        'remark'             => '腾讯云状态',
         'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
@@ -278,6 +369,25 @@ return [
         'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
+    /*
+    |--------------------------------------------------------------------------
+    | 存储类型 - 阿里云
+    |--------------------------------------------------------------------------
+    */
+    [
+        'group'              => 'upload_config',
+        'key'                => 'oss_status',
+        'value'              => 'disabled',
+        'name'               => '阿里云状态',
+        'input_type'         => SystemConfigInputType::RADIO,
+        'config_select_data' => [
+            ['label' => '正常', 'value' => 'normal'],
+            ['label' => '停用', 'value' => 'disabled'],
+        ],
+        'remark'             => '阿里云状态',
+        'bind_p_config'      => 'storage_mode',
+        'input_attr'         => null,
+    ],
     [
         'group'              => 'upload_config',
         'key'                => 'oss_accessKeyId',
@@ -341,6 +451,25 @@ return [
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
         'remark'             => '阿里云存储endpoint',
+        'bind_p_config'      => 'storage_mode',
+        'input_attr'         => null,
+    ],
+    /*
+    |--------------------------------------------------------------------------
+    | 存储类型 - 亚马逊s3
+    |--------------------------------------------------------------------------
+    */
+    [
+        'group'              => 'upload_config',
+        'key'                => 's3_status',
+        'value'              => 'disabled',
+        'name'               => 's3状态',
+        'input_type'         => SystemConfigInputType::RADIO,
+        'config_select_data' => [
+            ['label' => '正常', 'value' => 'normal'],
+            ['label' => '停用', 'value' => 'disabled'],
+        ],
+        'remark'             => 's3状态',
         'bind_p_config'      => 'storage_mode',
         'input_attr'         => null,
     ],
