@@ -48,6 +48,12 @@ class PublicStorage implements UploadFileStorageInterface
     public function storage($files, $upload_mode, $path = ''): array
     {
         $systemConfigService = SystemConfigService::getInstance();
+
+        $public_status = $systemConfigService->getValueByKey('public_status');
+        if ($public_status != 'normal') {
+            throw new \Exception('本地存储未启用');
+        }
+
         $domain              = $systemConfigService->getValueByKey('public_domain');
 
         $disk = $this->getDisk();

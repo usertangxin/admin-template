@@ -173,7 +173,7 @@ return [
         'name'               => '本地私有状态',
         'input_type'         => SystemConfigInputType::RADIO,
         'config_select_data' => [
-            ['label' => '正常', 'value' => 'normal'],
+            ['label' => '启用', 'value' => 'normal'],
             ['label' => '停用', 'value' => 'disabled'],
         ],
         'remark'             => '本地私有状态',
@@ -192,7 +192,7 @@ return [
         'name'               => '本地存储状态',
         'input_type'         => SystemConfigInputType::RADIO,
         'config_select_data' => [
-            ['label' => '正常', 'value' => 'normal'],
+            ['label' => '启用', 'value' => 'normal'],
             ['label' => '停用', 'value' => 'disabled'],
         ],
         'remark'             => '本地存储状态',
@@ -222,7 +222,7 @@ return [
         'name'               => '七牛云状态',
         'input_type'         => SystemConfigInputType::RADIO,
         'config_select_data' => [
-            ['label' => '正常', 'value' => 'normal'],
+            ['label' => '启用', 'value' => 'normal'],
             ['label' => '停用', 'value' => 'disabled'],
         ],
         'remark'             => '七牛云状态',
@@ -296,7 +296,7 @@ return [
         'name'               => '腾讯云状态',
         'input_type'         => SystemConfigInputType::RADIO,
         'config_select_data' => [
-            ['label' => '正常', 'value' => 'normal'],
+            ['label' => '启用', 'value' => 'normal'],
             ['label' => '停用', 'value' => 'disabled'],
         ],
         'remark'             => '腾讯云状态',
@@ -381,7 +381,7 @@ return [
         'name'               => '阿里云状态',
         'input_type'         => SystemConfigInputType::RADIO,
         'config_select_data' => [
-            ['label' => '正常', 'value' => 'normal'],
+            ['label' => '启用', 'value' => 'normal'],
             ['label' => '停用', 'value' => 'disabled'],
         ],
         'remark'             => '阿里云状态',
@@ -466,7 +466,7 @@ return [
         'name'               => 's3状态',
         'input_type'         => SystemConfigInputType::RADIO,
         'config_select_data' => [
-            ['label' => '正常', 'value' => 'normal'],
+            ['label' => '启用', 'value' => 'normal'],
             ['label' => '停用', 'value' => 'disabled'],
         ],
         'remark'             => 's3状态',

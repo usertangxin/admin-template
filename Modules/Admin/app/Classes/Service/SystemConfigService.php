@@ -65,6 +65,22 @@ class SystemConfigService
         $this->getList()->push(...$config_list);
     }
 
+    public function refresh()
+    {
+        $this->databaseConfig = SystemConfig::all();
+        $kv = [];
+        foreach ($this->databaseConfig as $config) {
+            $kv[$config->key] = $config['value'];
+        }
+        $config_list = $this->getList()->toArray();
+        foreach ($config_list as &$config) {
+            if (isset($kv[$config['key'] ?? false])) {
+                $config['value'] = $kv[$config['key']];
+            }
+        }
+        $this->config_list = new Collection($config_list);
+    }
+
     public function getList(): Collection
     {
         $this->config_list ??= new Collection;
