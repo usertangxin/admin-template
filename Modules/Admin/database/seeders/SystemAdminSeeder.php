@@ -13,11 +13,11 @@ class SystemAdminSeeder extends Seeder
     public function run(): void
     {
         if (! SystemAdmin::count()) {
-            $admin = new SystemAdmin;
+            $admin             = new SystemAdmin;
             $admin->admin_name = 'super admin';
-            $admin->password = 123456;
-            $admin->nickname = 'Super Admin';
-            $admin->is_root = true;
+            $admin->password   = 123456;
+            $admin->nickname   = 'Super Admin';
+            $admin->is_root    = true;
             $admin->save();
         }
     }

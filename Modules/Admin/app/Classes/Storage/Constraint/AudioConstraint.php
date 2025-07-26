@@ -16,7 +16,7 @@ class AudioConstraint implements UploadFileConstraintInterface
     public function check($files): array
     {
         $allow_str = SystemConfigService::getInstance()->getValueByKey('upload_allow_audio');
-        $size = SystemConfigService::getInstance()->getValueByKey('upload_size_audio');
+        $size      = SystemConfigService::getInstance()->getValueByKey('upload_size_audio');
 
         $allow = explode(',', Str::of($allow_str)->replace('/s+/', '')->toString());
 

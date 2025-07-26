@@ -50,7 +50,7 @@ abstract class AbstractCrudController extends AbstractController
     protected function getViewPrefix(): string
     {
         $shortName = \class_basename($this);
-        $prefix = Str::of($shortName)->replace('Controller', '')->snake('_');
+        $prefix    = Str::of($shortName)->replace('Controller', '')->snake('_');
 
         return $prefix;
     }
@@ -99,10 +99,10 @@ abstract class AbstractCrudController extends AbstractController
     {
 
         if (\request()->route()->getActionMethod() === 'changeStatus') {
-            $systemDictService = SystemDictService::getInstance();
+            $systemDictService      = SystemDictService::getInstance();
             $statusFieldAndDictCode = $this->getStatusFieldAndDictCode();
-            $field = $statusFieldAndDictCode[0];
-            $dictCode = $statusFieldAndDictCode[1];
+            $field                  = $statusFieldAndDictCode[0];
+            $dictCode               = $statusFieldAndDictCode[1];
 
             return \request()->validate([
                 'id'   => 'required',
@@ -113,11 +113,11 @@ abstract class AbstractCrudController extends AbstractController
             ]);
         }
 
-        $model_classname = get_class($this->getModel());
+        $model_classname   = get_class($this->getModel());
         $request_classname = Str::replace('\\Models\\', '\\Http\\Requests\\', $model_classname) . 'Request';
         /** @var \Illuminate\Foundation\Http\FormRequest */
         $request = \app()->make($request_classname);
-        $data = $request->validated();
+        $data    = $request->validated();
 
         return $data;
     }
@@ -160,8 +160,8 @@ abstract class AbstractCrudController extends AbstractController
     public function index()
     {
         $listType = \request('__list_type__', 'list');
-        $where = $this->searchWhere();
-        $model = $this->getModel();
+        $where    = $this->searchWhere();
+        $model    = $this->getModel();
         /** @var AbstractModel|AbstractSoftDelModel $query */
         $query = ModelUtil::bindSearch($model->newInstance(), $where);
         if (! empty($with = $this->with())) {
@@ -215,7 +215,7 @@ abstract class AbstractCrudController extends AbstractController
 
         Inertia::share('__page_read__', true);
 
-        $id = \request('id');
+        $id    = \request('id');
         $query = $this->getModel()->withTrashed();
         if (! empty($with = $this->with())) {
             $query = $query->with($with);
@@ -254,7 +254,7 @@ abstract class AbstractCrudController extends AbstractController
             return $this->success(view: $this->getViewPrefix() . '/save');
         }
 
-        $data = $this->validate();
+        $data   = $this->validate();
         $result = $this->getModel()->create($data);
         if (! empty($resourceCollection = $this->getResource())) {
             $result = new $resourceCollection($result);
@@ -286,7 +286,7 @@ abstract class AbstractCrudController extends AbstractController
             return $this->success($data, view: $this->getViewPrefix() . '/save');
         }
 
-        $data = $this->validate();
+        $data  = $this->validate();
         $model = $this->getModel()->find($id);
         if (! $model) {
             return $this->fail('数据不存在', 404, view: '404');
@@ -313,11 +313,11 @@ abstract class AbstractCrudController extends AbstractController
 
         Inertia::share('__page_change_status__', true);
 
-        $id = \request('id');
+        $id                     = \request('id');
         $statusFieldAndDictCode = $this->getStatusFieldAndDictCode();
-        $field = $statusFieldAndDictCode[0];
-        $status = $this->validate()[$field];
-        $model = $this->getModel()->find($id);
+        $field                  = $statusFieldAndDictCode[0];
+        $status                 = $this->validate()[$field];
+        $model                  = $this->getModel()->find($id);
         if (! $model) {
             return $this->fail('数据不存在', 404, view: '404');
         }
@@ -374,8 +374,8 @@ abstract class AbstractCrudController extends AbstractController
     public function recycle()
     {
         $listType = \request('__list_type__', 'list');
-        $where = $this->searchWhere();
-        $query = ModelUtil::bindSearch($this->getModel()->onlyTrashed(), $where);
+        $where    = $this->searchWhere();
+        $query    = ModelUtil::bindSearch($this->getModel()->onlyTrashed(), $where);
         if (! empty($with = $this->with())) {
             $query = $query->with($with);
         }

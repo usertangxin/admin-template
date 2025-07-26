@@ -16,8 +16,8 @@ class TreeCollection extends Collection implements TreeCollectionInterface
 
     public function toTree(): static
     {
-        $items = $this->toArray();
-        $tree = ArrUtil::convertToTree($items, $this->for_key, $this->local_key, $this->sub_coll_key);
+        $items       = $this->toArray();
+        $tree        = ArrUtil::convertToTree($items, $this->for_key, $this->local_key, $this->sub_coll_key);
         $this->items = $tree;
 
         return $this;
@@ -25,9 +25,9 @@ class TreeCollection extends Collection implements TreeCollectionInterface
 
     public static function new(mixed $items = [], string $for_key = 'parent_id', string $local_key = 'id', string $sub_coll_key = 'children'): static
     {
-        $tree = new static($items);
-        $tree->for_key = $for_key;
-        $tree->local_key = $local_key;
+        $tree               = new static($items);
+        $tree->for_key      = $for_key;
+        $tree->local_key    = $local_key;
         $tree->sub_coll_key = $sub_coll_key;
 
         return $tree;

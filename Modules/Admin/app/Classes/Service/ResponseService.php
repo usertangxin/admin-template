@@ -25,10 +25,10 @@ class ResponseService
     public static function inertia($data = [], $view = null)
     {
         if ($view === null) {
-            $action = \request()->route()->getActionMethod();
+            $action    = \request()->route()->getActionMethod();
             $shortName = \class_basename(\request()->route()->getControllerClass());
-            $prefix = Str::of($shortName)->replace('Controller', '')->snake('_');
-            $view = $prefix . '/' . $action;
+            $prefix    = Str::of($shortName)->replace('Controller', '')->snake('_');
+            $view      = $prefix . '/' . $action;
         }
 
         $data = static::analysisDataToResource($data);

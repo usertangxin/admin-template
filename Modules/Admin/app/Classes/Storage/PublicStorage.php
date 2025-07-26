@@ -11,7 +11,6 @@ use Modules\Admin\Models\SystemUploadfile;
 
 class PublicStorage implements UploadFileStorageInterface
 {
-
     protected function getConfig(): array
     {
         return [
@@ -27,7 +26,7 @@ class PublicStorage implements UploadFileStorageInterface
     {
         \config([
             'filesystems.disks.public' => $this->getConfig(),
-            'filesystems.links' => \array_merge(
+            'filesystems.links'        => \array_merge(
                 \config('filesystems.links'),
                 [
                     public_path('storage') => storage_path('app/public'),
@@ -49,14 +48,14 @@ class PublicStorage implements UploadFileStorageInterface
     public function storage($files, $upload_mode, $path = ''): array
     {
         $systemConfigService = SystemConfigService::getInstance();
-        $domain = $systemConfigService->getValueByKey('public_domain');
+        $domain              = $systemConfigService->getValueByKey('public_domain');
 
         $disk = $this->getDisk();
 
         $arr = [];
 
         foreach ($files as $file) {
-            $hash = md5_file($file->getRealPath());
+            $hash             = md5_file($file->getRealPath());
             $systemUploadfile = SystemUploadfile::where(['hash' => $hash, 'storage_mode' => $this->storage_mode()])->first();
             if ($systemUploadfile) {
                 $arr[] = $systemUploadfile->toArray();

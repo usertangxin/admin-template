@@ -19,7 +19,7 @@ class SystemDictController extends AbstractController
     #[SystemMenu('字典配置', type: SystemMenuType::MENU, parent_code: 'system.basic', icon: 'fas book')]
     public function index(SystemDictService $systemDictService)
     {
-        $data = $systemDictService->getList();
+        $data      = $systemDictService->getList();
         $groupList = $systemDictService->getGroups();
 
         return $this->success([

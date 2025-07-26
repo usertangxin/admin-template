@@ -9,7 +9,9 @@
         "no_trailing_comma_in_singleline": true,
         "binary_operator_spaces": {
             "operators": {
-                "=>": "align_single_space"
+                "=>": "align_single_space_minimal",
+                "=": "align_single_space_minimal",
+                "===": "align_single_space_minimal"
             }
         },
         "concat_space": {

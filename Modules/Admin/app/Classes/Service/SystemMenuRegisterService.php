@@ -26,9 +26,9 @@ class SystemMenuRegisterService
     public function fastRoute($controller)
     {
         Route::controller($controller)->group(function () use ($controller) {
-            $ref = new \ReflectionClass($controller);
-            $methods = $ref->getMethods();
-            $shortName = $ref->getShortName();
+            $ref            = new \ReflectionClass($controller);
+            $methods        = $ref->getMethods();
+            $shortName      = $ref->getShortName();
             $ignore_actions = [];
             $ignore_methods = [];
             if ($ref->hasConstant('IGNORE_ACTIONS')) {
@@ -40,7 +40,7 @@ class SystemMenuRegisterService
             $prefix = str_replace('Controller', '', $shortName);
 
             $ctlSystemMenuAttrs = $ref->getAttributes(SystemMenu::class);
-            $ctlSystemMenuAttr = null;
+            $ctlSystemMenuAttr  = null;
             if ($ctlSystemMenuAttrs) {
                 $ctlSystemMenuAttr = $ctlSystemMenuAttrs[0]->newInstance();
                 $ctlSystemMenuAttr->type ??= SystemMenuType::GROUP;
@@ -59,14 +59,14 @@ class SystemMenuRegisterService
                     if (in_array($name, $ignore_methods)) {
                         continue;
                     }
-                    $actionName = $name;
+                    $actionName   = $name;
                     $route_action = 'any';
-                    $actions = ['get', 'post', 'put', 'delete', 'patch'];
+                    $actions      = ['get', 'post', 'put', 'delete', 'patch'];
                     foreach ($actions as $action) {
                         if (str_starts_with($actionName, $action)) {
                             $route_action = $action;
-                            $actionName = str_replace($action . '', '', $actionName);
-                            $actionName = Str::lcfirst($actionName);
+                            $actionName   = str_replace($action . '', '', $actionName);
+                            $actionName   = Str::lcfirst($actionName);
                             break;
                         }
                     }
@@ -76,9 +76,9 @@ class SystemMenuRegisterService
 
                     $mtdSystemMenuAttr = $method->getAttributes(SystemMenu::class)[0]->newInstance();
 
-                    $uri = $prefix . '/' . Str::kebab($actionName);
+                    $uri       = $prefix . '/' . Str::kebab($actionName);
                     $routeName = $prefix . '.' . Str::kebab($actionName);
-                    $fullUri = $this->prefix($uri);
+                    $fullUri   = $this->prefix($uri);
 
                     /** @var \Illuminate\Routing\Route $route */
                     $route = Route::$route_action($uri, [$controller, $name])->name($routeName);
@@ -90,8 +90,8 @@ class SystemMenuRegisterService
                         $mtdSystemMenuAttr->parent_code ??= $ctlSystemMenuAttr?->code;
                         $mtdSystemMenuAttr->type = SystemMenuType::MENU;
                         if ($ctlSystemMenuAttr) {
-                            $mtdSystemMenuAttr->name = $ctlSystemMenuAttr->name;
-                            $mtdSystemMenuAttr->icon = $ctlSystemMenuAttr->icon;
+                            $mtdSystemMenuAttr->name        = $ctlSystemMenuAttr->name;
+                            $mtdSystemMenuAttr->icon        = $ctlSystemMenuAttr->icon;
                             $mtdSystemMenuAttr->parent_code = $ctlSystemMenuAttr->parent_code;
                         }
                     } else {
@@ -121,7 +121,7 @@ class SystemMenuRegisterService
     public function getSystemMenuTree()
     {
         $cache_file_path = \config('cache.stores.file.path') . '/system_menus_tree.php';
-        $tree = null;
+        $tree            = null;
         if (! file_exists($cache_file_path)) {
             if (! $this->system_menus) {
                 // 如果是空值那么猜测是缓存了路由
@@ -147,7 +147,7 @@ class SystemMenuRegisterService
     public function getSystemMenuList()
     {
         $cache_file_path = \config('cache.stores.file.path') . '/system_menus.php';
-        $menus = null;
+        $menus           = null;
         if (! file_exists($cache_file_path)) {
             if (! $this->system_menus) {
                 // 如果是空值那么猜测是缓存了路由
@@ -190,8 +190,8 @@ class SystemMenuRegisterService
     public function writeMenuTreeToCacheFile($tree)
     {
         $cache_file_path = \config('cache.stores.file.path') . '/system_menus_tree.php';
-        $treeCode = \var_export($tree, true);
-        $file_content = <<<EOF
+        $treeCode        = \var_export($tree, true);
+        $file_content    = <<<EOF
 <?php
 
 return $treeCode;
@@ -202,8 +202,8 @@ EOF;
     public function writeMenuToCacheFile($menus)
     {
         $cache_file_path = \config('cache.stores.file.path') . '/system_menus.php';
-        $menusCode = \var_export($menus, true);
-        $file_content = <<<EOF
+        $menusCode       = \var_export($menus, true);
+        $file_content    = <<<EOF
 <?php
 
 return $menusCode;

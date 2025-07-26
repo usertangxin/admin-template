@@ -172,7 +172,7 @@ class CrudTest extends AbstractAuthTestCase
      */
     public function test_change_status(): void
     {
-        $model = CrudTestFactory::new()->create();
+        $model    = CrudTestFactory::new()->create();
         $response = $this->postJson('/web/admin/CrudTest/change-status', [
             'id'     => 1,
             'status' => 'disabled',
@@ -209,7 +209,7 @@ class CrudTest extends AbstractAuthTestCase
      */
     public function test_recycle()
     {
-        $model = CrudTestFactory::new()->create();
+        $model    = CrudTestFactory::new()->create();
         $response = $this->postJson('/web/admin/CrudTest/recycle');
         $response->assertJson(['code' => 0]);
         $response->assertJsonCount(0, 'data');
@@ -247,7 +247,7 @@ class CrudTest extends AbstractAuthTestCase
      */
     public function test_real_destroy()
     {
-        $model = CrudTestFactory::new()->create();
+        $model    = CrudTestFactory::new()->create();
         $response = $this->deleteJson('/web/admin/CrudTest/real-destroy', [
             'ids' => $model->id,
         ]);

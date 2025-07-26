@@ -16,7 +16,7 @@ class DocumentConstraint implements UploadFileConstraintInterface
     public function check($files): array
     {
         $allow_str = SystemConfigService::getInstance()->getValueByKey('upload_allow_document');
-        $size = SystemConfigService::getInstance()->getValueByKey('upload_size_document');
+        $size      = SystemConfigService::getInstance()->getValueByKey('upload_size_document');
 
         $allow = explode(',', Str::of($allow_str)->replace('/s+/', '')->toString());
 

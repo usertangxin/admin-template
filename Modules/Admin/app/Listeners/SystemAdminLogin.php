@@ -18,7 +18,7 @@ class SystemAdminLogin
     public function handle(Login $event): void
     {
         if ($event->user instanceof SystemAdmin) {
-            $event->user->login_ip = \request()->ip();
+            $event->user->login_ip  = \request()->ip();
             $event->user->logged_at = now();
             $event->user->save();
         }

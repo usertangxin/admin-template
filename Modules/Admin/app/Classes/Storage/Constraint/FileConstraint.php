@@ -16,7 +16,7 @@ class FileConstraint implements UploadFileConstraintInterface
     public function check($files): array
     {
         $allow_str = SystemConfigService::getInstance()->getValueByKey('upload_allow_file');
-        $size = SystemConfigService::getInstance()->getValueByKey('upload_size');
+        $size      = SystemConfigService::getInstance()->getValueByKey('upload_size');
 
         $allow = explode(',', Str::of($allow_str)->replace('/s+/', '')->toString());
 

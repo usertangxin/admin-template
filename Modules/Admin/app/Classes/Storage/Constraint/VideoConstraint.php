@@ -16,7 +16,7 @@ class VideoConstraint implements UploadFileConstraintInterface
     public function check($files): array
     {
         $allow_str = SystemConfigService::getInstance()->getValueByKey('upload_allow_video');
-        $size = SystemConfigService::getInstance()->getValueByKey('upload_size_video');
+        $size      = SystemConfigService::getInstance()->getValueByKey('upload_size_video');
 
         $allow = explode(',', Str::of($allow_str)->replace('/s+/', '')->toString());
 

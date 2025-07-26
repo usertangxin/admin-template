@@ -10,9 +10,9 @@ class SystemAdminTest extends AbstractAuthTestCase
 {
     public function test_update()
     {
-        $admin = SystemAdminFactory::new()->create();
+        $admin             = SystemAdminFactory::new()->create();
         $old_password_hash = $admin->password;
-        $response = $this->postJson('/web/admin/SystemAdmin/update', [
+        $response          = $this->postJson('/web/admin/SystemAdmin/update', [
             'id'         => $admin->id,
             'admin_name' => $admin->admin_name,
             'nickname'   => 'new nickname',
@@ -41,7 +41,7 @@ class SystemAdminTest extends AbstractAuthTestCase
 
         $this->auth($admin);
         $root_admin = SystemAdmin::where('is_root', true)->first();
-        $response = $this->postJson('/web/admin/SystemAdmin/update', array_merge(
+        $response   = $this->postJson('/web/admin/SystemAdmin/update', array_merge(
             $root_admin->toArray(),
             // 测试其他管理修改根管理密码
             ['password' => '123456']

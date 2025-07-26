@@ -35,8 +35,8 @@ class FileStorageService
     public function upload($path = '')
     {
         $storage_mode = \request('storage_mode', SystemConfigService::getInstance()->getValueByKey('storage_mode'));
-        $upload_mode = \request('upload_mode', 'file');
-        $files = \request()->file('file');
+        $upload_mode  = \request('upload_mode', 'file');
+        $files        = \request()->file('file');
         if (empty($files)) {
             throw new \Exception('请上传文件');
         }
@@ -69,8 +69,8 @@ class FileStorageService
         }
         /** @var SystemUploadfile[] $systemUploadfiles */
         $systemUploadfiles = SystemUploadfile::whereIn('id', $ids)->get();
-        $success_paths = [];
-        $fail_paths = [];
+        $success_paths     = [];
+        $fail_paths        = [];
         foreach ($systemUploadfiles as $systemUploadfile) {
             $storage = $this->file_storage[$systemUploadfile->storage_mode] ?? null;
             if (empty($storage)) {
@@ -83,9 +83,10 @@ class FileStorageService
                 $fail_paths[] = $systemUploadfile->storage_path;
             }
         }
+
         return [
             'success_paths' => $success_paths,
-            'fail_paths' => $fail_paths,
+            'fail_paths'    => $fail_paths,
         ];
     }
 }

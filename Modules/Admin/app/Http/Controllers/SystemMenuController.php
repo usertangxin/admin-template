@@ -27,7 +27,7 @@ class SystemMenuController extends AbstractController
             Artisan::call('route:cache');
         }
         $system_menus = SystemMenuRegisterService::getInstance()->getOriginSystemMenu();
-        $tree = ArrUtil::convertToTree($system_menus, 'parent_code', 'code', 'children');
+        $tree         = ArrUtil::convertToTree($system_menus, 'parent_code', 'code', 'children');
         if ($system_menus) {
             SystemMenuRegisterService::getInstance()->writeMenuTreeToCacheFile($tree);
             SystemMenuRegisterService::getInstance()->writeMenuToCacheFile($system_menus);
