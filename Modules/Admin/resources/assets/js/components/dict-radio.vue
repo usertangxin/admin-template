@@ -12,7 +12,7 @@
                             <div class="custom-radio-card-title">
                                 {{ merge[item.value]?.label || item.label }}
                             </div>
-                            <div v-if="merge[item.value]?.remark || item.remark" v-html="merge[item.value]?.remark || item.remark" class="leading-4 -ml-[22px] mt-2 opacity-45">
+                            <div v-if="merge[item.value]?.remark || item.remark" v-html="merge[item.value]?.remark || item.remark" class="leading-4 -ml-[22px] mt-2 opacity-70">
                             </div>
                         </div>
                     </a-space>
