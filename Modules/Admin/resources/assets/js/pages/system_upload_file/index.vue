@@ -17,8 +17,7 @@ const store = provideIndexShareStore({
         { title: '资源类型', dataIndex: 'mime_type', },
         { title: '存储目录', dataIndex: 'storage_path', },
         { title: '文件后缀', dataIndex: 'suffix', show: false, },
-        { title: '字节数', dataIndex: 'size_byte', show: false, },
-        { title: '文件大小', dataIndex: 'size_info', },
+        { title: '文件大小（字节）', dataIndex: 'size_byte', },
         { title: 'url地址', dataIndex: 'url', show: false, },
         { title: '备注', dataIndex: 'remark', },
     ]

@@ -24,4 +24,52 @@ class SystemUploadFileController extends AbstractCrudController
         // \dd($arr);
         return $this->success($arr);
     }
+
+    #[SystemMenu('图片上传')]
+    public function postImageUpload(FileStorageService $fileStorageService)
+    {
+        request()->merge([
+            'upload_mode' => 'image',
+        ]);
+        $arr = $fileStorageService->upload();
+
+        // \dd($arr);
+        return $this->success($arr);
+    }
+
+    #[SystemMenu('视频上传')]
+    public function postVideoUpload(FileStorageService $fileStorageService)
+    {
+        request()->merge([
+            'upload_mode' => 'video',
+        ]);
+        $arr = $fileStorageService->upload();
+
+        // \dd($arr);
+        return $this->success($arr);
+    }
+
+    #[SystemMenu('音频上传')]
+    public function postAudioUpload(FileStorageService $fileStorageService)
+    {
+        request()->merge([
+            'upload_mode' => 'audio',
+        ]);
+        $arr = $fileStorageService->upload();
+
+        // \dd($arr);
+        return $this->success($arr);
+    }
+
+    #[SystemMenu('文稿上传')]
+    public function postDocumentUpload(FileStorageService $fileStorageService)
+    {
+        request()->merge([
+            'upload_mode' => 'document',
+        ]);
+        $arr = $fileStorageService->upload();
+
+        // \dd($arr);
+        return $this->success($arr);
+    }
 }
