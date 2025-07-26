@@ -54,7 +54,7 @@ class PublicStorage implements UploadFileStorageInterface
             throw new \Exception('本地存储未启用');
         }
 
-        $domain              = $systemConfigService->getValueByKey('public_domain');
+        $domain = $systemConfigService->getValueByKey('public_domain');
 
         $disk = $this->getDisk();
 

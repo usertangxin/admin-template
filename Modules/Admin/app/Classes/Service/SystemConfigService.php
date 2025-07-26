@@ -68,6 +68,7 @@ class SystemConfigService
     public function refresh()
     {
         $this->databaseConfig = SystemConfig::all();
+
         $kv = [];
         foreach ($this->databaseConfig as $config) {
             $kv[$config->key] = $config['value'];
