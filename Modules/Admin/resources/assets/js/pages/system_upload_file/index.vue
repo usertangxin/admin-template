@@ -17,7 +17,7 @@
             <template #action-update></template>
         </index-table>
 
-        <a-modal title="获取临时链接" v-model:visible="showTemporaryUrlModal" width="1050px" :hide-cancel="true"
+        <a-modal title="获取临时链接" v-model:visible="showTemporaryUrlModal" width="400px" :hide-cancel="true"
             :closable="false" ok-text="关闭" @close="temporaryUrl = ''">
             <a-input-group>
                 <a-input-number v-model="temporaryUrlExpireValue" :min="1" placeholder="请输入时长"></a-input-number>
@@ -28,8 +28,9 @@
                 </a-select>
                 <a-button type="primary" @click="handleGetTemporaryUrl()">获取</a-button>
             </a-input-group>
-            <div>
-                {{ temporaryUrl }}
+            <div v-if="temporaryUrl" class=" max-w-[100%] mt-3 flex flex-col items-center">
+                <a-link class="break-all" :href="temporaryUrl" target="_blank">{{ temporaryUrl }}</a-link>
+                <a-button class="text-red-500 w-[100px]" @click="handleCopyTemporaryUrl()">复制</a-button>
             </div>
         </a-modal>
 
@@ -88,6 +89,21 @@ const handleGetTemporaryUrl = (record) => {
         temporaryUrl.value = res.data.url;
     })
 }
+
+const handleCopyTemporaryUrl = () => {
+    if (!temporaryUrl.value) {
+        Message.error('请先获取临时链接');
+        return;
+    }
+    const input = document.createElement('input');
+    input.value = temporaryUrl.value;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+    Message.success('复制成功');
+}
+
 
 
 </script>
