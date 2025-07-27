@@ -18,7 +18,7 @@ const props = defineProps([
     'accept',
     // 最大文件大小, 单位字节
     'fileSize',
-    'storageModel',
+    'storageMode',
 ])
 
 const comAccept = computed(() => {
@@ -46,7 +46,7 @@ const customRequest = (option) => {
     const { onProgress, onError, onSuccess, fileItem, name } = option
     const data = new FormData();
     data.append('file', fileItem.file);
-    props.storageModel && data.append('storage_model', props.storageModel);
+    props.storageMode && data.append('storage_mode', props.storageMode);
     axios.post(route('web.admin.SystemUploadFile.upload'), data).then(res => {
         onSuccess(res.data)
     }).catch(err => {

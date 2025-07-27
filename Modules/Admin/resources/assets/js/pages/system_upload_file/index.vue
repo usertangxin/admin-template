@@ -17,7 +17,7 @@
             <template #action-update></template>
         </index-table>
 
-        <a-modal title="获取临时链接" v-model:visible="showTemporaryUrlModal" width="350px" :hide-cancel="true"
+        <a-modal title="获取临时链接" v-model:visible="showTemporaryUrlModal" width="1050px" :hide-cancel="true"
             :closable="false" ok-text="关闭" @close="temporaryUrl = ''">
             <a-input-group>
                 <a-input-number v-model="temporaryUrlExpireValue" :min="1" placeholder="请输入时长"></a-input-number>
@@ -28,7 +28,9 @@
                 </a-select>
                 <a-button type="primary" @click="handleGetTemporaryUrl()">获取</a-button>
             </a-input-group>
-            {{ temporaryUrl }}
+            <div>
+                {{ temporaryUrl }}
+            </div>
         </a-modal>
 
     </div>

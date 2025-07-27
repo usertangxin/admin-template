@@ -9,6 +9,7 @@ use Modules\Admin\Classes\Storage\Constraint\DocumentConstraint;
 use Modules\Admin\Classes\Storage\Constraint\FileConstraint;
 use Modules\Admin\Classes\Storage\Constraint\ImageConstraint;
 use Modules\Admin\Classes\Storage\Constraint\VideoConstraint;
+use Modules\Admin\Classes\Storage\PrivateStorage;
 use Modules\Admin\Classes\Storage\PublicStorage;
 
 class FileStorageProvider extends ServiceProvider
@@ -33,6 +34,7 @@ class FileStorageProvider extends ServiceProvider
         $fileStorageService->registerFileConstraint($this->app->make(AudioConstraint::class));
 
         $fileStorageService->registerFileStorage($this->app->make(PublicStorage::class));
+        $fileStorageService->registerFileStorage($this->app->make(PrivateStorage::class));
     }
 
     /**

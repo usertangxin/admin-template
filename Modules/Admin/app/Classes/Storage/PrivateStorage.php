@@ -5,59 +5,63 @@ namespace Modules\Admin\Classes\Storage;
 use DateTime;
 use Illuminate\Filesystem\LocalFilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Modules\Admin\Classes\Interfaces\UploadFileStorageInterface;
 use Modules\Admin\Classes\Service\SystemConfigService;
 use Modules\Admin\Models\SystemUploadfile;
 
-class PublicStorage implements UploadFileStorageInterface
+class PrivateStorage implements UploadFileStorageInterface
 {
     protected function getConfig(): array
     {
-        $systemConfigService = SystemConfigService::getInstance();
-        $domain              = $systemConfigService->getValueByKey('public_domain');
+        // $systemConfigService = SystemConfigService::getInstance();
+        // $domain              = $systemConfigService->getValueByKey('public_domain');
 
         return [
-            'driver'     => 'local',
-            'root'       => storage_path('app/admin-public'),
-            'url'        => $domain . '/storage-admin',
-            'visibility' => 'public',
-            'serve'      => false,
-            'throw'      => true,
-            'report'     => false,
+            'driver' => 'local',
+            'root'   => storage_path('app/admin-private'),
+            'url'    => 'storage-admin-private',
+            'serve'  => true,
+            'throw'  => true,
+            'report' => false,
         ];
     }
 
     public function __construct()
     {
         \config([
-            'filesystems.disks.admin-public' => $this->getConfig(),
-            'filesystems.links'              => \array_merge(
-                \config('filesystems.links'),
-                [
-                    public_path('storage-admin') => storage_path('app/admin-public'),
-                ]
-            ),
+            'filesystems.disks.admin-private' => $this->getConfig(),
         ]);
+        Storage::disk('admin-private')->buildTemporaryUrlsUsing(
+            function (string $path, DateTime $expiration, array $options) {
+                return URL::to(URL::temporarySignedRoute(
+                    'storage.admin-private',
+                    $expiration,
+                    array_merge($options, ['path' => $path]),
+                    false,
+                ));
+            }
+        );
     }
 
     public function storage_mode(): string
     {
-        return 'public';
+        return 'local';
     }
 
     protected function getDisk(): LocalFilesystemAdapter
     {
-        return Storage::build($this->getConfig());
+        return Storage::disk('admin-private');
     }
 
     public function storage($files, $upload_mode, $path = ''): array
     {
         $systemConfigService = SystemConfigService::getInstance();
 
-        $public_status = $systemConfigService->getValueByKey('public_status');
+        $public_status = $systemConfigService->getValueByKey('local_status');
         if ($public_status != 'normal') {
-            throw new \Exception('本地存储未启用');
+            throw new \Exception('私有存储未启用');
         }
 
         $disk = $this->getDisk();
@@ -82,7 +86,7 @@ class PublicStorage implements UploadFileStorageInterface
                     'storage_path' => $path,
                     'suffix'       => $file->extension(),
                     'size_byte'    => $file->getSize(),
-                    'url'          => $disk->url($path),
+                    'url'          => $path,
                 ];
                 SystemUploadfile::create($data);
                 $arr[] = $data;
@@ -99,7 +103,7 @@ class PublicStorage implements UploadFileStorageInterface
 
     public function temporaryUrl($path, DateTime $expiration, $options = []): string
     {
-        throw new \Exception('该存储可直接访问，无需生成');
+        return $this->getDisk()->temporaryUrl($path, $expiration, $options);
     }
 
     public function __call($name, $arguments)
