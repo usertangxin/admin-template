@@ -16,12 +16,12 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function (response) {
     nProgress.done()
     const data = response.data
-    if (response.config.method !== 'get') {
-        if (data.code === 0) {
+    if (data.code === 0) {
+        if (response.config.method !== 'get') {
             Message.success(data.message);
-        } else {
-            Message.error(data.message);
         }
+    } else {
+        Message.error(data.message);
     }
 
     return data

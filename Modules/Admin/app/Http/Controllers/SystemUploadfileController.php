@@ -72,4 +72,14 @@ class SystemUploadFileController extends AbstractCrudController
         // \dd($arr);
         return $this->success($arr);
     }
+
+    #[SystemMenu('获取临时链接')]
+    public function getTemporaryUrl(FileStorageService $fileStorageService)
+    {
+        $id         = request('id');
+        $expiration = request('expiration', 3600);
+        $url        = $fileStorageService->temporaryUrl($id, new \DateTime('+' . $expiration . ' seconds'));
+
+        return $this->success(['url' => $url]);
+    }
 }

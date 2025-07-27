@@ -17,7 +17,7 @@
                         <template v-if="page.props.__page_index__">
                             <slot name="recycle-before"></slot>
                             <slot name="recycle">
-                                <a-tooltip mini content="回收站">
+                                <a-tooltip v-if="!$slots.recycle" mini content="回收站">
                                     <a-button status="normal" @click="toRecycle">
                                         <template #icon>
                                             <icon icon="fas recycle"></icon>
@@ -29,7 +29,7 @@
                         </template>
                         <slot name="refresh-before"></slot>
                         <slot name="refresh">
-                            <a-tooltip mini content="刷新">
+                            <a-tooltip v-if="!$slots.refresh" mini content="刷新">
                                 <a-button status="normal" @click="refreshList">
                                     <template #icon>
                                         <icon icon="a refresh"></icon>
@@ -40,7 +40,7 @@
                         <slot name="refresh-after"></slot>
                         <slot name="fullscreen-before"></slot>
                         <slot name="fullscreen">
-                            <a-tooltip mini content="全屏">
+                            <a-tooltip v-if="!$slots.fullscreen" mini content="全屏">
                                 <a-button status="normal" @click="changeFullScreen">
                                     <template #icon>
                                         <icon icon="a fullscreen"></icon>
@@ -53,12 +53,12 @@
                         <template v-if="page.props.__page_index__">
                             <slot name="create-before"></slot>
                             <slot name="create">
-                                <a-button @click="toCreate" type="primary" status="normal">创建</a-button>
+                                <a-button v-if="!$slots.create" @click="toCreate" type="primary" status="normal">创建</a-button>
                             </slot>
                             <slot name="create-after"></slot>
                             <slot name="destroy-before"></slot>
                             <slot name="destroy">
-                                <a-popconfirm content="确认删除选中项吗？" @ok="handleDestroy">
+                                <a-popconfirm v-if="!$slots.destroy" content="确认删除选中项吗？" @ok="handleDestroy">
                                     <a-button type="primary" status="danger"
                                         :disabled="store.selectedKeys.value.length === 0">删除</a-button>
                                 </a-popconfirm>
@@ -68,7 +68,7 @@
                         <template v-if="page.props.__page_recycle__">
                             <slot name="recovery-before"></slot>
                             <slot name="recovery">
-                                <a-popconfirm content="确认恢复选中项吗？" @ok="handleRecovery">
+                                <a-popconfirm v-if="!$slots.recovery" content="确认恢复选中项吗？" @ok="handleRecovery">
                                     <a-button type="primary" status="success"
                                         :disabled="store.selectedKeys.value.length === 0">恢复</a-button>
                                 </a-popconfirm>
@@ -76,7 +76,7 @@
                             <slot name="recovery-after"></slot>
                             <slot name="real-destroy-before"></slot>
                             <slot name="real-destroy">
-                                <a-popconfirm content="确认永久删除选中项吗？" @ok="handleRealDestroy">
+                                <a-popconfirm v-if="!$slots['real-destroy']" content="确认永久删除选中项吗？" @ok="handleRealDestroy">
                                     <a-button type="primary" status="danger"
                                         :disabled="store.selectedKeys.value.length === 0">永久删除</a-button>
                                 </a-popconfirm>
@@ -93,7 +93,7 @@
                     <slot name="right">
                         <slot name="search-input-before"></slot>
                         <slot name="search-input">
-                            <a-input v-model="store.searchQuery.value.fast_search" @press-enter="store.resetSearchQuery"
+                            <a-input v-if="!$slots['search-input']" v-model="store.searchQuery.value.fast_search" @press-enter="store.resetSearchQuery"
                                 placeholder="请输入内容并回车" :allow-clear="true" @clear="store.resetSearchQuery">
                                 <template #suffix>
                                     <div>
@@ -106,7 +106,7 @@
                         <slot name="search-input-after"></slot>
                         <slot name="search-before"></slot>
                         <slot name="search">
-                            <a-tooltip mini content="更多搜索选项" position="br">
+                            <a-tooltip v-if="!$slots.search" mini content="更多搜索选项" position="br">
                                 <a-button status="normal">
                                     <template #icon>
                                         <icon icon="fas magnifying-glass-arrow-right"></icon>
@@ -118,7 +118,7 @@
                         <a-divider direction="vertical"></a-divider>
                         <slot name="columns-before"></slot>
                         <slot name="columns">
-                            <a-dropdown position="br" :popup-max-height="false">
+                            <a-dropdown v-if="!$slots.columns" position="br" :popup-max-height="false">
                                 <a-tooltip mimi position="br" content="控制显示列">
                                     <a-button>
                                         <template #icon>

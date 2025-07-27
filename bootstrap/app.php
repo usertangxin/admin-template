@@ -6,6 +6,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Modules\Admin\Classes\Service\ResponseService;
 use Modules\Admin\Http\Middleware\AdminSupport;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -33,6 +34,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (Illuminate\Validation\ValidationException $exception, Request $request) {
             if (($request->get('__is_admin_background__'))) {
                 return ResponseService::fail($exception->getMessage(), $exception->status, null, $exception->errors());
+            }
+        });
+
+        $exceptions->render(function (NotFoundResourceException $exception, Request $request) {
+            if (($request->get('__is_admin_background__'))) {
+                return ResponseService::fail($exception->getMessage(), 404, null, []);
             }
         });
 

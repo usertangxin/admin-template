@@ -14,10 +14,11 @@ import _ from 'lodash';
 import { computed } from 'vue';
 
 const props = defineProps([
-    'onBeforeUpload', 
-    'accept', 
+    'onBeforeUpload',
+    'accept',
     // 最大文件大小, 单位字节
-    'fileSize'
+    'fileSize',
+    'storageModel',
 ])
 
 const comAccept = computed(() => {
@@ -43,6 +44,13 @@ const beforeUpload = (file) => {
 
 const customRequest = (option) => {
     const { onProgress, onError, onSuccess, fileItem, name } = option
-    // axios
+    const data = new FormData();
+    data.append('file', fileItem.file);
+    props.storageModel && data.append('storage_model', props.storageModel);
+    axios.post(route('web.admin.SystemUploadFile.upload'), data).then(res => {
+        onSuccess(res.data)
+    }).catch(err => {
+        onError(err)
+    })
 }
 </script>

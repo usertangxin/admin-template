@@ -2,6 +2,14 @@
 
 namespace Modules\Admin\Classes\Interfaces;
 
+use DateTime;
+
+/**
+ * 上传文件存储接口
+ * 实现在存储应该 laravel 提供者 boot 方法中注册进 FileStorageService
+ *
+ * @see \Modules\Admin\Classes\Service\FileStorageService
+ */
 interface UploadFileStorageInterface
 {
     /**
@@ -19,4 +27,6 @@ interface UploadFileStorageInterface
     public function storage($files, $upload_mode, $path = ''): array;
 
     public function delete($paths): bool;
+
+    public function temporaryUrl($path, DateTime $expiration, $options = []): string;
 }

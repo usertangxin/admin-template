@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Classes\Storage;
 
+use DateTime;
 use Illuminate\Filesystem\LocalFilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -13,10 +14,15 @@ class PublicStorage implements UploadFileStorageInterface
 {
     protected function getConfig(): array
     {
+        $systemConfigService = SystemConfigService::getInstance();
+        $domain              = $systemConfigService->getValueByKey('public_domain');
+
         return [
             'driver'     => 'local',
-            'root'       => storage_path('app/public'),
+            'root'       => storage_path('app/admin-public'),
+            'url'        => $domain . '/storage-admin',
             'visibility' => 'public',
+            'serve'      => true,
             'throw'      => true,
             'report'     => false,
         ];
@@ -25,11 +31,11 @@ class PublicStorage implements UploadFileStorageInterface
     public function __construct()
     {
         \config([
-            'filesystems.disks.public' => $this->getConfig(),
-            'filesystems.links'        => \array_merge(
+            'filesystems.disks.admin-public' => $this->getConfig(),
+            'filesystems.links'              => \array_merge(
                 \config('filesystems.links'),
                 [
-                    public_path('storage') => storage_path('app/public'),
+                    public_path('storage-admin') => storage_path('app/admin-public'),
                 ]
             ),
         ]);
@@ -54,8 +60,6 @@ class PublicStorage implements UploadFileStorageInterface
             throw new \Exception('本地存储未启用');
         }
 
-        $domain = $systemConfigService->getValueByKey('public_domain');
-
         $disk = $this->getDisk();
 
         $arr = [];
@@ -66,17 +70,19 @@ class PublicStorage implements UploadFileStorageInterface
             if ($systemUploadfile) {
                 $arr[] = $systemUploadfile->toArray();
             } else {
-                $path = $disk->putFile($upload_mode . '/' . $path, $file);
+                $base_path = $upload_mode;
+                $path && $base_path .= '/' . $path;
+                $path = $disk->putFile($base_path, $file);
                 $data = [
                     'storage_mode' => $this->storage_mode(),
                     'origin_name'  => $file->getClientOriginalName(),
-                    'object_name'  => Str::of($path)->after($upload_mode . '/')->toString(),
+                    'object_name'  => Str::of($path)->after($base_path . '/')->toString(),
                     'hash'         => $hash,
                     'mime_type'    => $file->getMimeType(),
                     'storage_path' => $path,
                     'suffix'       => $file->extension(),
                     'size_byte'    => $file->getSize(),
-                    'url'          => $domain . '/storage/' . $path,
+                    'url'          => $disk->url($path),
                 ];
                 SystemUploadfile::create($data);
                 $arr[] = $data;
@@ -89,6 +95,11 @@ class PublicStorage implements UploadFileStorageInterface
     public function delete($paths): bool
     {
         return $this->getDisk()->delete($paths);
+    }
+
+    public function temporaryUrl($path, DateTime $expiration, $options = []): string
+    {
+        throw new \Exception('该存储可直接访问，无需生成');
     }
 
     public function __call($name, $arguments)

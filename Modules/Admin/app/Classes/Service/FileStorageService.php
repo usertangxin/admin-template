@@ -2,9 +2,11 @@
 
 namespace Modules\Admin\Classes\Service;
 
+use DateTime;
 use Modules\Admin\Classes\Interfaces\UploadFileConstraintInterface;
 use Modules\Admin\Classes\Interfaces\UploadFileStorageInterface;
 use Modules\Admin\Models\SystemUploadfile;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class FileStorageService
 {
@@ -38,15 +40,15 @@ class FileStorageService
         $upload_mode  = \request('upload_mode', 'file');
         $files        = \request()->file('file');
         if (empty($files)) {
-            throw new \Exception('请上传文件');
+            throw new NotFoundResourceException('请上传文件');
         }
         $constraint = $this->file_constraint[$upload_mode] ?? null;
         if (empty($constraint)) {
-            throw new \Exception('上传模式不存在');
+            throw new NotFoundResourceException('上传模式不存在');
         }
         $storage = $this->file_storage[$storage_mode] ?? null;
         if (empty($storage)) {
-            throw new \Exception('存储模式不存在');
+            throw new NotFoundResourceException('存储模式不存在');
         }
         if (! \is_array($files)) {
             $files = [$files];
@@ -88,5 +90,21 @@ class FileStorageService
             'success_paths' => $success_paths,
             'fail_paths'    => $fail_paths,
         ];
+    }
+
+    public function temporaryUrl($id, DateTime $expiration)
+    {
+        /** @var SystemUploadfile $systemUploadfile */
+        $systemUploadfile = SystemUploadfile::find($id);
+        if (empty($systemUploadfile)) {
+            throw new NotFoundResourceException('文件不存在');
+        }
+        $storage = $this->file_storage[$systemUploadfile->storage_mode] ?? null;
+        if (empty($storage)) {
+            throw new NotFoundResourceException('存储模式不存在');
+        }
+
+        // \dump($systemUploadfile->storage_path);
+        return $storage->temporaryUrl($systemUploadfile->storage_path, $expiration);
     }
 }
