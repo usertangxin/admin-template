@@ -93,7 +93,7 @@ return [
         'config_select_data' => [],
         'remark'             => '',
         'bind_p_config'      => 'wechat_group',
-        'input_attr'         => ['mode' => 'resource', 'filename' => 'mch_secret_cert', 'accept' => '.pem'],
+        'input_attr'         => ['storage-mode' => 'local', 'upload-mode' => 'document', 'filename' => 'mch_secret_cert', 'accept' => '.pem'],
     ],
     [
         'group'              => 'wechat_config',
@@ -104,6 +104,6 @@ return [
         'config_select_data' => [],
         'remark'             => '',
         'bind_p_config'      => 'wechat_group',
-        'input_attr'         => ['mode' => 'resource', 'filename' => 'mch_public_cert', 'accept' => '.pem'],
+        'input_attr'         => ['storage-mode' => 'local', 'upload-mode' => 'document', 'filename' => 'mch_public_cert', 'accept' => '.pem'],
     ],
 ];

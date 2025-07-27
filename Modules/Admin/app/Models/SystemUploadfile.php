@@ -2,6 +2,8 @@
 
 namespace Modules\Admin\Models;
 
+use Modules\Admin\Classes\Service\FileStorageService;
+
 // use Modules\Admin\Database\Factories\SystemUploadfileFactory;
 
 class SystemUploadfile extends AbstractSoftDelModel
@@ -19,4 +21,12 @@ class SystemUploadfile extends AbstractSoftDelModel
         'size_byte',
         'url',
     ];
+
+    protected static function booted()
+    {
+        static::forceDeleting(function ($model) {
+            $fileStorageService = FileStorageService::getInstance();
+            $fileStorageService->delete($model->id);
+        });
+    }
 }

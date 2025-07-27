@@ -24,6 +24,11 @@ class FileStorageService
      */
     protected $file_storage = [];
 
+    public static function getInstance(): static
+    {
+        return \app(static::class);
+    }
+
     public function registerFileConstraint(UploadFileConstraintInterface $constraint)
     {
         $this->file_constraint[$constraint->upload_mode()] = $constraint;
@@ -70,7 +75,7 @@ class FileStorageService
             $ids = \explode(',', $ids);
         }
         /** @var SystemUploadfile[] $systemUploadfiles */
-        $systemUploadfiles = SystemUploadfile::whereIn('id', $ids)->get();
+        $systemUploadfiles = SystemUploadfile::withTrashed()->whereIn('id', $ids)->get();
         $success_paths     = [];
         $fail_paths        = [];
         foreach ($systemUploadfiles as $systemUploadfile) {
@@ -79,7 +84,6 @@ class FileStorageService
                 continue;
             }
             if ($storage->delete($systemUploadfile->storage_path)) {
-                $systemUploadfile->delete();
                 $success_paths[] = $systemUploadfile->storage_path;
             } else {
                 $fail_paths[] = $systemUploadfile->storage_path;

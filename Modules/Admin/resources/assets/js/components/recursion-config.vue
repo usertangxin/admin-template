@@ -82,6 +82,16 @@
                 <a-divider v-bind="config.input_attr || {}">{{ config.name }}</a-divider>
             </a-col>
         </template>
+        <template v-else-if="config.input_type === 'uploadFile'">
+            <a-col :span="24">
+                <a-form-item :label="config.name" :field="config.key">
+                    <upload-file v-model="config.value" v-bind="config.input_attr || {}"></upload-file>
+                    <template #extra>
+                        <div>{{ config.remark }}</div>
+                    </template>
+                </a-form-item>
+            </a-col>
+        </template>
         <template v-else>
             <div class="p-2">
                 {{ config }}
