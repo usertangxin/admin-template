@@ -23,6 +23,14 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
     }
 
+    public function register()
+    {
+        parent::register();
+        $this->app->singleton(SystemMenuRegisterService::class, function () {
+            return new SystemMenuRegisterService;
+        });
+    }
+
     /**
      * Define the routes for the application.
      */

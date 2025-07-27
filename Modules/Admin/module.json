@@ -5,7 +5,10 @@
     "keywords": [],
     "priority": 0,
     "providers": [
-        "Modules\\Admin\\Providers\\AdminServiceProvider"
+        "Modules\\Admin\\Providers\\AdminServiceProvider",
+        "Modules\\Admin\\Providers\\SystemConfigProvider",
+        "Modules\\Admin\\Providers\\SystemDictProvider",
+        "Modules\\Admin\\Providers\\FileStorageProvider"
     ],
     "files": []
 }

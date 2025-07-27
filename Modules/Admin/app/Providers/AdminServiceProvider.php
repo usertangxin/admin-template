@@ -5,16 +5,6 @@ namespace Modules\Admin\Providers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Admin\Classes\Service\FileStorageService;
-use Modules\Admin\Classes\Service\SystemConfigService;
-use Modules\Admin\Classes\Service\SystemDictService;
-use Modules\Admin\Classes\Service\SystemMenuRegisterService;
-use Modules\Admin\Classes\Storage\Constraint\AudioConstraint;
-use Modules\Admin\Classes\Storage\Constraint\DocumentConstraint;
-use Modules\Admin\Classes\Storage\Constraint\FileConstraint;
-use Modules\Admin\Classes\Storage\Constraint\ImageConstraint;
-use Modules\Admin\Classes\Storage\Constraint\VideoConstraint;
-use Modules\Admin\Classes\Storage\PublicStorage;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -30,7 +20,7 @@ class AdminServiceProvider extends ServiceProvider
     /**
      * Boot the application events.
      */
-    public function boot(SystemConfigService $systemConfigService, SystemDictService $systemDictService, FileStorageService $fileStorageService): void
+    public function boot(): void
     {
         $this->registerCommands();
         $this->registerCommandSchedules();
@@ -39,29 +29,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
-        Model::preventSilentlyDiscardingAttributes(\app()->isLocal());
-
-        $systemConfigService->registerGroups(\config('admin.system_config_group'));
-        $systemConfigService->registerList(\config('admin.system_config_agreement'));
-        $systemConfigService->registerList(\config('admin.system_config_email'));
-        $systemConfigService->registerList(\config('admin.system_config_map'));
-        $systemConfigService->registerList(\config('admin.system_config_site'));
-        $systemConfigService->registerList(\config('admin.system_config_upload'));
-        $systemConfigService->registerList(\config('admin.system_config_wechat'));
-
-        $dict_groups = \config('admin.system_dict_type');
-        $systemDictService->registerGroups($dict_groups);
-        foreach ($dict_groups as $dict_group) {
-            $systemDictService->registerList(\config('admin.dict.' . $dict_group['code']));
-        }
-
-        $fileStorageService->registerFileConstraint($this->app->make(FileConstraint::class));
-        $fileStorageService->registerFileConstraint($this->app->make(ImageConstraint::class));
-        $fileStorageService->registerFileConstraint($this->app->make(DocumentConstraint::class));
-        $fileStorageService->registerFileConstraint($this->app->make(VideoConstraint::class));
-        $fileStorageService->registerFileConstraint($this->app->make(AudioConstraint::class));
-
-        $fileStorageService->registerFileStorage($this->app->make(PublicStorage::class));
+        Model::preventSilentlyDiscardingAttributes(\app()->isLocal() || \app()->runningUnitTests());
     }
 
     /**
@@ -69,18 +37,6 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(SystemMenuRegisterService::class, function () {
-            return new SystemMenuRegisterService;
-        });
-        $this->app->singleton(SystemConfigService::class, function () {
-            return new SystemConfigService;
-        });
-        $this->app->singleton(SystemDictService::class, function () {
-            return new SystemDictService;
-        });
-        $this->app->singleton(FileStorageService::class, function () {
-            return new FileStorageService;
-        });
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
     }
