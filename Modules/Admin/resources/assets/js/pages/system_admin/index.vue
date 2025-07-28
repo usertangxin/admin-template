@@ -12,6 +12,7 @@ import { router } from '@inertiajs/vue3';
 const store = provideIndexShareStore({
     columns: [
         { title: 'ID', dataIndex: 'id', },
+        { title: '头像', dataIndex: 'avatar', type: 'image', },
         { title: '管理员账号', dataIndex: 'admin_name', },
         { title: '昵称', dataIndex: 'nickname', },
         { title: '手机号', dataIndex: 'phone' },

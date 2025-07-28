@@ -61,8 +61,8 @@
                 </template>
                 <template v-else-if="column.type === 'image'">
                     <a-image-preview-group>
-                        <a-image v-for="(item, index) in analysisMedia(scope.record[column.dataIndex])" :key="index"
-                            :src="item" :preview="false" />
+                        <a-image class="w-[70px] h-[70px]" v-for="(item, index) in analysisMedia(scope.record[column.dataIndex])" :key="index"
+                            :src="item" />
                     </a-image-preview-group>
                 </template>
                 <template v-else-if="column.type === 'icon'">
