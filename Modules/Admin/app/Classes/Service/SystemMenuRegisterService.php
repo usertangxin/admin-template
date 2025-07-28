@@ -3,6 +3,7 @@
 namespace Modules\Admin\Classes\Service;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Foundation\CachesRoutes;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -126,8 +127,8 @@ class SystemMenuRegisterService
             if (! $this->system_menus) {
                 // 如果是空值那么猜测是缓存了路由
                 // 这个时候就尝试刷新路由获取菜单树并缓存
-                $route_cache_file = app()->getCachedRoutesPath();
-                if (\file_exists($route_cache_file)) {
+                // 刷新路由会重新注入菜单从而获取到菜单
+                if (app() instanceof CachesRoutes && app()->routesAreCached()) {
                     Artisan::call('route:cache');
                     $tree = ArrUtil::convertToTree($this->system_menus, 'parent_code', 'code', 'children');
                     if ($tree) {
@@ -152,8 +153,8 @@ class SystemMenuRegisterService
             if (! $this->system_menus) {
                 // 如果是空值那么猜测是缓存了路由
                 // 这个时候就尝试刷新路由获取菜单树并缓存
-                $route_cache_file = app()->getCachedRoutesPath();
-                if (\file_exists($route_cache_file)) {
+                // 刷新路由会重新注入菜单从而获取到菜单
+                if (app() instanceof CachesRoutes && app()->routesAreCached()) {
                     Artisan::call('route:cache');
                     $this->writeMenuToCacheFile($this->system_menus);
                 }
