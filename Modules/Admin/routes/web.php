@@ -17,8 +17,8 @@ use Modules\Admin\Http\Middleware\HandleInertiaShare;
 
 Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(function () {
 
-    Route::get('login', [LoginController::class, 'view'])->name('login');
-    Route::post('login', [LoginController::class, 'authenticate'])->name('login');
+    Route::get('login', [LoginController::class, 'view'])->name('login.view');
+    Route::post('login', [LoginController::class, 'authenticate'])->name('login.authenticate');
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::middleware(['auth:admin', HandleInertiaShare::class])->group(function () {

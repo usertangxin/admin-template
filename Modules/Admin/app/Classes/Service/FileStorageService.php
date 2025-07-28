@@ -99,7 +99,7 @@ class FileStorageService
     public function temporaryUrl($id, DateTime $expiration)
     {
         /** @var SystemUploadfile $systemUploadfile */
-        $systemUploadfile = SystemUploadfile::find($id);
+        $systemUploadfile = SystemUploadfile::withTrashed()->find($id);
         if (empty($systemUploadfile)) {
             throw new NotFoundResourceException('文件不存在');
         }

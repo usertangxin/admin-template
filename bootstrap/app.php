@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -23,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->redirectGuestsTo(function (Request $request) {
             if (($request->get('__is_admin_background__'))) {
-                return route('web.admin.login');
+                return \redirect()->route('web.admin.login.view');
             }
 
             return false;
@@ -40,6 +41,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (NotFoundResourceException $exception, Request $request) {
             if (($request->get('__is_admin_background__'))) {
                 return ResponseService::fail($exception->getMessage(), 404, null, []);
+            }
+        });
+
+        $exceptions->render(function (AuthenticationException $exception, Request $request) {
+            if (($request->get('__is_admin_background__'))) {
+                return \redirect()->route('web.admin.login.view');
             }
         });
 
