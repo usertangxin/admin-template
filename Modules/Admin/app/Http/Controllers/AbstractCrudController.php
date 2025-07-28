@@ -2,9 +2,9 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use DB;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use InvalidArgumentException;
