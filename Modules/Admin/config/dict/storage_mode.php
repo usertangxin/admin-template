@@ -3,7 +3,7 @@
 return [
     [
         'label'  => '本地私有',
-        'value'  => 'local',
+        'value'  => 'private',
         'code'   => 'storage_mode',
         'remark' => '',
     ],

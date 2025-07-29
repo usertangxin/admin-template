@@ -60,7 +60,7 @@ return [
     [
         'group'              => 'upload_config',
         'key'                => 'upload_allow_document',
-        'value'              => 'txt,doc,docx,xls,xlsx,ppt,pptx,pdf,md',
+        'value'              => 'txt,doc,docx,xls,xlsx,ppt,pptx,pdf,md,pem',
         'name'               => '文稿类型',
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
@@ -150,7 +150,7 @@ return [
         'name'               => '默认存储',
         'input_type'         => SystemConfigInputType::RADIO,
         'config_select_data' => [
-            ['label' => '本地私有', 'value' => 'local'],
+            ['label' => '本地私有', 'value' => 'private'],
             ['label' => '本地公开', 'value' => 'public'],
             ['label' => '阿里云OSS', 'value' => 'oss'],
             ['label' => '七牛云', 'value' => 'qiniu'],
@@ -168,7 +168,7 @@ return [
     */
     [
         'group'         => 'upload_config',
-        'key'           => 'local_status',
+        'key'           => 'private_status',
         'value'         => 'normal',
         'name'          => '本地私有状态',
         'input_type'    => SystemConfigInputType::DICT_RADIO,

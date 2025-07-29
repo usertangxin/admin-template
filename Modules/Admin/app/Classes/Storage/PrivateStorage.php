@@ -47,7 +47,7 @@ class PrivateStorage implements UploadFileStorageInterface
 
     public function storage_mode(): string
     {
-        return 'local';
+        return 'private';
     }
 
     protected function getDisk(): LocalFilesystemAdapter
@@ -59,7 +59,7 @@ class PrivateStorage implements UploadFileStorageInterface
     {
         $systemConfigService = SystemConfigService::getInstance();
 
-        $public_status = $systemConfigService->getValueByKey('local_status');
+        $public_status = $systemConfigService->getValueByKey('private_status');
         if ($public_status != 'normal') {
             throw new \Exception('私有存储未启用');
         }

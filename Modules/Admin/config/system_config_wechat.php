@@ -93,7 +93,7 @@ return [
         'config_select_data' => [],
         'remark'             => '上传后为私有存储，你无法直接预览该文件，如需预览可前往 常规管理->附件管理 生成临时链接查看',
         'bind_p_config'      => 'wechat_group',
-        'input_attr'         => ['storage-mode' => 'local', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem'],
+        'input_attr'         => ['storage-mode' => 'private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem'],
     ],
     [
         'group'              => 'wechat_config',
@@ -104,6 +104,6 @@ return [
         'config_select_data' => [],
         'remark'             => '上传后为私有存储，你无法直接预览该文件，如需预览可前往 常规管理->附件管理 生成临时链接查看',
         'bind_p_config'      => 'wechat_group',
-        'input_attr'         => ['storage-mode' => 'local', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem'],
+        'input_attr'         => ['storage-mode' => 'private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem'],
     ],
 ];
