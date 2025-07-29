@@ -70,12 +70,12 @@ class UploadFileTest extends AbstractAuthTestCase
         $this->assertTrue(\str_contains($response->json('message'), '该存储可直接访问，无需生成'));
     }
 
-    public function test_temporary_url_local()
+    public function test_temporary_url_private()
     {
         $response = $this->postJson('/web/admin/SystemUploadFile/upload', [
             'file'         => UploadedFile::fake()->create('test.md', 1),
             'upload_mode'  => 'document',
-            'storage_mode' => 'local',
+            'storage_mode' => 'private',
         ]);
 
         $response = $this->getJson('/web/admin/SystemUploadFile/temporary-url?id=1&expiration=1');
