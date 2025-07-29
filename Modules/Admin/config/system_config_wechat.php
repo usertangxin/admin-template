@@ -91,9 +91,9 @@ return [
         'name'               => '商户私钥',
         'input_type'         => SystemConfigInputType::UPLOAD_FILE,
         'config_select_data' => [],
-        'remark'             => '',
+        'remark'             => '上传后为私有存储，你无法直接预览该文件，如需预览可前往 常规管理->附件管理 生成临时链接查看',
         'bind_p_config'      => 'wechat_group',
-        'input_attr'         => ['storage-mode' => 'local', 'upload-mode' => 'document', 'filename' => 'mch_secret_cert', 'accept' => '.pem'],
+        'input_attr'         => ['storage-mode' => 'local', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem'],
     ],
     [
         'group'              => 'wechat_config',
@@ -102,8 +102,8 @@ return [
         'name'               => '商户公钥',
         'input_type'         => SystemConfigInputType::UPLOAD_FILE,
         'config_select_data' => [],
-        'remark'             => '',
+        'remark'             => '上传后为私有存储，你无法直接预览该文件，如需预览可前往 常规管理->附件管理 生成临时链接查看',
         'bind_p_config'      => 'wechat_group',
-        'input_attr'         => ['storage-mode' => 'local', 'upload-mode' => 'document', 'filename' => 'mch_public_cert', 'accept' => '.pem'],
+        'input_attr'         => ['storage-mode' => 'local', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem'],
     ],
 ];

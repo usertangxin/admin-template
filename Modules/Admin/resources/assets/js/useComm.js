@@ -22,6 +22,8 @@ import FormAction from './components/form-action.vue'
 import FormCol from './components/form-col.vue'
 import DictRadio from './components/dict-radio.vue'
 import UploadFile from './components/upload-file.vue'
+import UploadImage from './components/upload-image.vue'
+import SaveForm from './components/save-form.vue'
 
 document.body.setAttribute('arco-theme', window.localStorage.getItem('arco-theme') || 'light')
 
@@ -66,6 +68,8 @@ const useComm = {
       .component('dict-tag', DictTag)
       .component('dict-radio', DictRadio)
       .component('upload-file', UploadFile)
+      .component('upload-image', UploadImage)
+      .component('save-form', SaveForm)
       .component('index-action', IndexAction)
       .component('form-action', FormAction)
       .component('form-col', FormCol)
