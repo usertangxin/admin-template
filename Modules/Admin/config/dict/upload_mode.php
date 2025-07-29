@@ -2,38 +2,32 @@
 
 return [
     [
-        'label'  => '本地私有',
-        'value'  => 'local',
+        'label'  => '文件',
+        'value'  => 'file',
         'code'   => 'upload_mode',
         'remark' => '',
     ],
     [
-        'label'  => '本地公开',
-        'value'  => 'public',
+        'label'  => '图片',
+        'value'  => 'image',
         'code'   => 'upload_mode',
         'remark' => '',
     ],
     [
-        'label'  => '阿里云OSS',
-        'value'  => 'oss',
+        'label'  => '视频',
+        'value'  => 'video',
         'code'   => 'upload_mode',
         'remark' => '',
     ],
     [
-        'label'  => '七牛云',
-        'value'  => 'qiniu',
+        'label'  => '音频',
+        'value'  => 'audio',
         'code'   => 'upload_mode',
         'remark' => '',
     ],
     [
-        'label'  => '腾讯云COS',
-        'value'  => 'cos',
-        'code'   => 'upload_mode',
-        'remark' => '',
-    ],
-    [
-        'label'  => '亚马逊S3',
-        'value'  => 's3',
+        'label'  => '文稿',
+        'value'  => 'document',
         'code'   => 'upload_mode',
         'remark' => '',
     ],

@@ -1,5 +1,5 @@
 <template>
-    <upload-file list-type="picture-card" image-preview :accept="accept" v-bind="$attrs"/>
+    <upload-file list-type="picture-card" :upload-mode="uploadMode" image-preview :accept="accept" v-bind="$attrs"/>
 </template>
 
 <script setup>
@@ -14,6 +14,10 @@ const props = defineProps({
             const exts = config_map.value['upload_allow_file'].value.replace(/\s/g, '').split(',');
             return _.map(exts, ext => ext.startsWith('.') ? ext : `.${ext}`).join(',');
         }
+    },
+    uploadMode: {
+        type: String,
+        default: 'image',
     },
 })
 

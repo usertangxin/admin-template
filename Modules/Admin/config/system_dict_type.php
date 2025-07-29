@@ -3,8 +3,13 @@
 return [
     [
         'name'   => '存储模式',
-        'code'   => 'upload_mode',
+        'code'   => 'storage_mode',
         'remark' => '上传文件存储模式',
+    ],
+    [
+        'name'   => '上传模式',
+        'code'   => 'upload_mode',
+        'remark' => '上传文件模式',
     ],
     [
         'name'   => '数据状态',

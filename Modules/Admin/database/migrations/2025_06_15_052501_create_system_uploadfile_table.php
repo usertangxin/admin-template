@@ -15,6 +15,7 @@ return new class extends Migration
             $table->comment('附件管理表');
             $table->increments('id')->comment('主键');
             $table->string('storage_mode')->nullable()->default('public')->comment('存储模式:dict=upload_mode');
+            $table->string('upload_mode')->nullable()->default('file')->comment('上传模式:dict=upload_mode');
             $table->string('origin_name')->nullable()->comment('原文件名');
             $table->string('object_name', 50)->nullable()->comment('新文件名');
             $table->string('hash', 64)->nullable()->index('system_uploadfiles_hash')->comment('文件hash');

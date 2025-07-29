@@ -12,6 +12,7 @@ class SystemUploadfile extends AbstractSoftDelModel
 
     protected $fillable = [
         'storage_mode',
+        'upload_mode',
         'origin_name',
         'object_name',
         'hash',

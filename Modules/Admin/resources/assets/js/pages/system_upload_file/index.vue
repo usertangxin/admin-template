@@ -52,7 +52,8 @@ const temporaryUrl = ref('');
 const store = provideIndexShareStore({
     columns: [
         { title: '预览', dataIndex: 'preview', width: 85, },
-        { title: '存储模式', dataIndex: 'storage_mode', width: 135, type: 'dict_tag', dict: 'upload_mode', },
+        { title: '存储模式', dataIndex: 'storage_mode', width: 135, type: 'dict_tag', dict: 'storage_mode', },
+        { title: '上传模式', dataIndex: 'upload_mode', width: 135, type: 'dict_tag', dict: 'upload_mode', },
         { title: '原文件名', dataIndex: 'origin_name', ellipsis: true, width: 150, tooltip: true, },
         { title: '文件名', dataIndex: 'object_name', show: false, },
         { title: '文件hash', dataIndex: 'hash', show: false, },
