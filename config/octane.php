@@ -27,14 +27,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Octane Server
+    | Octane 服务器
     |--------------------------------------------------------------------------
     |
-    | This value determines the default "server" that will be used by Octane
-    | when starting, restarting, or stopping your server via the CLI. You
-    | are free to change this to the supported server of your choosing.
+    | 此值决定了 Octane 通过 CLI 启动、重启或停止服务器时将使用的默认 "服务器"。
+    | 你可以自由地将其更改为你选择的受支持的服务器。
     |
-    | Supported: "roadrunner", "swoole", "frankenphp"
+    | 支持的选项: "roadrunner", "swoole", "frankenphp"
     |
     */
 
@@ -42,12 +41,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Force HTTPS
+    | 强制使用 HTTPS
     |--------------------------------------------------------------------------
     |
-    | When this configuration value is set to "true", Octane will inform the
-    | framework that all absolute links must be generated using the HTTPS
-    | protocol. Otherwise your links may be generated using plain HTTP.
+    | 当此配置值设置为 "true" 时，Octane 将通知框架所有绝对链接必须使用 HTTPS 协议生成。
+    | 否则，你的链接可能会使用普通 HTTP 协议生成。
     |
     */
 
@@ -55,12 +53,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Octane Listeners
+    | Octane 监听器
     |--------------------------------------------------------------------------
     |
-    | All of the event listeners for Octane's events are defined below. These
-    | listeners are responsible for resetting your application's state for
-    | the next request. You may even add your own listeners to the list.
+    | 以下定义了 Octane 事件的所有事件监听器。这些监听器负责为下一个请求重置应用程序的状态。
+    | 你甚至可以向列表中添加自己的监听器。
     |
     */
 
@@ -121,12 +118,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Warm / Flush Bindings
+    | 预热 / 刷新绑定
     |--------------------------------------------------------------------------
     |
-    | The bindings listed below will either be pre-warmed when a worker boots
-    | or they will be flushed before every new request. Flushing a binding
-    | will force the container to resolve that binding again when asked.
+    | 以下列出的绑定将在工作进程启动时进行预预热，或者在每个新请求之前进行刷新。
+    | 刷新绑定将强制容器在被请求时再次解析该绑定。
     |
     */
 
@@ -140,12 +136,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Octane Swoole Tables
+    | Octane Swoole 表
     |--------------------------------------------------------------------------
     |
-    | While using Swoole, you may define additional tables as required by the
-    | application. These tables can be used to store data that needs to be
-    | quickly accessed by other workers on the particular Swoole server.
+    | 在使用 Swoole 时，你可以根据应用程序的需要定义额外的表。
+    | 这些表可用于存储需要由特定 Swoole 服务器上的其他工作进程快速访问的数据。
     |
     */
 
@@ -158,12 +153,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Octane Swoole Cache Table
+    | Octane Swoole 缓存表
     |--------------------------------------------------------------------------
     |
-    | While using Swoole, you may leverage the Octane cache, which is powered
-    | by a Swoole table. You may set the maximum number of rows as well as
-    | the number of bytes per row using the configuration options below.
+    | 在使用 Swoole 时，你可以利用 Octane 缓存，它由 Swoole 表提供支持。
+    | 你可以使用以下配置选项设置最大行数以及每行的字节数。
     |
     */
 
@@ -174,12 +168,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | File Watching
+    | 文件监听
     |--------------------------------------------------------------------------
     |
-    | The following list of files and directories will be watched when using
-    | the --watch option offered by Octane. If any of the directories and
-    | files are changed, Octane will automatically reload your workers.
+    | 以下文件和目录列表将在使用 Octane 提供的 --watch 选项时被监听。
+    | 如果任何目录和文件发生更改，Octane 将自动重新加载你的工作进程。
     |
     */
 
@@ -197,12 +190,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Garbage Collection Threshold
+    | 垃圾回收阈值
     |--------------------------------------------------------------------------
     |
-    | When executing long-lived PHP scripts such as Octane, memory can build
-    | up before being cleared by PHP. You can force Octane to run garbage
-    | collection if your application consumes this amount of megabytes.
+    | 在执行 Octane 等长时间运行的 PHP 脚本时，内存可能会在被 PHP 清除之前不断累积。
+    | 如果你的应用程序消耗了此数量的内存（以兆字节为单位），你可以强制 Octane 运行垃圾回收。
     |
     */
 
@@ -210,12 +202,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Maximum Execution Time
+    | 最大执行时间
     |--------------------------------------------------------------------------
     |
-    | The following setting configures the maximum execution time for requests
-    | being handled by Octane. You may set this value to 0 to indicate that
-    | there isn't a specific time limit on Octane request execution time.
+    | 以下设置配置了 Octane 处理请求的最大执行时间。
+    | 你可以将此值设置为 0 以表示对 Octane 请求执行时间没有特定的时间限制。
     |
     */
 
