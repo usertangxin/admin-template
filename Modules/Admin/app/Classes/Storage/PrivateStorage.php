@@ -71,7 +71,7 @@ class PrivateStorage implements UploadFileStorageInterface
         foreach ($files as $file) {
             $hash             = md5_file($file->getRealPath());
             $systemUploadfile = SystemUploadfile::where([
-                'hash' => $hash,
+                'hash'         => $hash,
                 'storage_mode' => $this->storage_mode(),
                 'upload_mode'  => $upload_mode,
             ])->first();
