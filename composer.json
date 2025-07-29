@@ -13,7 +13,6 @@
         "dedoc/scramble": "^0.12.23",
         "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^12.0",
-        "laravel/octane": "^2.12",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "league/flysystem": "^3.29",
