@@ -29,13 +29,14 @@ class SystemConfigController extends AbstractController
     }
 
     #[SystemMenu('修改系统配置')]
-    public function postSave()
+    public function postSave(SystemConfigService $systemConfigService)
     {
         $data = \request()->post('data');
-        // \dump($data);
         foreach ($data as $item) {
             $this->getModel()->updateOrCreate(['key' => $item['key']], $item);
         }
+
+        $systemConfigService->refresh();
 
         return $this->success(message: '保存成功');
     }

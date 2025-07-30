@@ -1,7 +1,6 @@
 <template>
-    <a-upload :file-list="innerFileList" @update:file-list="handleFileListUpdate"
-        @before-upload="handleBeforeUpload" :accept="comAccept" :custom-request="customRequest" v-bind="$attrs"
-        :multiple="multiple">
+    <a-upload :file-list="innerFileList" @update:file-list="handleFileListUpdate" @before-upload="handleBeforeUpload"
+        :accept="comAccept" :custom-request="customRequest" v-bind="$attrs" :multiple="multiple">
         <template v-for="key in Object.keys($slots)" #[key] :key="key">
             <slot :name="key"></slot>
         </template>
@@ -9,13 +8,11 @@
 </template>
 
 <script setup>
-import { Upload } from '@arco-design/web-vue';
 import { config_map } from '../data-share/config';
 import { Message } from '@arco-design/web-vue';
 import Decimal from 'decimal.js';
 import _ from 'lodash';
 import { computed, ref, watch, nextTick } from 'vue';
-import axios from 'axios';
 
 // 定义组件属性
 const props = defineProps({
@@ -114,16 +111,21 @@ const customRequest = (option) => {
         }
     }).then(res => {
         // 确保获取到URL
-        const fileUrl = res.data.data[0].url;
-        if (!fileUrl) {
-            throw new Error('上传成功但未返回URL');
+        if (res.code == 0) {
+            const fileUrl = res.data[0].url;
+            if (!fileUrl) {
+                throw new Error('上传成功但未返回URL');
+            }
+
+            // 更新URL
+            updateUrlsWithNewFile(fileUrl);
+
+            // 通知上传组件成功
+            onSuccess({ ...res.data[0], url: fileUrl });
+        } else {
+            // Message.error(res.message || '上传失败，请重试');
+            onError(res.message || '上传失败，请重试');
         }
-
-        // 更新URL
-        updateUrlsWithNewFile(fileUrl);
-
-        // 通知上传组件成功
-        onSuccess({ ...res.data.data[0], url: fileUrl });
     }).catch(err => {
         console.error('上传失败:', err);
         Message.error(err.message || '上传失败，请重试');
@@ -245,4 +247,3 @@ const arraysEqual = (arr1, arr2) => {
 };
 
 </script>
-  

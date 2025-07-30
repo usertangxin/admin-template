@@ -102,29 +102,29 @@ class SystemDictService
      */
     public function registerList(array $config_list)
     {
-        $run_diff = true;
-        if (\app()->runningInConsole()) {
-            try {
-                DB::connection()->getPdo();
-                if (! Schema::hasTable(SystemDict::query()->getModel()->getTable())) {
-                    $run_diff = false;
-                }
-            } catch (SQLiteDatabaseDoesNotExistException $e) {
-                $run_diff = false;
-            }
-        }
-        if ($run_diff) {
-            $this->databaseConfig ??= SystemDict::all();
-            $kv = [];
-            foreach ($this->databaseConfig as $config) {
-                $kv[$config->value] = $config;
-            }
-            foreach ($config_list as &$config) {
-                if (isset($kv[$config['value'] ?? false])) {
-                    $config = \array_merge($config, (array) $kv[$config['value']]);
-                }
-            }
-        }
+        // $run_diff = true;
+        // if (\app()->runningInConsole()) {
+        //     try {
+        //         DB::connection()->getPdo();
+        //         if (! Schema::hasTable(SystemDict::query()->getModel()->getTable())) {
+        //             $run_diff = false;
+        //         }
+        //     } catch (SQLiteDatabaseDoesNotExistException $e) {
+        //         $run_diff = false;
+        //     }
+        // }
+        // if ($run_diff) {
+        //     $this->databaseConfig ??= SystemDict::all();
+        //     $kv = [];
+        //     foreach ($this->databaseConfig as $config) {
+        //         $kv[$config->value] = $config;
+        //     }
+        //     foreach ($config_list as &$config) {
+        //         if (isset($kv[$config['value'] ?? false])) {
+        //             $config = \array_merge($config, (array) $kv[$config['value']]);
+        //         }
+        //     }
+        // }
         $this->getList()->push(...$config_list);
     }
 

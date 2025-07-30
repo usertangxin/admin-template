@@ -22,7 +22,7 @@ class SystemUploadFileController extends AbstractCrudController
         $arr = $fileStorageService->upload();
 
         // \dd($arr);
-        return $this->success($arr);
+        return $this->success($arr, '上传成功');
     }
 
     #[SystemMenu('图片上传')]
@@ -34,7 +34,7 @@ class SystemUploadFileController extends AbstractCrudController
         $arr = $fileStorageService->upload();
 
         // \dd($arr);
-        return $this->success($arr);
+        return $this->success($arr, '上传成功');
     }
 
     #[SystemMenu('视频上传')]
@@ -46,7 +46,7 @@ class SystemUploadFileController extends AbstractCrudController
         $arr = $fileStorageService->upload();
 
         // \dd($arr);
-        return $this->success($arr);
+        return $this->success($arr, '上传成功');
     }
 
     #[SystemMenu('音频上传')]
@@ -58,7 +58,7 @@ class SystemUploadFileController extends AbstractCrudController
         $arr = $fileStorageService->upload();
 
         // \dd($arr);
-        return $this->success($arr);
+        return $this->success($arr, '上传成功');
     }
 
     #[SystemMenu('文稿上传')]
@@ -70,7 +70,7 @@ class SystemUploadFileController extends AbstractCrudController
         $arr = $fileStorageService->upload();
 
         // \dd($arr);
-        return $this->success($arr);
+        return $this->success($arr, '上传成功');
     }
 
     #[SystemMenu('获取临时链接')]

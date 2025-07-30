@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Providers;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Classes\Service\SystemConfigService;
 
@@ -13,8 +14,8 @@ class SystemConfigProvider extends ServiceProvider
     public function register(): void
     {
         parent::register();
-        $this->app->singleton(SystemConfigService::class, function () {
-            return new SystemConfigService;
+        $this->app->singleton(SystemConfigService::class, function (Application $application) {
+            return new SystemConfigService(fn () => $application['request']);
         });
     }
 
