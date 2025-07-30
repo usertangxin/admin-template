@@ -22,13 +22,6 @@ class SystemConfigService
 
     protected \Illuminate\Database\Eloquent\Collection $databaseConfig;
 
-    public function __construct(protected $request_call) {}
-
-    protected function request()
-    {
-        return call_user_func($this->request_call);
-    }
-
     public static function getInstance(): static
     {
         return app(self::class);
@@ -65,7 +58,7 @@ class SystemConfigService
 
         $this->config_list->push(...$config_list);
 
-        $this->request()['loaded_new_config'] = null;
+        request()['loaded_new_config'] = null;
     }
 
     /**
@@ -86,8 +79,9 @@ class SystemConfigService
      */
     public function getList($force = false): Collection
     {
-        $run_diff                             = empty($this->request()['loaded_new_config']) ? true : false;
-        $this->request()['loaded_new_config'] = true;
+        $run_diff = empty(request()['loaded_new_config']) ? true : false;
+
+        request()['loaded_new_config'] = true;
 
         if ($force) {
             $run_diff = true;

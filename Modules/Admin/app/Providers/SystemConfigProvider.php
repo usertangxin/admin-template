@@ -15,7 +15,7 @@ class SystemConfigProvider extends ServiceProvider
     {
         parent::register();
         $this->app->singleton(SystemConfigService::class, function (Application $application) {
-            return new SystemConfigService(fn () => $application['request']);
+            return new SystemConfigService;
         });
     }
 
