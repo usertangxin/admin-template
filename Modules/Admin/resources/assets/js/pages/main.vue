@@ -110,12 +110,13 @@ const nProgressObj = nProgress.configure({
     parent: '#NProgress-container',
 })
 
-const navActionsMeta = import.meta.glob('../components/main-nav-actions/*.vue', { eager: true })
+const navActionsMeta = import.meta.glob('/Modules/**/resources/assets/js/components/main-nav-actions/*.vue', { eager: true })
 const navActions = {}
 
 for (const [path, module] of Object.entries(navActionsMeta)) {
-    // 从路径中提取组件名称（例如从 './components/Button.vue' 中提取 'Button'）
-    const componentName = path.replace(/\.\.\/components\/main-nav-actions\/(.*)\.vue$/, '$1')
+    // 修改正则表达式，提取模块名和文件名，并转换为下划线格式
+    const componentName = path.replace(/.*\/Modules\/(.*)\/resources\/assets\/js\/components\/main-nav-actions\/(.*)\.vue$/, '$1_$2').replace(/-/g, '_')
+    console.log(componentName)
     // 默认导出的才是组件
     navActions[componentName] = module.default
 }
@@ -184,7 +185,12 @@ const recursionFindInitMainMenuIndex = (menus, is_main = false, index = 0) => {
 currentMainMenuIndex.value = recursionFindInitMainMenuIndex(props.system_menus_tree, true)
 
 
-
+window.openMenu = function (menu_code) {
+    const menu = props.system_menus_list[menu_code]
+    if (menu) {
+        openMenu(menu)
+    }
+}
 
 
 const openMenu = (menu) => {

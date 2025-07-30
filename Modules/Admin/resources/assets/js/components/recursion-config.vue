@@ -5,7 +5,7 @@
                 <a-form-item :label="config.name" :field="config.key">
                     <a-textarea v-model="config.value" v-bind="config.input_attr || {}"></a-textarea>
                     <template #extra>
-                        <div>{{ config.remark }}</div>
+                        <div v-html="config.remark"></div>
                     </template>
                 </a-form-item>
             </a-col>
@@ -15,7 +15,7 @@
                 <a-form-item :label="config.name" :field="config.key">
                     <a-input v-model="config.value" v-bind="config.input_attr || {}"></a-input>
                     <template #extra>
-                        <div>{{ config.remark }}</div>
+                        <div v-html="config.remark"></div>
                     </template>
                 </a-form-item>
             </a-col>
@@ -29,7 +29,7 @@
                         </template>
                     </a-radio-group>
                     <template #extra>
-                        <div>{{ config.remark }}</div>
+                        <div v-html="config.remark"></div>
                     </template>
                 </a-form-item>
             </a-col>
@@ -41,7 +41,7 @@
                 <a-form-item :label="config.name" :field="config.key">
                     <dict-radio v-model="config.value" v-bind="config.input_attr || {}"></dict-radio>
                     <template #extra>
-                        <div>{{ config.remark }}</div>
+                        <div v-html="config.remark"></div>
                     </template>
                 </a-form-item>
             </a-col>
@@ -62,7 +62,7 @@
                         </a-tab-pane>
                     </a-tabs>
                     <template #extra>
-                        <div>{{ config.remark }}</div>
+                        <div v-html="config.remark"></div>
                     </template>
                 </a-form-item>
             </a-col>
@@ -72,7 +72,7 @@
                 <a-form-item :label="config.name" :field="config.key">
                     <WangEditor v-model="config.value" v-bind="config.input_attr || {}"></WangEditor>
                     <template #extra>
-                        <div>{{ config.remark }}</div>
+                        <div v-html="config.remark"></div>
                     </template>
                 </a-form-item>
             </a-col>
@@ -87,7 +87,7 @@
                 <a-form-item :label="config.name" :field="config.key">
                     <upload-file v-model="config.value" v-bind="config.input_attr || {}"></upload-file>
                     <template #extra>
-                        <div>{{ config.remark }}</div>
+                        <div v-html="config.remark"></div>
                     </template>
                 </a-form-item>
             </a-col>
