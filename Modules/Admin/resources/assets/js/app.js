@@ -1,8 +1,11 @@
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import Size from '/Modules/Admin/resources/assets/js//layouts/size.vue';
-import useComm from '/Modules/Admin/resources/assets/js/useComm.js'
 import NotFoundPage from '/Modules/Admin/resources/assets/js/pages/404.vue'
+import _ from 'lodash';
+
+const useComms = import.meta.glob('/Modules/**/resources/assets/js/useComm.js', { eager: true })
+
 
 createInertiaApp({
   resolve: name => {
@@ -18,10 +21,16 @@ createInertiaApp({
   },
   setup({ el, App, props, plugin }) {
 
-    createApp({ render: () => h(App, props) })
+    const app = createApp({ render: () => h(App, props) })
       .use(plugin)
-      .use(useComm)
-      .mount(el)
+
+    _.forEach(useComms, (item, key) => {
+      if (item.default) {
+        app.use(item.default)
+      }
+    })
+
+    app.mount(el)
   },
   progress: {
     // The delay after which the progress bar will appear, in milliseconds...
