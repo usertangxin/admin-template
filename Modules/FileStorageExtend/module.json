@@ -1,0 +1,11 @@
+{
+    "name": "FileStorageExtend",
+    "alias": "file_storage_extend",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FileStorageExtend\\Providers\\FileStorageExtendServiceProvider"
+    ],
+    "files": []
+}

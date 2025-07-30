@@ -94,6 +94,21 @@ class SystemConfigService
         return $this->getList()->firstWhere('key', $key)['value'] ?? null;
     }
 
+    public function getConfigByKey(string $key)
+    {
+        return $this->getList()->firstWhere('key', $key);
+    }
+
+    public function setConfigByKey(string $key, $config)
+    {
+        $this->getList()->transform(function($item) use ($key, $config) {
+            if (isset($item['key']) && $item['key'] == $key) {
+                $item = $config;
+            }
+            return $item;
+        });
+    }
+
     public function getListHash()
     {
         return \sha1($this->getList()->toJson());

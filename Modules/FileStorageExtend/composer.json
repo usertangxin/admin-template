@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/filestorageextend",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\FileStorageExtend\\": "app/",
+            "Modules\\FileStorageExtend\\Database\\Factories\\": "database/factories/",
+            "Modules\\FileStorageExtend\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\FileStorageExtend\\Tests\\": "tests/"
+        }
+    }
+}
