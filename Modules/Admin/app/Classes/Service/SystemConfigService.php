@@ -101,10 +101,11 @@ class SystemConfigService
 
     public function setConfigByKey(string $key, $config)
     {
-        $this->getList()->transform(function($item) use ($key, $config) {
+        $this->getList()->transform(function ($item) use ($key, $config) {
             if (isset($item['key']) && $item['key'] == $key) {
                 $item = $config;
             }
+
             return $item;
         });
     }

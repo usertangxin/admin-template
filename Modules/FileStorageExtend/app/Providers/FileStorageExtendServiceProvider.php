@@ -34,14 +34,14 @@ class FileStorageExtendServiceProvider extends ServiceProvider
 
         $config_select_data = [
             ['label' => '阿里云OSS', 'value' => 'oss'],
-            ['label' => '七牛云', 'value' => 'qiniu'],
+            ['label' => '七牛云',    'value' => 'qiniu'],
             ['label' => '腾讯云COS', 'value' => 'cos'],
-            ['label' => '亚马逊S3', 'value' => 's3'],
+            ['label' => '亚马逊S3',  'value' => 's3'],
         ];
-        $config = $systemConfigService->getConfigByKey('storage_mode');
+        $config                       = $systemConfigService->getConfigByKey('storage_mode');
         $config['config_select_data'] = array_merge($config['config_select_data'], $config_select_data);
         $systemConfigService->setConfigByKey('storage_mode', $config);
-        
+
         $systemConfigService->registerList(config($this->nameLower . '.storage_mode_qiniu'));
         $systemConfigService->registerList(config($this->nameLower . '.storage_mode_oss'));
         $systemConfigService->registerList(config($this->nameLower . '.storage_mode_cos'));
@@ -104,9 +104,9 @@ class FileStorageExtendServiceProvider extends ServiceProvider
 
             foreach ($iterator as $file) {
                 if ($file->isFile() && $file->getExtension() === 'php') {
-                    $config = str_replace($configPath . DIRECTORY_SEPARATOR, '', $file->getPathname());
+                    $config     = str_replace($configPath . DIRECTORY_SEPARATOR, '', $file->getPathname());
                     $config_key = str_replace([DIRECTORY_SEPARATOR, '.php'], ['.', ''], $config);
-                    $segments = explode('.', $this->nameLower . '.' . $config_key);
+                    $segments   = explode('.', $this->nameLower . '.' . $config_key);
 
                     // Remove duplicated adjacent segments
                     $normalized = [];
@@ -130,7 +130,7 @@ class FileStorageExtendServiceProvider extends ServiceProvider
      */
     protected function merge_config_from(string $path, string $key): void
     {
-        $existing = config($key, []);
+        $existing      = config($key, []);
         $module_config = require $path;
 
         config([$key => array_replace_recursive($existing, $module_config)]);
@@ -141,7 +141,7 @@ class FileStorageExtendServiceProvider extends ServiceProvider
      */
     public function registerViews(): void
     {
-        $viewPath = resource_path('views/modules/' . $this->nameLower);
+        $viewPath   = resource_path('views/modules/' . $this->nameLower);
         $sourcePath = module_path($this->name, 'resources/views');
 
         $this->publishes([$sourcePath => $viewPath], ['views', $this->nameLower . '-module-views']);
