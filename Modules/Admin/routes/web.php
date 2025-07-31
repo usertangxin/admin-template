@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Modules\Admin\Classes\Service\ResponseService;
 use Modules\Admin\Classes\Service\SystemMenuRegisterService;
+use Modules\Admin\Classes\Utils\RouteUtil;
 use Modules\Admin\Http\Controllers\CrudTestController;
 use Modules\Admin\Http\Controllers\DashboardController;
 use Modules\Admin\Http\Controllers\LoginController;
@@ -29,14 +30,14 @@ Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(fu
 
             return ResponseService::success(message: '清理系统缓存成功');
         })->name('clear-system-cache');
-        SystemMenuRegisterService::getInstance()->fastRoute(SystemConfigController::class);
-        SystemMenuRegisterService::getInstance()->fastRoute(SystemDictController::class);
-        SystemMenuRegisterService::getInstance()->fastRoute(SystemMenuController::class);
-        SystemMenuRegisterService::getInstance()->fastRoute(SystemAdminController::class);
-        SystemMenuRegisterService::getInstance()->fastRoute(SystemUploadFileController::class);
+        RouteUtil::fastRoute(SystemConfigController::class);
+        RouteUtil::fastRoute(SystemDictController::class);
+        RouteUtil::fastRoute(SystemMenuController::class);
+        RouteUtil::fastRoute(SystemAdminController::class);
+        RouteUtil::fastRoute(SystemUploadFileController::class);
 
         if (app()->isLocal() || app()->runningUnitTests()) {
-            SystemMenuRegisterService::getInstance()->fastRoute(CrudTestController::class);
+            RouteUtil::fastRoute(CrudTestController::class);
         }
     });
 });

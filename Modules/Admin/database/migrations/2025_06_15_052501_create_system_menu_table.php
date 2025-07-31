@@ -12,12 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('system_menus', function (Blueprint $table) {
-            $table->comment('菜单信息表，用来存放用户自定的菜单数据，不存在于配置的菜单不会生效，他只适合用来覆盖配置中的默认值');
+            $table->comment('菜单信息表');
             $table->increments('id')->comment('主键');
             $table->string('name', 50)->nullable()->comment('菜单名称');
+            $table->string('url', 50)->nullable()->comment('菜单URL');
             $table->string('code', 100)->nullable()->comment('菜单标识代码');
+            $table->string('parent_code', 100)->nullable()->comment('父菜单标识代码');
             $table->string('icon', 50)->nullable()->comment('菜单图标');
+            $table->string('type', 50)->nullable()->comment('菜单类型:dict=menu_type');
             $table->boolean('is_hidden')->nullable()->comment('是否隐藏');
+            $table->dateTime('created_at')->nullable()->comment('创建时间');
+            $table->dateTime('updated_at')->nullable()->comment('更新时间');
             $table->string('remark')->nullable()->comment('备注');
         });
     }

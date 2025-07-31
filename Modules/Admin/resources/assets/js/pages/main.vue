@@ -254,7 +254,7 @@ const handleClickCloseAllTab = (tab, index) => {
 }
 
 const onClickMenuItem = (key) => {
-    console.log(props.data)
+    console.log(key)
     const menu = props.data.system_menus_list[key];
     openMenu(menu)
 }
