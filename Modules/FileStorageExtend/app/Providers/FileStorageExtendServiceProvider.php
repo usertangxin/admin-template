@@ -27,25 +27,19 @@ class FileStorageExtendServiceProvider extends ServiceProvider
         $this->registerCommandSchedules();
         $this->registerTranslations();
         $this->registerConfig();
-        $this->registerViews();
+        // $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
         $systemDictService->registerList(config($this->nameLower . '.dict'));
 
-        $config_select_data = [
-            ['label' => '阿里云OSS', 'value' => 'oss'],
-            ['label' => '七牛云',    'value' => 'qiniu'],
-            ['label' => '腾讯云COS', 'value' => 'cos'],
-            ['label' => '亚马逊S3',  'value' => 's3'],
-        ];
-        $config                       = $systemConfigService->getConfigByKey('storage_mode');
-        $config['config_select_data'] = array_merge($config['config_select_data'], $config_select_data);
-        $systemConfigService->setConfigByKey('storage_mode', $config);
+        app(SystemConfigService::class)->registerListQueue(function () {
+            $storage_mode_qiniu = config($this->nameLower . '.storage_mode_qiniu');
+            $storage_mode_oss   = config($this->nameLower . '.storage_mode_oss');
+            $storage_mode_cos   = config($this->nameLower . '.storage_mode_cos');
+            $storage_mode_s3    = config($this->nameLower . '.storage_mode_s3');
 
-        $systemConfigService->registerList(config($this->nameLower . '.storage_mode_qiniu'));
-        $systemConfigService->registerList(config($this->nameLower . '.storage_mode_oss'));
-        $systemConfigService->registerList(config($this->nameLower . '.storage_mode_cos'));
-        $systemConfigService->registerList(config($this->nameLower . '.storage_mode_s3'));
+            return array_merge($storage_mode_qiniu, $storage_mode_oss, $storage_mode_cos, $storage_mode_s3);
+        });
     }
 
     /**

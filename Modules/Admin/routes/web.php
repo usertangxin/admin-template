@@ -1,12 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use Modules\Admin\Classes\Service\ResponseService;
 use Modules\Admin\Classes\Service\SystemMenuRegisterService;
 use Modules\Admin\Http\Controllers\CrudTestController;
+use Modules\Admin\Http\Controllers\DashboardController;
 use Modules\Admin\Http\Controllers\LoginController;
 use Modules\Admin\Http\Controllers\SystemAdminController;
 use Modules\Admin\Http\Controllers\SystemConfigController;
@@ -24,13 +23,7 @@ Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(fu
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::middleware(['auth:admin', HandleInertiaShare::class])->group(function () {
-        Route::get('', function () {
-            return Inertia::render('main', [
-                'system_menus_tree' => SystemMenuRegisterService::getInstance()->getSystemMenuTree(),
-                'system_menus_list' => SystemMenuRegisterService::getInstance()->getSystemMenuList(),
-                'auth'              => Auth::user(),
-            ]);
-        })->name('index');
+        Route::get('', [DashboardController::class, 'main'])->name('index');
         Route::post('clear-system-cache', function () {
             Cache::clear();
 

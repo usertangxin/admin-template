@@ -45,7 +45,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         SystemMenuRegisterService::getInstance()->pushSystemMenu((new SystemMenu('权限管理', type: SystemMenuType::GROUP, code: 'system.permission', icon: 'fas drum-steelpan')));
         SystemMenuRegisterService::getInstance()->pushSystemMenu((new SystemMenu('常规管理', type: SystemMenuType::GROUP, code: 'system.basic', icon: 'fas gears')));
-        if (\env('APP_ENV') === 'local') {
+        if (app()->environment('local')) {
             SystemMenuRegisterService::getInstance()->pushSystemMenu(new SystemMenu('开发', type: SystemMenuType::GROUP, code: 'system.dev', icon: 'fas fa-code'));
             SystemMenuRegisterService::getInstance()->pushSystemMenu(new SystemMenu('OpenApi', url: 'docs/api', type: SystemMenuType::MENU, code: 'scramble.docs.ui', icon: 'fas fa-code', parent_code: 'system.dev'));
             SystemMenuRegisterService::getInstance()->pushSystemMenu(new SystemMenu('Telescope', url: 'telescope', type: SystemMenuType::MENU, code: 'laravel.telescope.view', icon: 'fas fa-microscope', parent_code: 'system.dev'));

@@ -8,7 +8,7 @@
             <div class="flex">
                 <div class="menu-main" :style="[subMenus.length ? '' : 'border-right:none']">
                     <a-scrollbar style="height: calc(100vh - 60px);overflow-y: scroll;">
-                        <template v-for="(item, index) in system_menus_tree" :key="index">
+                        <template v-for="(item, index) in data.system_menus_tree" :key="index">
                             <div class="menu-item" :class="{ 'active': index == currentMainMenuIndex }"
                                 @click="handleClickMainMenu(item, index)">
                                 <icon :icon="item.icon" style="font-size: 18px;"></icon>
@@ -62,7 +62,7 @@
                             <a-avatar shape="square">
                                 <IconUser />
                             </a-avatar>
-                            <span>{{ auth.nickname }}</span>
+                            <span>{{ data.auth.nickname }}</span>
                         </a-space>
                         <template #content>
                             <a-dgroup title="个人">
@@ -103,7 +103,7 @@ import RecursionMenu from '../components/recursion-menu.vue'
 import nProgress from 'nprogress';
 import _ from 'lodash';
 
-const props = defineProps(['system_menus_tree', 'system_menus_list', 'auth'])
+const props = defineProps(['data'])
 
 const showNProgress = ref(false)
 const nProgressObj = nProgress.configure({
@@ -134,8 +134,8 @@ onMounted(() => {
     if (storageOpenMenuCodes) {
         storageOpenMenuCodes = JSON.parse(storageOpenMenuCodes)
         storageOpenMenuCodes.forEach((code, index) => {
-            if (props.system_menus_list[code]) {
-                const m = props.system_menus_list[code];
+            if (props.data.system_menus_list[code]) {
+                const m = props.data.system_menus_list[code];
                 openMenus.value.push(m)
                 if (m.code == currOpenMenuCode.value) {
                     openMenu(m)
@@ -152,7 +152,7 @@ const formatComponentName = (name) => {
 }
 
 const subMenus = computed(() => {
-    const currentMainMenu = props.system_menus_tree[currentMainMenuIndex.value]
+    const currentMainMenu = props.data.system_menus_tree[currentMainMenuIndex.value]
     if (!currentMainMenu) {
         return []
     }
@@ -182,11 +182,11 @@ const recursionFindInitMainMenuIndex = (menus, is_main = false, index = 0) => {
     return -1
 }
 
-currentMainMenuIndex.value = recursionFindInitMainMenuIndex(props.system_menus_tree, true)
+currentMainMenuIndex.value = recursionFindInitMainMenuIndex(props.data.system_menus_tree, true)
 
 
 window.openMenu = function (menu_code) {
-    const menu = props.system_menus_list[menu_code]
+    const menu = props.data.system_menus_list[menu_code]
     if (menu) {
         openMenu(menu)
     }
@@ -219,7 +219,7 @@ const openMenu = (menu) => {
 
 const handleClickTab = (tab) => {
     openMenu(tab)
-    currentMainMenuIndex.value = recursionFindInitMainMenuIndex(props.system_menus_tree, true)
+    currentMainMenuIndex.value = recursionFindInitMainMenuIndex(props.data.system_menus_tree, true)
 }
 
 const handleClickCloseTab = (tab, index) => {
@@ -254,7 +254,8 @@ const handleClickCloseAllTab = (tab, index) => {
 }
 
 const onClickMenuItem = (key) => {
-    const menu = props.system_menus_list[key];
+    console.log(props.data)
+    const menu = props.data.system_menus_list[key];
     openMenu(menu)
 }
 const onPopupVisibleChange = (visible) => {

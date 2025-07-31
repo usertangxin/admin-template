@@ -16,9 +16,21 @@ use Modules\Admin\Models\SystemConfig;
  */
 class SystemConfigService
 {
-    protected Collection $config_group;
+    protected ?Collection $config_group;
 
-    protected Collection $config_list;
+    protected ?Collection $config_list;
+
+    protected array $register_group_queue = [];
+
+    protected array $register_grouped_queue = [];
+
+    protected array $register_list_queue = [];
+
+    protected array $register_listed_queue = [];
+
+    protected array $register_modify_config_queue = [];
+
+    protected array $register_modify_config_end_queue = [];
 
     protected \Illuminate\Database\Eloquent\Collection $databaseConfig;
 
@@ -32,11 +44,52 @@ class SystemConfigService
      *
      * @return void
      */
-    public function registerGroups(array $config_group)
+    public function bootRegister()
     {
         $this->config_group ??= new Collection;
 
-        $this->config_group->push(...$config_group);
+        foreach ($this->register_group_queue as $callback) {
+            $arr = $callback();
+            $this->config_group->push(...$arr);
+        }
+
+        foreach ($this->register_grouped_queue as $callback) {
+            $arr = $callback();
+            $this->config_group->push(...$arr);
+        }
+
+        $this->config_list ??= new Collection;
+        foreach ($this->register_list_queue as $callback) {
+            $arr = $callback();
+            $this->config_list->push(...$arr);
+        }
+
+        foreach ($this->register_listed_queue as $callback) {
+            $arr = $callback();
+            $this->config_list->push(...$arr);
+        }
+
+        foreach ($this->register_modify_config_queue as $callback) {
+            $callback($this->config_list, $this);
+        }
+
+        foreach ($this->register_modify_config_end_queue as $callback) {
+            $callback($this->config_list, $this);
+        }
+    }
+
+    public function registerGroupQueue(callable $callback)
+    {
+        $this->register_group_queue[] = $callback;
+
+        return $this;
+    }
+
+    public function registerGrouped(callable $callback)
+    {
+        $this->register_grouped_queue[] = $callback;
+
+        return $this;
     }
 
     /**
@@ -47,18 +100,32 @@ class SystemConfigService
         return $this->config_group;
     }
 
-    /**
-     * 注册配置列表
-     *
-     * @return void
-     */
-    public function registerList(array $config_list)
+    public function registerListQueue(callable $callback)
     {
-        $this->config_list ??= new Collection;
+        $this->register_list_queue[] = $callback;
 
-        $this->config_list->push(...$config_list);
+        return $this;
+    }
 
-        request()['loaded_new_config'] = null;
+    public function registerListed(callable $callback)
+    {
+        $this->register_listed_queue[] = $callback;
+
+        return $this;
+    }
+
+    public function registerModifyConfigQueue(callable $callback)
+    {
+        $this->register_modify_config_queue[] = $callback;
+
+        return $this;
+    }
+
+    public function registerModifyConfigEnd(callable $callback)
+    {
+        $this->register_modify_config_end_queue[] = $callback;
+
+        return $this;
     }
 
     /**

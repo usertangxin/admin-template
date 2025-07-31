@@ -42,6 +42,6 @@ class LoginController extends AbstractController
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('web.admin.login');
+        return redirect()->route('web.admin.login.view');
     }
 }

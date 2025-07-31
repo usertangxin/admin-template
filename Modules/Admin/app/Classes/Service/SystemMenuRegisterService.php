@@ -7,6 +7,7 @@ use Illuminate\Contracts\Foundation\CachesRoutes;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Utils\ArrUtil;
 use Modules\Admin\Classes\Utils\SystemMenuType;
@@ -129,7 +130,9 @@ class SystemMenuRegisterService
                 // 这个时候就尝试刷新路由获取菜单树并缓存
                 // 刷新路由会重新注入菜单从而获取到菜单
                 if (app() instanceof CachesRoutes && app()->routesAreCached()) {
-                    Artisan::call('route:cache');
+                    // Artisan::call('route:cache');
+                    // Inertia::setRootView('admin::app');
+
                     $tree = ArrUtil::convertToTree($this->system_menus, 'parent_code', 'code', 'children');
                     if ($tree) {
                         $this->writeMenuTreeToCacheFile($tree);
@@ -155,7 +158,7 @@ class SystemMenuRegisterService
                 // 这个时候就尝试刷新路由获取菜单树并缓存
                 // 刷新路由会重新注入菜单从而获取到菜单
                 if (app() instanceof CachesRoutes && app()->routesAreCached()) {
-                    Artisan::call('route:cache');
+                    // Artisan::call('route:cache');
                     $this->writeMenuToCacheFile($this->system_menus);
                 }
             }
