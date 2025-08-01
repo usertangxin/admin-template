@@ -13,7 +13,7 @@ class SystemMenuManager
     public static function autoRegister(mixed $menu)
     {
         $arr = [];
-        if (! is_array($menu)) {
+        if (! is_array($menu) || ! isset($menu[0])) {
             $arr[] = $menu;
         } else {
             $arr = $menu;

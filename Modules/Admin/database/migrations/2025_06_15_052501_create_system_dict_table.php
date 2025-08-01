@@ -12,13 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('system_dicts', function (Blueprint $table) {
-            $table->comment('字典数据表，用来存放用户自定的菜单数据，不存在于配置的菜单不会生效，他只适合用来覆盖配置中的默认值');
+            $table->comment('字典数据');
             $table->increments('id')->comment('主键');
-            $table->string('label', 50)->nullable()->comment('字典标签');
-            $table->string('value', 100)->nullable()->comment('字典值');
-            $table->string('code', 100)->nullable()->comment('字典标示');
+            $table->string('label', 50)->comment('字典标签');
+            $table->string('value', 100)->comment('字典值');
+            $table->string('code', 100)->comment('字典标示');
             $table->string('color', 10)->nullable()->comment('颜色');
             $table->string('remark')->nullable()->comment('备注');
+            $table->datetime('created_at')->comment('创建时间');
+            $table->datetime('updated_at')->comment('更新时间');
         });
     }
 

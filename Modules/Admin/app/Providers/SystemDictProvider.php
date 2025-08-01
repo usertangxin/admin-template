@@ -20,13 +20,13 @@ class SystemDictProvider extends ServiceProvider
 
     public function boot(SystemDictService $systemDictService): void
     {
-        if (! $systemDictService->dictCached()) {
-            $dict_groups = \config('admin.system_dict_type');
-            $systemDictService->registerGroups($dict_groups);
-            foreach ($dict_groups as $dict_group) {
-                $systemDictService->registerList(\config('admin.dict.' . $dict_group['code']));
-            }
-        }
+        // if (! $systemDictService->dictCached()) {
+        //     $dict_groups = \config('admin.system_dict_type');
+        //     $systemDictService->registerGroups($dict_groups);
+        //     foreach ($dict_groups as $dict_group) {
+        //         $systemDictService->registerList(\config('admin.dict.' . $dict_group['code']));
+        //     }
+        // }
     }
 
     /**

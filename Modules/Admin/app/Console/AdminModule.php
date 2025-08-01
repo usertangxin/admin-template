@@ -45,12 +45,16 @@ class AdminModule extends Command
         $modules       = $this->argument('module');
         $action        = $this->argument('action');
         $local_modules = Module::all();
-        $all_modules   = ['all' => '所有'];
+        $all_modules   = [];
+        if ($action == 'install') {
+            $all_modules['all'] = '所有';
+        }
         foreach ($local_modules as $key => $module) {
             $all_modules[$module->getName()] = $module->getName() . ($module->getDescription() ? ' - ' . $module->getDescription() : '');
         }
         if (empty($modules)) {
-            $modules = multiselect('请选择要安装的模块', options: $all_modules);
+            $m       = ['install' => '安装', 'uninstall' => '卸载'];
+            $modules = multiselect('请选择要执行 ' . ($m[$action] ?? $action) . ' 的模块', options: $all_modules);
         }
         if (in_array('all', $modules)) {
             $modules = array_keys($all_modules);

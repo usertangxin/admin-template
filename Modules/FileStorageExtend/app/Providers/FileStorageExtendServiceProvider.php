@@ -30,7 +30,7 @@ class FileStorageExtendServiceProvider extends ServiceProvider
         // $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
-        $systemDictService->registerList(config($this->nameLower . '.dict'));
+        // $systemDictService->registerList(config($this->nameLower . '.dict'));
     }
 
     /**

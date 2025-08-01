@@ -5,6 +5,7 @@ namespace Modules\FileStorageExtend\Classes;
 use Illuminate\Support\Arr;
 use Modules\Admin\Classes\Interfaces\AdminScriptInterface;
 use Modules\Admin\Classes\Utils\SystemConfigUtil;
+use Modules\Admin\Classes\Utils\SystemDictUtil;
 use Modules\Admin\Models\SystemConfig;
 
 class AdminScript implements AdminScriptInterface
@@ -41,7 +42,11 @@ class AdminScript implements AdminScriptInterface
             $merged                = array_values($merged);
             $a->config_select_data = $merged;
             $a->save();
+        } else {
+            echo '存储模式配置不存在';
         }
+
+        SystemDictUtil::autoRegisterDicts(config('file_storage_extend.dict'));
     }
 
     public function uninstall()
@@ -56,6 +61,9 @@ class AdminScript implements AdminScriptInterface
             });
             $a->config_select_data = $filtered;
             $a->save();
+        } else {
+            echo '存储模式配置不存在';
         }
+        SystemDictUtil::autoUnregisterDicts(config('file_storage_extend.dict'));
     }
 }

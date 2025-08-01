@@ -7,10 +7,12 @@ use Modules\Admin\Models\SystemConfigGroup;
 
 class SystemConfigUtil
 {
+    private function __construct() {}
+
     public static function autoResisterGroup(mixed $value)
     {
         $arr = [];
-        if (! is_array($value)) {
+        if (! is_array($value) || ! isset($value[0])) {
             $arr[] = $value;
         } else {
             $arr = $value;
@@ -29,7 +31,7 @@ class SystemConfigUtil
     public static function autoResisterConfig(mixed $value)
     {
         $arr = [];
-        if (! is_array($value)) {
+        if (! is_array($value) || ! isset($value[0])) {
             $arr[] = $value;
         } else {
             $arr = $value;
@@ -37,17 +39,17 @@ class SystemConfigUtil
         foreach ($arr as $item) {
 
             SystemConfig::where('key', $item['key'])->firstOr(function () use ($item) {
-                SystemConfig::create([
-                    'group'              => $item['group'],
-                    'name'               => $item['name'],
-                    'key'                => $item['key'],
-                    'value'              => $item['value'] ?? null,
-                    'input_type'         => $item['input_type'] ?? null,
-                    'config_select_data' => $item['config_select_data'] ?? null,
-                    'remark'             => $item['remark'] ?? null,
-                    'bind_p_config'      => $item['bind_p_config'] ?? null,
-                    'input_attr'         => $item['input_attr'] ?? null,
-                ]);
+                $model                     = new SystemConfig;
+                $model->group              = $item['group'];
+                $model->name               = $item['name'];
+                $model->key                = $item['key'];
+                $model->value              = $item['value'] ?? null;
+                $model->input_type         = $item['input_type'] ?? null;
+                $model->config_select_data = $item['config_select_data'] ?? null;
+                $model->remark             = $item['remark'] ?? null;
+                $model->bind_p_config      = $item['bind_p_config'] ?? null;
+                $model->input_attr         = $item['input_attr'] ?? null;
+                $model->save();
             });
         }
     }
@@ -55,7 +57,7 @@ class SystemConfigUtil
     public static function autoUnregisterConfig(mixed $value)
     {
         $arr = [];
-        if (! is_array($value)) {
+        if (! is_array($value) || ! isset($value[0])) {
             $arr[] = $value;
         } else {
             $arr = $value;
