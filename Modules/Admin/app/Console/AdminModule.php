@@ -32,6 +32,7 @@ class AdminModule extends Command
         parent::__construct();
         Module::macro('getRequire', function ($module_name) {
             $module = Module::findOrFail($module_name);
+
             return $module->get('require', []);
         });
     }
@@ -56,7 +57,7 @@ class AdminModule extends Command
         }
 
         $error_message = [];
-        $warn_message = [];
+        $warn_message  = [];
 
         foreach ($modules as $module_name) {
             if ($module_name == 'all') {
@@ -101,7 +102,7 @@ class AdminModule extends Command
                 app()->call($install_class . '@' . $action);
                 echo Artisan::output();
                 $this->info($module_name . '模块安装成功');
-            } else if ($action == 'uninstall') {
+            } elseif ($action == 'uninstall') {
                 Module::disable($module_name);
                 app()->call($install_class . '@' . $action);
                 $this->info($module_name . '模块卸载成功');
@@ -114,9 +115,10 @@ class AdminModule extends Command
         foreach ($warn_message as $message) {
             $this->warn($message);
         }
+
         foreach ($error_message as $message) {
             $this->error($message);
         }
-        
+
     }
 }

@@ -7,10 +7,10 @@ use Modules\Admin\Classes\Interfaces\AdminScriptInterface;
 
 class AdminScript implements AdminScriptInterface
 {
-    public function install() {
+    public function install()
+    {
         Artisan::call('module:seed', ['module' => 'Admin']);
     }
 
-    public function uninstall() { }
-
+    public function uninstall() {}
 }
