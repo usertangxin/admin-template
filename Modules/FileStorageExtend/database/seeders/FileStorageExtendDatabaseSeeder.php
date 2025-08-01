@@ -11,6 +11,6 @@ class FileStorageExtendDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([]);
+        //
     }
 }

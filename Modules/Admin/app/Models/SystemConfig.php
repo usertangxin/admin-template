@@ -6,7 +6,10 @@ class SystemConfig extends AbstractModel
 {
     protected $table = 'system_configs';
 
-    public $timestamps = false;
+    protected $fillable = ['group', 'key', 'value', 'name', 'input_type', 'config_select_data', 'remark', 'bind_p_config', 'input_attr'];
 
-    protected $fillable = ['key', 'value'];
+    protected $casts = [
+        'config_select_data' => 'array',
+        'input_attr'         => 'array',
+    ];
 }

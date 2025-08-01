@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Utils\SystemMenuManager;
 use Modules\Admin\Classes\Utils\SystemMenuType;
-use Route;
 
 class SystemMenuSeeder extends Seeder
 {

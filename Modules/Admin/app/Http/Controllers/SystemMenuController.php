@@ -2,10 +2,8 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use Illuminate\Support\Facades\Artisan;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Service\SystemMenuRegisterService;
-use Modules\Admin\Classes\Utils\ArrUtil;
 use Modules\Admin\Classes\Utils\SystemMenuType;
 
 class SystemMenuController extends AbstractController

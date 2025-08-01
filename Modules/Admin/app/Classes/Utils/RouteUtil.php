@@ -7,7 +7,8 @@ use Illuminate\Support\Str;
 
 class RouteUtil
 {
-    public static function fastRoute($controller) {
+    public static function fastRoute($controller)
+    {
         Route::controller($controller)->group(function () use ($controller) {
             $ref            = new \ReflectionClass($controller);
             $methods        = $ref->getMethods();

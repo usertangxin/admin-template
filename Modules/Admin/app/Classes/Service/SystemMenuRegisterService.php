@@ -3,14 +3,7 @@
 namespace Modules\Admin\Classes\Service;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Foundation\CachesRoutes;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
-use Inertia\Inertia;
-use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Utils\ArrUtil;
-use Modules\Admin\Classes\Utils\SystemMenuType;
 use Modules\Admin\Models\SystemMenu as ModelsSystemMenu;
 
 /**
@@ -27,7 +20,7 @@ class SystemMenuRegisterService
     public function getSystemMenuTree()
     {
         $menus = $this->getSystemMenuList();
-        $tree = ArrUtil::convertToTree($menus, 'parent_code', 'code', 'children');
+        $tree  = ArrUtil::convertToTree($menus, 'parent_code', 'code', 'children');
 
         return $tree;
     }
@@ -35,6 +28,7 @@ class SystemMenuRegisterService
     public function getSystemMenuList()
     {
         $menus = ModelsSystemMenu::all()->keyBy('code')->toArray();
+
         return $menus;
     }
 

@@ -12,6 +12,7 @@ return [
         'group'      => 'upload_config',
         'name'       => '类型限制',
         'input_type' => SystemConfigInputType::DIVIDER,
+        'key'        => 'upload_allow_divider',
     ],
     [
         'group'              => 'upload_config',
@@ -77,6 +78,7 @@ return [
         'group'      => 'upload_config',
         'name'       => '大小限制',
         'input_type' => SystemConfigInputType::DIVIDER,
+        'key'        => 'upload_size_divider',
     ],
     [
         'group'              => 'upload_config',
@@ -142,6 +144,7 @@ return [
         'group'      => 'upload_config',
         'name'       => '存储类型',
         'input_type' => SystemConfigInputType::DIVIDER,
+        'key'        => 'upload_storage_divider',
     ],
     [
         'group'              => 'upload_config',

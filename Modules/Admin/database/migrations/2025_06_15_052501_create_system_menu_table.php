@@ -16,7 +16,7 @@ return new class extends Migration
             $table->increments('id')->comment('主键');
             $table->string('name', 50)->nullable()->comment('菜单名称');
             $table->string('url', 50)->nullable()->comment('菜单URL');
-            $table->string('code', 100)->nullable()->comment('菜单标识代码');
+            $table->string('code', 100)->unique('system_menus_code_unique')->comment('菜单标识代码');
             $table->string('parent_code', 100)->nullable()->comment('父菜单标识代码');
             $table->string('icon', 50)->nullable()->comment('菜单图标');
             $table->string('type', 50)->nullable()->comment('菜单类型:dict=menu_type');

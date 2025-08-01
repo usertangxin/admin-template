@@ -31,15 +31,6 @@ class FileStorageExtendServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
         $systemDictService->registerList(config($this->nameLower . '.dict'));
-
-        app(SystemConfigService::class)->registerListQueue(function () {
-            $storage_mode_qiniu = config($this->nameLower . '.storage_mode_qiniu');
-            $storage_mode_oss   = config($this->nameLower . '.storage_mode_oss');
-            $storage_mode_cos   = config($this->nameLower . '.storage_mode_cos');
-            $storage_mode_s3    = config($this->nameLower . '.storage_mode_s3');
-
-            return array_merge($storage_mode_qiniu, $storage_mode_oss, $storage_mode_cos, $storage_mode_s3);
-        });
     }
 
     /**
