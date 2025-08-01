@@ -103,7 +103,7 @@ class AdminModule extends Command
             if ($action == 'install') {
                 Module::enable($module_name);
                 Artisan::call('module:migrate', ['module' => $module_name], new \Symfony\Component\Console\Output\ConsoleOutput);
-                app()->call($install_class . '@' . $action);
+                app()->call($install_class . '@' . $action, ['command' => $this]);
                 echo Artisan::output();
                 $this->info($module_name . '模块安装成功');
             } elseif ($action == 'uninstall') {
@@ -123,6 +123,5 @@ class AdminModule extends Command
         foreach ($error_message as $message) {
             $this->error($message);
         }
-
     }
 }
