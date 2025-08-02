@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Modules\Admin\Interfaces\UploadFileStorageInterface;
-use Modules\Admin\Services\SystemConfigService;
 use Modules\Admin\Models\SystemUploadfile;
+use Modules\Admin\Services\SystemConfigService;
 
 class PrivateStorage implements UploadFileStorageInterface
 {

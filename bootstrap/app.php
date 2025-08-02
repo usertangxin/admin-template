@@ -5,8 +5,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
-use Modules\Admin\Services\ResponseService;
 use Modules\Admin\Http\Middleware\AdminSupport;
+use Modules\Admin\Services\ResponseService;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 return Application::configure(basePath: dirname(__DIR__))

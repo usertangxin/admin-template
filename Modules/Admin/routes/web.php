@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use Modules\Admin\Services\ResponseService;
 use Modules\Admin\Classes\Utils\RouteUtil;
 use Modules\Admin\Http\Controllers\CrudTestController;
 use Modules\Admin\Http\Controllers\DashboardController;
@@ -15,6 +14,7 @@ use Modules\Admin\Http\Controllers\SystemUploadFileController;
 use Modules\Admin\Http\Middleware\AdminSupport;
 use Modules\Admin\Http\Middleware\HandleInertiaRequests;
 use Modules\Admin\Http\Middleware\HandleInertiaShare;
+use Modules\Admin\Services\ResponseService;
 
 Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(function () {
 

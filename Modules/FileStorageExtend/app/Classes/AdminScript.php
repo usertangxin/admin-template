@@ -3,9 +3,9 @@
 namespace Modules\FileStorageExtend\Classes;
 
 use Illuminate\Support\Arr;
-use Modules\Admin\Interfaces\AdminScriptInterface;
 use Modules\Admin\Classes\Utils\SystemConfigUtil;
 use Modules\Admin\Classes\Utils\SystemDictUtil;
+use Modules\Admin\Interfaces\AdminScriptInterface;
 use Modules\Admin\Models\SystemConfig;
 
 class AdminScript implements AdminScriptInterface
@@ -28,7 +28,7 @@ class AdminScript implements AdminScriptInterface
         $this->configs      = array_merge($storage_mode_qiniu, $storage_mode_oss, $storage_mode_cos, $storage_mode_s3);
     }
 
-    public function install()
+    public function enable()
     {
         SystemConfigUtil::autoResisterConfig($this->configs);
         $a = SystemConfig::where('key', 'storage_mode')->first();
@@ -49,7 +49,7 @@ class AdminScript implements AdminScriptInterface
         SystemDictUtil::autoRegisterDicts(config('file_storage_extend.dict'));
     }
 
-    public function uninstall()
+    public function disable()
     {
         SystemConfigUtil::autoUnregisterConfig($this->configs);
         $a = SystemConfig::where('key', 'storage_mode')->first();
@@ -66,4 +66,6 @@ class AdminScript implements AdminScriptInterface
         }
         SystemDictUtil::autoUnregisterDicts(config('file_storage_extend.dict'));
     }
+
+    public function delete() {}
 }

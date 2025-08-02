@@ -5,7 +5,6 @@ namespace Modules\Admin\Providers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Admin\Console\AdminModule;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -47,9 +46,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected function registerCommands(): void
     {
-        $this->commands([
-            AdminModule::class,
-        ]);
+        $this->commands([]);
     }
 
     /**

@@ -4,7 +4,6 @@ namespace Modules\Admin\Tests\Feature;
 
 use Artisan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Modules\Admin\Database\Factories\SystemAdminFactory;
 use Modules\Admin\Models\SystemAdmin;
 use Tests\TestCase;
 

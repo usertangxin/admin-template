@@ -4,7 +4,6 @@ namespace Modules\Admin\Services;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Artisan;
 use InvalidArgumentException;
 use Modules\Admin\Models\SystemConfig;
 use Modules\Admin\Models\SystemConfigGroup;

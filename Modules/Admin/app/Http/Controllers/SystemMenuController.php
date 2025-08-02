@@ -3,8 +3,8 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Modules\Admin\Classes\Attrs\SystemMenu;
-use Modules\Admin\Services\SystemMenuRegisterService;
 use Modules\Admin\Classes\Utils\SystemMenuType;
+use Modules\Admin\Services\SystemMenuRegisterService;
 
 class SystemMenuController extends AbstractController
 {

@@ -3,7 +3,6 @@
 namespace Modules\Admin\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\Admin\Services\FileStorageService;
 use Modules\Admin\Classes\Storage\Constraint\AudioConstraint;
 use Modules\Admin\Classes\Storage\Constraint\DocumentConstraint;
 use Modules\Admin\Classes\Storage\Constraint\FileConstraint;
@@ -11,6 +10,7 @@ use Modules\Admin\Classes\Storage\Constraint\ImageConstraint;
 use Modules\Admin\Classes\Storage\Constraint\VideoConstraint;
 use Modules\Admin\Classes\Storage\PrivateStorage;
 use Modules\Admin\Classes\Storage\PublicStorage;
+use Modules\Admin\Services\FileStorageService;
 
 class FileStorageProvider extends ServiceProvider
 {

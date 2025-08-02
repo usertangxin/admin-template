@@ -3,12 +3,12 @@
 namespace Modules\Admin\Classes;
 
 use Artisan;
-use Modules\Admin\Interfaces\AdminScriptInterface;
 use Modules\Admin\Classes\Utils\SystemDictUtil;
+use Modules\Admin\Interfaces\AdminScriptInterface;
 
 class AdminScript implements AdminScriptInterface
 {
-    public function install()
+    public function enable()
     {
         Artisan::call('module:seed', ['module' => 'Admin']);
 
@@ -21,5 +21,7 @@ class AdminScript implements AdminScriptInterface
         }
     }
 
-    public function uninstall() {}
+    public function disable() {}
+
+    public function delete() {}
 }

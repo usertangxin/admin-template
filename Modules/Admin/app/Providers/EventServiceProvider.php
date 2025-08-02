@@ -4,10 +4,15 @@ namespace Modules\Admin\Providers;
 
 use Illuminate\Auth\Events\Login;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Modules\Admin\Listeners\ModuleEventListener;
+use Modules\Admin\Listeners\ModuleEventSubscriber;
 use Modules\Admin\Listeners\SystemAdminLogin;
+use Nwidart\Modules\Constants\ModuleEvent;
+use Nwidart\Modules\Facades\Module;
 
 class EventServiceProvider extends ServiceProvider
 {
+
     /**
      * The event handler mappings for the application.
      *
@@ -16,6 +21,15 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Login::class => [
             SystemAdminLogin::class,
+        ],
+        'modules.*.enabled' => [
+            [ModuleEventSubscriber::class, 'onEnabled'],
+        ],
+        'modules.*.disabling' => [
+            [ModuleEventSubscriber::class, 'onDisabling'],
+        ],
+        'modules.*.deleting' => [
+            [ModuleEventSubscriber::class, 'onDeleting'],
         ],
     ];
 

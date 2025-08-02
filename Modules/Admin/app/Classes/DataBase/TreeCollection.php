@@ -3,8 +3,8 @@
 namespace Modules\Admin\Classes\DataBase;
 
 use Illuminate\Database\Eloquent\Collection;
-use Modules\Admin\Interfaces\TreeCollectionInterface;
 use Modules\Admin\Classes\Utils\ArrUtil;
+use Modules\Admin\Interfaces\TreeCollectionInterface;
 
 class TreeCollection extends Collection implements TreeCollectionInterface
 {

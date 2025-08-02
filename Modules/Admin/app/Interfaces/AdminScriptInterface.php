@@ -4,7 +4,9 @@ namespace Modules\Admin\Interfaces;
 
 interface AdminScriptInterface
 {
-    public function install();
+    public function enable();
 
-    public function uninstall();
+    public function disable();
+
+    public function delete();
 }

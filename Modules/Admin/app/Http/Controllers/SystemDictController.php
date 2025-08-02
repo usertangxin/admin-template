@@ -3,11 +3,11 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Modules\Admin\Classes\Attrs\SystemMenu;
-use Modules\Admin\Services\SystemDictService;
 use Modules\Admin\Classes\Utils\SystemMenuType;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Models\SystemDict;
+use Modules\Admin\Services\SystemDictService;
 
 class SystemDictController extends AbstractController
 {
