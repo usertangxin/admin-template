@@ -15,7 +15,11 @@ class PublicStorage implements UploadFileStorageInterface
     protected function getConfig(): array
     {
         $systemConfigService = SystemConfigService::getInstance();
-        $domain              = $systemConfigService->getValueByKey('public_domain');
+        try {
+            $domain = $systemConfigService->getValueByKey('public_domain');
+        } catch (\Throwable $e) {
+            $domain = '';
+        }
 
         return [
             'driver'     => 'local',

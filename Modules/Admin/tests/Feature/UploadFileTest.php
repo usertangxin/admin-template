@@ -4,7 +4,7 @@ namespace Modules\Admin\Tests\Feature;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Modules\Admin\Classes\Service\SystemConfigService;
+use Modules\Admin\Services\SystemConfigService;
 
 class UploadFileTest extends AbstractAuthTestCase
 {
