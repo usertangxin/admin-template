@@ -2,11 +2,13 @@
 
 namespace Modules\Admin\Interfaces;
 
+use Nwidart\Modules\Module;
+
 interface AdminScriptInterface
 {
-    public function enable();
+    public function enable(Module $module);
 
-    public function disable();
+    public function disable(Module $module);
 
-    public function delete();
+    public function delete(Module $module);
 }

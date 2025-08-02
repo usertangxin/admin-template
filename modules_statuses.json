@@ -1,5 +1,5 @@
 {
     "Admin": true,
-    "User": false,
+    "User": true,
     "FileStorageExtend": true
 }

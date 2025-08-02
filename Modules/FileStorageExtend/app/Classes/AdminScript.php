@@ -2,11 +2,13 @@
 
 namespace Modules\FileStorageExtend\Classes;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Arr;
 use Modules\Admin\Classes\Utils\SystemConfigUtil;
 use Modules\Admin\Classes\Utils\SystemDictUtil;
 use Modules\Admin\Interfaces\AdminScriptInterface;
 use Modules\Admin\Models\SystemConfig;
+use Nwidart\Modules\Module;
 
 class AdminScript implements AdminScriptInterface
 {
@@ -19,16 +21,26 @@ class AdminScript implements AdminScriptInterface
         ['label' => '亚马逊S3',  'value' => 's3'],
     ];
 
-    public function __construct()
+    protected $dicts = [];
+
+    /**
+     * @return void
+     *
+     * @throws BindingResolutionException
+     */
+    public function __construct(Module $module)
     {
-        $storage_mode_oss   = config('file_storage_extend.storage_mode_oss');
-        $storage_mode_cos   = config('file_storage_extend.storage_mode_cos');
-        $storage_mode_s3    = config('file_storage_extend.storage_mode_s3');
-        $storage_mode_qiniu = config('file_storage_extend.storage_mode_qiniu');
+        $config_path        = $module->getPath() . '/config/';
+        $storage_mode_oss   = include $config_path . 'storage_mode_oss.php';
+        $storage_mode_cos   = include $config_path . 'storage_mode_cos.php';
+        $storage_mode_s3    = include $config_path . 'storage_mode_s3.php';
+        $storage_mode_qiniu = include $config_path . 'storage_mode_qiniu.php';
+        $dict               = include $config_path . 'dict.php';
         $this->configs      = array_merge($storage_mode_qiniu, $storage_mode_oss, $storage_mode_cos, $storage_mode_s3);
+        $this->dicts        = $dict;
     }
 
-    public function enable()
+    public function enable(Module $module)
     {
         SystemConfigUtil::autoResisterConfig($this->configs);
         $a = SystemConfig::where('key', 'storage_mode')->first();
@@ -46,10 +58,10 @@ class AdminScript implements AdminScriptInterface
             echo '存储模式配置不存在';
         }
 
-        SystemDictUtil::autoRegisterDicts(config('file_storage_extend.dict'));
+        SystemDictUtil::autoRegisterDicts($this->dicts);
     }
 
-    public function disable()
+    public function disable(Module $module)
     {
         SystemConfigUtil::autoUnregisterConfig($this->configs);
         $a = SystemConfig::where('key', 'storage_mode')->first();
@@ -64,8 +76,8 @@ class AdminScript implements AdminScriptInterface
         } else {
             echo '存储模式配置不存在';
         }
-        SystemDictUtil::autoUnregisterDicts(config('file_storage_extend.dict'));
+        SystemDictUtil::autoUnregisterDicts($this->dicts);
     }
 
-    public function delete() {}
+    public function delete(Module $module) {}
 }

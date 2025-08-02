@@ -5,10 +5,11 @@ namespace Modules\Admin\Classes;
 use Artisan;
 use Modules\Admin\Classes\Utils\SystemDictUtil;
 use Modules\Admin\Interfaces\AdminScriptInterface;
+use Nwidart\Modules\Module;
 
 class AdminScript implements AdminScriptInterface
 {
-    public function enable()
+    public function enable(Module $module)
     {
         Artisan::call('module:seed', ['module' => 'Admin']);
 
@@ -21,7 +22,7 @@ class AdminScript implements AdminScriptInterface
         }
     }
 
-    public function disable() {}
+    public function disable(Module $module) {}
 
-    public function delete() {}
+    public function delete(Module $module) {}
 }

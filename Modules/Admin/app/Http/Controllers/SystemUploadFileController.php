@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use Illuminate\Support\Facades\Artisan;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
@@ -81,5 +82,13 @@ class SystemUploadFileController extends AbstractCrudController
         $url        = $fileStorageService->temporaryUrl($id, new \DateTime('+' . $expiration . ' seconds'));
 
         return $this->success(['url' => $url]);
+    }
+
+    #[SystemMenu('生成公开存储软链')]
+    public function postGenSymlink()
+    {
+        Artisan::call('storage:link');
+
+        return $this->success(message: '生成成功，公开文件现在可以正常访问了');
     }
 }

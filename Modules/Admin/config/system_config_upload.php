@@ -211,7 +211,7 @@ return [
             'merge' => [
                 'normal' => [
                     'label'  => '启用',
-                    'remark' => '正常上传文件对外可访问</br>需注意服务器带宽资源消耗',
+                    'remark' => '正常上传文件对外可访问</br><a class="arco-link" style="padding:0;line-height:1" href="javascript:axios.post(route(`web.admin.SystemUploadFile.gen-symlink`))">点击生成软链</a>',
                 ],
                 'disabled' => [
                     'label'  => '停用',

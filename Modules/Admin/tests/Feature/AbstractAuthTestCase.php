@@ -2,9 +2,9 @@
 
 namespace Modules\Admin\Tests\Feature;
 
-use Artisan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Admin\Models\SystemAdmin;
+use Nwidart\Modules\Facades\Module;
 use Tests\TestCase;
 
 class AbstractAuthTestCase extends TestCase
@@ -16,7 +16,10 @@ class AbstractAuthTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        Artisan::call('admin:module install all');
+        $all_enable_modules = Module::allEnabled();
+        foreach ($all_enable_modules as $module) {
+            $module->enable();
+        }
 
         if ($this->autoAuth) {
             $this->auth();
