@@ -20,15 +20,16 @@ class SystemMenuManager
         }
         foreach ($arr as $item) {
             SystemMenu::whereCode($item['code'])->firstOr(function () use ($item) {
-                $item               = (array) $item;
-                $model              = new SystemMenu;
-                $model->code        = $item['code'];
-                $model->name        = $item['name'];
-                $model->icon        = $item['icon'];
-                $model->parent_code = $item['parent_code'];
-                $model->type        = $item['type'];
-                $model->url         = $item['url'];
-                $model->remark      = $item['remark'] ?? '';
+                $item                   = (array) $item;
+                $model                  = new SystemMenu;
+                $model->code            = $item['code'];
+                $model->name            = $item['name'];
+                $model->icon            = $item['icon'];
+                $model->parent_code     = $item['parent_code'];
+                $model->type            = $item['type'];
+                $model->url             = $item['url'];
+                $model->is_auto_collect = $item['is_auto_collect'] ?? false;
+                $model->remark          = $item['remark'] ?? '';
                 $model->save();
             });
         }
@@ -47,7 +48,7 @@ class SystemMenuManager
                     if (! empty($ref->getAttributes(AttrsSystemMenu::class))) {
                         $systemMenuAttr = $ref->getAttributes(AttrsSystemMenu::class)[0]->newInstance();
                         $parent_code    = $systemMenuAttr->parent_code;
-                        $type           = $systemMenuAttr->type;
+                        $type           = $systemMenuAttr->type ?? SystemMenuType::ACTION;
                         $name           = $systemMenuAttr->name;
                         $icon           = $systemMenuAttr->icon;
                         if ($ref->getName() == 'index') {
@@ -63,12 +64,13 @@ class SystemMenuManager
                             $parent_code ??= \substr($route->getName(), 0, \strrpos($route->getName(), '.')) . '.index';
                         }
                         $arr[] = [
-                            'code'        => $route->getName(),
-                            'name'        => $name,
-                            'icon'        => $icon,
-                            'parent_code' => $parent_code,
-                            'type'        => $type,
-                            'url'         => $route->uri(),
+                            'code'            => $route->getName(),
+                            'name'            => $name,
+                            'icon'            => $icon,
+                            'parent_code'     => $parent_code,
+                            'type'            => $type,
+                            'url'             => $route->uri(),
+                            'is_auto_collect' => true,
                         ];
                     }
                 }

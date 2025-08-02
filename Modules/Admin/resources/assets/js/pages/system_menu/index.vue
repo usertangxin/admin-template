@@ -6,7 +6,6 @@
                     {{ isExpandAll ? '收起全部' : '展开全部' }}
                 </a-button>
                 <a-button type="primary" status="success" @click="handleRefreshCache">刷新菜单缓存</a-button>
-                <a-button type="primary" status="danger" @click="handleDeleteCache">删除菜单缓存</a-button>
             </template>
             <template #search-input>
                 <block/>
@@ -23,7 +22,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { provideIndexShareStore } from '../../IndexShare';
-
+import { router } from '@inertiajs/vue3';
 const props = defineProps(['data'])
 const tree = computed(() => props.data.tree)
 const list = computed(() => props.data.list)
@@ -57,10 +56,9 @@ const handleExpandAll = () => {
 
 const handleRefreshCache = () => {
     axios.put('./refresh-system-menu-cache')
-}
-
-const handleDeleteCache = () => {
-    axios.delete('./cache')
+        .then(res => {
+            router.reload()
+        })
 }
 
 

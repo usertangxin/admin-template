@@ -12,6 +12,10 @@ use Modules\Admin\Models\SystemMenu as ModelsSystemMenu;
  */
 class SystemMenuRegisterService
 {
+    protected ?array $menus = null;
+
+    protected ?array $tree = null;
+
     public static function getInstance()
     {
         return app(self::class);
@@ -19,17 +23,16 @@ class SystemMenuRegisterService
 
     public function getSystemMenuTree()
     {
-        $menus = $this->getSystemMenuList();
-        $tree  = ArrUtil::convertToTree($menus, 'parent_code', 'code', 'children');
+        $this->tree ??= ArrUtil::convertToTree($this->getSystemMenuList(), 'parent_code', 'code', 'children');
 
-        return $tree;
+        return $this->tree;
     }
 
     public function getSystemMenuList()
     {
-        $menus = ModelsSystemMenu::all()->keyBy('code')->toArray();
+        $this->menus ??= ModelsSystemMenu::all()->keyBy('code')->toArray();
 
-        return $menus;
+        return $this->menus;
     }
 
     /**
@@ -51,5 +54,11 @@ class SystemMenuRegisterService
         }
 
         return null;
+    }
+
+    public function refresh()
+    {
+        $this->menus = null;
+        $this->tree  = null;
     }
 }
