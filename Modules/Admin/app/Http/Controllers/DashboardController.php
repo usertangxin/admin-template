@@ -3,7 +3,7 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Modules\Admin\Classes\Service\SystemMenuRegisterService;
+use Modules\Admin\Services\SystemMenuRegisterService;
 
 class DashboardController extends AbstractController
 {

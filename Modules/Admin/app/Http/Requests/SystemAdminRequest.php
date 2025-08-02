@@ -4,7 +4,7 @@ namespace Modules\Admin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Modules\Admin\Classes\Service\SystemDictService;
+use Modules\Admin\Services\SystemDictService;
 
 class SystemAdminRequest extends FormRequest
 {

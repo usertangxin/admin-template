@@ -3,7 +3,7 @@
 namespace Modules\FileStorageExtend\Classes;
 
 use Illuminate\Support\Arr;
-use Modules\Admin\Classes\Interfaces\AdminScriptInterface;
+use Modules\Admin\Interfaces\AdminScriptInterface;
 use Modules\Admin\Classes\Utils\SystemConfigUtil;
 use Modules\Admin\Classes\Utils\SystemDictUtil;
 use Modules\Admin\Models\SystemConfig;

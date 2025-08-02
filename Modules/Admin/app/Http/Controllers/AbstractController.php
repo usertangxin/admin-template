@@ -5,7 +5,7 @@ namespace Modules\Admin\Http\Controllers;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Inertia\Response;
-use Modules\Admin\Classes\Service\ResponseService;
+use Modules\Admin\Services\ResponseService;
 
 abstract class AbstractController
 {

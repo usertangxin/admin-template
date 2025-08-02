@@ -10,11 +10,12 @@ use Inertia\Inertia;
 use InvalidArgumentException;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\DataBase\TreeCollection;
-use Modules\Admin\Classes\Interfaces\TreeCollectionInterface;
-use Modules\Admin\Classes\Service\SystemDictService;
+use Modules\Admin\Interfaces\TreeCollectionInterface;
+use Modules\Admin\Services\SystemDictService;
 use Modules\Admin\Classes\Utils\ModelUtil;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
+use Modules\Admin\Models\SystemDict;
 
 abstract class AbstractCrudController extends AbstractController
 {

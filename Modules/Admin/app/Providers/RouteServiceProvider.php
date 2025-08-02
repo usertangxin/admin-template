@@ -5,7 +5,7 @@ namespace Modules\Admin\Providers;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Modules\Admin\Classes\Service\SystemMenuRegisterService;
+use Modules\Admin\Services\SystemMenuRegisterService;
 
 class RouteServiceProvider extends ServiceProvider
 {

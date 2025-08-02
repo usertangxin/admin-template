@@ -2,7 +2,7 @@
 
 namespace Modules\Admin\Models;
 
-use Modules\Admin\Classes\Service\FileStorageService;
+use Modules\Admin\Services\FileStorageService;
 
 // use Modules\Admin\Database\Factories\SystemUploadfileFactory;
 

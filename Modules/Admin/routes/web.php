@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use Modules\Admin\Classes\Service\ResponseService;
+use Modules\Admin\Services\ResponseService;
 use Modules\Admin\Classes\Utils\RouteUtil;
 use Modules\Admin\Http\Controllers\CrudTestController;
 use Modules\Admin\Http\Controllers\DashboardController;

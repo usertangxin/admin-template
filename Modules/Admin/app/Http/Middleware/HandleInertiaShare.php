@@ -5,8 +5,8 @@ namespace Modules\Admin\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Modules\Admin\Classes\Service\SystemConfigService;
-use Modules\Admin\Classes\Service\SystemDictService;
+use Modules\Admin\Services\SystemConfigService;
+use Modules\Admin\Services\SystemDictService;
 
 /**
  * 共享Inertia数据

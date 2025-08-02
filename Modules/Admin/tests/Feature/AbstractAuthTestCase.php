@@ -5,6 +5,7 @@ namespace Modules\Admin\Tests\Feature;
 use Artisan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Admin\Database\Factories\SystemAdminFactory;
+use Modules\Admin\Models\SystemAdmin;
 use Tests\TestCase;
 
 class AbstractAuthTestCase extends TestCase
@@ -16,6 +17,7 @@ class AbstractAuthTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        Artisan::call('admin:module install all');
 
         if ($this->autoAuth) {
             $this->auth();
@@ -24,7 +26,7 @@ class AbstractAuthTestCase extends TestCase
 
     protected function auth($admin = null, $guard = 'admin')
     {
-        $admin = $admin ?? SystemAdminFactory::new()->create(['admin_name' => 'super admin', 'nickname' => 'Super Admin', 'is_root' => 1]);
+        $admin = $admin ?? SystemAdmin::find(1);
         $admin->refresh();
 
         return $this->actingAs($admin, $guard);

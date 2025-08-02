@@ -3,7 +3,7 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Modules\Admin\Classes\Attrs\SystemMenu;
-use Modules\Admin\Classes\Service\FileStorageService;
+use Modules\Admin\Services\FileStorageService;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Models\SystemUploadfile;

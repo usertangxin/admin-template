@@ -3,7 +3,7 @@
 namespace Modules\Admin\Classes;
 
 use Artisan;
-use Modules\Admin\Classes\Interfaces\AdminScriptInterface;
+use Modules\Admin\Interfaces\AdminScriptInterface;
 use Modules\Admin\Classes\Utils\SystemDictUtil;
 
 class AdminScript implements AdminScriptInterface
