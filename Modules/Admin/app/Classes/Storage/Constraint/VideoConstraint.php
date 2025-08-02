@@ -3,8 +3,8 @@
 namespace Modules\Admin\Classes\Storage\Constraint;
 
 use Illuminate\Support\Str;
-use Modules\Admin\Classes\Interfaces\UploadFileConstraintInterface;
-use Modules\Admin\Classes\Service\SystemConfigService;
+use Modules\Admin\Interfaces\UploadFileConstraintInterface;
+use Modules\Admin\Services\SystemConfigService;
 
 class VideoConstraint implements UploadFileConstraintInterface
 {

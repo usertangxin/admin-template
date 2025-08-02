@@ -4,7 +4,7 @@ namespace Modules\Admin\Console;
 
 use Artisan;
 use Illuminate\Console\Command;
-use Modules\Admin\Classes\Interfaces\AdminScriptInterface;
+use Modules\Admin\Interfaces\AdminScriptInterface;
 use Nwidart\Modules\Facades\Module;
 use Nwidart\Modules\Traits\PathNamespace;
 

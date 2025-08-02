@@ -4,8 +4,8 @@ namespace Modules\FileStorageExtend\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Admin\Classes\Service\SystemConfigService;
-use Modules\Admin\Classes\Service\SystemDictService;
+use Modules\Admin\Services\SystemConfigService;
+use Modules\Admin\Services\SystemDictService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;

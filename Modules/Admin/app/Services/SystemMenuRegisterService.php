@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Admin\Classes\Service;
+namespace Modules\Admin\Services;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Modules\Admin\Classes\Utils\ArrUtil;

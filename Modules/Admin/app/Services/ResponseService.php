@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Admin\Classes\Service;
+namespace Modules\Admin\Services;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\AbstractPaginator;

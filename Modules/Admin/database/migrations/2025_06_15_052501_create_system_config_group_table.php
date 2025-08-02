@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('system_configs');
+        Schema::dropIfExists('system_config_groups');
     }
 };

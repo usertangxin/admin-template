@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Admin\Classes\Service;
+namespace Modules\Admin\Services;
 
 use DateTime;
-use Modules\Admin\Classes\Interfaces\UploadFileConstraintInterface;
-use Modules\Admin\Classes\Interfaces\UploadFileStorageInterface;
+use Modules\Admin\Interfaces\UploadFileConstraintInterface;
+use Modules\Admin\Interfaces\UploadFileStorageInterface;
 use Modules\Admin\Models\SystemUploadfile;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 

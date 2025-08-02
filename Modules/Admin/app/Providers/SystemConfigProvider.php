@@ -4,7 +4,7 @@ namespace Modules\Admin\Providers;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Modules\Admin\Classes\Service\SystemConfigService;
+use Modules\Admin\Services\SystemConfigService;
 
 class SystemConfigProvider extends ServiceProvider
 {

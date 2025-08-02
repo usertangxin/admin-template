@@ -3,7 +3,7 @@
 namespace Modules\Admin\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\Admin\Classes\Service\FileStorageService;
+use Modules\Admin\Services\FileStorageService;
 use Modules\Admin\Classes\Storage\Constraint\AudioConstraint;
 use Modules\Admin\Classes\Storage\Constraint\DocumentConstraint;
 use Modules\Admin\Classes\Storage\Constraint\FileConstraint;

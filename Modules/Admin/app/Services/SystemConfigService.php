@@ -1,9 +1,10 @@
 <?php
 
-namespace Modules\Admin\Classes\Service;
+namespace Modules\Admin\Services;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Artisan;
 use InvalidArgumentException;
 use Modules\Admin\Models\SystemConfig;
 use Modules\Admin\Models\SystemConfigGroup;
@@ -28,6 +29,9 @@ class SystemConfigService
      */
     public function getGroups(): Collection
     {
+        if (\app()->runningInConsole() && str_contains(implode(' ', $_SERVER['argv']), 'migrate')) {
+            return collect([]);
+        }
         $this->config_group ??= SystemConfigGroup::all()->collect();
 
         return $this->config_group;

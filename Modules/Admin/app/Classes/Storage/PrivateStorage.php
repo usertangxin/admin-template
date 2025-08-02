@@ -7,8 +7,8 @@ use Illuminate\Filesystem\LocalFilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-use Modules\Admin\Classes\Interfaces\UploadFileStorageInterface;
-use Modules\Admin\Classes\Service\SystemConfigService;
+use Modules\Admin\Interfaces\UploadFileStorageInterface;
+use Modules\Admin\Services\SystemConfigService;
 use Modules\Admin\Models\SystemUploadfile;
 
 class PrivateStorage implements UploadFileStorageInterface

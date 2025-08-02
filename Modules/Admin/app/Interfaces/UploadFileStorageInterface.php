@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Admin\Classes\Interfaces;
+namespace Modules\Admin\Interfaces;
 
 use DateTime;
 

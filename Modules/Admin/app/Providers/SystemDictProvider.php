@@ -3,7 +3,7 @@
 namespace Modules\Admin\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\Admin\Classes\Service\SystemDictService;
+use Modules\Admin\Services\SystemDictService;
 
 class SystemDictProvider extends ServiceProvider
 {
