@@ -11,5 +11,6 @@ class SystemDict extends AbstractModel
         'value',
         'code',
         'color',
+        'status',
     ];
 }

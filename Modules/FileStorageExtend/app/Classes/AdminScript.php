@@ -8,6 +8,7 @@ use Modules\Admin\Classes\Utils\SystemConfigUtil;
 use Modules\Admin\Classes\Utils\SystemDictUtil;
 use Modules\Admin\Interfaces\AdminScriptInterface;
 use Modules\Admin\Models\SystemConfig;
+use Modules\Admin\Models\SystemDict;
 use Nwidart\Modules\Module;
 
 class AdminScript implements AdminScriptInterface
@@ -63,7 +64,32 @@ class AdminScript implements AdminScriptInterface
 
     public function disable(Module $module)
     {
-        
+        $a = SystemConfig::where('key', 'storage_mode')->first();
+        if ($a) {
+            $data_config_select_data = $a->config_select_data;
+            $data_config_select_data = array_merge($data_config_select_data, $this->update_storage_mode_config_select_data);
+            $merged                  = Arr::keyBy($data_config_select_data, 'value');
+            foreach ($this->update_storage_mode_config_select_data as $item) {
+                $merged[$item['value']] = [...$item, 'disabled' => true];
+            }
+            $merged                = array_values($merged);
+            $a->config_select_data = $merged;
+            $a->save();
+        } else {
+            echo '存储模式配置不存在';
+        }
+        foreach($this->configs as $config) {
+            $a = SystemConfig::where('key', $config['key'])->first();
+            if($a) {
+                $input_attr = $a->input_attr ?? [];
+                $input_attr['disabled'] = true;
+                $a->input_attr = $input_attr;
+                $a->save();
+            }
+        }
+        foreach ($this->dicts as $dict) {
+            SystemDict::whereCode($dict['code'])->whereValue($dict['value'])->update(['status' => 'disabled']);
+        }
     }
 
     public function delete(Module $module) {

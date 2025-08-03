@@ -25,7 +25,7 @@
                 <a-form-item :label="config.name" :field="config.key">
                     <a-radio-group v-model="config.value" v-bind="config.input_attr || {}">
                         <template v-for="(item, index) in config.config_select_data" :key="index">
-                            <a-radio :value="item.value">{{ item.label }}</a-radio>
+                            <a-radio v-bind="item">{{ item.label }}</a-radio>
                         </template>
                     </a-radio-group>
                     <template #extra>
