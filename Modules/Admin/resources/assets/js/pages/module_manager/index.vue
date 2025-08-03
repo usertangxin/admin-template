@@ -53,7 +53,9 @@ const handleDisable = (record) => {
 
 const handleDestroy = (record) => {
     axios.delete('./destroy', {
-        name: record.name,
+        data: {
+            name: record.name,
+        }
     }).then(() => {
         router.reload();
     })
