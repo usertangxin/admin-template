@@ -6,10 +6,21 @@ use Illuminate\Support\Arr;
 use Modules\Admin\Models\SystemConfig;
 use Modules\Admin\Models\SystemConfigGroup;
 
+/**
+ * 系统配置工具类，提供系统配置相关的自动注册、更新、启用、禁用等操作方法。
+ */
 class SystemConfigUtil
 {
+    /**
+     * 私有化构造函数，防止实例化。
+     */
     private function __construct() {}
 
+    /**
+     * 自动注册系统配置组。
+     * 
+     * @param mixed $value 配置组数据，可以是单个配置组数组或配置组数组列表。
+     */
     public static function autoResisterGroup(mixed $value)
     {
         $arr = [];
@@ -29,6 +40,11 @@ class SystemConfigUtil
         }
     }
 
+    /**
+     * 自动注册系统配置。
+     * 
+     * @param mixed $value 配置数据，可以是单个配置数组或配置数组列表。
+     */
     public static function autoResisterConfig(mixed $value)
     {
         $arr = [];
@@ -54,6 +70,12 @@ class SystemConfigUtil
         }
     }
 
+    /**
+     * 自动更新系统配置。
+     * 
+     * @param mixed $value 配置数据，可以是单个配置数组或配置数组列表。
+     * @param \Closure $closure 用于更新配置模型的闭包函数。
+     */
     public static function autoUpdateConfig(mixed $value, \Closure $closure)
     {
         $arr = [];
@@ -70,6 +92,11 @@ class SystemConfigUtil
         }
     }
 
+    /**
+     * 自动启用系统配置。
+     * 
+     * @param mixed $value 配置数据，可以是单个配置数组或配置数组列表。
+     */
     public static function autoEnableConfig(mixed $value)
     {
         static::autoUpdateConfig($value, function ($model, $item) {
@@ -80,6 +107,11 @@ class SystemConfigUtil
         });
     }
 
+    /**
+     * 自动禁用系统配置。
+     * 
+     * @param mixed $value 配置数据，可以是单个配置数组或配置数组列表。
+     */
     public static function autoDisableConfig(mixed $value)
     {
         static::autoUpdateConfig($value, function ($model, $item) {
@@ -90,6 +122,12 @@ class SystemConfigUtil
         });
     }
 
+    /**
+     * 保存系统配置的选择数据。
+     * 
+     * @param string $config_key 配置键名。
+     * @param array $select_data 要保存的选择数据。
+     */
     public static function configSelectDataSave($config_key, $select_data)
     {
         $a = SystemConfig::where('key', $config_key)->first();
@@ -106,6 +144,12 @@ class SystemConfigUtil
         }
     }
 
+    /**
+     * 移除系统配置的选择数据。
+     * 
+     * @param string $config_key 配置键名。
+     * @param array $select_data 要移除的选择数据。
+     */
     public static function configSelectDataRemove($config_key, $select_data)
     {
         $a = SystemConfig::where('key', $config_key)->first();
@@ -120,6 +164,11 @@ class SystemConfigUtil
         }
     }
 
+    /**
+     * 自动注销系统配置。
+     * 
+     * @param mixed $value 配置数据，可以是单个配置键名或配置数组列表。
+     */
     public static function autoUnregisterConfig(mixed $value)
     {
         $arr = [];
