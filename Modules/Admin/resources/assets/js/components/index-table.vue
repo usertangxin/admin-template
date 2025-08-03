@@ -10,18 +10,21 @@
                     <a-space wrap class="-mb-2">
                         <slot name="action-column-before"></slot>
                         <slot name="action-read" v-bind="scope">
-                            <a-button v-if="!$slots['action-read']" size="medium" type="primary" @click="handleDetail(scope.record)">
+                            <a-button v-if="!$slots['action-read']" size="medium" type="primary"
+                                @click="handleDetail(scope.record)">
                                 详情
                             </a-button>
                         </slot>
                         <template v-if="page.props.__page_index__">
                             <slot name="action-update" v-bind="scope">
-                                <a-button v-if="!$slots['action-update']" size="medium" status="warning" @click="handleUpdate(scope.record)">
+                                <a-button v-if="!$slots['action-update']" size="medium" status="warning"
+                                    @click="handleUpdate(scope.record)">
                                     编辑
                                 </a-button>
                             </slot>
                             <slot name="action-destroy" v-bind="scope">
-                                <a-popconfirm v-if="!$slots['action-destroy']" content="确定删除吗？" @ok="handleDestroy(scope.record)">
+                                <a-popconfirm v-if="!$slots['action-destroy']" content="确定删除吗？"
+                                    @ok="handleDestroy(scope.record)">
                                     <a-button size="medium" status="danger">
                                         删除
                                     </a-button>
@@ -30,7 +33,8 @@
                         </template>
                         <template v-if="page.props.__page_recycle__">
                             <slot name="action-real-destroy" v-bind="scope">
-                                <a-popconfirm v-if="!$slots['action-real-destroy']" content="确定永久删除吗？" @ok="handleRealDestroy(scope.record)">
+                                <a-popconfirm v-if="!$slots['action-real-destroy']" content="确定永久删除吗？"
+                                    @ok="handleRealDestroy(scope.record)">
                                     <a-button size="medium" status="danger">
                                         永久删除
                                     </a-button>
@@ -39,7 +43,8 @@
                         </template>
                         <template v-if="page.props.__page_recycle__">
                             <slot name="action-recovery" v-bind="scope">
-                                <a-popconfirm v-if="!$slots['action-recovery']" content="确定恢复吗？" @ok="handleRecovery(scope.record)">
+                                <a-popconfirm v-if="!$slots['action-recovery']" content="确定恢复吗？"
+                                    @ok="handleRecovery(scope.record)">
                                     <a-button size="medium" status="success">
                                         恢复
                                     </a-button>
@@ -61,7 +66,8 @@
                 </template>
                 <template v-else-if="column.type === 'image'">
                     <a-image-preview-group>
-                        <a-image class="w-[70px] h-[70px]" v-for="(item, index) in analysisMedia(scope.record[column.dataIndex])" :key="index"
+                        <a-image class="w-[70px] h-[70px]"
+                            v-for="(item, index) in analysisMedia(scope.record[column.dataIndex])" :key="index"
                             :src="item" />
                     </a-image-preview-group>
                 </template>
@@ -73,8 +79,11 @@
                 </template>
                 <template v-else-if="column.type === 'switch'">
                     <a-switch type="round" :checked="scope.record[column.dataIndex]"
+                        v-model="scope.record[column.dataIndex]"
                         :disabled="scope.record[column.dataIndex + '_disabled'] ?? column.disabled ?? false"
                         :checked-value="column.checkedValue ?? true" :unchecked-value="column.uncheckedValue ?? false"
+                        :checked-text="column.checkedText ?? ''"
+                        :unchecked-text="column.uncheckedText ?? ''"
                         :beforeChange="async (newValue) => await handleSwitchBeforeChange(newValue, scope.record, column.dataIndex)">
                         <template #checked-icon>
                             <a-icon icon="check" />
@@ -146,7 +155,8 @@ const comColumns = computed(() => {
 })
 
 const handleSwitchBeforeChange = async (newValue, record, dataIndex) => {
-    // return true
+    const res = await axios.post('./change-status', {...record,status: newValue})
+    return res.data.code === 0
 }
 
 const handleSelectionChange = (rowKeys) => {

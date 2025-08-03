@@ -64,7 +64,6 @@ class ModuleEventSubscriber
                 echo Artisan::output();
             }
         }
-        throw new \Exception('删除模块失败');
     }
 
     protected function getAdminScriptClass($module_name)

@@ -1,0 +1,46 @@
+<?php
+
+namespace Modules\Admin\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Modules\Admin\Classes\Attrs\SystemMenu;
+use Nwidart\Modules\Facades\Module;
+use Nwidart\Modules\Module as ModulesModule;
+
+class ModuleManagerController extends AbstractController
+{
+    #[SystemMenu('模块管理', icon: 'fab fa-modx')]
+    public function index()
+    {
+        $modules = Module::all();
+        $data = (new Collection($modules))->map(function ($module) {
+            /** @var ModulesModule $module */
+            return [
+                'name' => $module->getName(),
+                'description' => $module->getDescription(),
+                'status' => $module->isEnabled(),
+            ];
+        })->toArray();
+        $data = array_values($data);
+        return $this->success(data: $data);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $module = Module::find($request->input('name'));
+        if ($module->getLowerName() == 'admin') {
+            return $this->fail('不能禁用此模块');
+        }
+        $status = $request->input('status');
+        if ($module) {
+            if ($status) {
+                $module->enable();
+            } else {
+                $module->disable();
+            }
+        }
+        return $this->success();
+    }
+}

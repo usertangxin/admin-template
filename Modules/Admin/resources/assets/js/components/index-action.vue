@@ -6,13 +6,17 @@
                     <slot name="left-before"></slot>
                     <slot name="left">
                         <template v-if="!page.props.__page_index__">
-                            <a-tooltip mini content="上一页">
-                                <a-button @click="toIndex">
-                                    <template #icon>
-                                        <icon icon="fas arrow-left-long"></icon>
-                                    </template>
-                                </a-button>
-                            </a-tooltip>
+                            <slot name="back-before"></slot>
+                            <slot name="back">
+                                <a-tooltip mini v-if="!$slots.back" content="上一页">
+                                    <a-button @click="toIndex">
+                                        <template #icon>
+                                            <icon icon="fas arrow-left-long"></icon>
+                                        </template>
+                                    </a-button>
+                                </a-tooltip>
+                            </slot>
+                            <slot name="back-after"></slot>
                         </template>
                         <template v-if="page.props.__page_index__">
                             <slot name="recycle-before"></slot>
@@ -53,7 +57,8 @@
                         <template v-if="page.props.__page_index__">
                             <slot name="create-before"></slot>
                             <slot name="create">
-                                <a-button v-if="!$slots.create" @click="toCreate" type="primary" status="normal">创建</a-button>
+                                <a-button v-if="!$slots.create" @click="toCreate" type="primary"
+                                    status="normal">创建</a-button>
                             </slot>
                             <slot name="create-after"></slot>
                             <slot name="destroy-before"></slot>
@@ -76,7 +81,8 @@
                             <slot name="recovery-after"></slot>
                             <slot name="real-destroy-before"></slot>
                             <slot name="real-destroy">
-                                <a-popconfirm v-if="!$slots['real-destroy']" content="确认永久删除选中项吗？" @ok="handleRealDestroy">
+                                <a-popconfirm v-if="!$slots['real-destroy']" content="确认永久删除选中项吗？"
+                                    @ok="handleRealDestroy">
                                     <a-button type="primary" status="danger"
                                         :disabled="store.selectedKeys.value.length === 0">永久删除</a-button>
                                 </a-popconfirm>
@@ -91,30 +97,39 @@
                 <a-space>
                     <slot name="right-before"></slot>
                     <slot name="right">
-                        <slot name="search-input-before"></slot>
-                        <slot name="search-input">
-                            <a-input v-if="!$slots['search-input']" v-model="store.searchQuery.value.fast_search" @press-enter="store.resetSearchQuery"
-                                placeholder="请输入内容并回车" :allow-clear="true" @clear="store.resetSearchQuery">
-                                <template #suffix>
-                                    <div>
-                                        <icon class="cursor-pointer" icon="a search" @click="store.resetSearchQuery">
-                                        </icon>
-                                    </div>
-                                </template>
-                            </a-input>
+                        <slot name="fast-search-before"></slot>
+                        <slot name="fast-search">
+                            <template v-if="!$slots['fast-search']">
+                                <slot name="search-input-before"></slot>
+                                <slot name="search-input">
+                                    <a-input v-if="!$slots['search-input']"
+                                        v-model="store.searchQuery.value.fast_search"
+                                        @press-enter="store.resetSearchQuery" placeholder="请输入内容并回车" :allow-clear="true"
+                                        @clear="store.resetSearchQuery">
+                                        <template #suffix>
+                                            <div>
+                                                <icon class="cursor-pointer" icon="a search"
+                                                    @click="store.resetSearchQuery">
+                                                </icon>
+                                            </div>
+                                        </template>
+                                    </a-input>
+                                </slot>
+                                <slot name="search-input-after"></slot>
+                                <slot name="search-before"></slot>
+                                <slot name="search">
+                                    <a-tooltip v-if="!$slots.search" mini content="更多搜索选项" position="br">
+                                        <a-button status="normal">
+                                            <template #icon>
+                                                <icon icon="fas magnifying-glass-arrow-right"></icon>
+                                            </template>
+                                        </a-button>
+                                    </a-tooltip>
+                                </slot>
+                                <slot name="search-after"></slot>
+                            </template>
                         </slot>
-                        <slot name="search-input-after"></slot>
-                        <slot name="search-before"></slot>
-                        <slot name="search">
-                            <a-tooltip v-if="!$slots.search" mini content="更多搜索选项" position="br">
-                                <a-button status="normal">
-                                    <template #icon>
-                                        <icon icon="fas magnifying-glass-arrow-right"></icon>
-                                    </template>
-                                </a-button>
-                            </a-tooltip>
-                        </slot>
-                        <slot name="search-after"></slot>
+                        <slot name="fast-search-after"></slot>
                         <a-divider direction="vertical"></a-divider>
                         <slot name="columns-before"></slot>
                         <slot name="columns">

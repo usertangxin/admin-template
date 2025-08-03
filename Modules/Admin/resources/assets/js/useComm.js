@@ -13,6 +13,8 @@ import * as regular from '@fortawesome/free-regular-svg-icons';
 // 引入所有品牌图标
 import * as brands from '@fortawesome/free-brands-svg-icons';
 import FasIcon from './components/fas-icon.vue'
+import FabIcon from './components/fab-icon.vue'
+import FarIcon from './components/far-icon.vue'
 import AIcon from './components/a-icon.vue'
 import Icon from './components/icon.vue'
 import IndexTable from './components/index-table.vue'
@@ -62,6 +64,8 @@ const useComm = {
       .use(ZiggyVue)
       .component('font-awesome-icon', FontAwesomeIcon)
       .component('fas-icon', FasIcon)
+      .component('fab-icon', FabIcon)
+      .component('far-icon', FarIcon)
       .component('a-icon', AIcon)
       .component('icon', Icon)
       .component('index-table', IndexTable)

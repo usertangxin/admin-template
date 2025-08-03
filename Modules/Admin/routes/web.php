@@ -6,6 +6,7 @@ use Modules\Admin\Classes\Utils\RouteUtil;
 use Modules\Admin\Http\Controllers\CrudTestController;
 use Modules\Admin\Http\Controllers\DashboardController;
 use Modules\Admin\Http\Controllers\LoginController;
+use Modules\Admin\Http\Controllers\ModuleManagerController;
 use Modules\Admin\Http\Controllers\SystemAdminController;
 use Modules\Admin\Http\Controllers\SystemConfigController;
 use Modules\Admin\Http\Controllers\SystemDictController;
@@ -34,6 +35,7 @@ Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(fu
         RouteUtil::fastRoute(SystemMenuController::class);
         RouteUtil::fastRoute(SystemAdminController::class);
         RouteUtil::fastRoute(SystemUploadFileController::class);
+        RouteUtil::fastRoute(ModuleManagerController::class);
 
         if (app()->isLocal() || app()->runningUnitTests()) {
             RouteUtil::fastRoute(CrudTestController::class);
