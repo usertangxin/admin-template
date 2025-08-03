@@ -30,9 +30,6 @@ class ModuleManagerController extends AbstractController
     public function changeStatus(Request $request)
     {
         $module = Module::find($request->input('name'));
-        if ($module->getLowerName() == 'admin') {
-            return $this->fail('不能禁用此模块');
-        }
         $status = $request->input('status');
         if ($module) {
             if ($status) {

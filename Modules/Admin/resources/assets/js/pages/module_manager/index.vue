@@ -17,8 +17,8 @@ const props = defineProps(['data'])
 const store = provideIndexShareStore({
     columns: [
         { title: '模块名称', dataIndex: 'name', width: 200 },
-        { title: '模块描述', dataIndex: 'description', width: 200 },
-        { title: '模块状态', dataIndex: 'status', type: 'switch', checkedText: '已启用', uncheckedText: '已禁用' },
+        { title: '模块描述', dataIndex: 'description', },
+        { title: '模块状态', dataIndex: 'status', width: 100, type: 'switch', checkedText: '已启用', uncheckedText: '已禁用' },
     ],
     actionColumn: null,
 })

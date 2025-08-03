@@ -63,6 +63,10 @@ class AdminScript implements AdminScriptInterface
 
     public function disable(Module $module)
     {
+        
+    }
+
+    public function delete(Module $module) {
         SystemConfigUtil::autoUnregisterConfig($this->configs);
         $a = SystemConfig::where('key', 'storage_mode')->first();
         if ($a) {
@@ -78,6 +82,4 @@ class AdminScript implements AdminScriptInterface
         }
         SystemDictUtil::autoUnregisterDicts($this->dicts);
     }
-
-    public function delete(Module $module) {}
 }
