@@ -61,4 +61,34 @@ class SystemDictUtil
             SystemDict::whereCode($item['code'])->whereValue($item['value'])->delete();
         }
     }
+
+    public static function autoDictsUpdate(mixed $value, \Closure $closure)
+    {
+        $arr = [];
+        if (! is_array($value) || ! isset($value[0])) {
+            $arr[] = $value;
+        } else {
+            $arr = $value;
+        }
+        foreach ($arr as $item) {
+            $model = SystemDict::whereCode($item['code'])->whereValue($item['value'])->first();
+            $closure($model, $item);
+        }
+    }
+
+    public static function autoEnableDicts(mixed $value)
+    {
+        self::autoDictsUpdate($value, function ($model, $item) {
+            $model->status = 'normal';
+            $model->save();
+        });
+    }
+
+    public static function autoDisableDicts(mixed $value)
+    {
+        self::autoDictsUpdate($value, function ($model, $item) {
+            $model->status = 'disabled';
+            $model->save();
+        });
+    }
 }

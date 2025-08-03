@@ -48,6 +48,7 @@ class AdminScript implements AdminScriptInterface
         SystemConfigUtil::configSelectDataSave('storage_mode', $this->update_storage_mode_config_select_data);
 
         SystemDictUtil::autoRegisterDicts($this->dicts);
+        SystemDictUtil::autoEnableDicts($this->dicts);
     }
 
     public function disable(Module $module)
@@ -59,9 +60,7 @@ class AdminScript implements AdminScriptInterface
         })->toArray();
         SystemConfigUtil::configSelectDataSave('storage_mode', $select_data);
         SystemConfigUtil::autoDisableConfig($this->configs);
-        foreach ($this->dicts as $dict) {
-            SystemDict::whereCode($dict['code'])->whereValue($dict['value'])->update(['status' => 'disabled']);
-        }
+        SystemDictUtil::autoDisableDicts($this->dicts);
     }
 
     public function delete(Module $module)
