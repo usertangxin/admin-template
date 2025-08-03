@@ -93,9 +93,14 @@
             </a-col>
         </template>
         <template v-else>
-            <div class="p-2">
-                {{ config }}
-            </div>
+            <a-col :span="24">
+                <a-form-item :label="config.name" :field="config.key">
+                    <component :is="config.input_type" v-model="config.value" v-bind="config.input_attr || {}"></component>
+                    <template #extra>
+                        <div v-html="config.remark"></div>
+                    </template>
+                </a-form-item>
+            </a-col>
         </template>
     </template>
 </template>
