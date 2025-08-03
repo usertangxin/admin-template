@@ -17,7 +17,7 @@
                         {{ comAccept }}
                     </div>
                 </a-tooltip>
-                <a-button class="self-end history-btn" @click.prevent.stop="" type="primary" size="mini">
+                <a-button class="history-btn" @click.prevent.stop="" type="primary" size="mini">
                     <template #icon>
                         <icon icon="fas fa-folder-open" class=" text-[14px] -mb-[1px]"></icon>
                     </template>
