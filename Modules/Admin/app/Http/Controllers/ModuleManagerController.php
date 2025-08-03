@@ -27,6 +27,7 @@ class ModuleManagerController extends AbstractController
         return $this->success(data: $data);
     }
 
+    #[SystemMenu('模块启用/禁用')]
     public function changeStatus(Request $request)
     {
         $module = Module::find($request->input('name'));
@@ -39,6 +40,18 @@ class ModuleManagerController extends AbstractController
             }
         }
 
-        return $this->success();
+        return $this->success(message: '模块状态变更成功');
     }
+
+    #[SystemMenu('模块删除')]
+    public function destroy(Request $request)
+    {
+        $module = Module::find($request->input('name'));
+        if ($module) {
+            $module->delete();
+        }
+
+        return $this->success(message: '模块删除成功');
+    }
+
 }
