@@ -6,8 +6,11 @@
         </template>
         <template v-if="!$slots['upload-button']" #upload-button>
             <div class="flex flex-col justify-center items-center p-2 pt-3 custom-box">
-                <icon icon="fas fa-cloud-arrow-up" class=" text-[30px]" style="color: rgb(22, 93, 255);">
-                </icon>
+                <div class="relative">
+                    <div class=" left-0 top-0 right-0 bottom-0 m-auto translate-y-[3px] absolute w-[12px] h-[20px] bg-white"></div>
+                    <icon icon="fas fa-cloud-arrow-up" class="relative text-[30px]" style="color: rgb(var(--primary-6));">
+                    </icon>
+                </div>
                 <div class=" font-bold mt-3 text-[16px]">点击上传或拖拽文件</div>
                 <a-tooltip :content="comAccept">
                     <div class=" text-[12px] w-[100px] py-1 pb-3 truncate" style="color: var(--color-text-3);">
