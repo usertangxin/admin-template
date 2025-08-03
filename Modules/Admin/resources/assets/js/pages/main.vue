@@ -3,7 +3,7 @@
         <div class="h-[100vh] side">
             <div class="logo">
                 <img class="logo-img" src="../../images/logo.png" alt="">
-                <span v-if="subMenus.length">Laravel Admin</span>
+                <span v-if="subMenus.length">Laravel后台管理模板</span>
             </div>
             <div class="flex">
                 <div class="menu-main" :style="[subMenus.length ? '' : 'border-right:none']">

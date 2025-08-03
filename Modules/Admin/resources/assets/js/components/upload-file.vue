@@ -4,6 +4,24 @@
         <template v-for="key in Object.keys($slots)" #[key] :key="key">
             <slot :name="key"></slot>
         </template>
+        <template v-if="!$slots['upload-button']" #upload-button>
+            <div class="flex flex-col justify-center items-center p-2 pt-3 custom-box">
+                <icon icon="fas fa-cloud-arrow-up" class=" text-[30px]" style="color: rgb(22, 93, 255);">
+                </icon>
+                <div class=" font-bold mt-3 text-[16px]">点击上传或拖拽文件</div>
+                <a-tooltip :content="comAccept">
+                    <div class=" text-[12px] w-[100px] py-1 pb-3 truncate" style="color: var(--color-text-3);">
+                        {{ comAccept }}
+                    </div>
+                </a-tooltip>
+                <a-button class="self-end history-btn" @click.prevent.stop="" type="primary" size="mini">
+                    <template #icon>
+                        <icon icon="fas fa-folder-open" class=" text-[14px] -mb-[1px]"></icon>
+                    </template>
+                    历史附件
+                </a-button>
+            </div>
+        </template>
     </a-upload>
 </template>
 
@@ -247,3 +265,19 @@ const arraysEqual = (arr1, arr2) => {
 };
 
 </script>
+
+
+<style lang="scss" scoped>
+.custom-box {
+    background-color: var(--color-fill-2);
+    color: var(--color-text-1);
+    border: 1px dashed var(--color-fill-4);
+    // height: 120px;
+    width: 220px;
+    text-align: center;
+
+    .history-btn {
+        box-shadow: 0 0 5px 0 rgb(var(--primary-5));
+    }
+}
+</style>

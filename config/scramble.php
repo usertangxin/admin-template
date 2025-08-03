@@ -38,7 +38,7 @@ return [
         /*
          * 定义文档网站的标题。当此配置为 `null` 时，使用应用程序名称。
          */
-        'title' => 'Laravel Admin',
+        'title' => 'Laravel后台管理模板',
 
         /*
          * 定义文档的主题。可用选项为 `light`（浅色）和 `dark`（深色）。

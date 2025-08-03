@@ -6,7 +6,7 @@ return [
     [
         'group'              => 'site_config',
         'key'                => 'site_copyright',
-        'value'              => '@2025 - 2025 Laravel Admin 后台模板',
+        'value'              => '@2025 - 2025 Laravel后台管理模板',
         'name'               => '版权信息',
         'input_type'         => SystemConfigInputType::TEXTAREA,
         'config_select_data' => null,
@@ -17,7 +17,7 @@ return [
     [
         'group'              => 'site_config',
         'key'                => 'site_desc',
-        'value'              => 'Laravel Admin 后台模板',
+        'value'              => 'Laravel后台管理模板',
         'name'               => '网站描述',
         'input_type'         => SystemConfigInputType::TEXTAREA,
         'config_select_data' => null,
@@ -28,7 +28,7 @@ return [
     [
         'group'              => 'site_config',
         'key'                => 'site_keywords',
-        'value'              => 'Laravel Admin 后台模板',
+        'value'              => 'Laravel后台管理模板',
         'name'               => '网站关键字',
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
@@ -39,7 +39,7 @@ return [
     [
         'group'              => 'site_config',
         'key'                => 'site_name',
-        'value'              => 'Laravel Admin 后台模板',
+        'value'              => 'Laravel后台管理模板',
         'name'               => '网站名称',
         'input_type'         => SystemConfigInputType::INPUT,
         'config_select_data' => null,
