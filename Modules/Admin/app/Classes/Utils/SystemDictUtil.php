@@ -72,7 +72,9 @@ class SystemDictUtil
         }
         foreach ($arr as $item) {
             $model = SystemDict::whereCode($item['code'])->whereValue($item['value'])->first();
-            $closure($model, $item);
+            if ($model) {
+                $closure($model, $item);
+            }
         }
     }
 

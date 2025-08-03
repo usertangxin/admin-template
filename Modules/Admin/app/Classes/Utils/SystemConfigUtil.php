@@ -85,7 +85,7 @@ class SystemConfigUtil
             $arr = $value;
         }
         foreach ($arr as $item) {
-            $model = SystemConfig::where('key', $item['key'])->firstOr();
+            $model = SystemConfig::where('key', $item['key'])->first();
             if ($model) {
                 $closure($model, $item);
             }
