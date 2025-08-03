@@ -2,7 +2,6 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Modules\Admin\Classes\Attrs\SystemMenu;
@@ -15,15 +14,16 @@ class ModuleManagerController extends AbstractController
     public function index()
     {
         $modules = Module::all();
-        $data = (new Collection($modules))->map(function ($module) {
+        $data    = (new Collection($modules))->map(function ($module) {
             /** @var ModulesModule $module */
             return [
-                'name' => $module->getName(),
+                'name'        => $module->getName(),
                 'description' => $module->getDescription(),
-                'status' => $module->isEnabled(),
+                'status'      => $module->isEnabled(),
             ];
         })->toArray();
         $data = array_values($data);
+
         return $this->success(data: $data);
     }
 
@@ -38,6 +38,7 @@ class ModuleManagerController extends AbstractController
                 $module->disable();
             }
         }
+
         return $this->success();
     }
 }

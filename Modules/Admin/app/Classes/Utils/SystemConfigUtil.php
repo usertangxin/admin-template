@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Classes\Utils;
 
+use Illuminate\Support\Arr;
 use Modules\Admin\Models\SystemConfig;
 use Modules\Admin\Models\SystemConfigGroup;
 
@@ -37,7 +38,6 @@ class SystemConfigUtil
             $arr = $value;
         }
         foreach ($arr as $item) {
-
             SystemConfig::where('key', $item['key'])->firstOr(function () use ($item) {
                 $model                     = new SystemConfig;
                 $model->group              = $item['group'];
@@ -51,6 +51,72 @@ class SystemConfigUtil
                 $model->input_attr         = $item['input_attr'] ?? null;
                 $model->save();
             });
+        }
+    }
+
+    public static function autoUpdateConfig(mixed $value, \Closure $closure)
+    {
+        $arr = [];
+        if (! is_array($value) || ! isset($value[0])) {
+            $arr[] = $value;
+        } else {
+            $arr = $value;
+        }
+        foreach ($arr as $item) {
+            $model = SystemConfig::where('key', $item['key'])->firstOr();
+            if ($model) {
+                $closure($model, $item);
+            }
+        }
+    }
+
+    public static function autoEnableConfig(mixed $value)
+    {
+        static::autoUpdateConfig($value, function ($model, $item) {
+            $input_attr             = $model->input_attr;
+            $input_attr['disabled'] = false;
+            $model->input_attr      = $input_attr;
+            $model->save();
+        });
+    }
+
+    public static function autoDisableConfig(mixed $value)
+    {
+        static::autoUpdateConfig($value, function ($model, $item) {
+            $input_attr             = $model->input_attr;
+            $input_attr['disabled'] = true;
+            $model->input_attr      = $input_attr;
+            $model->save();
+        });
+    }
+
+    public static function configSelectDataSave($config_key, $select_data)
+    {
+        $a = SystemConfig::where('key', $config_key)->first();
+        if ($a) {
+            $data_config_select_data = $a->config_select_data;
+            $data_config_select_data = array_merge($data_config_select_data, $select_data);
+            $merged                  = Arr::keyBy($data_config_select_data, 'value');
+            foreach ($select_data as $item) {
+                $merged[$item['value']] = $item;
+            }
+            $merged                = array_values($merged);
+            $a->config_select_data = $merged;
+            $a->save();
+        }
+    }
+
+    public static function configSelectDataRemove($config_key, $select_data)
+    {
+        $a = SystemConfig::where('key', $config_key)->first();
+        if ($a) {
+            $data_config_select_data = $a->config_select_data;
+            $excludeValues           = Arr::pluck($select_data, 'value');
+            $filtered                = Arr::where($data_config_select_data, function ($item) use ($excludeValues) {
+                return ! in_array($item['value'], $excludeValues);
+            });
+            $a->config_select_data = $filtered;
+            $a->save();
         }
     }
 

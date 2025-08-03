@@ -44,68 +44,30 @@ class AdminScript implements AdminScriptInterface
     public function enable(Module $module)
     {
         SystemConfigUtil::autoResisterConfig($this->configs);
-        $a = SystemConfig::where('key', 'storage_mode')->first();
-        if ($a) {
-            $data_config_select_data = $a->config_select_data;
-            $data_config_select_data = array_merge($data_config_select_data, $this->update_storage_mode_config_select_data);
-            $merged                  = Arr::keyBy($data_config_select_data, 'value');
-            foreach ($this->update_storage_mode_config_select_data as $item) {
-                $merged[$item['value']] = $item;
-            }
-            $merged                = array_values($merged);
-            $a->config_select_data = $merged;
-            $a->save();
-        } else {
-            echo '存储模式配置不存在';
-        }
+        SystemConfigUtil::autoEnableConfig($this->configs);
+        SystemConfigUtil::configSelectDataSave('storage_mode', $this->update_storage_mode_config_select_data);
 
         SystemDictUtil::autoRegisterDicts($this->dicts);
     }
 
     public function disable(Module $module)
     {
-        $a = SystemConfig::where('key', 'storage_mode')->first();
-        if ($a) {
-            $data_config_select_data = $a->config_select_data;
-            $data_config_select_data = array_merge($data_config_select_data, $this->update_storage_mode_config_select_data);
-            $merged                  = Arr::keyBy($data_config_select_data, 'value');
-            foreach ($this->update_storage_mode_config_select_data as $item) {
-                $merged[$item['value']] = [...$item, 'disabled' => true];
-            }
-            $merged                = array_values($merged);
-            $a->config_select_data = $merged;
-            $a->save();
-        } else {
-            echo '存储模式配置不存在';
-        }
-        foreach($this->configs as $config) {
-            $a = SystemConfig::where('key', $config['key'])->first();
-            if($a) {
-                $input_attr = $a->input_attr ?? [];
-                $input_attr['disabled'] = true;
-                $a->input_attr = $input_attr;
-                $a->save();
-            }
-        }
+        $select_data = \collect($this->update_storage_mode_config_select_data)->map(function ($item) {
+            $item['disabled'] = true;
+
+            return $item;
+        })->toArray();
+        SystemConfigUtil::configSelectDataSave('storage_mode', $select_data);
+        SystemConfigUtil::autoDisableConfig($this->configs);
         foreach ($this->dicts as $dict) {
             SystemDict::whereCode($dict['code'])->whereValue($dict['value'])->update(['status' => 'disabled']);
         }
     }
 
-    public function delete(Module $module) {
+    public function delete(Module $module)
+    {
         SystemConfigUtil::autoUnregisterConfig($this->configs);
-        $a = SystemConfig::where('key', 'storage_mode')->first();
-        if ($a) {
-            $data_config_select_data = $a->config_select_data;
-            $excludeValues           = Arr::pluck($this->update_storage_mode_config_select_data, 'value');
-            $filtered                = Arr::where($data_config_select_data, function ($item) use ($excludeValues) {
-                return ! in_array($item['value'], $excludeValues);
-            });
-            $a->config_select_data = $filtered;
-            $a->save();
-        } else {
-            echo '存储模式配置不存在';
-        }
+        SystemConfigUtil::configSelectDataRemove('storage_mode', $this->update_storage_mode_config_select_data);
         SystemDictUtil::autoUnregisterDicts($this->dicts);
     }
 }

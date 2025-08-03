@@ -22,7 +22,8 @@ class AdminScript implements AdminScriptInterface
         }
     }
 
-    public function disable(Module $module) {
+    public function disable(Module $module)
+    {
         throw new \Exception('不能禁用此模块');
     }
 

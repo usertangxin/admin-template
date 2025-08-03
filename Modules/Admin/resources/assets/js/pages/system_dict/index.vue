@@ -31,7 +31,6 @@
                         <template #color="{ record }">
                             <a-tag v-if="record.color" :style="[...colorMatch(record.color)]" bordered>{{ record.label
                                 }}</a-tag>
-
                         </template>
                         <template #action-column="{record}">
                             <a-space></a-space>
@@ -64,6 +63,7 @@ const store = provideIndexShareStore({
         { title: '标签', dataIndex: 'label' },
         { title: '值', dataIndex: 'value' },
         { title: '颜色', dataIndex: 'color' },
+        { title: '状态', dataIndex: 'status', type: 'dict_tag', dict: 'data_status' },
         { title: '备注', dataIndex: 'remark' },
     ],
     innerFetchListData: false,
