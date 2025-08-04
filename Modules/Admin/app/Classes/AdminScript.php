@@ -27,5 +27,8 @@ class AdminScript implements AdminScriptInterface
         throw new \Exception('不能禁用此模块');
     }
 
-    public function delete(Module $module) {}
+    public function delete(Module $module)
+    {
+        throw new \Exception('不能删除此模块');
+    }
 }
