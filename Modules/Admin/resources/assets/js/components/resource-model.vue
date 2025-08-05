@@ -1,12 +1,19 @@
 <template>
-    <a-modal body-class="resource-model-body" :title="title" :fullscreen="true" v-bind="$attrs" @ok="handleOk">
-        <iframe ref="iframeRef" :src="comSrc" style="width: 100%; height: 100%;"></iframe>
+    <a-modal v-model:visible="visible" body-class="resource-model-body" :fullscreen="true" :title="title" v-bind="$attrs"
+        @ok="handleOk">
+        <!-- 此处如果不跟随 visible 就会导致导航 back 出现问题 -->
+        <iframe v-if="visible" ref="iframeRef" :src="comSrc" style="width: 100%; height: 100%;"></iframe>
     </a-modal>
 </template>
 
 <script setup>
 import { computed, ref } from 'vue';
 import qs from 'qs'
+
+const visible = defineModel('visible', {
+    type: Boolean,
+    default: false
+})
 
 const props = defineProps({
     title: {

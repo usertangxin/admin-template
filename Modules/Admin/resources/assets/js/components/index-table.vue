@@ -2,7 +2,7 @@
     <a-table ref="tableRef" :bordered="{
         cell: true,
     }" :row-key="rowKey" :row-selection="comRowSelection" v-model:selectedKeys="store.selectedKeys.value"
-        :columns="comColumns" :data="data" :pagination="pagination" @page-change="handlePageChange"
+        :columns="comColumns" :data="comData" :pagination="pagination" @page-change="handlePageChange"
         @page-size-change="handlePageSizeChange" v-bind="attrs">
         <template v-for="(column, index) in comColumns" :key="index" v-slot:[column.slotName]="scope">
             <slot :name="column.slotName" v-bind="scope">
@@ -56,7 +56,7 @@
                 </template>
                 <template v-else-if="!column.type">
                     <template v-if="column.tooltip">
-                        <a-tooltip :content="column.tooltip">
+                        <a-tooltip :content="column.tooltip + ''">
                             {{ scope.record[column.dataIndex] || '' }}
                         </a-tooltip>
                     </template>
@@ -94,7 +94,7 @@
                 </template>
                 <template v-else-if="column.type === 'link'">
                     <a-link :href="scope.record[column.dataIndex]" target="_blank">{{ scope.record[column.dataIndex]
-                    }}</a-link>
+                        }}</a-link>
                 </template>
             </slot>
         </template>
@@ -119,15 +119,20 @@ const props = defineProps({
     rowKey: {
         type: String,
         default: 'id'
+    },
+    data: {
+        type: Array,
+        default: () => null
     }
 })
 
 const store = useInjectIndexShareStore()
-const data = computed(()=>{
-    return store.listData.value.map(item=>{
+const comData = computed(() => {
+    let data = props.data ?? store.listData.value
+    return data?.map(item => {
         if (params['__multiple__'] === 'true') {
             if (store.selectedKeys.value.length >= params['__limit__'] && params['__limit__'] > 0) {
-                if(!store.selectedKeys.value.includes(item[props.rowKey])) {
+                if (!store.selectedKeys.value.includes(item[props.rowKey])) {
                     item['old_disabled'] ??= item['disabled'] ?? false
                     item['disabled'] = true
                 }
@@ -182,7 +187,16 @@ const comColumns = computed(() => {
 })
 
 const comRowSelection = computed(() => {
-    return { type: params['__multiple__'] === 'true' ? 'checkbox' : 'radio', showCheckedAll: params['__multiple__'] && params['__limit__'] == 0, }
+    if (!params['__resource_select__']) {
+        return {
+            type: 'checkbox',
+            showCheckedAll: true,
+        }
+    }
+    return { 
+        type: params['__multiple__'] === 'true' ? 'checkbox' : 'radio', 
+        showCheckedAll: params['__multiple__'] && params['__limit__'] == 0, 
+    }
 })
 
 const handleSwitchBeforeChange = async (newValue, record, dataIndex) => {

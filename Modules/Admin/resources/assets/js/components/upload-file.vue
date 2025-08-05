@@ -1,6 +1,6 @@
 <template>
-    <a-upload :file-list="innerFileList" @before-upload="handleBeforeUpload" @before-remove="handleBeforeRemove" :accept="comAccept"
-        :custom-request="customRequest" :multiple="multiple" :limit="limit" v-bind="$attrs">
+    <a-upload v-model:file-list="innerFileList" @before-upload="handleBeforeUpload" @before-remove="handleBeforeRemove"
+        :accept="comAccept" :custom-request="customRequest" :multiple="multiple" :limit="limit" v-bind="$attrs">
         <template v-for="key in Object.keys($slots)" #[key] :key="key">
             <slot :name="key"></slot>
         </template>
@@ -15,7 +15,7 @@
                     </icon>
                 </div>
                 <div class=" font-bold mt-3 text-[16px]">点击上传或拖拽文件</div>
-                <a-tooltip :content="comAccept">
+                <a-tooltip :content="comAccept + ''">
                     <div class=" text-[12px] w-[100px] py-1 pb-3 truncate" style="color: var(--color-text-3);">
                         {{ comAccept }}
                     </div>
@@ -81,8 +81,6 @@ const emit = defineEmits(['update:modelValue', 'change']);
 
 const visibleResourceModel = ref(false);
 
-// 内部文件列表 - 使用普通数组而非响应式数组存储原始数据
-let fileListData = [];
 // 响应式引用，用于触发UI更新
 const innerFileList = ref([]);
 
@@ -111,10 +109,13 @@ const handleBeforeUpload = (file) => {
         return false;
     }
 
-    return true;
+    return true
 };
 
 const handleOk = (selectedKeys) => {
+    if (selectedKeys.length == 0) {
+        return
+    }
     request.get(route('web.admin.SystemUploadFile.index'), {
         params: {
             ids: selectedKeys,
@@ -122,7 +123,13 @@ const handleOk = (selectedKeys) => {
         }
     }).then(res => {
         if (res.code == 0) {
-
+            if(props.multiple) {
+                let arr = Array.isArray(props.modelValue) ? props.modelValue : []
+                arr.push(...res.data.map(item => item.url))
+                emit('update:modelValue', arr)
+            } else {
+                emit('update:modelValue', res.data[0].url)
+            }
         }
     })
 }
@@ -152,19 +159,11 @@ const customRequest = (option) => {
             }
 
             if (props.multiple) {
-                innerFileList.value.push({
-                    uid: res.data[0].hash,
-                    status: 'done',
-                    url: fileUrl,
-                    name: res.data[0].object_name,
-                })
+                let arr = Array.isArray(props.modelValue) ? props.modelValue : []
+                arr.push(fileUrl)
+                emit('update:modelValue', arr)
             } else {
-                innerFileList.value = [{
-                    uid: res.data[0].hash,
-                    status: 'done',
-                    url: fileUrl,
-                    name: res.data[0].object_name,
-                }]
+                emit('update:modelValue', fileUrl)
             }
 
             // 通知上传组件成功
@@ -181,19 +180,42 @@ const customRequest = (option) => {
 };
 
 const handleBeforeRemove = (item) => {
-    innerFileList.value = innerFileList.value.filter(i => i.uid != item.uid);
+    if (props.multiple) {
+        let arr = Array.isArray(props.modelValue) ? props.modelValue : []
+        arr.splice(item.uid, 1)
+        emit('update:modelValue', arr)
+    } else {
+        emit('update:modelValue', null)
+    }
+    return false
 }
 
-watch(innerFileList,(newValue) => {
-    if(props.multiple) {
-        let arr = [];
-        _.each(newValue, (item) => {
-            arr.push(item.url);
+watch(() => props.modelValue, (newValue) => {
+    if (props.multiple) {
+        let arr = Array.isArray(newValue) ? newValue : []
+        innerFileList.value = arr.map((item, index) => {
+            return {
+                uid: index,
+                status: 'done',
+                url: item,
+                name: item.split('/').pop(),
+            }
         })
-        emit('update:modelValue', arr);
     } else {
-        emit('update:modelValue', newValue[0]?.url ?? '');
+        if (newValue) {
+            innerFileList.value = [{
+                uid: 0,
+                status: 'done',
+                url: newValue,
+                name: newValue.split('/').pop(),
+            }]
+        } else {
+            innerFileList.value = []
+        }
     }
+}, {
+    deep: true,
+    immediate: true,
 })
 
 </script>

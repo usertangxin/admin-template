@@ -1,9 +1,8 @@
 <template>
     <div class="m-3 p-3 page-content">
         <save-form :model="formData" :rules="rules">
-            {{ formData.avatar }}
             <a-form-item label="头像" field="avatar">
-                <upload-image limit="2" :multiple="true" v-model="formData.avatar"></upload-image>
+                <upload-image :limit="1" :multiple="false" v-model="formData.avatar"></upload-image>
             </a-form-item>
             <a-form-item label="账号" field="admin_name">
                 <a-input v-model="formData.admin_name" placeholder="请输入账号"></a-input>
