@@ -26,6 +26,7 @@ import DictRadio from './components/dict-radio.vue'
 import UploadFile from './components/upload-file.vue'
 import UploadImage from './components/upload-image.vue'
 import SaveForm from './components/save-form.vue'
+import ResourceModel from './components/resource-model.vue'
 
 document.body.setAttribute('arco-theme', window.localStorage.getItem('arco-theme') || 'light')
 
@@ -77,6 +78,7 @@ const useComm = {
       .component('index-action', IndexAction)
       .component('form-action', FormAction)
       .component('form-col', FormCol)
+      .component('resource-model', ResourceModel)
   }
 }
 

@@ -17,7 +17,7 @@
                         {{ comAccept }}
                     </div>
                 </a-tooltip>
-                <a-button class="history-btn" @click.prevent.stop="" type="primary" size="mini">
+                <a-button class="history-btn" @click.prevent.stop="visibleResourceModel = true" type="primary" size="mini">
                     <template #icon>
                         <icon icon="fas fa-folder-open" class=" text-[14px] -mb-[1px]"></icon>
                     </template>
@@ -26,6 +26,7 @@
             </div>
         </template>
     </a-upload>
+    <resource-model v-model:visible="visibleResourceModel" :src="route('web.admin.SystemUploadFile.index') + '?mime_type=' + mimeType"></resource-model>
 </template>
 
 <script setup>
@@ -69,6 +70,8 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', 'change']);
 
+const visibleResourceModel = ref(false);
+
 // 内部文件列表 - 使用普通数组而非响应式数组存储原始数据
 let fileListData = [];
 // 响应式引用，用于触发UI更新
@@ -83,6 +86,9 @@ const comAccept = computed(() => {
     }
     const exts = config_map.value['upload_allow_file'].value.replace(/\s/g, '').split(',');
     return _.map(exts, ext => ext.startsWith('.') ? ext : `.${ext}`).join(',');
+});
+const mimeType = computed(() => {
+    return comAccept.value.replace(/\./g, '');
 });
 
 // 处理文件列表更新 - 减少更新频率
