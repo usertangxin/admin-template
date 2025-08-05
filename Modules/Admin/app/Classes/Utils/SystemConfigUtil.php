@@ -18,7 +18,7 @@ class SystemConfigUtil
 
     /**
      * 自动注册系统配置组。
-     * 
+     *
      * @param mixed $value 配置组数据，可以是单个配置组数组或配置组数组列表。
      */
     public static function autoResisterGroup(mixed $value)
@@ -42,7 +42,7 @@ class SystemConfigUtil
 
     /**
      * 自动注册系统配置。
-     * 
+     *
      * @param mixed $value 配置数据，可以是单个配置数组或配置数组列表。
      */
     public static function autoResisterConfig(mixed $value)
@@ -72,8 +72,8 @@ class SystemConfigUtil
 
     /**
      * 自动更新系统配置。
-     * 
-     * @param mixed $value 配置数据，可以是单个配置数组或配置数组列表。
+     *
+     * @param mixed    $value   配置数据，可以是单个配置数组或配置数组列表。
      * @param \Closure $closure 用于更新配置模型的闭包函数。
      */
     public static function autoUpdateConfig(mixed $value, \Closure $closure)
@@ -94,7 +94,7 @@ class SystemConfigUtil
 
     /**
      * 自动启用系统配置。
-     * 
+     *
      * @param mixed $value 配置数据，可以是单个配置数组或配置数组列表。
      */
     public static function autoEnableConfig(mixed $value)
@@ -109,7 +109,7 @@ class SystemConfigUtil
 
     /**
      * 自动禁用系统配置。
-     * 
+     *
      * @param mixed $value 配置数据，可以是单个配置数组或配置数组列表。
      */
     public static function autoDisableConfig(mixed $value)
@@ -124,9 +124,9 @@ class SystemConfigUtil
 
     /**
      * 保存系统配置的选择数据。
-     * 
-     * @param string $config_key 配置键名。
-     * @param array $select_data 要保存的选择数据。
+     *
+     * @param string $config_key  配置键名。
+     * @param array  $select_data 要保存的选择数据。
      */
     public static function configSelectDataSave($config_key, $select_data)
     {
@@ -146,9 +146,9 @@ class SystemConfigUtil
 
     /**
      * 移除系统配置的选择数据。
-     * 
-     * @param string $config_key 配置键名。
-     * @param array $select_data 要移除的选择数据。
+     *
+     * @param string $config_key  配置键名。
+     * @param array  $select_data 要移除的选择数据。
      */
     public static function configSelectDataRemove($config_key, $select_data)
     {
@@ -166,7 +166,7 @@ class SystemConfigUtil
 
     /**
      * 自动注销系统配置。
-     * 
+     *
      * @param mixed $value 配置数据，可以是单个配置键名或配置数组列表。
      */
     public static function autoUnregisterConfig(mixed $value)

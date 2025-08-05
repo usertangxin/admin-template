@@ -82,16 +82,17 @@ class PublicStorage implements UploadFileStorageInterface
                 $path && $base_path .= '/' . $path;
                 $path = $disk->putFile($base_path, $file);
                 $data = [
-                    'storage_mode' => $this->storage_mode(),
-                    'upload_mode'  => $upload_mode,
-                    'origin_name'  => $file->getClientOriginalName(),
-                    'object_name'  => Str::of($path)->after($base_path . '/')->toString(),
-                    'hash'         => $hash,
-                    'mime_type'    => $file->getMimeType(),
-                    'storage_path' => $path,
-                    'suffix'       => Str::of($file->getClientOriginalExtension())->lower()->toString(),
-                    'size_byte'    => $file->getSize(),
-                    'url'          => $disk->url($path),
+                    'storage_mode'  => $this->storage_mode(),
+                    'upload_mode'   => $upload_mode,
+                    'origin_name'   => $file->getClientOriginalName(),
+                    'object_name'   => Str::of($path)->after($base_path . '/')->toString(),
+                    'hash'          => $hash,
+                    'mime_type'     => $file->getMimeType(),
+                    'storage_path'  => $path,
+                    'suffix'        => $file->extension(),
+                    'client_suffix' => Str::of($file->getClientOriginalExtension())->lower()->toString(),
+                    'size_byte'     => $file->getSize(),
+                    'url'           => $disk->url($path),
                 ];
                 SystemUploadfile::create($data);
                 $arr[] = $data;

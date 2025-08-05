@@ -21,6 +21,7 @@ class SystemUploadfile extends AbstractSoftDelModel
         'mime_type',
         'storage_path',
         'suffix',
+        'client_suffix',
         'size_byte',
         'url',
     ];
@@ -39,7 +40,7 @@ class SystemUploadfile extends AbstractSoftDelModel
         if (\strpos($mime_type, '/') !== false) {
             $query->where('mime_type', 'like', $mime_type);
         } else {
-            $query->whereIn('suffix', \explode(',', $mime_type));
+            $query->whereIn('suffix', \explode(',', $mime_type))->orWhereIn('client_suffix', \explode(',', $mime_type));
         }
     }
 

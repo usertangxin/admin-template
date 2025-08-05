@@ -53,5 +53,4 @@ class ModuleManagerController extends AbstractController
 
         return $this->success(message: '模块删除成功');
     }
-
 }
