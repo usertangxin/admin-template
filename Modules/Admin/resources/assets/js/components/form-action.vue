@@ -142,7 +142,7 @@ const handleGoUpdate = () => {
 }
 
 const handleDestroy = () => {
-    axios.delete('./destroy', {
+    request.delete('./destroy', {
         data: {
             ids: page.props.data.id,
         }
@@ -152,7 +152,7 @@ const handleDestroy = () => {
 }
 
 const handleRecovery = () => {
-    axios.post('./recovery', { ids: page.props.data.id, }).then(() => {
+    request.post('./recovery', { ids: page.props.data.id, }).then(() => {
         history.back()
     })
 }

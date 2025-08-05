@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Models;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Modules\Admin\Services\FileStorageService;
 
@@ -33,12 +34,17 @@ class SystemUploadfile extends AbstractSoftDelModel
     }
 
     #[Scope]
-    public function scopeMimeType($query, $mime_type)
+    protected function mime_type(Builder $query, $mime_type)
     {
         if (\strpos($mime_type, '/') !== false) {
             $query->where('mime_type', 'like', $mime_type);
         } else {
-            $query->where('suffix', 'in', \explode(',', $mime_type));
+            $query->whereIn('suffix', \explode(',', $mime_type));
         }
+    }
+
+    public function scopeIds(Builder $query, $ids)
+    {
+        $query->whereIn('id', $ids);
     }
 }

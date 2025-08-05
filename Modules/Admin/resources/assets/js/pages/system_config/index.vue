@@ -97,7 +97,7 @@ const handleSubmit = (data) => {
         Message.warning('没有需要保存的配置');
         return;
     }
-    axios.post('./save', { data: kvs }).then(function () {
+    request.post('./save', { data: kvs }).then(function () {
         router.reload()
         setTimeout(() => {
             refreshOriginKvs()

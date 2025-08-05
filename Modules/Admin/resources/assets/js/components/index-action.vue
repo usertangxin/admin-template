@@ -222,7 +222,7 @@ const toCreate = () => {
 }
 
 const handleDestroy = () => {
-    axios.delete('./destroy', {
+    request.delete('./destroy', {
         data: {
             ids: store.selectedKeys.value,
         }
@@ -233,7 +233,7 @@ const handleDestroy = () => {
 }
 
 const handleRealDestroy = () => {
-    axios.delete('./real-destroy', {
+    request.delete('./real-destroy', {
         data: {
             ids: store.selectedKeys.value,
         }
@@ -244,7 +244,7 @@ const handleRealDestroy = () => {
 }
 
 const handleRecovery = () => {
-    axios.post('./recovery', { ids: store.selectedKeys.value, }).then(() => {
+    request.post('./recovery', { ids: store.selectedKeys.value, }).then(() => {
         store.selectedKeys.value = []
         router.reload();
     })

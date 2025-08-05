@@ -1,14 +1,17 @@
 <template>
-    <a-upload :file-list="innerFileList" @update:file-list="handleFileListUpdate" @before-upload="handleBeforeUpload"
-        :accept="comAccept" :custom-request="customRequest" v-bind="$attrs" :multiple="multiple">
+    <a-upload :file-list="innerFileList" @before-upload="handleBeforeUpload" @before-remove="handleBeforeRemove" :accept="comAccept"
+        :custom-request="customRequest" :multiple="multiple" :limit="limit" v-bind="$attrs">
         <template v-for="key in Object.keys($slots)" #[key] :key="key">
             <slot :name="key"></slot>
         </template>
         <template v-if="!$slots['upload-button']" #upload-button>
             <div class="flex flex-col justify-center items-center p-2 pt-3 custom-box">
                 <div class="relative">
-                    <div class=" left-0 top-0 right-0 bottom-0 m-auto translate-y-[3px] absolute w-[12px] h-[20px] bg-white"></div>
-                    <icon icon="fas fa-cloud-arrow-up" class="relative text-[30px]" style="color: rgb(var(--primary-6));">
+                    <div
+                        class=" left-0 top-0 right-0 bottom-0 m-auto translate-y-[3px] absolute w-[12px] h-[20px] bg-white">
+                    </div>
+                    <icon icon="fas fa-cloud-arrow-up" class="relative text-[30px]"
+                        style="color: rgb(var(--primary-6));">
                     </icon>
                 </div>
                 <div class=" font-bold mt-3 text-[16px]">点击上传或拖拽文件</div>
@@ -17,7 +20,8 @@
                         {{ comAccept }}
                     </div>
                 </a-tooltip>
-                <a-button class="history-btn" @click.prevent.stop="visibleResourceModel = true" type="primary" size="mini">
+                <a-button class="history-btn" @click.prevent.stop="visibleResourceModel = true" type="primary"
+                    size="mini">
                     <template #icon>
                         <icon icon="fas fa-folder-open" class=" text-[14px] -mb-[1px]"></icon>
                     </template>
@@ -26,14 +30,15 @@
             </div>
         </template>
     </a-upload>
-    <resource-model v-model:visible="visibleResourceModel" :src="route('web.admin.SystemUploadFile.index') + '?mime_type=' + mimeType"></resource-model>
+    <resource-model v-model:visible="visibleResourceModel" :multiple="multiple" :limit="limit - innerFileList.length"
+        :src="route('web.admin.SystemUploadFile.index') + '?&mime_type=' + mimeType" @ok="handleOk"></resource-model>
 </template>
 
 <script setup>
 import { config_map } from '../data-share/config';
 import { Message } from '@arco-design/web-vue';
 import Decimal from 'decimal.js';
-import _ from 'lodash';
+import _, { multiply } from 'lodash';
 import { computed, ref, watch, nextTick } from 'vue';
 
 // 定义组件属性
@@ -65,7 +70,11 @@ const props = defineProps({
     multiple: {
         type: Boolean,
         default: false
-    }
+    },
+    limit: {
+        type: Number,
+        default: 0
+    },
 });
 
 const emit = defineEmits(['update:modelValue', 'change']);
@@ -75,9 +84,7 @@ const visibleResourceModel = ref(false);
 // 内部文件列表 - 使用普通数组而非响应式数组存储原始数据
 let fileListData = [];
 // 响应式引用，用于触发UI更新
-const innerFileList = ref([...fileListData]);
-// 跟踪已上传成功的文件URL
-let uploadedUrls = props.multiple ? [] : null;
+const innerFileList = ref([]);
 
 // 计算接受的文件类型
 const comAccept = computed(() => {
@@ -90,19 +97,6 @@ const comAccept = computed(() => {
 const mimeType = computed(() => {
     return comAccept.value.replace(/\./g, '');
 });
-
-// 处理文件列表更新 - 减少更新频率
-const handleFileListUpdate = (newList) => {
-    // 深度比较，只有实际变化时才更新
-    if (!isEqual(newList, fileListData)) {
-        fileListData = [...newList];
-        // 使用nextTick减少连续更新
-        nextTick(() => {
-            innerFileList.value = [...fileListData];
-            syncUrlsFromFileList();
-        });
-    }
-};
 
 // 处理上传前的校验
 const handleBeforeUpload = (file) => {
@@ -120,6 +114,19 @@ const handleBeforeUpload = (file) => {
     return true;
 };
 
+const handleOk = (selectedKeys) => {
+    request.get(route('web.admin.SystemUploadFile.index'), {
+        params: {
+            ids: selectedKeys,
+            '__list_type__': 'all',
+        }
+    }).then(res => {
+        if (res.code == 0) {
+
+        }
+    })
+}
+
 // 自定义上传逻辑
 const customRequest = (option) => {
     const { onProgress, onError, onSuccess, fileItem } = option;
@@ -129,7 +136,7 @@ const customRequest = (option) => {
     if (props.storageMode) data.append('storage_mode', props.storageMode);
     if (props.uploadMode) data.append('upload_mode', props.uploadMode);
 
-    axios.post(route('web.admin.SystemUploadFile.upload'), data, {
+    request.post(route('web.admin.SystemUploadFile.upload'), data, {
         onUploadProgress: (progressEvent) => {
             const percent = progressEvent.total
                 ? Math.round((progressEvent.loaded / progressEvent.total) * 100)
@@ -144,8 +151,21 @@ const customRequest = (option) => {
                 throw new Error('上传成功但未返回URL');
             }
 
-            // 更新URL
-            updateUrlsWithNewFile(fileUrl);
+            if (props.multiple) {
+                innerFileList.value.push({
+                    uid: res.data[0].hash,
+                    status: 'done',
+                    url: fileUrl,
+                    name: res.data[0].object_name,
+                })
+            } else {
+                innerFileList.value = [{
+                    uid: res.data[0].hash,
+                    status: 'done',
+                    url: fileUrl,
+                    name: res.data[0].object_name,
+                }]
+            }
 
             // 通知上传组件成功
             onSuccess({ ...res.data[0], url: fileUrl });
@@ -160,118 +180,21 @@ const customRequest = (option) => {
     });
 };
 
-// 更新URL列表
-const updateUrlsWithNewFile = (url) => {
-    if (!props.multiple) {
-        // 单文件模式
-        if (uploadedUrls !== url) {
-            uploadedUrls = url;
-            emitValues();
-        }
+const handleBeforeRemove = (item) => {
+    innerFileList.value = innerFileList.value.filter(i => i.uid != item.uid);
+}
+
+watch(innerFileList,(newValue) => {
+    if(props.multiple) {
+        let arr = [];
+        _.each(newValue, (item) => {
+            arr.push(item.url);
+        })
+        emit('update:modelValue', arr);
     } else {
-        // 多文件模式 - 避免重复
-        if (!uploadedUrls.includes(url)) {
-            uploadedUrls = [...uploadedUrls, url];
-            emitValues();
-        }
+        emit('update:modelValue', newValue[0]?.url ?? '');
     }
-};
-
-// 从文件列表同步URL
-const syncUrlsFromFileList = () => {
-    const successfulUrls = fileListData
-        .filter(item => item.status === 'done' && item.response?.url)
-        .map(item => item.response.url);
-
-    if (props.multiple) {
-        // 多文件模式
-        if (!arraysEqual(successfulUrls, uploadedUrls)) {
-            uploadedUrls = [...successfulUrls];
-            emitValues();
-        }
-    } else {
-        // 单文件模式
-        const currentUrl = successfulUrls[0] || null;
-        if (currentUrl !== uploadedUrls) {
-            uploadedUrls = currentUrl;
-            emitValues();
-        }
-    }
-};
-
-// 触发外部值更新
-const emitValues = () => {
-    // 使用nextTick减少连续触发
-    nextTick(() => {
-        const emitValue = props.multiple ? [...uploadedUrls] : uploadedUrls;
-        emit('update:modelValue', emitValue);
-        emit('change', emitValue);
-    });
-};
-
-
-// 工具函数：深度比较两个值是否相等
-const isEqual = (a, b) => {
-    // 处理基本类型和null
-    if (a === b) return true;
-
-    // 处理数组
-    if (Array.isArray(a) && Array.isArray(b)) {
-        if (a.length !== b.length) return false;
-        return a.every((item, index) => isEqual(item, b[index]));
-    }
-
-    // 处理对象
-    if (typeof a === 'object' && a !== null && typeof b === 'object' && b !== null) {
-        const keysA = Object.keys(a);
-        const keysB = Object.keys(b);
-
-        if (keysA.length !== keysB.length) return false;
-
-        return keysA.every(key => {
-            if (!keysB.includes(key)) return false;
-            return isEqual(a[key], b[key]);
-        });
-    }
-
-    return false;
-};
-
-// 监听外部值变化
-watch(() => props.modelValue, (newValue) => {
-    // 避免循环更新
-    const currentValue = props.multiple ? [...uploadedUrls] : uploadedUrls;
-    if (isEqual(newValue, currentValue)) return;
-
-    nextTick(() => {
-        if (!newValue) {
-            fileListData = [];
-            uploadedUrls = props.multiple ? [] : null;
-            innerFileList.value = [];
-            return;
-        }
-
-        const urls = Array.isArray(newValue) ? newValue : [newValue];
-        uploadedUrls = props.multiple ? [...urls] : urls[0];
-
-        // 更新内部文件列表
-        fileListData = urls.map(url => ({
-            name: url.split('/').pop(),
-            status: 'done',
-            response: { url },
-            url
-        }));
-        innerFileList.value = [...fileListData];
-    });
-}, { immediate: true });
-
-// 工具函数：比较数组是否相等
-const arraysEqual = (arr1, arr2) => {
-    if (!Array.isArray(arr1) || !Array.isArray(arr2) || arr1.length !== arr2.length) {
-        return false;
-    }
-    return arr1.every((val, index) => val === arr2[index]);
-};
+})
 
 </script>
 

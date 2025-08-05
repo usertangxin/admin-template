@@ -55,7 +55,7 @@ const handleExpandAll = () => {
 }
 
 const handleRefreshCache = () => {
-    axios.put('./refresh-system-menu-cache')
+    request.put('./refresh-system-menu-cache')
         .then(res => {
             router.reload()
         })

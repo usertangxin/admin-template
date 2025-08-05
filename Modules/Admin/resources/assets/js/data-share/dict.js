@@ -16,7 +16,7 @@ watch([System_Dict_Hash, System_Dict_Group_Hash], () => {
         || System_Dict_Group_Hash.value != window.localStorage.getItem('system_dict_group_hash')
     ) {
 
-        axios.get('/web/admin/SystemDict/index').then(res => {
+        request.get('/web/admin/SystemDict/index').then(res => {
             if (res.code === 0) {
                 dict_list.value = res.data.list
                 dict_group_list.value = res.data.group_list

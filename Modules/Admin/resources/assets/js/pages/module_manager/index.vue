@@ -34,7 +34,7 @@ const store = provideIndexShareStore({
 })
 
 const handleEnable = (record) => {
-    axios.post('./change-status', {
+    request.post('./change-status', {
         name: record.name,
         status: true,
     }).then(() => {
@@ -43,7 +43,7 @@ const handleEnable = (record) => {
 }
 
 const handleDisable = (record) => {
-    axios.post('./change-status', {
+    request.post('./change-status', {
         name: record.name,
         status: false,
     }).then(() => {
@@ -52,7 +52,7 @@ const handleDisable = (record) => {
 }
 
 const handleDestroy = (record) => {
-    axios.delete('./destroy', {
+    request.delete('./destroy', {
         data: {
             name: record.name,
         }

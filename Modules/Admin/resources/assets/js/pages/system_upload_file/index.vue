@@ -81,7 +81,7 @@ const handleGetTemporaryUrl = (record) => {
         return;
     }
     const expiration = moment.duration(temporaryUrlExpireValue.value, temporaryUrlExpire.value).asSeconds();
-    axios.get('./temporary-url',{
+    request.get('./temporary-url',{
         params: {
             id: currentRecord.value.id,
             expiration: expiration,

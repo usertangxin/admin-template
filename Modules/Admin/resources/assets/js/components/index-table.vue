@@ -1,9 +1,9 @@
 <template>
     <a-table ref="tableRef" :bordered="{
         cell: true,
-    }" row-key="id" :row-selection="{ type: 'checkbox', showCheckedAll: true, }"
-        v-model:selectedKeys="store.selectedKeys.value" :columns="comColumns" :data="data" :pagination="pagination"
-        @page-change="handlePageChange" @page-size-change="handlePageSizeChange" v-bind="attrs">
+    }" :row-key="rowKey" :row-selection="comRowSelection" v-model:selectedKeys="store.selectedKeys.value"
+        :columns="comColumns" :data="data" :pagination="pagination" @page-change="handlePageChange"
+        @page-size-change="handlePageSizeChange" v-bind="attrs">
         <template v-for="(column, index) in comColumns" :key="index" v-slot:[column.slotName]="scope">
             <slot :name="column.slotName" v-bind="scope">
                 <template v-if="column.slotName === 'action-column'">
@@ -82,8 +82,7 @@
                         v-model="scope.record[column.dataIndex]"
                         :disabled="scope.record[column.dataIndex + '_disabled'] ?? column.disabled ?? false"
                         :checked-value="column.checkedValue ?? true" :unchecked-value="column.uncheckedValue ?? false"
-                        :checked-text="column.checkedText ?? ''"
-                        :unchecked-text="column.uncheckedText ?? ''"
+                        :checked-text="column.checkedText ?? ''" :unchecked-text="column.uncheckedText ?? ''"
                         :beforeChange="async (newValue) => await handleSwitchBeforeChange(newValue, scope.record, column.dataIndex)">
                         <template #checked-icon>
                             <a-icon icon="check" />
@@ -95,7 +94,7 @@
                 </template>
                 <template v-else-if="column.type === 'link'">
                     <a-link :href="scope.record[column.dataIndex]" target="_blank">{{ scope.record[column.dataIndex]
-                        }}</a-link>
+                    }}</a-link>
                 </template>
             </slot>
         </template>
@@ -108,13 +107,37 @@ import { useInjectIndexShareStore } from '../IndexShare'
 import { router, usePage } from '@inertiajs/vue3';
 import { recursiveFilter } from '../util';
 import _ from 'lodash'
+import qs from 'qs'
+
+let search = location.search;
+let params = qs.parse(search, { ignoreQueryPrefix: true })
 
 const page = usePage()
 const attrs = useAttrs()
 const tableRef = ref(null);
+const props = defineProps({
+    rowKey: {
+        type: String,
+        default: 'id'
+    }
+})
 
 const store = useInjectIndexShareStore()
-const data = store.listData
+const data = computed(()=>{
+    return store.listData.value.map(item=>{
+        if (params['__multiple__'] === 'true') {
+            if (store.selectedKeys.value.length >= params['__limit__'] && params['__limit__'] > 0) {
+                if(!store.selectedKeys.value.includes(item[props.rowKey])) {
+                    item['old_disabled'] ??= item['disabled'] ?? false
+                    item['disabled'] = true
+                }
+            } else {
+                item['disabled'] = item['old_disabled']
+            }
+        }
+        return item
+    })
+})
 
 const pagination = computed(() => {
     return {
@@ -139,6 +162,10 @@ watch(() => store.searchQuery.value.__per_page__, (newVal, oldVal) => {
     }
 })
 
+window.getSelectedKeys = () => {
+    return store.selectedKeys.value
+}
+
 const comColumns = computed(() => {
     const newColumns = JSON.parse(JSON.stringify(store.columns.value))
     const columns = recursiveFilter(newColumns, item => {
@@ -154,8 +181,12 @@ const comColumns = computed(() => {
     return [...columns, store.actionColumn.value]
 })
 
+const comRowSelection = computed(() => {
+    return { type: params['__multiple__'] === 'true' ? 'checkbox' : 'radio', showCheckedAll: params['__multiple__'] && params['__limit__'] == 0, }
+})
+
 const handleSwitchBeforeChange = async (newValue, record, dataIndex) => {
-    const res = await axios.post('./change-status', {...record,status: newValue})
+    const res = await request.post('./change-status', { ...record, status: newValue })
     return res.data.code === 0
 }
 
@@ -211,7 +242,7 @@ const handleUpdate = (record) => {
 }
 
 const handleDestroy = (record) => {
-    axios.delete('./destroy', {
+    request.delete('./destroy', {
         data: {
             ids: record.id,
         }
@@ -221,7 +252,7 @@ const handleDestroy = (record) => {
 }
 
 const handleRealDestroy = (record) => {
-    axios.delete('./real-destroy', {
+    request.delete('./real-destroy', {
         data: {
             ids: record.id,
         }
@@ -231,7 +262,7 @@ const handleRealDestroy = (record) => {
 }
 
 const handleRecovery = (record) => {
-    axios.post('./recovery', { ids: record.id, }).then(() => {
+    request.post('./recovery', { ids: record.id, }).then(() => {
         router.reload();
     })
 }

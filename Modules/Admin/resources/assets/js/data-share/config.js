@@ -16,7 +16,7 @@ watch([System_Config_Hash, System_Config_Group_Hash], () => {
         || System_Config_Group_Hash.value != window.localStorage.getItem('system_config_group_hash')
     ) {
 
-        axios.get('/web/admin/SystemConfig/index').then(res => {
+        request.get('/web/admin/SystemConfig/index').then(res => {
             if (res.code === 0) {
                 config_list.value = res.data.config_list
                 config_group_list.value = res.data.config_group_list

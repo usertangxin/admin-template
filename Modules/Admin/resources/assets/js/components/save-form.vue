@@ -40,7 +40,7 @@ const handleSubmit = () => {
             return
         }
         const url = props['submit-url'] ?? ''
-        axios.post(url, formData.value).then(res => {
+        request.post(url, formData.value).then(res => {
             if (res.code === 0) {
                 window.history.back()
             }

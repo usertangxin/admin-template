@@ -31,7 +31,7 @@ instance.interceptors.response.use(function (response) {
     return Promise.reject(error);
 })
 
-window.axios = instance;
+window.request = instance;
 
 
 
