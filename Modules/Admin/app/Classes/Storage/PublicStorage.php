@@ -89,7 +89,7 @@ class PublicStorage implements UploadFileStorageInterface
                     'hash'         => $hash,
                     'mime_type'    => $file->getMimeType(),
                     'storage_path' => $path,
-                    'suffix'       => $file->extension(),
+                    'suffix'       => Str::of($file->getClientOriginalExtension())->lower()->toString(),
                     'size_byte'    => $file->getSize(),
                     'url'          => $disk->url($path),
                 ];
