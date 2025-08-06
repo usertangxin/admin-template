@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('parent_code', 100)->nullable()->comment('父菜单标识代码');
             $table->string('icon', 50)->nullable()->comment('菜单图标');
             $table->string('type', 50)->nullable()->comment('菜单类型:dict=menu_type');
-            $table->boolean('is_hidden')->nullable()->comment('是否隐藏');
+            $table->boolean('is_hidden')->default(false)->nullable()->comment('是否隐藏');
             $table->boolean('is_auto_collect')->default(false)->comment('是否自动收集');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('更新时间');

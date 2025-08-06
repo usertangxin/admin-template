@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('db_username')->comment('数据库用户名');
             $table->string('db_password')->comment('数据库密码');
             $table->string('db_hostport')->comment('数据库连接端口');
-            $table->boolean('status')->nullable()->default(true)->comment('状态:dict=data_status');
+            $table->string('status')->nullable()->default('normal')->comment('状态:dict=data_status');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('更新时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');

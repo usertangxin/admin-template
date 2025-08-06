@@ -52,6 +52,7 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
     {
         return [
             'backend_setting' => 'json',
+            'is_root'         => 'boolean',
         ];
     }
 
