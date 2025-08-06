@@ -1,6 +1,6 @@
 import './axios'
 import { Boot } from '@wangeditor/editor'
-import selectFile from './components/wang-editor-menu/select-file'
+import selectImage from './components/wang-editor-menu/select-image'
 import { router } from '@inertiajs/vue3';
 import ArcoVue from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
@@ -31,9 +31,9 @@ import SaveForm from './components/save-form.vue'
 import ResourceModel from './components/resource-model.vue'
 
 const selectFileConfig = {
-  key: 'selectFile',
+  key: 'selectImage',
   factory() {
-    return new selectFile()
+    return new selectImage()
   },
 }
 

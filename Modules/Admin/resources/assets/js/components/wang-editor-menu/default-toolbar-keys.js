@@ -57,7 +57,7 @@ export default [
         "menuKeys": [
             "insertImage",
             "uploadImage",
-            "selectFile",
+            "selectImage",
         ]
     },
     {
