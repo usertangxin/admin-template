@@ -31,11 +31,12 @@
             <div class="header">
                 <div class="flex-1 h-full relative left">
                     <div class=" absolute top-0 left-0 right-0 bottom-0">
-                        <a-scrollbar style="height: 60px;overflow-x: scroll;width: 100%;">
+                        <a-scrollbar ref="tabScrollbarRef" style="height: 60px;overflow-x: scroll;width: 100%;">
                             <div class="tabs">
                                 <template v-for="(item, index) in openMenus" :key="index">
                                     <a-dropdown trigger="contextMenu" @popup-visible-change="onPopupVisibleChange">
-                                        <div class="tab-item" :class="{ 'active': item.code == currOpenMenuCode }"
+                                        <div :id="`tab-item-${item.code}`" class="tab-item"
+                                            :class="{ 'active': item.code == currOpenMenuCode }"
                                             @click="handleClickTab(item)">
                                             {{ item.name }}
                                             <IconClose @click.prevent.stop="handleClickCloseTab(item, index)">
@@ -123,6 +124,7 @@ for (const [path, module] of Object.entries(navActionsMeta)) {
 
 
 const iframeRef = ref(null)
+const tabScrollbarRef = ref(null)
 const contentMask = ref(false)
 const fullScreen = ref(false)
 const currentMainMenuIndex = ref(0)
@@ -254,7 +256,7 @@ const handleClickCloseAllTab = (tab, index) => {
 }
 
 const onClickMenuItem = (key) => {
-    console.log(key)
+    // console.log(key)
     const menu = props.data.system_menus_list[key];
     openMenu(menu)
 }
@@ -310,6 +312,10 @@ watch(() => currOpenMenuCode.value, () => {
                 }
             }
         })
+        if (tabScrollbarRef.value) {
+            let left = document.getElementById(`tab-item-${currOpenMenuCode.value}`).offsetLeft
+            tabScrollbarRef.value.scrollLeft(left)
+        }
     })
 })
 
