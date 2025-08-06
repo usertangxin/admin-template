@@ -4,7 +4,6 @@
             :defaultConfig="toolbarConfig" :mode="mode" />
         <Editor style="height: 500px; overflow-y: hidden;" v-model="valueHtml" :defaultConfig="editorConfig"
             :mode="mode" @onCreated="handleCreated" />
-        还需要适配上传等接口
     </div>
 </template>
 
@@ -13,6 +12,9 @@ import '@wangeditor/editor/dist/css/style.css' // 引入 css
 
 import { onBeforeUnmount, ref, shallowRef, onMounted, defineModel } from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import { DomEditor } from '@wangeditor/editor'
+import { insertImageNode } from '@wangeditor/basic-modules'
+import defaultToolbarKeys from './wang-editor-menu/default-toolbar-keys'
 
 const mode = 'default'
 // 编辑器实例，必须用 shallowRef
@@ -28,8 +30,17 @@ onMounted(() => {
     // }, 1500)
 })
 
-const toolbarConfig = {}
-const editorConfig = { placeholder: '请输入内容...' }
+const toolbarConfig = {
+    toolbarKeys: defaultToolbarKeys,
+}
+const editorConfig = {
+    placeholder: '请输入内容...',
+    MENU_CONF: {
+        uploadImage: {
+
+        }
+    }
+}
 
 // 组件销毁时，也及时销毁编辑器
 onBeforeUnmount(() => {
