@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('mime_type')->nullable()->comment('资源类型');
             $table->string('storage_path', 100)->nullable()->index('system_uploadfile_storage_path')->comment('存储目录');
             $table->string('suffix', 10)->nullable()->comment('文件后缀');
-            $table->string('client_suffix', 10)->nullable()->comment('客户端文件后缀');
+            $table->string('origin_suffix', 10)->nullable()->comment('客户端文件后缀');
             $table->unsignedBigInteger('size_byte')->nullable()->comment('字节数');
             $table->string('url')->nullable()->comment('url地址');
             $table->string('remark')->nullable()->comment('备注');
