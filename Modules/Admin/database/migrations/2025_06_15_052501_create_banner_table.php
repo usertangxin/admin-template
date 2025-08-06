@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('link')->nullable()->comment('跳转连接');
             $table->string('link_type')->nullable()->comment('跳转类型:dict=banner_link_type');
             $table->string('position')->nullable()->comment('位置:dict=banner_position');
-            $table->integer('sort')->nullable()->default(0)->comment('排序');
+            $table->unsignedInteger('sort')->nullable()->default(0)->comment('排序');
             $table->boolean('status')->nullable()->comment('状态:dict=data_status');
             $table->unsignedInteger('created_by')->nullable()->comment('创建者');
             $table->unsignedInteger('updated_by')->nullable()->comment('更新者');

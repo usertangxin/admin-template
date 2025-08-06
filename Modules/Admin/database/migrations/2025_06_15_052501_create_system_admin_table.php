@@ -29,8 +29,8 @@ return new class extends Migration
             $table->text('remark')->nullable()->comment('备注');
             $table->rememberToken()->nullable()->comment('记住我');
             $table->boolean('is_root')->default(false)->comment('根管理员');
-            $table->integer('created_by')->nullable()->comment('创建者');
-            $table->integer('updated_by')->nullable()->comment('更新者');
+            $table->unsignedInteger('created_by')->nullable()->comment('创建者');
+            $table->unsignedInteger('updated_by')->nullable()->comment('更新者');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('修改时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');

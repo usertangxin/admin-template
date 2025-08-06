@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('system_notices', function (Blueprint $table) {
             $table->comment('系统公告表');
             $table->increments('id')->comment('主键');
-            $table->integer('message_id')->nullable()->index('system_notice_message_id')->comment('消息ID');
+            $table->unsignedInteger('message_id')->nullable()->index('system_notice_message_id')->comment('消息ID');
             $table->string('title')->nullable()->comment('标题');
             $table->string('type', 20)->nullable()->comment('公告类型:dict=backend_notice_type');
             $table->text('content')->nullable()->comment('公告内容');
-            $table->integer('click_num')->nullable()->default(0)->comment('浏览次数');
+            $table->unsignedInteger('click_num')->nullable()->default(0)->comment('浏览次数');
             $table->string('remark')->nullable()->comment('备注');
-            $table->integer('created_by')->nullable()->comment('创建人');
-            $table->integer('updated_by')->nullable()->comment('更新人');
+            $table->unsignedInteger('created_by')->nullable()->comment('创建人');
+            $table->unsignedInteger('updated_by')->nullable()->comment('更新人');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('修改时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');

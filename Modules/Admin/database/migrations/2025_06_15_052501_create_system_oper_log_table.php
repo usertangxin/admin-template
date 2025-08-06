@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('ip_location')->nullable()->comment('IP所属地');
             $table->text('request_data')->nullable()->comment('请求数据');
             $table->string('remark')->nullable()->comment('备注');
-            $table->integer('created_by')->nullable()->comment('创建者');
-            $table->integer('updated_by')->nullable()->comment('更新者');
+            $table->unsignedInteger('created_by')->nullable()->comment('创建者');
+            $table->unsignedInteger('updated_by')->nullable()->comment('更新者');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('更新时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('imgs')->nullable()->comment('图集:type=array');
             $table->unsignedInteger('read')->default(0)->comment('阅读量');
             $table->unsignedInteger('collect')->default(0)->comment('收藏量');
-            $table->integer('sort')->nullable()->default(0)->comment('排序');
+            $table->unsignedInteger('sort')->nullable()->default(0)->comment('排序');
             $table->boolean('status')->nullable()->comment('状态:dict=data_status');
             $table->boolean('audit_status')->nullable()->comment('审核状态:dict=audit_status');
             $table->unsignedInteger('created_by')->nullable()->comment('创建者');

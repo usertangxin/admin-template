@@ -23,11 +23,11 @@ return new class extends Migration
             $table->string('storage_path', 100)->nullable()->index('system_uploadfile_storage_path')->comment('存储目录');
             $table->string('suffix', 10)->nullable()->comment('文件后缀');
             $table->string('client_suffix', 10)->nullable()->comment('客户端文件后缀');
-            $table->bigInteger('size_byte')->nullable()->comment('字节数');
+            $table->unsignedBigInteger('size_byte')->nullable()->comment('字节数');
             $table->string('url')->nullable()->comment('url地址');
             $table->string('remark')->nullable()->comment('备注');
-            $table->integer('created_by')->nullable()->comment('创建者');
-            $table->integer('updated_by')->nullable()->comment('更新者');
+            $table->unsignedInteger('created_by')->nullable()->comment('创建者');
+            $table->unsignedInteger('updated_by')->nullable()->comment('更新者');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('修改时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');

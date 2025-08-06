@@ -20,8 +20,8 @@ return new class extends Migration
             $table->smallInteger('status')->nullable()->default(1)->comment('状态:dict=data_status');
             $table->unsignedSmallInteger('sort')->nullable()->default(0)->comment('排序');
             $table->string('remark')->nullable()->comment('备注');
-            $table->integer('created_by')->nullable()->comment('创建者');
-            $table->integer('updated_by')->nullable()->comment('更新者');
+            $table->unsignedInteger('created_by')->nullable()->comment('创建者');
+            $table->unsignedInteger('updated_by')->nullable()->comment('更新者');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('修改时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');
