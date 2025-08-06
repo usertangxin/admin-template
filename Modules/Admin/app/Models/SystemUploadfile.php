@@ -44,6 +44,12 @@ class SystemUploadfile extends AbstractSoftDelModel
         }
     }
 
+    #[Scope]
+    protected function object_name(Builder $query, $value)
+    {
+        $query->whereLike('object_name', "%{$value}%")->orWhereLike('origin_name', "%{$value}%");
+    }
+
     public function scopeIds(Builder $query, $ids)
     {
         $query->whereIn('id', $ids);
