@@ -313,8 +313,11 @@ watch(() => currOpenMenuCode.value, () => {
             }
         })
         if (tabScrollbarRef.value) {
-            let left = document.getElementById(`tab-item-${currOpenMenuCode.value}`).offsetLeft
-            tabScrollbarRef.value.scrollLeft(left)
+            const element = document.getElementById(`tab-item-${currOpenMenuCode.value}`)
+            if(element) {
+                let left = element.offsetLeft
+                tabScrollbarRef.value.scrollLeft(left)
+            }
         }
     })
 })
