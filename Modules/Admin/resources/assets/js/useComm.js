@@ -1,6 +1,7 @@
 import './axios'
 import { Boot } from '@wangeditor/editor'
 import selectImage from './components/wang-editor-menu/select-image'
+import selectVideo from './components/wang-editor-menu/select-video'
 import { router } from '@inertiajs/vue3';
 import ArcoVue from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
@@ -37,7 +38,15 @@ const selectFileConfig = {
   },
 }
 
+const selectVideoConfig = {
+  key: 'selectVideo',
+  factory() {
+    return new selectVideo()
+  },
+}
+
 Boot.registerMenu(selectFileConfig)
+Boot.registerMenu(selectVideoConfig)
 
 document.body.setAttribute('arco-theme', window.localStorage.getItem('arco-theme') || 'light')
 

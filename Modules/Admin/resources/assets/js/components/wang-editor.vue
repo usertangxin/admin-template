@@ -4,7 +4,6 @@
             :defaultConfig="toolbarConfig" :mode="mode" />
         <Editor style="height: 500px; overflow-y: hidden;" v-model="valueHtml" :defaultConfig="editorConfig"
             :mode="mode" @onCreated="handleCreated" />
-        还需要适配视频上传
     </div>
 
     <resource-model v-model:visible="visibleResourceModel" :multiple="true"
@@ -60,6 +59,28 @@ const selectModeMap = {
             })
         }
     },
+    video: {
+        mimeType: reactive(config_map.value['upload_allow_video'].value),
+        callback: function (selectedKeys) {
+            request.get(route('web.admin.SystemUploadFile.index'), {
+                params: {
+                    ids: selectedKeys,
+                    '__list_type__': 'all',
+                }
+            }).then(res => {
+                if (res.code == 0) {
+                    res.data.forEach(item => {
+                        editorRef.value.insertNode({
+                            type: 'video',
+                            src: item.url,
+                            // poster: item.url, // 封面
+                            children: [{ text: '' }],
+                        })
+                    })
+                }
+            })
+        }
+    }
 }
 
 const selectMode = ref('image')
@@ -73,6 +94,11 @@ onMounted(() => {
 
 const handleSelectImage = () => {
     selectMode.value = 'image'
+    visibleResourceModel.value = true;
+}
+
+const handleSelectVideo = () => {
+    selectMode.value = 'video'
     visibleResourceModel.value = true;
 }
 
@@ -107,6 +133,30 @@ const editorConfig = {
                 })
 
             },
+        },
+        uploadVideo: {
+            allowedFileTypes: _.map(config_map.value['upload_allow_video'].value.split(','), ext => ext.startsWith('.') ? ext : `.${ext}`),
+            maxFileSize: config_map.value['upload_size_video'].value,
+            // 自定义上传
+            async customUpload(file, insertFn) {
+
+                const fileSize = config_map.value['upload_size_video'].value;
+                if (file.size > fileSize) {
+                    const MB = new Decimal(fileSize).div(1024 * 1024).toFixed(2);
+                    Message.error(`文件大小不能超过${MB}MB`);
+                    return false;
+                }
+
+                const data = new FormData();
+                data.append('file', file);
+                data.append('upload_mode', 'video');
+
+                const res = await request.post(route('web.admin.SystemUploadFile.upload'), data)
+
+                res.data.forEach(item => {
+                    insertFn(item.url, '')
+                })
+            }
         }
     }
 }
@@ -121,6 +171,7 @@ onBeforeUnmount(() => {
 const handleCreated = (editor) => {
     editorRef.value = editor // 记录 editor 实例，重要！
     editor.on('select-image', handleSelectImage)
+    editor.on('select-video', handleSelectVideo)
 }
 
 </script>
