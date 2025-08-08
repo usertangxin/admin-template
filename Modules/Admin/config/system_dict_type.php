@@ -37,11 +37,6 @@ return [
         'remark' => null,
     ],
     [
-        'name'   => '附件类型',
-        'code'   => 'attachment_type',
-        'remark' => null,
-    ],
-    [
         'name'   => '菜单类型',
         'code'   => 'menu_type',
         'remark' => '',
