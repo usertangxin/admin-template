@@ -1,14 +1,10 @@
 <template>
     <div class=" m-3 p-3 page-content">
 
-        <a-alert class="mb-2">
-            温馨提示：切换配置组前，如果当前配置页有更改，记得保存！
-        </a-alert>
-
         <a-row :gutter="20" align="stretch">
             <a-col flex="none">
                 <a-list class=" sticky top-6" :virtualListProps="{
-                    height: 530,
+                    height: groupHeight,
                 }" :data="config_group_list">
                     <template #header>
                         配组组
@@ -58,6 +54,22 @@ const config_group_list = computed(function () {
 
 const config_list = computed(function () {
     return props.data.config_list;
+})
+
+const groupHeight = ref(0)
+
+const setGroupHeight = () => {
+    groupHeight.value = window.innerHeight - 100
+}
+setGroupHeight()
+let timer = null
+window.addEventListener('resize', () => {
+    if (timer) {
+        clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+        setGroupHeight()
+    }, 100)
 })
 
 const origin_kvs = [];
