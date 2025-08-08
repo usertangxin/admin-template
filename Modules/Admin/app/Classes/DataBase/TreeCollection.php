@@ -2,7 +2,7 @@
 
 namespace Modules\Admin\Classes\DataBase;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Modules\Admin\Classes\Utils\ArrUtil;
 use Modules\Admin\Interfaces\TreeCollectionInterface;
 
