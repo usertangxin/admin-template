@@ -33,12 +33,7 @@ return [
     ],
     [
         'name'   => '消息类型',
-        'code'   => 'queue_msg_type',
-        'remark' => null,
-    ],
-    [
-        'name'   => '后台公告类型',
-        'code'   => 'backend_notice_type',
+        'code'   => 'admin_message_type',
         'remark' => null,
     ],
     [
@@ -87,8 +82,8 @@ return [
         'remark' => '',
     ],
     [
-        'name'   => '用户公告类型',
-        'code'   => 'user_notice_type',
+        'name'   => '用户消息类型',
+        'code'   => 'user_message_type',
         'remark' => '',
     ],
     [
