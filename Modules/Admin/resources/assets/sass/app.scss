@@ -7,6 +7,23 @@ body, html {
 
     --w-e-toolbar-border-color: var(--color-neutral-3);
 
+    // 添加滚动条样式
+    &::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+        background-color: var(--color-neutral-1);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--color-neutral-4);
+        // border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: var(--color-neutral-3);
+    }
+
     .w-e-full-screen-container  {
         z-index: 1;
     }
