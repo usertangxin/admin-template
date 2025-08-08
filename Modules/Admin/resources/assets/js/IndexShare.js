@@ -33,7 +33,7 @@ export function useIndexShareStore() {
     /** 刷新表格数据 */
     const fetchListData = () => {
         let urlSearch = qs.parse(location.search, { ignoreQueryPrefix: true })
-        innerFetchListData.value && router.get('', _.pickBy(_.assign({}, urlSearch, searchQuery.value,), (item, key) => {
+        innerFetchListData.value && router.get('', _.pickBy(_.assign({}, urlSearch, JSON.parse(JSON.stringify(searchQuery.value)),), (item, key) => {
             return item !== (void 0)
         }), { preserveState: true, })
     }

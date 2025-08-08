@@ -1,6 +1,29 @@
 <template>
     <div class="p-3 m-3 page-content">
-        <index-action></index-action>
+        <index-action>
+            <template #search>
+                <a-col span="4">
+                    <a-form-item label="账号" field="admin_name">
+                        <a-input v-model="store.searchQuery.value.admin_name"></a-input>
+                    </a-form-item>
+                </a-col>
+                <a-col span="4">
+                    <a-form-item label="昵称" field="nickname">
+                        <a-input v-model="store.searchQuery.value.nickname"></a-input>
+                    </a-form-item>
+                </a-col>
+                <a-col span="6">
+                    <a-form-item label="手机号" field="phone">
+                        <a-input v-model="store.searchQuery.value.phone"></a-input>
+                    </a-form-item>
+                </a-col>
+                <a-col span="6">
+                    <a-form-item label="电子邮箱" field="email">
+                        <a-input v-model="store.searchQuery.value.email"></a-input>
+                    </a-form-item>
+                </a-col>
+            </template>
+        </index-action>
         <index-table></index-table>
     </div>
 </template>

@@ -140,7 +140,7 @@ abstract class AbstractCrudController extends AbstractController
             if (Str::contains($key, '__')) {
                 continue;
             }
-            if ($value === '') {
+            if ($value === '' || $value === null) {
                 continue;
             }
             $where[$key] = $value;

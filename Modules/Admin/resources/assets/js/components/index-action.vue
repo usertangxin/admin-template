@@ -1,4 +1,17 @@
 <template>
+    <div v-show="showSearch" class="mb-3 pb-3 search-box">
+        <a-form :model="store.searchQuery.value" @submit="handleSearchSubmit" ref="searchForm">
+            <a-row :gutter="12">
+                <slot name="search"></slot>
+                <a-col flex="none">
+                    <a-space>
+                        <a-button type="primary" html-type="submit">搜索</a-button>
+                        <a-button @click="searchForm.resetFields()">重置</a-button>
+                    </a-space>
+                </a-col>
+            </a-row>
+        </a-form>
+    </div>
     <div class="mb-3">
         <a-row>
             <a-col flex="auto">
@@ -100,8 +113,8 @@
                         <slot name="fast-search-before"></slot>
                         <slot name="fast-search">
                             <template v-if="!$slots['fast-search']">
-                                <slot name="search-input-before"></slot>
-                                <slot name="search-input">
+                                <slot name="fast-search-input-before"></slot>
+                                <slot name="fast-search-input">
                                     <a-input v-if="!$slots['search-input']"
                                         v-model="store.searchQuery.value.fast_search"
                                         @press-enter="store.resetSearchQuery" placeholder="请输入内容并回车" :allow-clear="true"
@@ -115,18 +128,18 @@
                                         </template>
                                     </a-input>
                                 </slot>
-                                <slot name="search-input-after"></slot>
-                                <slot name="search-before"></slot>
-                                <slot name="search">
-                                    <a-tooltip v-if="!$slots.search" mini content="更多搜索选项" position="br">
-                                        <a-button status="normal">
+                                <slot name="fast-search-input-after"></slot>
+                                <slot name="fast-search-before"></slot>
+                                <slot name="all-search-btn">
+                                    <a-tooltip v-if="!$slots['all-search-btn']" mini content="更多搜索选项" position="br">
+                                        <a-button status="normal" @click="showSearch = !showSearch">
                                             <template #icon>
                                                 <icon icon="fas magnifying-glass-arrow-right"></icon>
                                             </template>
                                         </a-button>
                                     </a-tooltip>
                                 </slot>
-                                <slot name="search-after"></slot>
+                                <slot name="all-search-btn-after"></slot>
                             </template>
                         </slot>
                         <slot name="fast-search-after"></slot>
@@ -170,7 +183,8 @@ const store = useInjectIndexShareStore()
 const refreshList = () => {
     store.fetchListData()
 }
-
+const searchForm = ref(null)
+const showSearch = ref(false)
 const selectedKeys = useRemember([], 'indexShareColumnsSelectedKeys' + window.location.href.split('?')[0])
 const columns = ref([])
 
@@ -250,6 +264,14 @@ const handleRecovery = () => {
     })
 }
 
+const handleSearchSubmit = (e) => {
+    refreshList()
+}
+
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.search-box {
+    border-bottom: 1px solid var(--color-neutral-3);
+}
+</style>
