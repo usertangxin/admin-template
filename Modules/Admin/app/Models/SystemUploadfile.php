@@ -65,7 +65,9 @@ class SystemUploadfile extends AbstractSoftDelModel
     #[Scope]
     protected function fast_search(Builder $query, $value)
     {
-        $query->whereLike('object_name', "%$value%")->orWhereLike('origin_name', "%$value%");
+        $query->whereLike('object_name', "%$value%")
+            ->orWhereLike('origin_name', "%$value%")
+            ->orWhereLike('remark', "%$value%");
     }
 
     #[Scope]
