@@ -24,6 +24,7 @@ class SystemUploadfile extends AbstractSoftDelModel
         'origin_suffix',
         'size_byte',
         'url',
+        'remark',
     ];
 
     protected static function booted()

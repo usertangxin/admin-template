@@ -93,6 +93,7 @@ class PrivateStorage implements UploadFileStorageInterface
                     'origin_suffix' => Str::of($file->getClientOriginalExtension())->lower()->toString(),
                     'size_byte'     => $file->getSize(),
                     'url'           => $path,
+                    'remark'        => request('remark'),
                 ];
                 SystemUploadfile::create($data);
                 $arr[] = $data;

@@ -75,6 +75,10 @@ const props = defineProps({
         type: Number,
         default: 0
     },
+    remark: {
+        type: String,
+        default: ''
+    },
 });
 
 const emit = defineEmits(['update:modelValue', 'change']);
@@ -142,6 +146,7 @@ const customRequest = (option) => {
     data.append('file', fileItem.file);
     if (props.storageMode) data.append('storage_mode', props.storageMode);
     if (props.uploadMode) data.append('upload_mode', props.uploadMode);
+    if (props.remark) data.append('remark', props.remark);
 
     request.post(route('web.admin.SystemUploadFile.upload'), data, {
         onUploadProgress: (progressEvent) => {

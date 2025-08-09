@@ -107,7 +107,7 @@ const store = provideIndexShareStore({
         { title: '后缀', dataIndex: 'suffix', width: 80, },
         { title: '大小（字节）', dataIndex: 'size_byte', },
         { title: 'url地址', dataIndex: 'url', type: 'link', ellipsis: true, width: 150, },
-        { title: '备注', dataIndex: 'remark', show: false, },
+        { title: '备注', dataIndex: 'remark', },
     ],
     searchQuery: {
     }
