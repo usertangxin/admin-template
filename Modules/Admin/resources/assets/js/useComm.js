@@ -31,6 +31,7 @@ import UploadFile from './components/upload-file.vue'
 import UploadImage from './components/upload-image.vue'
 import SaveForm from './components/save-form.vue'
 import ResourceModel from './components/resource-model.vue'
+import InputRange from './components/input-range.vue'
 
 const selectFileConfig = {
   key: 'selectImage',
@@ -101,6 +102,7 @@ const useComm = {
       .component('form-action', FormAction)
       .component('form-col', FormCol)
       .component('resource-model', ResourceModel)
+      .component('input-range', InputRange)
   }
 }
 

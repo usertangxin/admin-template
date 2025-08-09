@@ -36,26 +36,13 @@
                 </a-col>
                 <a-col span="6">
                     <a-form-item label="文件大小" field="size_byte">
-                        <a-space>
-                            <template #split>
-                                -
-                            </template>
-                            <a-form-item field="size_byte.0" no-style>
-                                <a-input-number v-model="store.searchQuery.value.size_byte[0]"
-                                    placeholder="请输入文件大小"></a-input-number>
-                            </a-form-item>
-                            <a-form-item field="size_byte.1" no-style>
-                                <a-input-number v-model="store.searchQuery.value.size_byte[1]"
-                                    placeholder="请输入文件大小"></a-input-number>
-                            </a-form-item>
-                        </a-space>
+                        <input-range v-model="store.searchQuery.value.size_byte"></input-range>
                     </a-form-item>
                 </a-col>
                 <a-col span="6">
                     <a-form-item label="上传时间" field="created_at">
-                        <a-range-picker v-model="store.searchQuery.value.created_at" type="daterange"
-                            value-format="YYYY-MM-DD" range-separator="至" start-placeholder="开始日期"
-                            end-placeholder="结束日期"></a-range-picker>
+                        <a-range-picker v-model="store.searchQuery.value.created_at"
+                            value-format="YYYY-MM-DD"></a-range-picker>
                     </a-form-item>
                 </a-col>
             </template>
@@ -123,7 +110,6 @@ const store = provideIndexShareStore({
         { title: '备注', dataIndex: 'remark', show: false, },
     ],
     searchQuery: {
-        size_byte: [],
     }
 });
 

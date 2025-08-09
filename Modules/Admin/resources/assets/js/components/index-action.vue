@@ -184,7 +184,10 @@ const refreshList = () => {
     store.fetchListData()
 }
 const searchForm = ref(null)
-const showSearch = ref(false)
+const showSearch = defineModel('showSearch', {
+    default: false,
+    type: Boolean
+})
 const selectedKeys = useRemember([], 'indexShareColumnsSelectedKeys' + window.location.href.split('?')[0])
 const columns = ref([])
 
