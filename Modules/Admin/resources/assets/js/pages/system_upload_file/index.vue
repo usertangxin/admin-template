@@ -2,49 +2,49 @@
     <div class="m-3 p-3 page-content">
         <index-action>
             <template #search>
-                <a-col span="6">
+                <search-col>
                     <a-form-item label="存储模式" field="storage_mode">
                         <dict-select v-model="store.searchQuery.value.storage_mode" code="storage_mode"
                             placeholder="请选择存储模式"></dict-select>
                     </a-form-item>
-                </a-col>
-                <a-col span="6">
+                </search-col>
+                <search-col>
                     <a-form-item label="上传方式" field="upload_mode">
                         <dict-select v-model="store.searchQuery.value.upload_mode" code="upload_mode"
                             placeholder="请选择上传方式"></dict-select>
                     </a-form-item>
-                </a-col>
-                <a-col span="6">
+                </search-col>
+                <search-col>
                     <a-form-item label="原文件名" field="origin_name">
                         <a-input v-model="store.searchQuery.value.origin_name" placeholder="请输入原始文件名"></a-input>
                     </a-form-item>
-                </a-col>
-                <a-col span="6">
+                </search-col>
+                <search-col>
                     <a-form-item label="文件名" field="object_name">
                         <a-input v-model="store.searchQuery.value.object_name" placeholder="请输入文件名"></a-input>
                     </a-form-item>
-                </a-col>
-                <a-col span="6">
+                </search-col>
+                <search-col>
                     <a-form-item label="资源类型" field="mime_type">
                         <a-input v-model="store.searchQuery.value.mime_type" placeholder="请输入资源类型"></a-input>
                     </a-form-item>
-                </a-col>
-                <a-col span="6">
+                </search-col>
+                <search-col>
                     <a-form-item label="后缀" field="suffix">
                         <a-input v-model="store.searchQuery.value.suffix" placeholder="请输入后缀"></a-input>
                     </a-form-item>
-                </a-col>
-                <a-col span="6">
+                </search-col>
+                <search-col>
                     <a-form-item label="文件大小" field="size_byte">
                         <input-range v-model="store.searchQuery.value.size_byte"></input-range>
                     </a-form-item>
-                </a-col>
-                <a-col span="6">
+                </search-col>
+                <search-col>
                     <a-form-item label="上传时间" field="created_at">
                         <a-range-picker v-model="store.searchQuery.value.created_at"
                             value-format="YYYY-MM-DD"></a-range-picker>
                     </a-form-item>
-                </a-col>
+                </search-col>
             </template>
             <template #create></template>
         </index-action>

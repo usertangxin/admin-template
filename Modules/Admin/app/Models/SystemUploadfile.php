@@ -38,11 +38,7 @@ class SystemUploadfile extends AbstractSoftDelModel
     #[Scope]
     protected function mime_type(Builder $query, $mime_type)
     {
-        if (\strpos($mime_type, '/') !== false) {
-            $query->where('mime_type', 'like', $mime_type);
-        } else {
-            $query->whereIn('suffix', \explode(',', $mime_type))->orWhereIn('origin_suffix', \explode(',', $mime_type));
-        }
+        $query->where('mime_type', 'like', "%$mime_type%")->orWhereIn('suffix', \explode(',', $mime_type))->orWhereIn('origin_suffix', \explode(',', $mime_type));
     }
 
     #[Scope]

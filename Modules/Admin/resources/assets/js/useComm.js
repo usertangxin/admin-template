@@ -24,6 +24,7 @@ import IndexTable from './components/index-table.vue'
 import IndexAction from './components/index-action.vue'
 import FormAction from './components/form-action.vue'
 import FormCol from './components/form-col.vue'
+import searchCol from './components/search-col.vue';
 import DictRadio from './components/dict-radio.vue'
 import DictTag from './components/dict-tag.vue'
 import DictSelect from './components/dict-select.vue'
@@ -101,6 +102,7 @@ const useComm = {
       .component('index-action', IndexAction)
       .component('form-action', FormAction)
       .component('form-col', FormCol)
+      .component('search-col', searchCol)
       .component('resource-model', ResourceModel)
       .component('input-range', InputRange)
   }

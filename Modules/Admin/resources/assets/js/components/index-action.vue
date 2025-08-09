@@ -1,6 +1,6 @@
 <template>
     <div v-show="showSearch" class="mb-3 pb-3 search-box">
-        <a-form :model="store.searchQuery.value" @submit="handleSearchSubmit" ref="searchForm">
+        <a-form :model="store.searchQuery.value" @submit="handleSearchSubmit" ref="searchForm" :auto-label-width="true">
             <a-row :gutter="12">
                 <slot name="search"></slot>
                 <a-col flex="none">
