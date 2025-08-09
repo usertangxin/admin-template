@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('system_dicts', function (Blueprint $table) {
             $table->comment('字典数据');
-            $table->increments('id')->comment('主键');
+            $table->uuid('id')->primary()->comment('主键');
             $table->string('label', 50)->comment('字典标签');
             $table->string('value', 100)->comment('字典值');
             $table->string('code', 100)->comment('字典标示');

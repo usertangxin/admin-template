@@ -4,12 +4,15 @@ namespace Modules\Admin\Models;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Modules\Admin\Services\FileStorageService;
 
 // use Modules\Admin\Database\Factories\SystemUploadfileFactory;
 
 class SystemUploadfile extends AbstractSoftDelModel
 {
+    use HasUuids;
+    
     protected $table = 'system_uploadfiles';
 
     protected $fillable = [

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_addresses', function (Blueprint $table) {
             $table->comment('用户地址');
-            $table->increments('id')->comment('编号');
+            $table->uuid('id')->primary()->comment('编号');
             $table->unsignedInteger('user_id')->comment('用户编号');
             $table->string('name')->nullable()->comment('姓名');
             $table->string('phone')->nullable()->comment('电话');

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_banks', function (Blueprint $table) {
             $table->comment('用户银行卡');
-            $table->increments('id')->comment('编号');
+            $table->uuid('id')->primary()->comment('编号');
             $table->unsignedInteger('user_id')->comment('用户编号');
             $table->string('name')->comment('姓名');
             $table->string('bank_name')->comment('开户行');

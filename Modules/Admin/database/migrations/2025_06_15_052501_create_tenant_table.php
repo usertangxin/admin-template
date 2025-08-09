@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->comment('租户管理');
-            $table->increments('id')->comment('编号');
+            $table->uuid('id')->primary()->comment('编号');
             $table->string('name')->unique('name_unique')->comment('租户名称');
             $table->string('contact_name')->nullable()->comment('联系人姓名');
             $table->string('phone')->nullable()->comment('联系电话');

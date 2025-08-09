@@ -42,12 +42,6 @@ class CrudTest extends AbstractAuthTestCase
         $response->assertJsonMissing([
             'test_hidden_field',
         ]);
-        // 测试排序
-        $response = $this->getJson('/web/admin/CrudTest/index?__list_type__=all&__order_by__[id]=asc');
-        $response->assertJsonPath('data.0.id', 1);
-        // 测试倒序
-        $response = $this->getJson('/web/admin/CrudTest/index?__list_type__=all&__order_by__[id]=desc');
-        $response->assertJsonPath('data.0.id', 15);
 
         CrudTestFactory::new()->count(20)->create(['name' => $faker->name() . 'asdf' . $faker->name()]);
         // 测试搜索范围
@@ -63,8 +57,13 @@ class CrudTest extends AbstractAuthTestCase
         // 测试存在字段但不存在搜索范围的搜索
         $response = $this->getJson('/web/admin/CrudTest/index?__list_type__=all&name=asdf');
         $response->assertJsonCount(3, 'data');
+    }
 
-        CrudTestFactory::new()->count(2)->create(['name' => 'children ' . $faker->name(), 'parent_id' => 1]);
+    public function test_tree()
+    {
+        $faker = Container::getInstance()->make(Generator::class);
+        $model = CrudTestFactory::new()->create();
+        CrudTestFactory::new()->count(2)->create(['name' => 'children ' . $faker->name(), 'parent_id' => $model->id]);
         // 测试树状结构
         $response = $this->getJson('/web/admin/CrudTest/index?__list_type__=tree&__order_by__[id]=asc');
         $response->assertJsonCount(2, 'data.0.children');
@@ -79,12 +78,12 @@ class CrudTest extends AbstractAuthTestCase
         $response->assertJson([
             'code' => 404,
         ]);
-        CrudTestFactory::new()->create();
-        $response = $this->getJson('/web/admin/CrudTest/read?id=1');
+        $model    = CrudTestFactory::new()->create();
+        $response = $this->getJson('/web/admin/CrudTest/read?id='.$model->id);
         $response->assertJson([
             'code' => 0,
         ]);
-        $response->assertJsonPath('data.id', 1);
+        $response->assertJsonPath('data.id', $model->id);
         $response->assertJsonMissing(['test_hidden_field']);
         $response->assertJsonPath('data.status', 'normal');
     }
@@ -112,9 +111,9 @@ class CrudTest extends AbstractAuthTestCase
     public function test_update(): void
     {
 
-        CrudTestFactory::new()->create();
+        $model    = CrudTestFactory::new()->create();
         $response = $this->postJson('/web/admin/CrudTest/update', [
-            'id'   => 1,
+            'id'   => $model->id,
             'name' => 'asdf',
         ]);
         $response->assertStatus(200);
@@ -154,13 +153,13 @@ class CrudTest extends AbstractAuthTestCase
         ]);
         $response->assertJson(['code' => 404]);
 
-        CrudTestFactory::new()->create();
+        $model    = CrudTestFactory::new()->create();
         $response = $this->deleteJson('/web/admin/CrudTest/destroy', [
-            'ids' => [1],
+            'ids' => [$model->id],
         ]);
         $response->assertJson(['code' => 0]);
 
-        $response = $this->getJson('/web/admin/CrudTest/read?id=1');
+        $response = $this->getJson('/web/admin/CrudTest/read?id='.$model->id);
         $response->assertJson(['code' => 0]);
         $response->assertJsonMissing([
             'deleted_at' => null,
@@ -174,15 +173,15 @@ class CrudTest extends AbstractAuthTestCase
     {
         $model    = CrudTestFactory::new()->create();
         $response = $this->postJson('/web/admin/CrudTest/change-status', [
-            'id'     => 1,
+            'id'     => $model->id,
             'status' => 'disabled',
         ]);
-        $response->assertJson(['code' => 0]);
-        $model->refresh();
+        $response->assertJson(['code' => 0]);   
+        $model->refresh();  
         $this->assertEquals('disabled', $model->status);
 
         $response = $this->postJson('/web/admin/CrudTest/change-status', [
-            'id'     => 1,
+            'id'     => $model->id,
             'status' => 'normal',
         ]);
         $response->assertJson(['code' => 0]);

@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->comment('轮播图表');
-            $table->increments('id')->comment('编号');
+            $table->uuid('id')->primary()->comment('编号');
             $table->text('img')->nullable()->comment('图片');
             $table->text('link')->nullable()->comment('跳转连接');
             $table->string('link_type')->nullable()->comment('跳转类型:dict=banner_link_type');
             $table->string('position')->nullable()->comment('位置:dict=banner_position');
             $table->unsignedInteger('sort')->nullable()->default(0)->comment('排序');
             $table->string('status')->nullable()->comment('状态:dict=data_status');
-            $table->unsignedInteger('created_by')->nullable()->comment('创建者');
-            $table->unsignedInteger('updated_by')->nullable()->comment('更新者');
+            $table->string('created_by',36)->nullable()->comment('创建者');
+            $table->string('updated_by',36)->nullable()->comment('更新者');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('修改时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');

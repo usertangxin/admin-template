@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('system_role_menus', function (Blueprint $table) {
             $table->comment('角色与菜单关联表');
-            $table->increments('id')->comment('编号');
+            $table->uuid('id')->primary()->comment('编号');
             $table->unsignedInteger('role_id')->index('system_role_menu_idx_role_id')->comment('角色主键');
             $table->unsignedInteger('url')->index('system_role_menu_idx_url')->comment('菜单');
         });

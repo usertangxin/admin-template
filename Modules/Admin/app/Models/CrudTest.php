@@ -4,6 +4,7 @@ namespace Modules\Admin\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 // use Modules\Admin\Database\Factories\CrudTestFactory;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class CrudTest extends AbstractSoftDelModel
 {
     use HasFactory;
+    use HasUuids;
 
     protected $table = 'crud_tests';
 

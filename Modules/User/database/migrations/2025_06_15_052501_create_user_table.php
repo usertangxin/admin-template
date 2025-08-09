@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->comment('用户表');
-            $table->increments('id')->comment('编号');
+            $table->uuid('id')->primary()->comment('编号');
             $table->unsignedInteger('parent_id')->default(0)->comment('上级编号');
             $table->text('level')->nullable()->comment('关系层级');
             $table->string('nickname', 191)->nullable()->comment('昵称');

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('system_role_depts', function (Blueprint $table) {
             $table->comment('角色与部门关联表');
-            $table->increments('id')->comment('编号');
+            $table->uuid('id')->primary()->comment('编号');
             $table->unsignedInteger('role_id')->index('system_role_dept_idx_role_id')->comment('系统角色主键');
             $table->unsignedInteger('dept_id')->index('system_role_dept_idx_dept_id')->comment('部门主键');
         });

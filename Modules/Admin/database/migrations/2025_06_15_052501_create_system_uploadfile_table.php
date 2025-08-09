@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('system_uploadfiles', function (Blueprint $table) {
             $table->comment('附件管理表');
-            $table->increments('id')->comment('主键');
+            $table->uuid('id')->primary()->comment('主键');
             $table->string('storage_mode')->nullable()->default('public')->comment('存储模式:dict=upload_mode');
             $table->string('upload_mode')->nullable()->default('file')->comment('上传模式:dict=upload_mode');
             $table->string('origin_name')->nullable()->comment('原文件名');
@@ -26,8 +26,8 @@ return new class extends Migration
             $table->unsignedBigInteger('size_byte')->nullable()->comment('字节数');
             $table->string('url')->nullable()->comment('url地址');
             $table->string('remark')->nullable()->comment('备注');
-            $table->unsignedInteger('created_by')->nullable()->comment('创建者');
-            $table->unsignedInteger('updated_by')->nullable()->comment('更新者');
+            $table->string('created_by',36)->nullable()->comment('创建者');
+            $table->string('updated_by',36)->nullable()->comment('更新者');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('修改时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');

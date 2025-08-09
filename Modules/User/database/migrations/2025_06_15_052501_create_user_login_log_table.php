@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_login_logs', function (Blueprint $table) {
             $table->comment('用户登录日志');
-            $table->increments('id')->comment('主键');
+            $table->uuid('id')->primary()->comment('主键');
             $table->string('username', 20)->nullable()->comment('用户名');
             $table->string('ip', 45)->nullable()->comment('登录IP地址');
             $table->string('ip_location')->nullable()->comment('IP所属地');

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('crud_tests', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary()->comment('主键');
             $table->comment('CRUD功能性测试');
             $table->unsignedInteger('parent_id')->nullable()->default(0)->comment('父ID');
             $table->string('name')->nullable()->comment('名称');

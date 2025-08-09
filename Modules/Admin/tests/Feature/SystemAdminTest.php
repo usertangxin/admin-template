@@ -67,7 +67,7 @@ class SystemAdminTest extends AbstractAuthTestCase
     public function test_destroy()
     {
         // 根管理不允许被删除
-        $response = $this->deleteJson('/web/admin/SystemAdmin/destroy', ['ids' => 1]);
+        $response = $this->deleteJson('/web/admin/SystemAdmin/destroy', ['ids' => SystemAdmin::where('is_root', true)->first()->id]);
         $response->assertJson(['code' => 500]);
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('system_mails', function (Blueprint $table) {
             $table->comment('邮件记录');
-            $table->increments('id')->comment('编号');
+            $table->uuid('id')->primary()->comment('编号');
             $table->string('gateway', 50)->nullable()->comment('网关');
             $table->string('from', 50)->nullable()->comment('发送人');
             $table->string('email', 50)->nullable()->comment('接收人');

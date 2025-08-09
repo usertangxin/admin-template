@@ -4,6 +4,7 @@ namespace Modules\Admin\Tests\Feature;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Modules\Admin\Models\SystemUploadfile;
 use Modules\Admin\Services\SystemConfigService;
 
 class UploadFileTest extends AbstractAuthTestCase
@@ -65,8 +66,9 @@ class UploadFileTest extends AbstractAuthTestCase
             'file'        => UploadedFile::fake()->create('test.md', 1),
             'upload_mode' => 'document',
         ]);
-
-        $response = $this->getJson('/web/admin/SystemUploadFile/temporary-url?id=1&expiration=1');
+        $hash = $response->json('data.0.hash');
+        $id = SystemUploadfile::whereHash($hash)->first()->id;
+        $response = $this->getJson('/web/admin/SystemUploadFile/temporary-url?id='.$id.'&expiration=1');
         $this->assertTrue(\str_contains($response->json('message'), '该存储可直接访问，无需生成'));
     }
 
@@ -77,8 +79,9 @@ class UploadFileTest extends AbstractAuthTestCase
             'upload_mode'  => 'document',
             'storage_mode' => 'private',
         ]);
-
-        $response = $this->getJson('/web/admin/SystemUploadFile/temporary-url?id=1&expiration=1');
+        $hash = $response->json('data.0.hash');
+        $id = SystemUploadfile::whereHash($hash)->first()->id;
+        $response = $this->getJson('/web/admin/SystemUploadFile/temporary-url?id='.$id.'&expiration=1');
         $response->assertJson(['code' => 0]);
 
         $this->assertTrue(\str_contains($response->json('data.url'), 'http'));

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('system_admins', function (Blueprint $table) {
             $table->comment('系统管理员信息表');
-            $table->increments('id')->comment('系统管理员ID,主键');
+            $table->uuid('id')->primary()->comment('系统管理员ID,主键');
             $table->string('admin_name', 20)->unique('system_admin_admin_name')->comment('系统管理员名');
             $table->string('password', 100)->comment('密码');
             $table->string('nickname', 30)->nullable()->comment('系统管理员昵称');
@@ -29,8 +29,8 @@ return new class extends Migration
             $table->text('remark')->nullable()->comment('备注');
             $table->rememberToken()->nullable()->comment('记住我');
             $table->boolean('is_root')->default(false)->comment('根管理员');
-            $table->unsignedInteger('created_by')->nullable()->comment('创建者');
-            $table->unsignedInteger('updated_by')->nullable()->comment('更新者');
+            $table->string('created_by',36)->nullable()->comment('创建者');
+            $table->string('updated_by',36)->nullable()->comment('更新者');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('修改时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');

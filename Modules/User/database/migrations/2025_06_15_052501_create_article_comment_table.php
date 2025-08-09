@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('article_comments', function (Blueprint $table) {
             $table->comment('文章评论');
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->unsignedInteger('parent_id')->nullable()->default(0)->comment('父评论编号');
             $table->unsignedInteger('article_id')->nullable()->default(0)->comment('文章编号');
             $table->unsignedInteger('user_id')->nullable()->default(0)->comment('用户编号');

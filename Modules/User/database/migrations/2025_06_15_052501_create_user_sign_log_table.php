@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_sign_logs', function (Blueprint $table) {
             $table->comment('用户签到日志表');
-            $table->increments('id')->comment('编号');
+            $table->uuid('id')->primary()->comment('编号');
             $table->unsignedInteger('user_id')->comment('用户编号');
             $table->dateTime('created_at')->comment('创建时间');
         });

@@ -2,8 +2,12 @@
 
 namespace Modules\Admin\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
 class SystemDept extends AbstractSoftDelModel
 {
+    use HasUuids;
+    
     protected $table = 'system_depts';
 
     public function leader()

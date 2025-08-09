@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->comment('文章');
-            $table->increments('id')->comment('编号');
+            $table->uuid('id')->primary()->comment('编号');
             $table->unsignedInteger('user_id')->comment('用户编号');
             $table->string('title')->comment('标题');
             $table->text('content')->nullable()->comment('内容');
@@ -23,8 +23,8 @@ return new class extends Migration
             $table->unsignedInteger('sort')->nullable()->default(0)->comment('排序');
             $table->boolean('status')->nullable()->comment('状态:dict=data_status');
             $table->boolean('audit_status')->nullable()->comment('审核状态:dict=audit_status');
-            $table->unsignedInteger('created_by')->nullable()->comment('创建者');
-            $table->unsignedInteger('updated_by')->nullable()->comment('更新者');
+            $table->string('created_by',36)->nullable()->comment('创建者');
+            $table->string('updated_by',36)->nullable()->comment('更新者');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('修改时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');

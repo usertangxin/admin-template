@@ -28,7 +28,7 @@ class AbstractAuthTestCase extends TestCase
 
     protected function auth($admin = null, $guard = 'admin')
     {
-        $admin = $admin ?? SystemAdmin::find(1);
+        $admin = $admin ?? SystemAdmin::where('is_root', true)->first();
         $admin->refresh();
 
         return $this->actingAs($admin, $guard);

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('system_dict_types', function (Blueprint $table) {
             $table->comment('字典类型');
-            $table->increments('id')->comment('主键');
+            $table->uuid('id')->primary()->comment('主键');
             $table->string('name', 50)->nullable()->comment('字典名称');
             $table->string('code', 100)->nullable()->comment('字典标示');
             $table->string('remark')->nullable()->comment('备注');

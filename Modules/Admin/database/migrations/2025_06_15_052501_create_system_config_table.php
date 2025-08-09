@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('system_configs', function (Blueprint $table) {
             $table->comment('系统配置');
-            $table->increments('id')->comment('不要使用此字段作为判断依据');
+            $table->uuid('id')->primary()->comment('不要使用此字段作为判断依据');
             $table->string('group')->comment('分组');
             $table->string('name')->comment('配置名称');
             $table->string('key', 100)->unique('system_configs_key_unique')->comment('配置键名');

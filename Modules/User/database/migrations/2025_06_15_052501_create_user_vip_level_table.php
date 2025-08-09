@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_vip_levels', function (Blueprint $table) {
             $table->comment('VIP等级表');
-            $table->increments('id')->comment('编号');
+            $table->uuid('id')->primary()->comment('编号');
             $table->string('name')->comment('等级名称');
             $table->string('icon_image')->nullable()->comment('图标');
             $table->unsignedInteger('level')->unique('level')->comment('等级数值');
