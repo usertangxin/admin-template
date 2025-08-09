@@ -1,6 +1,64 @@
 <template>
     <div class="m-3 p-3 page-content">
         <index-action>
+            <template #search>
+                <a-col span="6">
+                    <a-form-item label="存储模式" field="storage_mode">
+                        <dict-select v-model="store.searchQuery.value.storage_mode" code="storage_mode"
+                            placeholder="请选择存储模式"></dict-select>
+                    </a-form-item>
+                </a-col>
+                <a-col span="6">
+                    <a-form-item label="上传方式" field="upload_mode">
+                        <dict-select v-model="store.searchQuery.value.upload_mode" code="upload_mode"
+                            placeholder="请选择上传方式"></dict-select>
+                    </a-form-item>
+                </a-col>
+                <a-col span="6">
+                    <a-form-item label="原文件名" field="origin_name">
+                        <a-input v-model="store.searchQuery.value.origin_name" placeholder="请输入原始文件名"></a-input>
+                    </a-form-item>
+                </a-col>
+                <a-col span="6">
+                    <a-form-item label="文件名" field="object_name">
+                        <a-input v-model="store.searchQuery.value.object_name" placeholder="请输入文件名"></a-input>
+                    </a-form-item>
+                </a-col>
+                <a-col span="6">
+                    <a-form-item label="资源类型" field="mime_type">
+                        <a-input v-model="store.searchQuery.value.mime_type" placeholder="请输入资源类型"></a-input>
+                    </a-form-item>
+                </a-col>
+                <a-col span="6">
+                    <a-form-item label="后缀" field="suffix">
+                        <a-input v-model="store.searchQuery.value.suffix" placeholder="请输入后缀"></a-input>
+                    </a-form-item>
+                </a-col>
+                <a-col span="6">
+                    <a-form-item label="文件大小" field="size_byte">
+                        <a-space>
+                            <template #split>
+                                -
+                            </template>
+                            <a-form-item field="size_byte.0" no-style>
+                                <a-input-number v-model="store.searchQuery.value.size_byte[0]"
+                                    placeholder="请输入文件大小"></a-input-number>
+                            </a-form-item>
+                            <a-form-item field="size_byte.1" no-style>
+                                <a-input-number v-model="store.searchQuery.value.size_byte[1]"
+                                    placeholder="请输入文件大小"></a-input-number>
+                            </a-form-item>
+                        </a-space>
+                    </a-form-item>
+                </a-col>
+                <a-col span="6">
+                    <a-form-item label="上传时间" field="created_at">
+                        <a-range-picker v-model="store.searchQuery.value.created_at" type="daterange"
+                            value-format="YYYY-MM-DD" range-separator="至" start-placeholder="开始日期"
+                            end-placeholder="结束日期"></a-range-picker>
+                    </a-form-item>
+                </a-col>
+            </template>
             <template #create></template>
         </index-action>
         <index-table>
@@ -63,7 +121,10 @@ const store = provideIndexShareStore({
         { title: '大小（字节）', dataIndex: 'size_byte', },
         { title: 'url地址', dataIndex: 'url', type: 'link', ellipsis: true, width: 150, },
         { title: '备注', dataIndex: 'remark', show: false, },
-    ]
+    ],
+    searchQuery: {
+        size_byte: [],
+    }
 });
 
 const handleGetTemporaryUrl = (record) => {

@@ -137,12 +137,28 @@ abstract class AbstractCrudController extends AbstractController
     {
         $where = [];
         foreach (request()->all() as $key => $value) {
+
             if (Str::contains($key, '__')) {
                 continue;
             }
+
             if ($value === '' || $value === null) {
                 continue;
             }
+
+            if (is_array($value)) {
+                $ex_v = false;
+                foreach ($value as $k => $v) {
+                    if (!empty($v)) {
+                        $ex_v = true;
+                        break;
+                    }
+                }
+                if (!$ex_v) {
+                    continue;
+                }
+            }
+
             $where[$key] = $value;
         }
 

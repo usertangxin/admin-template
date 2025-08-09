@@ -1,7 +1,7 @@
 <template>
     <a-radio-group v-bind="$attrs">
         <template v-for="(item, index) in dict_group_by_code[code]" :key="index">
-            <a-radio :value="item.value">
+            <a-radio :value="item.value" :disabled="item.status === 'disabled'">
                 <template v-if="type === 'normal'">{{ item.label }}</template>
                 <template v-if="type === 'info'" #radio="{ checked }">
                     <a-space align="start" class="custom-radio-card" :class="{ 'custom-radio-card-checked': checked }">
@@ -12,7 +12,9 @@
                             <div class="custom-radio-card-title">
                                 {{ merge[item.value]?.label || item.label }}
                             </div>
-                            <div v-if="merge[item.value]?.remark || item.remark" v-html="merge[item.value]?.remark || item.remark" class="leading-4 -ml-[22px] mt-2 opacity-70">
+                            <div v-if="merge[item.value]?.remark || item.remark"
+                                v-html="merge[item.value]?.remark || item.remark"
+                                class="leading-4 -ml-[22px] mt-2 opacity-70">
                             </div>
                         </div>
                     </a-space>

@@ -88,6 +88,9 @@ export function provideIndexShareStore(props = {}) {
     if (props.columns && router.restore('indexShareColumns' + window.location.href.split('?')[0])?.length < 1) {
         store.columns.value = props.columns
     }
+    if (props.searchQuery) {
+        _.merge(store.searchQuery.value, props.searchQuery)
+    }
     props.actionColumn !== undefined && (store.actionColumn.value = props.actionColumn)
     props.innerFetchListData !== undefined && (store.innerFetchListData.value = props.innerFetchListData)
     provide('indexShareStore', store)

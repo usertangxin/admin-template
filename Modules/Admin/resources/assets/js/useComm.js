@@ -21,11 +21,12 @@ import FarIcon from './components/far-icon.vue'
 import AIcon from './components/a-icon.vue'
 import Icon from './components/icon.vue'
 import IndexTable from './components/index-table.vue'
-import DictTag from './components/dict-tag.vue'
 import IndexAction from './components/index-action.vue'
 import FormAction from './components/form-action.vue'
 import FormCol from './components/form-col.vue'
 import DictRadio from './components/dict-radio.vue'
+import DictTag from './components/dict-tag.vue'
+import DictSelect from './components/dict-select.vue'
 import UploadFile from './components/upload-file.vue'
 import UploadImage from './components/upload-image.vue'
 import SaveForm from './components/save-form.vue'
@@ -92,6 +93,7 @@ const useComm = {
       .component('index-table', IndexTable)
       .component('dict-tag', DictTag)
       .component('dict-radio', DictRadio)
+      .component('dict-select', DictSelect)
       .component('upload-file', UploadFile)
       .component('upload-image', UploadImage)
       .component('save-form', SaveForm)
