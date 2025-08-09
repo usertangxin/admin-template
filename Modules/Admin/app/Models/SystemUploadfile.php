@@ -54,10 +54,10 @@ class SystemUploadfile extends AbstractSoftDelModel
     protected function size_byte(Builder $query, $value)
     {
         if (is_array($value)) {
-            if (!is_null(($value[0] ?? null))) {
+            if (! is_null(($value[0] ?? null))) {
                 $query->where('size_byte', '>=', $value[0]);
             }
-            if (!is_null(($value[1] ?? null))) {
+            if (! is_null(($value[1] ?? null))) {
                 $query->where('size_byte', '<=', $value[1]);
             }
         } else {

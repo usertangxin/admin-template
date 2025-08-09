@@ -149,12 +149,12 @@ abstract class AbstractCrudController extends AbstractController
             if (is_array($value)) {
                 $ex_v = false;
                 foreach ($value as $k => $v) {
-                    if (!empty($v)) {
+                    if (! empty($v)) {
                         $ex_v = true;
                         break;
                     }
                 }
-                if (!$ex_v) {
+                if (! $ex_v) {
                     continue;
                 }
             }
