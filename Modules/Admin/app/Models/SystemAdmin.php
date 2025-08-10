@@ -30,6 +30,7 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
 
     protected static function booted()
     {
+        parent::booted();
         static::deleting(function ($model) {
             if ($model->is_root) {
                 throw new \Exception($model->nickname . '禁止删除');

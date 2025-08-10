@@ -32,6 +32,7 @@ class SystemUploadfile extends AbstractSoftDelModel
 
     protected static function booted()
     {
+        parent::booted();
         static::forceDeleting(function ($model) {
             $fileStorageService = FileStorageService::getInstance();
             $fileStorageService->delete($model->id);
