@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 class SystemDictType extends AbstractModel
 {
     use HasUuids;
-    
+
     protected $table = 'system_dict_types';
 
     protected $fillable = [

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 class SystemDict extends AbstractModel
 {
     use HasUuids;
-    
+
     protected $table = 'system_dicts';
 
     protected $fillable = [

@@ -72,7 +72,7 @@ abstract class AbstractCrudController extends AbstractController
      */
     protected function orderBy(): array
     {
-        return request('__order_by__', ['id' => 'desc']);
+        return request('__order_by__', [$this->getModel()->getKeyName() => 'desc']);
     }
 
     /**
@@ -360,7 +360,7 @@ abstract class AbstractCrudController extends AbstractController
 
         Inertia::share('__page_destroy__', true);
 
-        $result = $this->getModel()->whereIn('id', $ids)->get();
+        $result = $this->getModel()->whereIn($this->getModel()->getKeyName(), $ids)->get();
         if (! $result || count($result) == 0) {
             return $this->fail('数据不存在', 404, view: '404');
         }
@@ -449,7 +449,7 @@ abstract class AbstractCrudController extends AbstractController
 
         Inertia::share('__page_recovery__', true);
 
-        $result = $this->getModel()->onlyTrashed()->whereIn('id', $ids)->get();
+        $result = $this->getModel()->onlyTrashed()->whereIn($this->getModel()->getKeyName(), $ids)->get();
         if (! $result || count($result) == 0) {
             return $this->fail('数据不存在', 404, view: '404');
         }
@@ -485,7 +485,7 @@ abstract class AbstractCrudController extends AbstractController
 
         Inertia::share('__page_real_destroy__', true);
 
-        $result = $this->getModel()->withTrashed()->whereIn('id', $ids)->get();
+        $result = $this->getModel()->withTrashed()->whereIn($this->getModel()->getKeyName(), $ids)->get();
         if (! $result || count($result) == 0) {
             return $this->fail('数据不存在', 404, view: '404');
         }

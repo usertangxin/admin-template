@@ -9,6 +9,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 class SystemPost extends AbstractSoftDelModel
 {
     use HasUuids;
-    
+
     protected $table = 'system_posts';
 }

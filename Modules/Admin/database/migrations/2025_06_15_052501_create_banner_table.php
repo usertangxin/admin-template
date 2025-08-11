@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('position')->nullable()->comment('位置:dict=banner_position');
             $table->unsignedInteger('sort')->nullable()->default(0)->comment('排序');
             $table->string('status')->nullable()->comment('状态:dict=data_status');
-            $table->string('created_by',36)->nullable()->comment('创建者');
-            $table->string('updated_by',36)->nullable()->comment('更新者');
+            $table->string('created_by', 36)->nullable()->comment('创建者');
+            $table->string('updated_by', 36)->nullable()->comment('更新者');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('修改时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class SystemAdminRole extends Pivot
 {
     use HasUuids;
-    
+
     protected $table = 'system_admin_roles';
 
     public $incrementing = true;

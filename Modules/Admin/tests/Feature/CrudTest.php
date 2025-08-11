@@ -79,7 +79,7 @@ class CrudTest extends AbstractAuthTestCase
             'code' => 404,
         ]);
         $model    = CrudTestFactory::new()->create();
-        $response = $this->getJson('/web/admin/CrudTest/read?id='.$model->id);
+        $response = $this->getJson('/web/admin/CrudTest/read?id=' . $model->id);
         $response->assertJson([
             'code' => 0,
         ]);
@@ -159,7 +159,7 @@ class CrudTest extends AbstractAuthTestCase
         ]);
         $response->assertJson(['code' => 0]);
 
-        $response = $this->getJson('/web/admin/CrudTest/read?id='.$model->id);
+        $response = $this->getJson('/web/admin/CrudTest/read?id=' . $model->id);
         $response->assertJson(['code' => 0]);
         $response->assertJsonMissing([
             'deleted_at' => null,
@@ -176,8 +176,8 @@ class CrudTest extends AbstractAuthTestCase
             'id'     => $model->id,
             'status' => 'disabled',
         ]);
-        $response->assertJson(['code' => 0]);   
-        $model->refresh();  
+        $response->assertJson(['code' => 0]);
+        $model->refresh();
         $this->assertEquals('disabled', $model->status);
 
         $response = $this->postJson('/web/admin/CrudTest/change-status', [

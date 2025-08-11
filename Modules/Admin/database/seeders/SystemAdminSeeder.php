@@ -19,8 +19,8 @@ class SystemAdminSeeder extends Seeder
             $admin->password   = 123456;
             $admin->nickname   = 'Super Admin';
             $admin->is_root    = true;
-            $admin->phone = $faker->phoneNumber;
-            $admin->email = $faker->email;
+            $admin->phone      = $faker->phoneNumber;
+            $admin->email      = $faker->email;
             $admin->save();
         }
     }

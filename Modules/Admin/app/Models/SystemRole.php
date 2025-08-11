@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 class SystemRole extends AbstractSoftDelModel
 {
     use HasUuids;
-    
+
     protected $table = 'system_roles';
 
     public function depts()

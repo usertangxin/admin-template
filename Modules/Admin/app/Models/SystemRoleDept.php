@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class SystemRoleDept extends Pivot
 {
     use HasUuids;
-    
+
     protected $table = 'system_role_depts';
 
     public $incrementing = true;

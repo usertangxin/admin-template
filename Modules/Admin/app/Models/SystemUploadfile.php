@@ -12,7 +12,7 @@ use Modules\Admin\Services\FileStorageService;
 class SystemUploadfile extends AbstractSoftDelModel
 {
     use HasUuids;
-    
+
     protected $table = 'system_uploadfiles';
 
     protected $fillable = [

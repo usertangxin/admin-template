@@ -9,6 +9,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 class SystemOperLog extends AbstractSoftDelModel
 {
     use HasUuids;
-    
+
     protected $table = 'system_oper_logs';
 }

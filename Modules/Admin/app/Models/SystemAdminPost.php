@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class SystemAdminPost extends Pivot
 {
     use HasUuids;
-    
+
     protected $table = 'system_admin_posts';
 
     public $incrementing = true;

@@ -66,7 +66,7 @@ return [
         /*
          * 如果你想使用非默认名称来命名相关的关联表字段，请修改此处
          */
-        'role_pivot_key' => null, // default 'role_id',
+        'role_pivot_key'       => null, // default 'role_id',
         'permission_pivot_key' => null, // default 'permission_id',
 
         /*
@@ -122,7 +122,7 @@ return [
     /*
      * 用于解析权限团队 ID 的类
      */
-    'team_resolver' => \Spatie\Permission\DefaultTeamResolver::class,
+    'team_resolver' => Spatie\Permission\DefaultTeamResolver::class,
 
     /*
      * Passport 客户端凭证授权
@@ -167,7 +167,7 @@ return [
          * 当权限或角色更新时，缓存会自动刷新。
          */
 
-        'expiration_time' => \DateInterval::createFromDateString('24 hours'),
+        'expiration_time' => DateInterval::createFromDateString('24 hours'),
 
         /*
          * 用于存储所有权限的缓存键。
