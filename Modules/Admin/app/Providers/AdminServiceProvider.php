@@ -34,12 +34,12 @@ class AdminServiceProvider extends ServiceProvider
         Model::preventSilentlyDiscardingAttributes(\app()->isLocal() || \app()->runningUnitTests());
 
         Gate::before(function ($user, $ability) {
-            if($user->is_root) {
+            if ($user->is_root) {
                 return true;
             }
 
             $menu = SystemMenuService::getInstance()->getBy(request()->route()->getName(), 'code');
-            if($menu['allow_admin'] ?? false) {
+            if ($menu['allow_admin'] ?? false) {
                 return true;
             }
 

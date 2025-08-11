@@ -3,13 +3,11 @@
 namespace Modules\Admin\Tests\Feature;
 
 use Auth;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Exceptions\InvalidArgumentException;
 use InvalidArgumentException as GlobalInvalidArgumentException;
 use Modules\Admin\Database\Factories\SystemAdminFactory;
 use PHPUnit\Framework\ExpectationFailedException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
-use Tests\TestCase;
 use Throwable;
 
 class LoginTest extends AbstractAuthTestCase

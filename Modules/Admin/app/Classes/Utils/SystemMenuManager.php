@@ -59,19 +59,20 @@ class SystemMenuManager
                             $ctrSystemMenuAttr = $ctrRef->getAttributes(AttrsSystemMenu::class)[0]->newInstance();
                         }
                         if ($ref->getName() == 'index') {
-                            $type   = SystemMenuType::MENU;
+                            $type = SystemMenuType::MENU;
                             if (isset($ctrSystemMenuAttr)) {
-                                $parent_code       = $ctrSystemMenuAttr->parent_code;
-                                $name              = $ctrSystemMenuAttr->name;
-                                $icon              = $ctrSystemMenuAttr->icon;
+                                $parent_code = $ctrSystemMenuAttr->parent_code;
+                                $name        = $ctrSystemMenuAttr->name;
+                                $icon        = $ctrSystemMenuAttr->icon;
                             }
-                        } else if(empty($parent_code)) {
+                        } elseif (empty($parent_code)) {
                             if ($ctrRef->hasMethod('index')) {
                                 $parent_code = \substr($route->getName(), 0, \strrpos($route->getName(), '.')) . '.index';
-                            } else if (isset($ctrSystemMenuAttr)) {
+                            } elseif (isset($ctrSystemMenuAttr)) {
                                 $parent_code = $ctrSystemMenuAttr->parent_code;
                             }
                         }
+
                         $arr[] = [
                             'code'            => $route->getName(),
                             'name'            => $name,
@@ -86,6 +87,8 @@ class SystemMenuManager
                     }
                 }
             }
+            unset($ctrRef);
+            unset($ctrSystemMenuAttr);
         }
 
         return $arr;

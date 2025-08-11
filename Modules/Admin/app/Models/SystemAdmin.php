@@ -18,8 +18,8 @@ use Spatie\Permission\Traits\HasRoles;
 class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
-    use HasUuids;
     use HasRoles;
+    use HasUuids;
 
     protected $table = 'system_admins';
 

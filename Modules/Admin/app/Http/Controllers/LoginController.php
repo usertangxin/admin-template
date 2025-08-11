@@ -9,7 +9,6 @@ use Modules\Admin\Classes\Utils\SystemMenuType;
 
 class LoginController extends AbstractController
 {
-
     #[SystemMenu('登录页', type: SystemMenuType::MENU, code: 'web.admin.login.view', parent_code: 'system_admin.login', allow_all: true)]
     public function view()
     {
