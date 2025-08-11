@@ -81,7 +81,7 @@
             <div class="flex-1 page-content">
                 <div class="relative">
                     <div v-show="showNProgress" class="absolute top-0 left-0 right-0 ">
-                        <div class="w-full h-[35px]" id="NProgress-container"></div>
+                        <div class="w-full h-[35px]" :id="NProgressContainerId"></div>
                     </div>
                 </div>
                 <div class="absolute top-0 left-0 w-full h-full" v-if="contentMask">
@@ -103,13 +103,14 @@ import { Message, Modal } from '@arco-design/web-vue';
 import RecursionMenu from '../components/recursion-menu.vue'
 import nProgress from 'nprogress';
 import _ from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
+
+const NProgressContainerId = 'nprogress-container' + uuidv4()
 
 const props = defineProps(['data'])
 
 const showNProgress = ref(false)
-const nProgressObj = nProgress.configure({
-    parent: '#NProgress-container',
-})
+let  nProgressObj = null;
 
 const navActionsMeta = import.meta.glob('/Modules/**/resources/assets/js/components/main-nav-actions/*.vue', { eager: true })
 const navActions = {}
@@ -117,7 +118,7 @@ const navActions = {}
 for (const [path, module] of Object.entries(navActionsMeta)) {
     // 修改正则表达式，提取模块名和文件名，并转换为下划线格式
     const componentName = path.replace(/.*\/Modules\/(.*)\/resources\/assets\/js\/components\/main-nav-actions\/(.*)\.vue$/, '$1_$2').replace(/-/g, '_')
-    console.log(componentName)
+    // console.log(componentName)
     // 默认导出的才是组件
     navActions[componentName] = module.default
 }
@@ -145,6 +146,10 @@ onMounted(() => {
             }
         })
     }
+
+    nProgressObj = nProgress.configure({
+        parent: '#' + NProgressContainerId,
+    })
     startNProgress()
 })
 
