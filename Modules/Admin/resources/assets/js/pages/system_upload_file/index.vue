@@ -25,8 +25,8 @@
                     </a-form-item>
                 </search-col>
                 <search-col>
-                    <a-form-item label="资源类型" field="mime_type">
-                        <a-input v-model="store.searchQuery.value.mime_type" placeholder="请输入资源类型"></a-input>
+                    <a-form-item label="附件类型" field="mime_type">
+                        <a-input v-model="store.searchQuery.value.mime_type" placeholder="请输入附件类型"></a-input>
                     </a-form-item>
                 </search-col>
                 <search-col>
@@ -102,7 +102,7 @@ const store = provideIndexShareStore({
         { title: '原文件名', dataIndex: 'origin_name', ellipsis: true, width: 150, tooltip: true, },
         { title: '文件名', dataIndex: 'object_name', show: false, },
         { title: '文件hash', dataIndex: 'hash', show: false, },
-        { title: '资源类型', dataIndex: 'mime_type', show: false, },
+        { title: '附件类型', dataIndex: 'mime_type', show: false, },
         { title: '存储目录', dataIndex: 'storage_path', ellipsis: true, width: 150, tooltip: true, },
         { title: '后缀', dataIndex: 'suffix', width: 80, },
         { title: '大小（字节）', dataIndex: 'size_byte', },

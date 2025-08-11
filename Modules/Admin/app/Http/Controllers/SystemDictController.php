@@ -16,7 +16,7 @@ class SystemDictController extends AbstractController
         return new SystemDict;
     }
 
-    #[SystemMenu('字典配置', type: SystemMenuType::MENU, parent_code: 'system.basic', icon: 'fas book')]
+    #[SystemMenu('字典查看', type: SystemMenuType::MENU, parent_code: 'system.basic', icon: 'fas book')]
     public function index(SystemDictService $systemDictService)
     {
         $data      = $systemDictService->getList();
@@ -28,15 +28,15 @@ class SystemDictController extends AbstractController
         ]);
     }
 
-    #[SystemMenu('修改字典配置')]
-    public function postSave()
-    {
-        $data = \request()->post('data');
-        // \dump($data);
-        foreach ($data as $item) {
-            $this->getModel()->updateOrCreate(['key' => $item['key']], $item);
-        }
+    // #[SystemMenu('修改字典')]
+    // public function postSave()
+    // {
+    //     $data = \request()->post('data');
+    //     // \dump($data);
+    //     foreach ($data as $item) {
+    //         $this->getModel()->updateOrCreate(['key' => $item['key']], $item);
+    //     }
 
-        return $this->success();
-    }
+    //     return $this->success();
+    // }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('origin_name')->nullable()->comment('原文件名');
             $table->string('object_name', 50)->nullable()->comment('新文件名');
             $table->string('hash', 64)->nullable()->index('system_uploadfiles_hash')->comment('文件hash');
-            $table->string('mime_type')->nullable()->comment('资源类型');
+            $table->string('mime_type')->nullable()->comment('附件类型');
             $table->string('storage_path', 100)->nullable()->index('system_uploadfile_storage_path')->comment('存储目录');
             $table->string('suffix', 10)->nullable()->comment('文件后缀');
             $table->string('origin_suffix', 10)->nullable()->comment('客户端文件后缀');
