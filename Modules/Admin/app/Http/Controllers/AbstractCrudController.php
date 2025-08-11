@@ -3,6 +3,7 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -18,7 +19,10 @@ use Modules\Admin\Services\SystemDictService;
 
 abstract class AbstractCrudController extends AbstractController
 {
-    abstract protected function getModel(): AbstractModel|AbstractSoftDelModel|null;
+    /**
+     * @return Model
+     */
+    abstract protected function getModel();
 
     /**
      * 显示字段

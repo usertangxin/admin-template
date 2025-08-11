@@ -10,7 +10,7 @@ use Nwidart\Modules\Module as ModulesModule;
 
 class ModuleManagerController extends AbstractController
 {
-    #[SystemMenu('模块管理', icon: 'fab fa-modx')]
+    #[SystemMenu('模块管理', icon: 'fas fa-kaaba')]
     public function index()
     {
         $modules = Module::all();

@@ -11,6 +11,7 @@ use Modules\Admin\Http\Controllers\SystemAdminController;
 use Modules\Admin\Http\Controllers\SystemConfigController;
 use Modules\Admin\Http\Controllers\SystemDictController;
 use Modules\Admin\Http\Controllers\SystemMenuController;
+use Modules\Admin\Http\Controllers\SystemRoleController;
 use Modules\Admin\Http\Controllers\SystemUploadFileController;
 use Modules\Admin\Http\Middleware\AdminSupport;
 use Modules\Admin\Http\Middleware\HandleInertiaRequests;
@@ -34,6 +35,7 @@ Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(fu
         RouteUtil::fastRoute(SystemDictController::class);
         RouteUtil::fastRoute(SystemMenuController::class);
         RouteUtil::fastRoute(SystemAdminController::class);
+        RouteUtil::fastRoute(SystemRoleController::class);
         RouteUtil::fastRoute(SystemUploadFileController::class);
         RouteUtil::fastRoute(ModuleManagerController::class);
 
