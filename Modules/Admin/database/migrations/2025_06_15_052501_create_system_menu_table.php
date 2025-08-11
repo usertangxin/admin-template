@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('type', 50)->nullable()->comment('菜单类型:dict=menu_type');
             $table->boolean('is_hidden')->default(false)->nullable()->comment('是否隐藏');
             $table->boolean('is_auto_collect')->default(false)->comment('是否自动收集');
+            $table->boolean('allow_all')->default(false)->comment('是否允许所有用户访问,包括未登录用户');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('更新时间');
             $table->string('remark')->nullable()->comment('备注');

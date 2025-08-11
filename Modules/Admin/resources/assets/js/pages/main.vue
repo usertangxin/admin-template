@@ -9,7 +9,7 @@
                 <div class="menu-main" :style="[subMenus.length ? '' : 'border-right:none']">
                     <a-scrollbar style="height: calc(100vh - 60px);overflow-y: scroll;">
                         <template v-for="(item, index) in data.system_menus_tree" :key="index">
-                            <div class="menu-item" :class="{ 'active': index == currentMainMenuIndex }"
+                            <div v-if="!item.is_hidden" class="menu-item" :class="{ 'active': index == currentMainMenuIndex }"
                                 @click="handleClickMainMenu(item, index)">
                                 <icon :icon="item.icon" style="font-size: 18px;"></icon>
                                 <span>{{ item.name }}</span>

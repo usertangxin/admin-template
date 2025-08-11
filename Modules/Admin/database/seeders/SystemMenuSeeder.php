@@ -18,6 +18,7 @@ class SystemMenuSeeder extends Seeder
         $a = [
             new SystemMenu('权限管理', type: SystemMenuType::GROUP, code: 'system.permission', icon: 'fas drum-steelpan'),
             new SystemMenu('常规管理', type: SystemMenuType::GROUP, code: 'system.basic', icon: 'fas gears'),
+            new SystemMenu('登录', type: SystemMenuType::MENU, code: 'system_admin.login', is_hidden: true,)
         ];
 
         if (app()->environment('local')) {

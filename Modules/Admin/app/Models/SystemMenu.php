@@ -15,6 +15,7 @@ class SystemMenu extends AbstractModel
         return [
             'is_hidden'       => 'boolean',
             'is_auto_collect' => 'boolean',
+            'allow_all'       => 'boolean',
         ];
     }
 }

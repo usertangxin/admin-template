@@ -17,7 +17,7 @@ class SystemMenu implements ArrayAccess
      * @param  null|string $icon        菜单图标
      * @param  null|string $code        菜单编码，取路由名称为该值，他用户判断权限
      * @param  null|string $parent_code 父菜单编码
-     * @param  bool        $hidden      是否隐藏
+     * @param  bool        $is_hidden      是否隐藏
      * @param  string      $remark      备注
      * @param  array       $children    子菜单
      * @return void
@@ -29,9 +29,10 @@ class SystemMenu implements ArrayAccess
         public ?string $icon = null,
         public ?string $code = null,
         public ?string $parent_code = null,
-        public bool $hidden = false,
+        public bool $is_hidden = false,
         public string $remark = '',
         public array $children = [],
+        public bool $allow_all = false,
     ) {}
 
     public function offsetExists(mixed $offset): bool

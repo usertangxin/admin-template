@@ -4,9 +4,13 @@ namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Modules\Admin\Classes\Attrs\SystemMenu;
+use Modules\Admin\Classes\Utils\SystemMenuType;
 
 class LoginController extends AbstractController
 {
+
+    #[SystemMenu('登录页', type: SystemMenuType::MENU, code: 'web.admin.login.view', parent_code: 'system_admin.login', allow_all: true)]
     public function view()
     {
         if (Auth::check()) {
@@ -16,6 +20,7 @@ class LoginController extends AbstractController
         return $this->inertia(view: 'login');
     }
 
+    #[SystemMenu('登录页', type: SystemMenuType::MENU, code: 'web.admin.login.authenticate', parent_code: 'system_admin.login', allow_all: true)]
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
@@ -34,6 +39,7 @@ class LoginController extends AbstractController
     /**
      * 将用户从应用程序中注销。
      */
+    #[SystemMenu('退出登录', type: SystemMenuType::MENU, code: 'web.admin.logout', parent_code: 'system_admin.login', allow_all: true)]
     public function logout(Request $request)
     {
         Auth::logout();

@@ -12,10 +12,8 @@ use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Tests\TestCase;
 use Throwable;
 
-class LoginTest extends TestCase
+class LoginTest extends AbstractAuthTestCase
 {
-    use RefreshDatabase;
-
     /**
      * 测试空管理员名
      *
@@ -67,9 +65,9 @@ class LoginTest extends TestCase
      */
     public function test_password_err()
     {
-        SystemAdminFactory::new()->create(['admin_name' => 'super admin']);
+        SystemAdminFactory::new()->create(['admin_name' => 'super admin2']);
         $response = $this->postJson('/web/admin/login', [
-            'admin_name' => 'super admin',
+            'admin_name' => 'super admin2',
             'password'   => '1234567',
             'remember'   => false,
         ]);
@@ -115,9 +113,9 @@ class LoginTest extends TestCase
      */
     public function test_login_success()
     {
-        SystemAdminFactory::new()->create(['admin_name' => 'super admin']);
+        SystemAdminFactory::new()->create(['admin_name' => 'super admin2']);
         $response = $this->postJson('/web/admin/login', [
-            'admin_name' => 'super admin',
+            'admin_name' => 'super admin2',
             'password'   => '123456',
             'remember'   => false,
         ]);
@@ -142,9 +140,9 @@ class LoginTest extends TestCase
      */
     public function test_admin_status_err()
     {
-        SystemAdminFactory::new()->create(['admin_name' => 'super admin', 'status' => 'disabled']);
+        SystemAdminFactory::new()->create(['admin_name' => 'super admin2', 'status' => 'disabled']);
         $response = $this->postJson('/web/admin/login', [
-            'admin_name' => 'super admin',
+            'admin_name' => 'super admin2',
             'password'   => '123456',
             'remember'   => false,
         ]);
@@ -158,9 +156,9 @@ class LoginTest extends TestCase
      */
     public function test_admin_is_delete()
     {
-        SystemAdminFactory::new()->trashed()->create(['admin_name' => 'super admin']);
+        SystemAdminFactory::new()->trashed()->create(['admin_name' => 'super admin2']);
         $response = $this->postJson('/web/admin/login', [
-            'admin_name' => 'super admin',
+            'admin_name' => 'super admin2',
             'password'   => '123456',
             'remember'   => false,
         ]);

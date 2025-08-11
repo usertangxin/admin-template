@@ -13,11 +13,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Traits\HasRoles;
 
 class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
     use HasUuids;
+    use HasRoles;
 
     protected $table = 'system_admins';
 
@@ -74,20 +76,5 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
             ->orWhere('nickname', 'like', '%' . $fast_search . '%')
             ->orWhere('email', 'like', '%' . $fast_search . '%')
             ->orWhere('phone', 'like', '%' . $fast_search . '%');
-    }
-
-    public function roles()
-    {
-        return $this->belongsToMany(SystemRole::class, foreignPivotKey: 'role_id', relatedKey: 'admin_id')->using(SystemAdminRole::class);
-    }
-
-    public function posts()
-    {
-        return $this->belongsToMany(SystemPost::class, foreignPivotKey: 'post_id', relatedKey: 'admin_id')->using(SystemAdminPost::class);
-    }
-
-    public function depts()
-    {
-        return $this->belongsTo(SystemDept::class, 'dept_id', 'id');
     }
 }

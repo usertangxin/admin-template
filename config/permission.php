@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Role;
+
 return [
 
     'models' => [
@@ -20,7 +22,7 @@ return [
          * 你想用作角色模型的模型需要实现 `Spatie\Permission\Contracts\Role` 契约。
          */
 
-        'role' => Spatie\Permission\Models\Role::class,
+        'role' => Role::class,
 
     ],
 

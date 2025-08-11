@@ -30,6 +30,8 @@ class SystemMenuManager
                 $model->url             = $item['url'];
                 $model->is_auto_collect = $item['is_auto_collect'] ?? false;
                 $model->remark          = $item['remark'] ?? '';
+                $model->is_hidden       = $item['is_hidden'] ?? false;
+                $model->allow_all       = $item['allow_all'] ?? false;
                 $model->save();
             });
         }
@@ -51,17 +53,24 @@ class SystemMenuManager
                         $type           = $systemMenuAttr->type ?? SystemMenuType::ACTION;
                         $name           = $systemMenuAttr->name;
                         $icon           = $systemMenuAttr->icon;
+
+                        $ctrRef = new \ReflectionClass($controller);
+                        if (! empty($ctrRef->getAttributes(AttrsSystemMenu::class))) {
+                            $ctrSystemMenuAttr = $ctrRef->getAttributes(AttrsSystemMenu::class)[0]->newInstance();
+                        }
                         if ($ref->getName() == 'index') {
                             $type   = SystemMenuType::MENU;
-                            $ctrRef = new \ReflectionClass($controller);
-                            if (! empty($ctrRef->getAttributes(AttrsSystemMenu::class))) {
-                                $ctrSystemMenuAttr = $ctrRef->getAttributes(AttrsSystemMenu::class)[0]->newInstance();
+                            if (isset($ctrSystemMenuAttr)) {
                                 $parent_code       = $ctrSystemMenuAttr->parent_code;
                                 $name              = $ctrSystemMenuAttr->name;
                                 $icon              = $ctrSystemMenuAttr->icon;
                             }
-                        } else {
-                            $parent_code ??= \substr($route->getName(), 0, \strrpos($route->getName(), '.')) . '.index';
+                        } else if(empty($parent_code)) {
+                            if ($ctrRef->hasMethod('index')) {
+                                $parent_code = \substr($route->getName(), 0, \strrpos($route->getName(), '.')) . '.index';
+                            } else if (isset($ctrSystemMenuAttr)) {
+                                $parent_code = $ctrSystemMenuAttr->parent_code;
+                            }
                         }
                         $arr[] = [
                             'code'            => $route->getName(),
@@ -71,6 +80,8 @@ class SystemMenuManager
                             'type'            => $type,
                             'url'             => $route->uri(),
                             'is_auto_collect' => true,
+                            'is_hidden'       => $systemMenuAttr->is_hidden,
+                            'allow_all'       => $systemMenuAttr->allow_all,
                         ];
                     }
                 }

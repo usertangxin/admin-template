@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Providers;
 
+use Gate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -30,6 +31,13 @@ class AdminServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
         Model::preventSilentlyDiscardingAttributes(\app()->isLocal() || \app()->runningUnitTests());
+
+        Gate::before(function ($user, $ability) {
+            if($user->is_root) {
+                return true;
+            }
+            return null;
+        });
     }
 
     /**
