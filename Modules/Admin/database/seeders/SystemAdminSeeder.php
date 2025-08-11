@@ -13,7 +13,7 @@ class SystemAdminSeeder extends Seeder
      */
     public function run(Generator $faker): void
     {
-        if (! SystemAdmin::count()) {
+        if (! SystemAdmin::whereIsRoot(true)->count()) {
             $admin             = new SystemAdmin;
             $admin->admin_name = 'super admin';
             $admin->password   = 123456;
