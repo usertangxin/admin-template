@@ -10,7 +10,7 @@ use Modules\Admin\Models\SystemMenu as ModelsSystemMenu;
  * 系统菜单服务
  * 请从容器中获取实例
  */
-class SystemMenuRegisterService
+class SystemMenuService
 {
     protected ?array $menus = null;
 

@@ -6,6 +6,7 @@ use Gate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Admin\Services\SystemMenuService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -36,6 +37,12 @@ class AdminServiceProvider extends ServiceProvider
             if($user->is_root) {
                 return true;
             }
+
+            $menu = SystemMenuService::getInstance()->getBy(request()->route()->getName(), 'code');
+            if($menu['allow_admin'] ?? false) {
+                return true;
+            }
+
             return null;
         });
     }

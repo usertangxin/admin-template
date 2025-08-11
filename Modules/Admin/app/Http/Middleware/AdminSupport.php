@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Admin\Models\SystemMenu;
+use Modules\Admin\Services\SystemMenuService;
 
 class AdminSupport
 {
@@ -18,13 +19,13 @@ class AdminSupport
             '__is_admin_background__' => true,
         ]);
 
-        $menu = SystemMenu::where('code', $request->route()->getName())->first();
+        $menu = SystemMenuService::getInstance()->getBy($request->route()->getName(),'code');
 
-        if($menu?->allow_all) {
+        if($menu['allow_all'] ?? false) {
             return $next($request);
         }
 
-        if (Auth::check() && Auth::user()->status !== 'normal' && $request->route()->getName() !== 'web.admin.logout') {
+        if (!Auth::check() || Auth::user()->status !== 'normal') {
             return \redirect()->route('web.admin.logout');
         }
 

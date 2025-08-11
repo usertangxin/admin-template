@@ -40,6 +40,7 @@ import { Message } from '@arco-design/web-vue';
 import Decimal from 'decimal.js';
 import _, { multiply } from 'lodash';
 import { computed, ref, watch, nextTick } from 'vue';
+import axios from 'axios';
 
 // 定义组件属性
 const props = defineProps({
@@ -127,7 +128,7 @@ const handleOk = (selectedKeys) => {
         }
     }).then(res => {
         if (res.code == 0) {
-            if(props.multiple) {
+            if (props.multiple) {
                 let arr = Array.isArray(props.modelValue) ? props.modelValue : []
                 arr.push(...res.data.map(item => item.url))
                 emit('update:modelValue', arr)
@@ -148,13 +149,19 @@ const customRequest = (option) => {
     if (props.uploadMode) data.append('upload_mode', props.uploadMode);
     if (props.remark) data.append('remark', props.remark);
 
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+
+    fileItem.cancelSource = source
+
     request.post(route('web.admin.SystemUploadFile.upload'), data, {
         onUploadProgress: (progressEvent) => {
             const percent = progressEvent.total
-                ? Math.round((progressEvent.loaded / progressEvent.total) * 100)
+                ? progressEvent.loaded / progressEvent.total
                 : 0;
-            onProgress({ percent });
-        }
+            onProgress(percent, progressEvent);
+        },
+        cancelToken: source.token
     }).then(res => {
         // 确保获取到URL
         if (res.code == 0) {
@@ -179,12 +186,21 @@ const customRequest = (option) => {
         }
     }).catch(err => {
         console.error('上传失败:', err);
-        Message.error(err.message || '上传失败，请重试');
+        // Message.error(err.message || '上传失败，请重试');
         onError(err);
     });
+    return {
+        abort() {
+            source.cancel('上传被取消')
+        }
+    }
 };
 
 const handleBeforeRemove = (item) => {
+    if (!Number.isInteger(item.uid)) {
+        item.cancelSource && item.cancelSource.cancel('上传被取消')
+        return true
+    }
     if (props.multiple) {
         let arr = Array.isArray(props.modelValue) ? props.modelValue : []
         arr.splice(item.uid, 1)

@@ -27,7 +27,7 @@ instance.interceptors.response.use(function (response) {
     return data
 }, function (error) {
     nProgress.done()
-    Message.error(error.response.data.message);
+    Message.error(error.response?.data?.message ?? error.message);
     return Promise.reject(error);
 })
 

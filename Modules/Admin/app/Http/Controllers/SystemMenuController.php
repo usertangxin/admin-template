@@ -7,12 +7,12 @@ use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Utils\SystemMenuManager;
 use Modules\Admin\Classes\Utils\SystemMenuType;
 use Modules\Admin\Models\SystemMenu as ModelsSystemMenu;
-use Modules\Admin\Services\SystemMenuRegisterService;
+use Modules\Admin\Services\SystemMenuService;
 
 class SystemMenuController extends AbstractController
 {
     #[SystemMenu('菜单规则', type: SystemMenuType::MENU, parent_code: 'system.permission', icon: 'fas bars')]
-    public function index(SystemMenuRegisterService $systemMenuRegisterService)
+    public function index(SystemMenuService $systemMenuRegisterService)
     {
         return $this->success([
             'tree' => $systemMenuRegisterService->getSystemMenuTree(),
@@ -21,7 +21,7 @@ class SystemMenuController extends AbstractController
     }
 
     #[SystemMenu('刷新系统菜单缓存')]
-    public function putRefreshSystemMenuCache(SystemMenuRegisterService $systemMenuRegisterService)
+    public function putRefreshSystemMenuCache(SystemMenuService $systemMenuRegisterService)
     {
         $menus = SystemMenuManager::collection();
         SystemMenuManager::autoRegister($menus);
