@@ -49,6 +49,7 @@ return new class extends Migration
             $table->string('remark')->nullable()->comment('备注');
             $table->string('created_by', 36)->nullable()->comment('创建者');
             $table->string('updated_by', 36)->nullable()->comment('更新者');
+            $table->softDeletes();
         });
 
         Schema::create($tableNames['model_has_permissions'], static function (Blueprint $table) use ($tableNames, $columnNames, $pivotPermission, $teams) {

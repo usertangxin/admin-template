@@ -4,6 +4,7 @@ namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -118,8 +119,9 @@ abstract class AbstractCrudController extends AbstractController
             ]);
         }
 
-        $model_classname   = get_class($this->getModel());
-        $request_classname = Str::replace('\\Models\\', '\\Http\\Requests\\', $model_classname) . 'Request';
+        $request_namespace = str_replace('Controllers', 'Requests', static::class);
+        $request_namespace = str_replace(\class_basename(static::class), '', $request_namespace);
+        $request_classname = $request_namespace . \class_basename($this->getModel()) . 'Request';
         /** @var \Illuminate\Foundation\Http\FormRequest */
         $request = \app()->make($request_classname);
         $data    = $request->validated();
@@ -237,7 +239,12 @@ abstract class AbstractCrudController extends AbstractController
         Inertia::share('__page_read__', true);
 
         $id    = \request('id');
-        $query = $this->getModel()->withTrashed();
+        $model = $this->getModel();
+        if(in_array(SoftDeletes::class, \class_uses($model))) {
+            $query = $this->getModel()->withTrashed();
+        } else {
+            $query = $this->getModel()->query();
+        }
         if (! empty($with = $this->with())) {
             $query = $query->with($with);
         }

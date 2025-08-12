@@ -25,7 +25,7 @@ class AdminSupport
             return $next($request);
         }
 
-        if (! Auth::check() || Auth::user()->status !== 'normal' || !(Auth::user() instanceof SystemAdmin)) {
+        if (! Auth::check() || Auth::user()->status !== 'normal' || ! (Auth::user() instanceof SystemAdmin)) {
             return \redirect()->route('web.admin.logout');
         }
 
