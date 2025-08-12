@@ -24,11 +24,10 @@ class FormToken
             throw new InvalidArgumentException('表单token不能为空');
         }
 
-        if ($form_token !== session()->get('form_token')) {
+        if ($form_token !== session()->pull('form_token')) {
             throw new InvalidArgumentException('表单token失效');
         }
 
-        session()->forget('form_token');
         request()->request->remove('__form_token__');
     }
 }
