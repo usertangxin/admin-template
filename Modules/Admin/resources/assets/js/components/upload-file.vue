@@ -1,6 +1,6 @@
 <template>
     <a-upload v-model:file-list="innerFileList" @before-upload="handleBeforeUpload" @before-remove="handleBeforeRemove"
-        :accept="comAccept" :custom-request="customRequest" :multiple="multiple" :limit="limit" v-bind="$attrs">
+        :accept="comAccept" :custom-request="customRequest" :multiple="multiple" :limit="limit" :show-remove-button="showRemoveButton && !mergedDisabled" v-bind="$attrs">
         <template v-for="key in Object.keys($slots)" #[key] :key="key">
             <slot :name="key"></slot>
         </template>
@@ -39,8 +39,11 @@ import { config_map } from '../data-share/config';
 import { Message } from '@arco-design/web-vue';
 import Decimal from 'decimal.js';
 import _, { multiply } from 'lodash';
-import { computed, ref, watch, nextTick } from 'vue';
+import { computed, ref, watch, nextTick, inject, provide } from 'vue';
 import axios from 'axios';
+import { useFormItem } from '@arco-design/web-vue';
+
+const { mergedDisabled } = useFormItem();
 
 // 定义组件属性
 const props = defineProps({
@@ -59,6 +62,10 @@ const props = defineProps({
     fileSize: {
         type: Number,
         default: 0
+    },
+    showRemoveButton: {
+        type: Boolean,
+        default: true
     },
     storageMode: {
         type: String,
