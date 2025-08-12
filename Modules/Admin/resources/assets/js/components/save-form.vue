@@ -18,8 +18,9 @@
 
 <script setup>
 import { Message } from '@arco-design/web-vue';
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { usePage } from '@inertiajs/vue3';
+import _ from 'lodash';
 
 const page = usePage();
 const formData = defineModel('model')
@@ -30,6 +31,26 @@ const props = defineProps(['submit-url'])
 const disabled = computed(() => {
     return page.props.__page_read__ ? true : false;
 });
+
+watch(() => page.props.data, (newVal, oldVal) => {
+    page.props.data && _.each(page.props.data, (item, key) => {
+        formData.value[key] = item;
+    })
+}, {
+    immediate: true,
+})
+
+function refreshFormToken() {
+    request.get(route('web.admin.Util.form-token')).then(res => {
+        if (res.code === 0) {
+            formData.value.__form_token__ = res.data.token;
+        }
+    })
+}
+
+if (!page.props.__page_read__) {
+    refreshFormToken()
+}
 
 const handleSubmit = () => {
     formRef.value.validate((errors) => {
@@ -43,10 +64,11 @@ const handleSubmit = () => {
         request.post(url, formData.value).then(res => {
             if (res.code === 0) {
                 window.history.back()
+            } else {
+                refreshFormToken()
             }
         })
     })
-
 }
 
 </script>

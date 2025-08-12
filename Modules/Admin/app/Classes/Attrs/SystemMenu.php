@@ -33,6 +33,7 @@ class SystemMenu implements ArrayAccess
         public string $remark = '',
         public array $children = [],
         public bool $allow_all = false,
+        public bool $allow_admin = false,
     ) {}
 
     public function offsetExists(mixed $offset): bool

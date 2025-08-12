@@ -32,6 +32,7 @@ class SystemMenuManager
                 $model->remark          = $item['remark'] ?? '';
                 $model->is_hidden       = $item['is_hidden'] ?? false;
                 $model->allow_all       = $item['allow_all'] ?? false;
+                $model->allow_admin     = $item['allow_admin'] ?? false;
                 $model->save();
             });
         }
@@ -83,6 +84,7 @@ class SystemMenuManager
                             'is_auto_collect' => true,
                             'is_hidden'       => $systemMenuAttr->is_hidden,
                             'allow_all'       => $systemMenuAttr->allow_all,
+                            'allow_admin'     => $systemMenuAttr->allow_admin,
                         ];
                     }
                 }

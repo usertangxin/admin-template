@@ -5,6 +5,7 @@ namespace Modules\Admin\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Modules\Admin\Models\SystemAdmin;
 use Modules\Admin\Services\SystemMenuService;
 
 class AdminSupport
@@ -24,8 +25,12 @@ class AdminSupport
             return $next($request);
         }
 
-        if (! Auth::check() || Auth::user()->status !== 'normal') {
+        if (! Auth::check() || Auth::user()->status !== 'normal' || !(Auth::user() instanceof SystemAdmin)) {
             return \redirect()->route('web.admin.logout');
+        }
+
+        if ($menu['allow_admin'] ?? false) {
+            return $next($request);
         }
 
         /** @var \Modules\Admin\Model\SystemAdmin $user */

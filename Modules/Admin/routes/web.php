@@ -13,6 +13,7 @@ use Modules\Admin\Http\Controllers\SystemDictController;
 use Modules\Admin\Http\Controllers\SystemMenuController;
 use Modules\Admin\Http\Controllers\SystemRoleController;
 use Modules\Admin\Http\Controllers\SystemUploadFileController;
+use Modules\Admin\Http\Controllers\UtilController;
 use Modules\Admin\Http\Middleware\AdminSupport;
 use Modules\Admin\Http\Middleware\HandleInertiaRequests;
 use Modules\Admin\Http\Middleware\HandleInertiaShare;
@@ -26,11 +27,6 @@ Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(fu
 
     Route::middleware(['auth:admin', HandleInertiaShare::class])->group(function () {
         Route::get('', [DashboardController::class, 'main'])->name('index');
-        Route::post('clear-system-cache', function () {
-            Cache::clear();
-
-            return ResponseService::success(message: '清理系统缓存成功');
-        })->name('clear-system-cache');
         RouteUtil::fastRoute(SystemConfigController::class);
         RouteUtil::fastRoute(SystemDictController::class);
         RouteUtil::fastRoute(SystemMenuController::class);
@@ -38,6 +34,7 @@ Route::middleware([HandleInertiaRequests::class, AdminSupport::class])->group(fu
         RouteUtil::fastRoute(SystemRoleController::class);
         RouteUtil::fastRoute(SystemUploadFileController::class);
         RouteUtil::fastRoute(ModuleManagerController::class);
+        RouteUtil::fastRoute(UtilController::class);
 
         if (app()->isLocal() || app()->runningUnitTests()) {
             RouteUtil::fastRoute(CrudTestController::class);

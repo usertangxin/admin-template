@@ -274,7 +274,7 @@ const handleClickMainMenu = (item, index) => {
 }
 
 const clearSystemCache = async () => {
-    await request.post(route('web.admin.clear-system-cache'))
+    await request.post(route('web.admin.Util.clear-system-cache'))
     window.location.reload()
 }
 

@@ -16,6 +16,7 @@ class SystemMenu extends AbstractModel
             'is_hidden'       => 'boolean',
             'is_auto_collect' => 'boolean',
             'allow_all'       => 'boolean',
+            'allow_admin'     => 'boolean',
         ];
     }
 }

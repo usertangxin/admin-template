@@ -48,14 +48,6 @@ const formData = reactive({
     status: 'normal',
 })
 
-watch(() => props.data, (newVal, oldVal) => {
-    props.data && _.each(props.data, (item, key) => {
-        formData[key] = item;
-    })
-}, {
-    immediate: true,
-})
-
 const rules = {
     admin_name: [
         { required: true, message: '请输入账号' },

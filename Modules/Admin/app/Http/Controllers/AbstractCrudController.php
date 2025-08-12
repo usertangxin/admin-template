@@ -11,6 +11,7 @@ use Inertia\Inertia;
 use InvalidArgumentException;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\DataBase\TreeCollection;
+use Modules\Admin\Classes\Utils\FormToken;
 use Modules\Admin\Classes\Utils\ModelUtil;
 use Modules\Admin\Interfaces\TreeCollectionInterface;
 use Modules\Admin\Models\AbstractModel;
@@ -266,13 +267,15 @@ abstract class AbstractCrudController extends AbstractController
      * @throws InvalidArgumentException
      */
     #[SystemMenu('创建')]
-    public function create()
+    public function create(FormToken $formToken)
     {
         Inertia::share('__page_create__', true);
 
         if (\request()->method() == 'GET') {
             return $this->success(view: $this->getViewPrefix() . '/save');
         }
+
+        $formToken->checkToken();
 
         $data   = $this->validate();
         $result = $this->getModel()->create($data);
@@ -292,7 +295,7 @@ abstract class AbstractCrudController extends AbstractController
      * @throws InvalidArgumentException
      */
     #[SystemMenu('编辑')]
-    public function update()
+    public function update(FormToken $formToken)
     {
         Inertia::share('__page_update__', true);
 
@@ -305,6 +308,8 @@ abstract class AbstractCrudController extends AbstractController
 
             return $this->success($data, view: $this->getViewPrefix() . '/save');
         }
+
+        $formToken->checkToken();
 
         $data  = $this->validate();
         $model = $this->getModel()->find($id);
