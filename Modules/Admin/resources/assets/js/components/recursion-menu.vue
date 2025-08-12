@@ -7,7 +7,9 @@
         </template>
         <a-menu-item v-else-if="item.type" :key="item.code">
             <template #icon>
-                <icon :icon="item.icon" style="font-size: 18px;"></icon>
+                <div class="w-[20px] text-center">
+                    <icon :icon="item.icon" style="font-size: 18px;"></icon>
+                </div>
             </template>
             {{ item.name }}
         </a-menu-item>
