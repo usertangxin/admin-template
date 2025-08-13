@@ -95,11 +95,13 @@ class CrudTest extends AbstractAuthTestCase
      */
     public function test_create(): void
     {
+        // 测试form token
         $this->app->instance(FormToken::class, new FormToken());
         $response = $this->postJson('/web/admin/CrudTest/create', [
             'name' => 'asdf',
         ]);
         $response->assertJson(['code' => 500]);
+
         $formToken = $this->app[FormToken::class];
         $token = $formToken->getToken();
         $response = $this->postJson('/web/admin/CrudTest/create', [
