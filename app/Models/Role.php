@@ -9,8 +9,8 @@ use Spatie\Permission\Models\Role as SpatieRole;
 
 class Role extends SpatieRole
 {
-    use SoftDeletes;
     use HasUuids;
+    use SoftDeletes;
 
     protected $dateFormat = 'Y-m-d H:i:s';
 

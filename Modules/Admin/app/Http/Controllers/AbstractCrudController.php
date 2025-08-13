@@ -240,7 +240,7 @@ abstract class AbstractCrudController extends AbstractController
 
         $id    = \request('id');
         $model = $this->getModel();
-        if(in_array(SoftDeletes::class, \class_uses($model))) {
+        if (in_array(SoftDeletes::class, \class_uses_recursive($model))) {
             $query = $this->getModel()->withTrashed();
         } else {
             $query = $this->getModel()->query();

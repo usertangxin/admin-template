@@ -13,8 +13,8 @@ class RoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:roles,name',
-            'status'     => [
+            'name'   => 'required|string|unique:roles,name',
+            'status' => [
                 'nullable',
                 'required',
                 'in:' . \implode(',', SystemDictService::getInstance()->getValuesByCode('data_status')->toArray()),
