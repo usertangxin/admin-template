@@ -16,8 +16,16 @@ class SystemMenuController extends AbstractController
     {
         return $this->success([
             'tree' => $systemMenuRegisterService->getSystemMenuTree(),
-            'list' => array_values($systemMenuRegisterService->getSystemMenuList()),
+            // 'list' => array_values($systemMenuRegisterService->getSystemMenuList()),
         ]);
+    }
+
+    #[SystemMenu('我的权限', allow_admin: true)]
+    public function getMyPermissionTree(SystemMenuService $systemMenuRegisterService)
+    {
+        $tree = $systemMenuRegisterService->getMyPermissionTree();
+
+        return $this->success($tree);
     }
 
     #[SystemMenu('刷新系统菜单缓存')]

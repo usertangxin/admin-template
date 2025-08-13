@@ -25,7 +25,7 @@ import { provideIndexShareStore } from '../../IndexShare';
 import { router } from '@inertiajs/vue3';
 const props = defineProps(['data'])
 const tree = computed(() => props.data.tree)
-const list = computed(() => props.data.list)
+// const list = computed(() => props.data.list)
 
 const tableRef = ref(null);
 

@@ -4,7 +4,6 @@ namespace Modules\Admin\Tests\Feature;
 
 use Faker\Generator;
 use Illuminate\Container\Container;
-use Mockery;
 use Modules\Admin\Classes\Utils\FormToken;
 use Modules\Admin\Database\Factories\CrudTestFactory;
 
@@ -96,16 +95,16 @@ class CrudTest extends AbstractAuthTestCase
     public function test_create(): void
     {
         // 测试form token
-        $this->app->instance(FormToken::class, new FormToken());
+        $this->app->instance(FormToken::class, new FormToken);
         $response = $this->postJson('/web/admin/CrudTest/create', [
             'name' => 'asdf',
         ]);
         $response->assertJson(['code' => 500]);
 
         $formToken = $this->app[FormToken::class];
-        $token = $formToken->getToken();
-        $response = $this->postJson('/web/admin/CrudTest/create', [
-            'name' => 'asdf',
+        $token     = $formToken->getToken();
+        $response  = $this->postJson('/web/admin/CrudTest/create', [
+            'name'           => 'asdf',
             '__form_token__' => $token,
         ]);
         $response->assertJson(['code' => 0]);
@@ -113,7 +112,7 @@ class CrudTest extends AbstractAuthTestCase
         $token = $formToken->getToken();
         // 测试重复名称
         $response = $this->postJson('/web/admin/CrudTest/create', [
-            'name' => 'asdf',
+            'name'           => 'asdf',
             '__form_token__' => $token,
         ]);
         $response->assertJson(['code' => 422]);
