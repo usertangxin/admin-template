@@ -34,7 +34,7 @@ return Application::configure(basePath: dirname(__DIR__))
         //
         $exceptions->render(function (Illuminate\Validation\ValidationException $exception, Request $request) {
             if (($request->get('__is_admin_background__'))) {
-                return ResponseService::fail($exception->getMessage(), $exception->status, null, $exception->errors());
+                return ResponseService::fail($exception->getMessage(), $exception->status, '500', $exception->errors());
             }
         });
 
@@ -52,7 +52,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $exceptions->render(function (Throwable $exception, Request $request) {
             if (($request->get('__is_admin_background__'))) {
-                return ResponseService::fail($exception->getMessage(), 500, null, app()->isLocal() ? ['trace' => $exception->getTrace()] : []);
+                return ResponseService::fail($exception->getMessage(), 500, '500', app()->isLocal() ? ['trace' => $exception->getTrace()] : []);
             }
         });
     })->create();

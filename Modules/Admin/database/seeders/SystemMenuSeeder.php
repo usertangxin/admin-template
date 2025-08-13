@@ -14,8 +14,8 @@ class SystemMenuSeeder extends Seeder
      */
     public function run(): void
     {
-
         $a = [
+            new SystemMenu('系统主页', type: SystemMenuType::ACTION, url: 'web/admin', code: 'web.admin.index', allow_admin: true, is_hidden: true),
             new SystemMenu('权限管理', type: SystemMenuType::GROUP, code: 'system.permission', icon: 'fas user-lock'),
             new SystemMenu('常规管理', type: SystemMenuType::GROUP, code: 'system.basic', icon: 'fas gears'),
             new SystemMenu('登录', type: SystemMenuType::MENU, code: 'system_admin.login', is_hidden: true),

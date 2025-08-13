@@ -39,7 +39,7 @@ const store = provideIndexShareStore({
         { title: '菜单类型', dataIndex: 'type', type: 'dict_tag', dict: 'menu_type' },
         { title: '菜单图标', dataIndex: 'icon', type: 'icon' },
         { title: '菜单编码', dataIndex: 'code', show: false },
-        { title: '是否隐藏', dataIndex: 'is_hidden', show: false, type: 'switch' },
+        // { title: '是否隐藏', dataIndex: 'is_hidden', show: false, type: 'switch' },
         { title: '备注', dataIndex: 'remark' },
     ],
     actionColumn: null,
