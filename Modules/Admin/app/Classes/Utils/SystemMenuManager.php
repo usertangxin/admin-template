@@ -19,22 +19,23 @@ class SystemMenuManager
             $arr = $menu;
         }
         foreach ($arr as $item) {
-            SystemMenu::whereCode($item['code'])->firstOr(function () use ($item) {
-                $item                   = (array) $item;
-                $model                  = new SystemMenu;
-                $model->code            = $item['code'];
-                $model->name            = $item['name'];
-                $model->icon            = $item['icon'];
-                $model->parent_code     = $item['parent_code'];
-                $model->type            = $item['type'];
-                $model->url             = $item['url'];
-                $model->is_auto_collect = $item['is_auto_collect'] ?? false;
-                $model->remark          = $item['remark'] ?? '';
-                $model->is_hidden       = $item['is_hidden'] ?? false;
-                $model->allow_all       = $item['allow_all'] ?? false;
-                $model->allow_admin     = $item['allow_admin'] ?? false;
-                $model->save();
-            });
+            $model = SystemMenu::whereCode($item['code'])->first();
+            if (! $model) {
+                $model = new SystemMenu();
+            }
+            $item                   = (array) $item;
+            $model->code            = $item['code'];
+            $model->name            = $item['name'];
+            $model->icon            = $item['icon'];
+            $model->parent_code     = $item['parent_code'];
+            $model->type            = $item['type'];
+            $model->url             = $item['url'];
+            $model->is_auto_collect = $item['is_auto_collect'] ?? false;
+            $model->remark          = $item['remark'] ?? '';
+            $model->is_hidden       = $item['is_hidden'] ?? false;
+            $model->allow_all       = $item['allow_all'] ?? false;
+            $model->allow_admin     = $item['allow_admin'] ?? false;
+            $model->save();
         }
     }
 
