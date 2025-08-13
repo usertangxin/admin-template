@@ -6,6 +6,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Modules\Admin\Models\SystemUploadfile;
 use Modules\Admin\Services\SystemConfigService;
+use Modules\Admin\Tests\AbstractAuthTestCase;
 
 class UploadFileTest extends AbstractAuthTestCase
 {

@@ -18,4 +18,11 @@ class Role extends SpatieRole
     {
         return $date->format($this->dateFormat);
     }
+
+    protected $fillable = [
+        'name',
+        'guard_name',
+        'remark',
+    ];
+
 }

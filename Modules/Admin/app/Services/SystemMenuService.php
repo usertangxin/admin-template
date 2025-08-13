@@ -23,6 +23,11 @@ class SystemMenuService
         return app(self::class);
     }
 
+    /**
+     * 获取系统菜单树
+     *
+     * @return array
+     */
     public function getSystemMenuTree()
     {
         $this->tree ??= ArrUtil::convertToTree($this->getSystemMenuList(), 'parent_code', 'code', 'children');
@@ -30,11 +35,38 @@ class SystemMenuService
         return $this->tree;
     }
 
+    /**
+     * 获取用户权限树
+     *
+     * @return array
+     */
     public function getMyPermissionTree()
     {
-        // TODO: 实现获取用户权限树的方法
+        $list = \collect($this->getSystemMenuList());
+        $list = $list->filter(function ($item) {
+            if ($item['type'] == SystemMenuType::GROUP) {
+                return true;
+            }
+            // 如果允许所有访问，则不需要展示
+            if ($item['allow_all'] || $item['allow_admin']) {
+                return false;
+            }
+            if (in_array($item['code'], Auth::user()->getAllPermissions()->pluck('name')->toArray())) {
+                return true;
+            }
+
+            return false;
+        })->toArray();
+        $list = ArrUtil::convertToTree($list, 'parent_code', 'code', 'children');
+
+        return $list;
     }
 
+    /**
+     * 获取系统菜单列表
+     *
+     * @return array
+     */
     public function getSystemMenuList()
     {
         $query = ModelsSystemMenu::query();
@@ -70,6 +102,11 @@ class SystemMenuService
         return null;
     }
 
+    /**
+     * 刷新菜单缓存
+     *
+     * @return void
+     */
     public function refresh()
     {
         $this->menus = null;

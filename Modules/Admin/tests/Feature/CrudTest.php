@@ -6,6 +6,7 @@ use Faker\Generator;
 use Illuminate\Container\Container;
 use Modules\Admin\Classes\Utils\FormToken;
 use Modules\Admin\Database\Factories\CrudTestFactory;
+use Modules\Admin\Tests\AbstractAuthTestCase;
 
 class CrudTest extends AbstractAuthTestCase
 {

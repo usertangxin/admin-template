@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Admin\Tests\Feature;
+namespace Modules\Admin\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;

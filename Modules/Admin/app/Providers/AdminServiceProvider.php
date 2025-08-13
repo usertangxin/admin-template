@@ -6,6 +6,7 @@ use Gate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Admin\Models\SystemAdmin;
 use Modules\Admin\Services\SystemMenuService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
@@ -34,13 +35,21 @@ class AdminServiceProvider extends ServiceProvider
         Model::preventSilentlyDiscardingAttributes(\app()->isLocal() || \app()->runningUnitTests());
 
         Gate::before(function ($user, $ability) {
-            if ($user->is_root) {
-                return true;
-            }
+            if ($user instanceof SystemAdmin) {
+                if ($user->is_root) {
+                    return true;
+                }
 
-            $menu = SystemMenuService::getInstance()->getBy(request()->route()->getName(), 'code');
-            if ($menu['allow_admin'] ?? false) {
-                return true;
+                $menu = SystemMenuService::getInstance()->getBy($ability, 'code');
+
+                if ($menu['allow_all'] ?? false) {
+                    return true;
+                }
+
+                if ($menu['allow_admin'] ?? false) {
+                    return true;
+                }
+
             }
 
             return null;

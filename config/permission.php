@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Permission;
 use App\Models\Role;
 
 return [
@@ -13,7 +14,7 @@ return [
          * 你想用作权限模型的模型需要实现 `Spatie\Permission\Contracts\Permission` 契约。
          */
 
-        'permission' => Spatie\Permission\Models\Permission::class,
+        'permission' => Permission::class,
 
         /*
          * 使用此包中的 "HasRoles" trait 时，我们需要知道应该使用哪个
@@ -29,22 +30,22 @@ return [
     'table_names' => [
 
         /*
-         * 使用此包中的 "HasRoles" trait 时，我们需要知道应该使用哪个
-         * 表来检索角色。我们已经选择了一个基本的默认值，但你可以轻松将其更改为任何你喜欢的表。
+         * 使用此包中的 "HasRoles" trait 时，我们需要知道应该使用哪个表来检索角色。
+         * 我们已经选择了一个基本的默认值，但你可以轻松将其更改为任何你喜欢的表。
          */
 
         'roles' => 'roles',
 
         /*
-         * 使用此包中的 "HasPermissions" trait 时，我们需要知道应该使用哪个
-         * 表来检索权限。我们已经选择了一个基本的默认值，但你可以轻松将其更改为任何你喜欢的表。
+         * 使用此包中的 "HasPermissions" trait 时，我们需要知道应该使用哪个表来检索权限。
+         * 我们已经选择了一个基本的默认值，但你可以轻松将其更改为任何你喜欢的表。
          */
 
         'permissions' => 'permissions',
 
         /*
-         * 使用此包中的 "HasPermissions" trait 时，我们需要知道应该使用哪个
-         * 表来检索模型的权限。我们已经选择了一个基本的默认值，但你可以轻松将其更改为任何你喜欢的表。
+         * 使用此包中的 "HasPermissions" trait 时，我们需要知道应该使用哪个表来检索模型的权限。
+         * 我们已经选择了一个基本的默认值，但你可以轻松将其更改为任何你喜欢的表。
          */
 
         'model_has_permissions' => 'model_has_permissions',

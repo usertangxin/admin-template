@@ -21,7 +21,7 @@ class SystemMenuManager
         foreach ($arr as $item) {
             $model = SystemMenu::whereCode($item['code'])->first();
             if (! $model) {
-                $model = new SystemMenu();
+                $model = new SystemMenu;
             }
             $item                   = (array) $item;
             $model->code            = $item['code'];

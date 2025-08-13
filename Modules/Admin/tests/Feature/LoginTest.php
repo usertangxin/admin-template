@@ -9,6 +9,7 @@ use Modules\Admin\Database\Factories\SystemAdminFactory;
 use PHPUnit\Framework\ExpectationFailedException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Throwable;
+use Modules\Admin\Tests\AbstractAuthTestCase;
 
 class LoginTest extends AbstractAuthTestCase
 {

@@ -5,6 +5,7 @@ namespace Modules\Admin\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Modules\Admin\Http\Controllers\LoginController;
 use Modules\Admin\Models\SystemAdmin;
 use Modules\Admin\Services\SystemMenuService;
 
@@ -19,18 +20,12 @@ class AdminSupport
             '__is_admin_background__' => true,
         ]);
 
-        $menu = SystemMenuService::getInstance()->getBy($request->route()->getName(), 'code');
-
-        if ($menu['allow_all'] ?? false) {
+        if (\request()->route()->getController() instanceof LoginController) {
             return $next($request);
         }
 
         if (! Auth::check() || Auth::user()->status !== 'normal' || ! (Auth::user() instanceof SystemAdmin)) {
             return \redirect()->route('web.admin.logout');
-        }
-
-        if ($menu['allow_admin'] ?? false) {
-            return $next($request);
         }
 
         /** @var \Modules\Admin\Model\SystemAdmin $user */

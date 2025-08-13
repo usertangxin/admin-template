@@ -5,6 +5,7 @@ namespace Modules\Admin\Tests\Feature;
 use Illuminate\Support\Facades\Auth;
 use Modules\Admin\Database\Factories\SystemAdminFactory;
 use Modules\Admin\Models\SystemAdmin;
+use Modules\Admin\Tests\AbstractAuthTestCase;
 
 class SystemAdminTest extends AbstractAuthTestCase
 {
