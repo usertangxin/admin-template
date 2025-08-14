@@ -33,4 +33,8 @@ const rules = {
     ],
 }
 
+request.get(route('web.admin.SystemMenu.my-permission-tree')).then(res=>{
+    
+})
+
 </script>

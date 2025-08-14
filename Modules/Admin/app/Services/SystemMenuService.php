@@ -4,6 +4,7 @@ namespace Modules\Admin\Services;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Modules\Admin\Classes\Utils\ArrUtil;
 use Modules\Admin\Classes\Utils\SystemMenuType;
 use Modules\Admin\Models\SystemMenu as ModelsSystemMenu;
@@ -51,6 +52,15 @@ class SystemMenuService
             if ($item['allow_all'] || $item['allow_admin']) {
                 return false;
             }
+
+            if ($item['is_hidden']) {
+                return false;
+            }
+
+            if (FacadesAuth::user()->is_root) {
+                return true;
+            }
+
             if (in_array($item['code'], Auth::user()->getAllPermissions()->pluck('name')->toArray())) {
                 return true;
             }
