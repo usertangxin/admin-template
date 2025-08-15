@@ -2,14 +2,14 @@
 
 namespace Modules\Admin\Tests\Feature;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Testing\Exceptions\InvalidArgumentException;
 use InvalidArgumentException as GlobalInvalidArgumentException;
 use Modules\Admin\Database\Factories\SystemAdminFactory;
+use Modules\Admin\Tests\AbstractAuthTestCase;
 use PHPUnit\Framework\ExpectationFailedException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Throwable;
-use Modules\Admin\Tests\AbstractAuthTestCase;
 
 class LoginTest extends AbstractAuthTestCase
 {
