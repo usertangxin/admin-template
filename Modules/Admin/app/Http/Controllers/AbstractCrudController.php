@@ -284,14 +284,36 @@ abstract class AbstractCrudController extends AbstractController
 
         $formToken->checkToken();
 
-        $data   = $this->validate();
-        $result = $this->getModel()->create($data);
+        $data = $this->validate();
+        DB::beginTransaction();
+        try {
+            $this->beforeCreate($data);
+            $result = $this->getModel()->create($data);
+            $this->afterCreate($result);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
         if (! empty($resourceCollection = $this->getResource())) {
             $result = new $resourceCollection($result);
         }
 
         return $this->success($result, message: '创建成功', view: $this->getViewPrefix() . '/save');
     }
+
+    /**
+     * 创建前
+     */
+    protected function beforeCreate(array &$data): void {}
+
+    /**
+     * 创建后
+     *
+     * @param mixed $model
+     */
+    protected function afterCreate($model): void {}
 
     /**
      * 编辑
@@ -323,7 +345,16 @@ abstract class AbstractCrudController extends AbstractController
         if (! $model) {
             return $this->fail('数据不存在', 404, view: '404');
         }
-        $result = $model->update($data);
+        DB::beginTransaction();
+        try {
+            $this->beforeUpdate($model, $data);
+            $result = $model->update($data);
+            $this->afterUpdate($model);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
         if (! $result) {
             return $this->fail('更新失败', view: $this->getViewPrefix() . '/save');
         }
@@ -333,6 +364,20 @@ abstract class AbstractCrudController extends AbstractController
 
         return $this->success($model, message: '编辑成功', view: $this->getViewPrefix() . '/save');
     }
+
+    /**
+     * 更新前
+     *
+     * @param mixed $model
+     */
+    protected function beforeUpdate($model, array &$data): void {}
+
+    /**
+     * 更新后
+     *
+     * @param mixed $model
+     */
+    protected function afterUpdate($model): void {}
 
     /**
      * 切换状态

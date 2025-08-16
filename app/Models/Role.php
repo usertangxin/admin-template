@@ -23,5 +23,6 @@ class Role extends SpatieRole
         'name',
         'guard_name',
         'remark',
+        'status',
     ];
 }

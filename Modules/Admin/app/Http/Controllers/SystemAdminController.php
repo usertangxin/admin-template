@@ -6,7 +6,7 @@ use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Models\SystemAdmin;
-use Modules\Admin\Transformers\SystemAdmin as SystemAdminResource;
+use Modules\Admin\Transformers\SystemAdminResource;
 
 #[SystemMenu('系统管理员', parent_code: 'system.permission', icon: 'fas fa-user-tie')]
 class SystemAdminController extends AbstractCrudController

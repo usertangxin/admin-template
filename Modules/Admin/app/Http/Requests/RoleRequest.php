@@ -3,6 +3,7 @@
 namespace Modules\Admin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Modules\Admin\Services\SystemDictService;
 
 class RoleRequest extends FormRequest
@@ -13,12 +14,13 @@ class RoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'   => 'required|string|unique:roles,name',
+            'name'   => ['required', 'string', Rule::unique('roles')->ignore($this->id)],
             'status' => [
                 'nullable',
                 'required',
                 'in:' . \implode(',', SystemDictService::getInstance()->getValuesByCode('data_status')->toArray()),
             ],
+            'remark' => 'nullable|string',
         ];
     }
 
