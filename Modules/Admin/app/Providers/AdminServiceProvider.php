@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Models\SystemAdmin;
-use Modules\Admin\Services\SystemMenuService;
+use Modules\Admin\Services\SystemPermissionService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -40,7 +40,7 @@ class AdminServiceProvider extends ServiceProvider
                     return true;
                 }
 
-                $menu = SystemMenuService::getInstance()->getBy($ability, 'code');
+                $menu = SystemPermissionService::getInstance()->getBy($ability, 'code');
 
                 if ($menu['allow_all'] ?? false) {
                     return true;

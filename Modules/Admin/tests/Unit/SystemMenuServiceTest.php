@@ -5,7 +5,7 @@ namespace Modules\Admin\Tests\Unit;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Modules\Admin\Database\Factories\SystemAdminFactory;
-use Modules\Admin\Services\SystemMenuService;
+use Modules\Admin\Services\SystemPermissionService;
 use Modules\Admin\Tests\AbstractAuthTestCase;
 
 class SystemMenuServiceTest extends AbstractAuthTestCase
@@ -20,7 +20,7 @@ class SystemMenuServiceTest extends AbstractAuthTestCase
         $role->givePermissionTo($permission);
         $admin->assignRole('admin');
 
-        $menuService = \app(SystemMenuService::class);
+        $menuService = \app(SystemPermissionService::class);
         $tree        = $menuService->getMyPermissionTree();
 
         // \dd(Auth::user()->getAllPermissions()->pluck('name')->toArray());

@@ -5,7 +5,7 @@ namespace Modules\Admin\Providers;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Modules\Admin\Services\SystemMenuService;
+use Modules\Admin\Services\SystemPermissionService;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -24,8 +24,8 @@ class RouteServiceProvider extends ServiceProvider
     public function register()
     {
         parent::register();
-        $this->app->singleton(SystemMenuService::class, function () {
-            return new SystemMenuService;
+        $this->app->singleton(SystemPermissionService::class, function () {
+            return new SystemPermissionService;
         });
     }
 

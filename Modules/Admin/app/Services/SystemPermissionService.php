@@ -10,10 +10,10 @@ use Modules\Admin\Classes\Utils\SystemMenuType;
 use Modules\Admin\Models\SystemMenu as ModelsSystemMenu;
 
 /**
- * 系统菜单服务
+ * 系统权限服务
  * 请从容器中获取实例
  */
-class SystemMenuService
+class SystemPermissionService
 {
     protected ?array $menus = null;
 
@@ -70,6 +70,11 @@ class SystemMenuService
         $list = ArrUtil::convertToTree($list, 'parent_code', 'code', 'children');
 
         return $list;
+    }
+
+    public function getMyRoles()
+    {
+        // TODO: 实现获取用户角色的逻辑
     }
 
     /**

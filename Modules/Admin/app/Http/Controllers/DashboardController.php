@@ -3,7 +3,7 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Modules\Admin\Services\SystemMenuService;
+use Modules\Admin\Services\SystemPermissionService;
 
 class DashboardController extends AbstractController
 {
@@ -11,8 +11,8 @@ class DashboardController extends AbstractController
     {
         return $this->inertia(
             [
-                'system_menus_tree' => SystemMenuService::getInstance()->getSystemMenuTree(),
-                'system_menus_list' => SystemMenuService::getInstance()->getSystemMenuList(),
+                'system_menus_tree' => SystemPermissionService::getInstance()->getSystemMenuTree(),
+                'system_menus_list' => SystemPermissionService::getInstance()->getSystemMenuList(),
                 'auth'              => Auth::user(),
             ],
             view: 'main'
