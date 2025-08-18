@@ -71,6 +71,14 @@ class SystemPermissionService
         })->toArray();
         $list = ArrUtil::convertToTree($list, 'parent_code', 'code', 'children');
 
+        $list = ArrUtil::recursiveFilter($list, function ($item) {
+            if ($item['type'] == SystemMenuType::GROUP && (! isset($item['children']) || count($item['children']) == 0)) {
+                return false;
+            }
+
+            return true;
+        });
+
         return $list;
     }
 

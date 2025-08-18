@@ -70,12 +70,7 @@ const handleToggleChecked = () => {
 }
 
 request.get(route('web.admin.SystemMenu.my-permission-tree')).then(res => {
-    const data = recursiveFilter(res.data, (item) => {
-        if (item.type == 'G' && (!item.children || item.children.length == 0)) {
-            return false;
-        }
-        return true;
-    })
+    const data = res.data
     permissionTree.value = recursiveMap(data, (item) => {
         allKeys.value.push(item.code);
         return {

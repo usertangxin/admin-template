@@ -42,4 +42,24 @@ class ArrUtil
 
         return $rootItems;
     }
+
+    /**
+     * 递归过滤数组
+     *
+     * @param string $children_key
+     */
+    public static function recursiveFilter(array $items, callable $callback, $children_key = 'children'): array
+    {
+        $result = [];
+        foreach ($items as $item) {
+            if ($callback($item)) {
+                $result[] = $item;
+            }
+            if (isset($item[$children_key])) {
+                $item[$children_key] = self::recursiveFilter($item[$children_key], $callback, $children_key);
+            }
+        }
+
+        return $result;
+    }
 }
