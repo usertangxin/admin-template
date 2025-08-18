@@ -28,7 +28,7 @@ class SystemMenuController extends AbstractController
         return $this->success($tree);
     }
 
-    #[SystemMenu('我的角色')]
+    #[SystemMenu('我的角色', allow_admin: true)]
     public function getMyRoles(SystemPermissionService $systemMenuRegisterService)
     {
         $roles = $systemMenuRegisterService->getMyRoles();

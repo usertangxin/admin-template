@@ -29,7 +29,7 @@
 <script setup>
 import _ from 'lodash';
 import { reactive, ref, watch } from 'vue';
-import { recursiveForEach, recursiveMap } from '../../util';
+import { recursiveFilter, recursiveForEach, recursiveMap } from '../../util';
 
 const props = defineProps(['data'])
 const permissionTree = ref([]);
@@ -70,7 +70,13 @@ const handleToggleChecked = () => {
 }
 
 request.get(route('web.admin.SystemMenu.my-permission-tree')).then(res => {
-    permissionTree.value = recursiveMap(res.data, (item) => {
+    const data = recursiveFilter(res.data, (item) => {
+        if (item.type == 'G' && (!item.children || item.children.length == 0)) {
+            return false;
+        }
+        return true;
+    })
+    permissionTree.value = recursiveMap(data, (item) => {
         allKeys.value.push(item.code);
         return {
             title: item.name,
