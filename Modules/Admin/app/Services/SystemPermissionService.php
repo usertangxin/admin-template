@@ -45,30 +45,7 @@ class SystemPermissionService
      */
     public function getMyPermissionTree()
     {
-        $list = \collect($this->getSystemMenuList());
-        $list = $list->filter(function ($item) {
-            if ($item['type'] == SystemMenuType::GROUP) {
-                return true;
-            }
-            // 如果允许所有访问，则不需要展示
-            if ($item['allow_all'] || $item['allow_admin']) {
-                return false;
-            }
-
-            if ($item['is_hidden']) {
-                return false;
-            }
-
-            if (FacadesAuth::user()->is_root) {
-                return true;
-            }
-
-            if (in_array($item['code'], Auth::user()->getAllPermissions()->pluck('name')->toArray())) {
-                return true;
-            }
-
-            return false;
-        })->toArray();
+        $list = $this->getMyPermissionList();
         $list = ArrUtil::convertToTree($list, 'parent_code', 'code', 'children');
 
         $list = ArrUtil::recursiveFilter($list, function ($item) {
@@ -116,6 +93,40 @@ class SystemPermissionService
         $this->menus ??= $query->get()->keyBy('code')->toArray();
 
         return $this->menus;
+    }
+
+    /**
+     * 获取我的权限列表
+     * @return array<string|int, mixed> 
+     */
+    public function getMyPermissionList()
+    {
+        $list = \collect($this->getSystemMenuList());
+        $list = $list->filter(function ($item) {
+            if ($item['type'] == SystemMenuType::GROUP) {
+                return true;
+            }
+            // 如果允许所有访问，则不需要展示
+            if ($item['allow_all'] || $item['allow_admin']) {
+                return false;
+            }
+
+            if ($item['is_hidden']) {
+                return false;
+            }
+
+            if (FacadesAuth::user()->is_root) {
+                return true;
+            }
+
+            if (in_array($item['code'], Auth::user()->getAllPermissions()->pluck('name')->toArray())) {
+                return true;
+            }
+
+            return false;
+        })->toArray();
+
+        return $list;
     }
 
     /**

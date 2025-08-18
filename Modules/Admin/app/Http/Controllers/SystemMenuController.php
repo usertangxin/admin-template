@@ -15,7 +15,7 @@ class SystemMenuController extends AbstractController
     public function index(SystemPermissionService $systemMenuRegisterService)
     {
         return $this->success([
-            'tree' => $systemMenuRegisterService->getSystemMenuTree(),
+            'tree' => $systemMenuRegisterService->getMyPermissionTree(),
             // 'list' => array_values($systemMenuRegisterService->getSystemMenuList()),
         ]);
     }
