@@ -2,8 +2,8 @@
 
 namespace Modules\Admin\Models;
 
-use App\Models\Permission;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Spatie\Permission\PermissionRegistrar;
 
 class SystemMenu extends AbstractModel
 {
@@ -15,10 +15,10 @@ class SystemMenu extends AbstractModel
     {
         parent::booted();
         static::deleting(function ($model) {
-            Permission::whereName($model->code)->delete();
+            \app(PermissionRegistrar::class)->getPermissionClass()::whereName($model->code)->delete();
         });
         static::created(function ($model) {
-            Permission::firstOrCreate(['name' => $model->code, 'guard_name' => 'admin']);
+            \app(PermissionRegistrar::class)->getPermissionClass()::firstOrCreate(['name' => $model->code, 'guard_name' => 'admin']);
         });
     }
 

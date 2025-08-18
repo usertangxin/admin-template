@@ -28,6 +28,14 @@ class SystemMenuController extends AbstractController
         return $this->success($tree);
     }
 
+    #[SystemMenu('我的角色')]
+    public function getMyRoles(SystemPermissionService $systemMenuRegisterService)
+    {
+        $roles = $systemMenuRegisterService->getMyRoles();
+
+        return $this->success($roles);
+    }
+
     #[SystemMenu('刷新系统菜单缓存')]
     public function putRefreshSystemMenuCache(SystemPermissionService $systemMenuRegisterService)
     {

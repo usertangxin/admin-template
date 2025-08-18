@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Modules\Admin\Classes\Utils\ArrUtil;
 use Modules\Admin\Classes\Utils\SystemMenuType;
 use Modules\Admin\Models\SystemMenu as ModelsSystemMenu;
+use Spatie\Permission\PermissionRegistrar;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 /**
  * 系统权限服务
@@ -72,9 +74,21 @@ class SystemPermissionService
         return $list;
     }
 
+    /**
+     * 获取我的角色
+     *
+     * @return mixed
+     *
+     * @throws BadRequestException
+     */
     public function getMyRoles()
     {
-        // TODO: 实现获取用户角色的逻辑
+        $user = Auth::user();
+        if ($user->is_root) {
+            return \app(PermissionRegistrar::class)->getRoleClass()::all();
+        }
+
+        return Auth::user()->roles;
     }
 
     /**

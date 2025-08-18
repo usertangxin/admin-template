@@ -48,7 +48,6 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
                 if ($model->isDirty('status')) {
                     throw new \Exception($model->nickname . '禁止更新状态');
                 }
-
             }
         });
     }

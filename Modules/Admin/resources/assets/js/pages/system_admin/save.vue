@@ -27,15 +27,19 @@
                     :merge="{ normal: { remark: '管理员正常登录' }, disabled: { remark: '管理员不允许登录' } }"
                     v-model="formData.status"></dict-radio>
             </a-form-item>
+            <a-form-item label="角色" field="roles">
+                <a-transfer :title="['未使用', '已使用']" :data="roles" one-way v-model:model-value="formData.roles" />
+            </a-form-item>
         </save-form>
     </div>
 </template>
 
 <script setup>
 import _ from 'lodash';
-import { reactive, watch } from 'vue';
+import { reactive, watch, ref } from 'vue';
 
 const props = defineProps(['data'])
+const roles = ref([]);
 
 const formData = reactive({
     avatar: '',
@@ -46,6 +50,7 @@ const formData = reactive({
     email: '',
     remark: '',
     status: 'normal',
+    roles: [],
 })
 
 const rules = {
@@ -54,5 +59,14 @@ const rules = {
         { minLength: 3, message: '账号长度不能小于3个字符' },
     ],
 }
+
+request.get(route('web.admin.SystemMenu.my-roles')).then(res => {
+    roles.value = res.data.map(item => {
+        return {
+            label: item.name,
+            value: item.name,
+        }
+    })
+})
 
 </script>

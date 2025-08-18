@@ -20,4 +20,14 @@ class SystemAdminController extends AbstractCrudController
     {
         return SystemAdminResource::class;
     }
+
+    protected function afterCreate($model): void
+    {
+        $model->syncRoles(\request()->input('roles', []));
+    }
+
+    protected function afterUpdate($model): void
+    {
+        $model->syncRoles(\request()->input('roles', []));
+    }
 }
