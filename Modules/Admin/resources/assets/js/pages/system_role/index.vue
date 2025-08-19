@@ -24,6 +24,9 @@ const store = provideIndexShareStore({
         { title: '状态', dataIndex: 'status', type: 'dict_tag', dict: 'data_status' },
         { title: '备注', dataIndex: 'remark', },
     ],
+    searchQuery: {
+        name: '',
+    },
 })
 
 </script>
