@@ -119,6 +119,7 @@ abstract class AbstractCrudController extends AbstractController
             ]);
         }
 
+        // 相较于当前控制器的请求类
         $request_namespace = str_replace('Controllers', 'Requests', static::class);
         $request_namespace = str_replace(\class_basename(static::class), '', $request_namespace);
         $request_classname = $request_namespace . \class_basename($this->getModel()) . 'Request';
