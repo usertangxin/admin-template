@@ -5,6 +5,7 @@ namespace Modules\Admin\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Context;
 use Modules\Admin\Http\Controllers\LoginController;
 use Modules\Admin\Models\SystemAdmin;
 
@@ -15,9 +16,7 @@ class AdminSupport
      */
     public function handle(Request $request, Closure $next)
     {
-        $request->merge([
-            '__is_admin_background__' => true,
-        ]);
+        Context::add('__is_admin_background__', true);
 
         if (\request()->route()->getController() instanceof LoginController) {
             return $next($request);

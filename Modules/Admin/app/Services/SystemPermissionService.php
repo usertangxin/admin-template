@@ -97,7 +97,8 @@ class SystemPermissionService
 
     /**
      * 获取我的权限列表
-     * @return array<string|int, mixed> 
+     *
+     * @return array<string|int, mixed>
      */
     public function getMyPermissionList()
     {
