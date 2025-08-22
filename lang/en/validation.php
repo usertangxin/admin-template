@@ -164,7 +164,6 @@ return [
     'url'         => 'The :attribute field must be a valid URL.',
     'ulid'        => 'The :attribute field must be a valid ULID.',
     'uuid'        => 'The :attribute field must be a valid UUID.',
-    'in_dict'     => 'The :attribute field value :value is not in the dictionary :dict.',
 
     /*
     |--------------------------------------------------------------------------

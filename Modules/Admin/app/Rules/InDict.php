@@ -28,7 +28,7 @@ class InDict implements ValidationRule
         }
         foreach ($value as $v) {
             if (! SystemDictService::getInstance()->getValuesByCode($this->dictCode)->contains($v)) {
-                $fail(__('validation.in_dict', [
+                $fail(__('admin::validation.in_dict', [
                     'value' => $v,
                     'dict' => $this->dictCode,
                 ]));

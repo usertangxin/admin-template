@@ -163,7 +163,6 @@ return [
     'url'         => ':attribute 字段必须是有效的 URL。',
     'ulid'        => ':attribute 字段必须是有效的 ULID。',
     'uuid'        => ':attribute 字段必须是有效的 UUID。',
-    'in_dict'     => ':attribute 字段值 :value 不在字典 :dict 中。',
 
     /*
     |--------------------------------------------------------------------------
