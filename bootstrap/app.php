@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Context;
 use Modules\Admin\Http\Middleware\AdminSupport;
 use Modules\Admin\Services\ResponseService;
@@ -35,7 +36,8 @@ return Application::configure(basePath: dirname(__DIR__))
         //
         $exceptions->render(function (Illuminate\Validation\ValidationException $exception, Request $request) {
             if (Context::get('__is_admin_background__')) {
-                return ResponseService::fail($exception->getMessage(), $exception->status, '500', $exception->errors());
+                $messages = join('', Arr::flatten($exception->errors()));
+                return ResponseService::fail($messages, $exception->status, '500', $exception->errors());
             }
         });
 

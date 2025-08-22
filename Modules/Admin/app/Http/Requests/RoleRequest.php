@@ -14,7 +14,7 @@ class RoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'   => ['required', 'string', Rule::unique('roles')->ignore($this->id)],
+            'name'   => ['required', 'string', Rule::unique('roles')->ignore($this['id'])],
             'status' => [
                 'nullable',
                 'required',

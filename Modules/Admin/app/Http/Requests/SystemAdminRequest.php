@@ -15,16 +15,12 @@ class SystemAdminRequest extends FormRequest
     {
         $rules = [
             'avatar'     => 'nullable|string',
-            'admin_name' => ['required', 'string', Rule::unique('system_admins')->ignore($this->id)],
+            'admin_name' => ['required', 'string', Rule::unique('system_admins')->ignore($this['id'])],
             'nickname'   => 'nullable|string',
             'phone'      => 'nullable|string',
             'email'      => 'nullable|email',
             'remark'     => 'nullable|string',
-            'status'     => [
-                'nullable',
-                'required',
-                new InDict('data_status'),
-            ],
+            'status'     => ['nullable', 'required', new InDict('data_status'),],
         ];
 
         if (\request()->route()->getActionMethod() == 'create') {
