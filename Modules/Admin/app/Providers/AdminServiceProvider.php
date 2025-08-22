@@ -89,7 +89,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function registerTranslations(): void
     {
-        $langPath = resource_path('lang/modules/' . $this->nameLower);
+        $langPath = resource_path('lang/' . $this->nameLower);
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->nameLower);
@@ -141,7 +141,7 @@ class AdminServiceProvider extends ServiceProvider
         $existing      = config($key, []);
         $module_config = require $path;
 
-        config([$key => array_replace_recursive($existing, $module_config)]);
+        config([$key => array_replace_recursive($module_config, $existing)]);
     }
 
     /**

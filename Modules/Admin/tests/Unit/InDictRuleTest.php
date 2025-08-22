@@ -21,6 +21,8 @@ class InDictRuleTest extends AbstractAuthTestCase
 
         $this->assertTrue($validator->fails());
 
+        // dd($validator->messages());
+
         $validator = Validator::make([
             'a' => ['normal', 1],
         ], [
