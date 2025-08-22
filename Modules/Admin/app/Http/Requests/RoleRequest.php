@@ -4,6 +4,7 @@ namespace Modules\Admin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Modules\Admin\Rules\InDict;
 use Modules\Admin\Services\SystemDictService;
 
 class RoleRequest extends FormRequest
@@ -18,7 +19,7 @@ class RoleRequest extends FormRequest
             'status' => [
                 'nullable',
                 'required',
-                'in:' . \implode(',', SystemDictService::getInstance()->getValuesByCode('data_status')->toArray()),
+                new InDict('data_status'),
             ],
             'remark' => 'nullable|string',
         ];
