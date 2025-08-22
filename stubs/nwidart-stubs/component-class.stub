@@ -17,6 +17,6 @@ class $CLASS$ extends Component
      */
     public function render(): View|string
     {
-        return view('$LOWER_NAME$::$COMPONENT_NAME$');
+        return view('$SNAKE_NAME$::$COMPONENT_NAME$');
     }
 }

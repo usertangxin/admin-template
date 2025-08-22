@@ -14,7 +14,7 @@ class $CLASS$ extends ServiceProvider
 
     protected string $name = '$MODULE$';
 
-    protected string $nameLower = '$LOWER_NAME$';
+    protected string $nameLower = '$SNAKE_NAME$';
 
     /**
      * Boot the application events.
