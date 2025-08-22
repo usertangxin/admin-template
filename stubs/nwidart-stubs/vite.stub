@@ -6,14 +6,14 @@ import { fileURLToPath } from 'url';
 
 export default defineConfig({
     build: {
-        outDir: '../../public/build-$LOWER_NAME$',
+        outDir: '../../public/build-$KEBAB_NAME$',
         emptyOutDir: true,
         manifest: true,
     },
     plugins: [
         laravel({
             publicDirectory: '../../public',
-            buildDirectory: 'build-$LOWER_NAME$',
+            buildDirectory: 'build-$KEBAB_NAME$',
             input: [
                 __dirname + '/resources/assets/sass/app.scss',
                 __dirname + '/resources/assets/js/app.js'
