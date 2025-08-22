@@ -36,7 +36,8 @@ return Application::configure(basePath: dirname(__DIR__))
         //
         $exceptions->render(function (Illuminate\Validation\ValidationException $exception, Request $request) {
             if (Context::get('__is_admin_background__')) {
-                $messages = join('', Arr::flatten($exception->errors()));
+                $messages = implode('', Arr::flatten($exception->errors()));
+
                 return ResponseService::fail($messages, $exception->status, '500', $exception->errors());
             }
         });

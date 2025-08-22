@@ -20,7 +20,7 @@ class SystemAdminRequest extends FormRequest
             'phone'      => 'nullable|string',
             'email'      => 'nullable|email',
             'remark'     => 'nullable|string',
-            'status'     => ['nullable', 'required', new InDict('data_status'),],
+            'status'     => ['nullable', 'required', new InDict('data_status')],
         ];
 
         if (\request()->route()->getActionMethod() == 'create') {

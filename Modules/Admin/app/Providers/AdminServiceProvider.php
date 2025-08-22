@@ -126,7 +126,7 @@ class AdminServiceProvider extends ServiceProvider
 
                     $key = ($config === 'config.php') ? $this->nameLower : implode('.', $normalized);
 
-                    $this->publishes([$file->getPathname() => config_path($config)], 'config');
+                    $this->publishes([$file->getPathname() => config_path($key . '.php')], 'config');
                     $this->merge_config_from($file->getPathname(), $key);
                 }
             }

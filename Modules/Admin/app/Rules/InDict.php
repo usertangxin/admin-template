@@ -30,7 +30,7 @@ class InDict implements ValidationRule
             if (! SystemDictService::getInstance()->getValuesByCode($this->dictCode)->contains($v)) {
                 $fail(__('admin::validation.in_dict', [
                     'value' => $v,
-                    'dict' => $this->dictCode,
+                    'dict'  => $this->dictCode,
                 ]));
             }
         }
