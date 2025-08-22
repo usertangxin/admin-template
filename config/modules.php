@@ -55,13 +55,52 @@ return [
              *
              * 注意: 键名应使用大写字母。
              */
-            'routes/web'      => ['LOWER_NAME', 'STUDLY_NAME', 'PLURAL_LOWER_NAME', 'KEBAB_NAME', 'MODULE_NAMESPACE', 'CONTROLLER_NAMESPACE'],
-            'routes/api'      => ['LOWER_NAME', 'STUDLY_NAME', 'PLURAL_LOWER_NAME', 'KEBAB_NAME', 'MODULE_NAMESPACE', 'CONTROLLER_NAMESPACE'],
-            'vite'            => ['LOWER_NAME', 'STUDLY_NAME', 'KEBAB_NAME'],
-            'json'            => ['LOWER_NAME', 'STUDLY_NAME', 'KEBAB_NAME', 'MODULE_NAMESPACE', 'PROVIDER_NAMESPACE'],
-            'views/index'     => ['LOWER_NAME'],
-            'views/master'    => ['LOWER_NAME', 'STUDLY_NAME', 'KEBAB_NAME'],
-            'scaffold/config' => ['STUDLY_NAME'],
+            'routes/web'      => [
+                'LOWER_NAME',
+                'STUDLY_NAME',
+                'PLURAL_LOWER_NAME',
+                'KEBAB_NAME',
+                'MODULE_NAMESPACE',
+                'CONTROLLER_NAMESPACE',
+                'SNAKE_NAME' => fn(\Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+            ],
+            'routes/api'      => [
+                'LOWER_NAME',
+                'STUDLY_NAME',
+                'PLURAL_LOWER_NAME',
+                'KEBAB_NAME',
+                'MODULE_NAMESPACE',
+                'CONTROLLER_NAMESPACE',
+                'SNAKE_NAME' => fn(\Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+            ],
+            'vite'            => [
+                'LOWER_NAME',
+                'STUDLY_NAME',
+                'KEBAB_NAME',
+                'SNAKE_NAME' => fn(\Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+            ],
+            'json'            => [
+                'LOWER_NAME',
+                'STUDLY_NAME',
+                'KEBAB_NAME',
+                'MODULE_NAMESPACE',
+                'PROVIDER_NAMESPACE',
+                'SNAKE_NAME' => fn(\Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+            ],
+            'views/index'     => [
+                'LOWER_NAME',
+                'SNAKE_NAME' => fn(\Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+            ],
+            'views/master'    => [
+                'LOWER_NAME',
+                'STUDLY_NAME',
+                'KEBAB_NAME',
+                'SNAKE_NAME' => fn(\Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+            ],
+            'scaffold/config' => [
+                'STUDLY_NAME',
+                'SNAKE_NAME' => fn(\Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+            ],
             'composer'        => [
                 'LOWER_NAME',
                 'STUDLY_NAME',
@@ -71,6 +110,7 @@ return [
                 'MODULE_NAMESPACE',
                 'PROVIDER_NAMESPACE',
                 'APP_FOLDER_NAME',
+                'SNAKE_NAME' => fn(\Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
             ],
         ],
         'gitkeep' => true,

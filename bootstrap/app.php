@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\ProviderMakeCommand;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -18,6 +19,9 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
     )
+    ->withCommands([
+        ProviderMakeCommand::class,
+    ])
     ->withMiddleware(function (Middleware $middleware): void {
         //
         $middleware->priority([
