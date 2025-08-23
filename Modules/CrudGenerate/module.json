@@ -1,7 +1,7 @@
 {
     "name": "CrudGenerate",
     "alias": "crud_generate",
-    "description": "",
+    "description": "开发工具-CRUD生成",
     "keywords": [],
     "priority": 0,
     "providers": [
