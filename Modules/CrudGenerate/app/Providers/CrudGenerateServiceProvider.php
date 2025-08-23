@@ -62,7 +62,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
      */
     public function registerTranslations(): void
     {
-        $langPath = resource_path('lang/'. $this->nameSnake);
+        $langPath = resource_path('lang/' . $this->nameSnake);
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->nameSnake);
@@ -85,9 +85,9 @@ class CrudGenerateServiceProvider extends ServiceProvider
 
             foreach ($iterator as $file) {
                 if ($file->isFile() && $file->getExtension() === 'php') {
-                    $config = str_replace($configPath.DIRECTORY_SEPARATOR, '', $file->getPathname());
+                    $config     = str_replace($configPath . DIRECTORY_SEPARATOR, '', $file->getPathname());
                     $config_key = str_replace([DIRECTORY_SEPARATOR, '.php'], ['.', ''], $config);
-                    $segments = explode('.', $this->nameSnake.'.'.$config_key);
+                    $segments   = explode('.', $this->nameSnake . '.' . $config_key);
 
                     // Remove duplicated adjacent segments
                     $normalized = [];
@@ -111,7 +111,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
      */
     protected function merge_config_from(string $path, string $key): void
     {
-        $existing = config($key, []);
+        $existing      = config($key, []);
         $module_config = require $path;
 
         config([$key => array_replace_recursive($module_config, $existing)]);
@@ -122,14 +122,14 @@ class CrudGenerateServiceProvider extends ServiceProvider
      */
     public function registerViews(): void
     {
-        $viewPath = resource_path('views/modules/'.$this->nameSnake);
+        $viewPath   = resource_path('views/modules/' . $this->nameSnake);
         $sourcePath = module_path($this->name, 'resources/views');
 
-        $this->publishes([$sourcePath => $viewPath], ['views', $this->nameSnake.'-module-views']);
+        $this->publishes([$sourcePath => $viewPath], ['views', $this->nameSnake . '-module-views']);
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->nameSnake);
 
-        Blade::componentNamespace(config('modules.namespace').'\\' . $this->name . '\\View\\Components', $this->nameSnake);
+        Blade::componentNamespace(config('modules.namespace') . '\\' . $this->name . '\\View\\Components', $this->nameSnake);
     }
 
     /**
@@ -144,8 +144,8 @@ class CrudGenerateServiceProvider extends ServiceProvider
     {
         $paths = [];
         foreach (config('view.paths') as $path) {
-            if (is_dir($path.'/modules/'.$this->nameSnake)) {
-                $paths[] = $path.'/modules/'.$this->nameSnake;
+            if (is_dir($path . '/modules/' . $this->nameSnake)) {
+                $paths[] = $path . '/modules/' . $this->nameSnake;
             }
         }
 

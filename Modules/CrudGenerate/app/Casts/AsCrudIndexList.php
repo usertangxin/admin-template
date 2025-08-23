@@ -23,11 +23,11 @@ class AsCrudIndexList implements CastsAttributes
         $data = [];
         foreach ($value as $item) {
             $data[] = [
-                'type'     => $item['type'], // 字段类型
-                'field'    => $item['field'], // 字段名
-                'nullable' => (bool) $item['nullable'], // 是否可空
-                'comment'  => $item['comment'], // 注释
-                'special_params'   => $item['special_params'], // 特有参数
+                'type'           => $item['type'], // 字段类型
+                'field'          => $item['field'], // 字段名
+                'nullable'       => (bool) $item['nullable'], // 是否可空
+                'comment'        => $item['comment'], // 注释
+                'special_params' => $item['special_params'], // 特有参数
             ];
         }
 
