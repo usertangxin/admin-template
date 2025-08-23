@@ -15,7 +15,6 @@
 
 <script setup>
 import { provideIndexShareStore } from '../../IndexShare'
-import { router } from '@inertiajs/vue3';
 
 const store = provideIndexShareStore({
     columns: [
