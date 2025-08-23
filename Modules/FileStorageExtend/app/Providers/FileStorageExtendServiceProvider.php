@@ -16,7 +16,7 @@ class FileStorageExtendServiceProvider extends ServiceProvider
 
     protected string $name = 'FileStorageExtend';
 
-    protected string $nameLower = 'file_storage_extend';
+    protected string $nameSnake = 'file_storage_extend';
 
     /**
      * Boot the application events.
@@ -30,7 +30,7 @@ class FileStorageExtendServiceProvider extends ServiceProvider
         // $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
-        // $systemDictService->registerList(config($this->nameLower . '.dict'));
+        // $systemDictService->registerList(config($this->nameSnake . '.dict'));
     }
 
     /**
@@ -66,13 +66,13 @@ class FileStorageExtendServiceProvider extends ServiceProvider
      */
     public function registerTranslations(): void
     {
-        $langPath = resource_path('lang/' . $this->nameLower);
+        $langPath = resource_path('lang/' . $this->nameSnake);
 
         if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, $this->nameLower);
+            $this->loadTranslationsFrom($langPath, $this->nameSnake);
             $this->loadJsonTranslationsFrom($langPath);
         } else {
-            $this->loadTranslationsFrom(module_path($this->name, 'lang'), $this->nameLower);
+            $this->loadTranslationsFrom(module_path($this->name, 'lang'), $this->nameSnake);
             $this->loadJsonTranslationsFrom(module_path($this->name, 'lang'));
         }
     }
@@ -91,7 +91,7 @@ class FileStorageExtendServiceProvider extends ServiceProvider
                 if ($file->isFile() && $file->getExtension() === 'php') {
                     $config     = str_replace($configPath . DIRECTORY_SEPARATOR, '', $file->getPathname());
                     $config_key = str_replace([DIRECTORY_SEPARATOR, '.php'], ['.', ''], $config);
-                    $segments   = explode('.', $this->nameLower . '.' . $config_key);
+                    $segments   = explode('.', $this->nameSnake . '.' . $config_key);
 
                     // Remove duplicated adjacent segments
                     $normalized = [];
@@ -101,7 +101,7 @@ class FileStorageExtendServiceProvider extends ServiceProvider
                         }
                     }
 
-                    $key = ($config === 'config.php') ? $this->nameLower : implode('.', $normalized);
+                    $key = ($config === 'config.php') ? $this->nameSnake : implode('.', $normalized);
 
                     $this->publishes([$file->getPathname() => config_path($key . '.php')], 'config');
                     $this->merge_config_from($file->getPathname(), $key);
@@ -126,14 +126,14 @@ class FileStorageExtendServiceProvider extends ServiceProvider
      */
     public function registerViews(): void
     {
-        $viewPath   = resource_path('views/modules/' . $this->nameLower);
+        $viewPath   = resource_path('views/modules/' . $this->nameSnake);
         $sourcePath = module_path($this->name, 'resources/views');
 
-        $this->publishes([$sourcePath => $viewPath], ['views', $this->nameLower . '-module-views']);
+        $this->publishes([$sourcePath => $viewPath], ['views', $this->nameSnake . '-module-views']);
 
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->nameLower);
+        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->nameSnake);
 
-        Blade::componentNamespace(config('modules.namespace') . '\\' . $this->name . '\\View\\Components', $this->nameLower);
+        Blade::componentNamespace(config('modules.namespace') . '\\' . $this->name . '\\View\\Components', $this->nameSnake);
     }
 
     /**
@@ -148,8 +148,8 @@ class FileStorageExtendServiceProvider extends ServiceProvider
     {
         $paths = [];
         foreach (config('view.paths') as $path) {
-            if (is_dir($path . '/modules/' . $this->nameLower)) {
-                $paths[] = $path . '/modules/' . $this->nameLower;
+            if (is_dir($path . '/modules/' . $this->nameSnake)) {
+                $paths[] = $path . '/modules/' . $this->nameSnake;
             }
         }
 
