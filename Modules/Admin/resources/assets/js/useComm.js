@@ -1,3 +1,4 @@
+import '../sass/app.scss'
 import './axios'
 import { Boot } from '@wangeditor/editor'
 import selectImage from './components/wang-editor-menu/select-image'
