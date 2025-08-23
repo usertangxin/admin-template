@@ -20,19 +20,19 @@ class ProviderMakeCommand extends MakeProviderMakeCommand
         $module = $this->laravel['modules']->findOrFail($this->getModuleName());
 
         return (new Stub('/' . $stub . '.stub', [
-            'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS' => $this->getClass(),
-            'LOWER_NAME' => $module->getLowerName(),
-            'MODULE' => $this->getModuleName(),
-            'NAME' => $this->getFileName(),
-            'STUDLY_NAME' => $module->getStudlyName(),
-            'SNAKE_NAME' => $module->getSnakeName(),
+            'NAMESPACE'        => $this->getClassNamespace($module),
+            'CLASS'            => $this->getClass(),
+            'LOWER_NAME'       => $module->getLowerName(),
+            'MODULE'           => $this->getModuleName(),
+            'NAME'             => $this->getFileName(),
+            'STUDLY_NAME'      => $module->getStudlyName(),
+            'SNAKE_NAME'       => $module->getSnakeName(),
             'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
-            'PATH_VIEWS' => GenerateConfigReader::read('views')->getPath(),
-            'PATH_LANG' => GenerateConfigReader::read('lang')->getPath(),
-            'PATH_CONFIG' => GenerateConfigReader::read('config')->getPath(),
-            'MIGRATIONS_PATH' => GenerateConfigReader::read('migration')->getPath(),
-            'FACTORIES_PATH' => GenerateConfigReader::read('factory')->getPath(),
+            'PATH_VIEWS'       => GenerateConfigReader::read('views')->getPath(),
+            'PATH_LANG'        => GenerateConfigReader::read('lang')->getPath(),
+            'PATH_CONFIG'      => GenerateConfigReader::read('config')->getPath(),
+            'MIGRATIONS_PATH'  => GenerateConfigReader::read('migration')->getPath(),
+            'FACTORIES_PATH'   => GenerateConfigReader::read('factory')->getPath(),
         ]))->render();
     }
 
