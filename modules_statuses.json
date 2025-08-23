@@ -1,5 +1,6 @@
 {
     "Admin": true,
     "User": true,
-    "FileStorageExtend": true
+    "FileStorageExtend": true,
+    "CrudGenerate": true
 }
