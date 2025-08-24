@@ -1,0 +1,26 @@
+<?php
+
+namespace Modules\CrudGenerate\Interfaces;
+
+interface QueryViewControl
+{
+    /**
+     * 显示在 crud 页面上的名称
+     */
+    public function getLabel(): string;
+
+    /**
+     * 存储在数据库中的名称
+     */
+    public function getName(): string;
+
+    /**
+     * 特有参数
+     */
+    public function getSpecialParams(): array|string;
+
+    /**
+     * 视图代码片段
+     */
+    public function getViewCodeFragment(): string;
+}
