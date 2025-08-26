@@ -24,9 +24,9 @@ return [
      * |
      */
     'stubs' => [
-        'enabled'      => false,
-        'path'         => base_path('stubs/nwidart-stubs'),
-        'files'        => [
+        'enabled' => false,
+        'path'    => base_path('stubs/nwidart-stubs'),
+        'files'   => [
             'routes/web'      => 'routes/web.php',
             'routes/api'      => 'routes/api.php',
             'views/index'     => 'resources/views/index.blade.php',
@@ -55,53 +55,53 @@ return [
              *
              * 注意: 键名应使用大写字母。
              */
-            'routes/web'      => [
+            'routes/web' => [
                 'LOWER_NAME',
                 'STUDLY_NAME',
                 'PLURAL_LOWER_NAME',
                 'KEBAB_NAME',
                 'MODULE_NAMESPACE',
                 'CONTROLLER_NAMESPACE',
-                'SNAKE_NAME' => fn(Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+                'SNAKE_NAME' => fn (Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
             ],
-            'routes/api'      => [
+            'routes/api' => [
                 'LOWER_NAME',
                 'STUDLY_NAME',
                 'PLURAL_LOWER_NAME',
                 'KEBAB_NAME',
                 'MODULE_NAMESPACE',
                 'CONTROLLER_NAMESPACE',
-                'SNAKE_NAME' => fn(Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+                'SNAKE_NAME' => fn (Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
             ],
-            'vite'            => [
+            'vite' => [
                 'LOWER_NAME',
                 'STUDLY_NAME',
                 'KEBAB_NAME',
-                'SNAKE_NAME' => fn(Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+                'SNAKE_NAME' => fn (Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
             ],
-            'json'            => [
+            'json' => [
                 'LOWER_NAME',
                 'STUDLY_NAME',
                 'KEBAB_NAME',
                 'MODULE_NAMESPACE',
                 'PROVIDER_NAMESPACE',
-                'SNAKE_NAME' => fn(Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+                'SNAKE_NAME' => fn (Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
             ],
-            'views/index'     => [
+            'views/index' => [
                 'LOWER_NAME',
-                'SNAKE_NAME' => fn(Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+                'SNAKE_NAME' => fn (Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
             ],
-            'views/master'    => [
+            'views/master' => [
                 'LOWER_NAME',
                 'STUDLY_NAME',
                 'KEBAB_NAME',
-                'SNAKE_NAME' => fn(Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+                'SNAKE_NAME' => fn (Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
             ],
             'scaffold/config' => [
                 'STUDLY_NAME',
-                'SNAKE_NAME' => fn(Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+                'SNAKE_NAME' => fn (Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
             ],
-            'composer'        => [
+            'composer' => [
                 'LOWER_NAME',
                 'STUDLY_NAME',
                 'VENDOR',
@@ -110,10 +110,10 @@ return [
                 'MODULE_NAMESPACE',
                 'PROVIDER_NAMESPACE',
                 'APP_FOLDER_NAME',
-                'SNAKE_NAME' => fn(Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
+                'SNAKE_NAME' => fn (Nwidart\Modules\Generators\ModuleGenerator $generator) => Str::snake($generator->getName()),
             ],
         ],
-        'gitkeep'      => true,
+        'gitkeep' => true,
     ],
     'paths' => [
         /*
@@ -193,26 +193,26 @@ return [
             'scopes'          => ['path' => 'app/Models/Scopes', 'generate' => false],
             'traits'          => ['path' => 'app/Traits', 'generate' => false],
             // app/Http/
-            'controller'      => ['path' => 'app/Http/Controllers', 'generate' => true],
-            'filter'          => ['path' => 'app/Http/Middleware', 'generate' => false],
-            'request'         => ['path' => 'app/Http/Requests', 'generate' => false],
+            'controller' => ['path' => 'app/Http/Controllers', 'generate' => true],
+            'filter'     => ['path' => 'app/Http/Middleware', 'generate' => false],
+            'request'    => ['path' => 'app/Http/Requests', 'generate' => false],
             // config/
-            'config'          => ['path' => 'config', 'generate' => true],
+            'config' => ['path' => 'config', 'generate' => true],
             // database/
-            'factory'         => ['path' => 'database/factories', 'generate' => true],
-            'migration'       => ['path' => 'database/migrations', 'generate' => true],
-            'seeder'          => ['path' => 'database/seeders', 'generate' => true],
+            'factory'   => ['path' => 'database/factories', 'generate' => true],
+            'migration' => ['path' => 'database/migrations', 'generate' => true],
+            'seeder'    => ['path' => 'database/seeders', 'generate' => true],
             // lang/
-            'lang'            => ['path' => 'lang', 'generate' => false],
+            'lang' => ['path' => 'lang', 'generate' => false],
             // resource/
-            'assets'          => ['path' => 'resources/assets', 'generate' => true],
-            'component-view'  => ['path' => 'resources/views/components', 'generate' => false],
-            'views'           => ['path' => 'resources/views', 'generate' => true],
+            'assets'         => ['path' => 'resources/assets', 'generate' => true],
+            'component-view' => ['path' => 'resources/views/components', 'generate' => false],
+            'views'          => ['path' => 'resources/views', 'generate' => true],
             // routes/
-            'routes'          => ['path' => 'routes', 'generate' => true],
+            'routes' => ['path' => 'routes', 'generate' => true],
             // tests/
-            'test-feature'    => ['path' => 'tests/Feature', 'generate' => true],
-            'test-unit'       => ['path' => 'tests/Unit', 'generate' => true],
+            'test-feature' => ['path' => 'tests/Feature', 'generate' => true],
+            'test-unit'    => ['path' => 'tests/Unit', 'generate' => true],
         ],
     ],
 
@@ -257,10 +257,10 @@ return [
      * |
      */
     'commands' => ConsoleServiceProvider::defaultCommands()
-                      ->merge([
-                          // New commands go here
-                      ])
-                      ->toArray(),
+        ->merge([
+            // New commands go here
+        ])
+        ->toArray(),
 
     /*
      * |--------------------------------------------------------------------------
@@ -287,8 +287,8 @@ return [
      * |
      */
     'composer' => [
-        'vendor'          => env('MODULE_VENDOR', 'nwidart'),
-        'author'          => [
+        'vendor' => env('MODULE_VENDOR', 'nwidart'),
+        'author' => [
             'name'  => env('MODULE_AUTHOR_NAME', 'Nicolas Widart'),
             'email' => env('MODULE_AUTHOR_EMAIL', 'n.widart@gmail.com'),
         ],
@@ -304,7 +304,7 @@ return [
     'register' => [
         'translations' => true,
         /** 在启动或注册方法时加载文件 */
-        'files'        => 'register',
+        'files' => 'register',
     ],
 
     /*
@@ -321,5 +321,5 @@ return [
             'statuses-file' => base_path('modules_statuses.json'),
         ],
     ],
-    'activator'  => 'file',
+    'activator' => 'file',
 ];
