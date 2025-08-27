@@ -1,10 +1,11 @@
 <template>
+
+    <form-action @submit="handleSubmit" @reset="formRef.resetFields()">
+        <template v-for="key in Object.keys($slots)" #[key] :key="key">
+            <slot :name="key"></slot>
+        </template>
+    </form-action>
     <div>
-        <form-action @submit="handleSubmit" @reset="formRef.resetFields()">
-            <template v-for="key in Object.keys($slots)" #[key] :key="key">
-                <slot :name="key"></slot>
-            </template>
-        </form-action>
         <a-form class="pr-[15%]" :disabled="disabled" :class="{ 'disabled-form': disabled }" ref="formRef"
             @submit="handleSubmit" :model="model" v-bind="$attrs">
             <slot></slot>
@@ -78,6 +79,7 @@ const handleSubmit = () => {
     [disabled] {
         color: var(--color-text-1);
         -webkit-text-fill-color: var(--color-text-1);
+
         &::placeholder {
             opacity: 0;
         }
