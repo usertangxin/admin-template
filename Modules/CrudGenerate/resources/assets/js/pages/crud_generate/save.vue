@@ -3,7 +3,8 @@
         <save-form :model="formData" class="!pr-0" :auto-label-width="true">
             <div v-self-resize="handleNavResize" class="fixed top-[95px] bottom-[20px] w-[150px] z-10">
                 <a-scrollbar class="overflow-y-auto" :style="{ height: navSize.height + 'px' }">
-                    <a-anchor line-less :change-hash="false" :smooth="true" :boundary="95" @change="handleAnchorChange">
+                    <a-anchor :key="formData.column_list.length" line-less :change-hash="false" :smooth="true" :boundary="95"
+                        @change="handleAnchorChange">
                         <a-anchor-link href="#table-design">
                             表格设计
                             <template #sublist>
@@ -74,19 +75,22 @@
                                             <a-option v-for="item in fieldControls" :value="item.name"
                                                 :label="item.label" />
                                         </a-select>
-                                        <a-popover title="字段控件配置">
+                                        <a-popover>
                                             <a-button v-if="fieldControls[item.field_control]?.specialParams.length > 0"
                                                 type="text" status="normal">配置</a-button>
                                             <template #content>
                                                 <div class="mt-5">
-                                                    <a-form-item
-                                                        v-for="param in fieldControls[item.field_control]?.specialParams"
-                                                        :key="param.name" :label="param.label" :field="param.name">
-                                                        <component :is="param.inputComponent"
-                                                            v-model="item.field_control_special_params[param.name]"
-                                                            :placeholder="param.placeholder" v-bind="param.inputAttrs">
-                                                        </component>
-                                                    </a-form-item>
+                                                    <a-form :auto-label-width="true">
+                                                        <a-form-item
+                                                            v-for="param in fieldControls[item.field_control]?.specialParams"
+                                                            :key="param.name" :label="param.label" :field="param.name">
+                                                            <component :is="param.inputComponent"
+                                                                v-model="item.field_control_special_params[param.name]"
+                                                                :placeholder="param.placeholder"
+                                                                v-bind="param.inputAttrs">
+                                                            </component>
+                                                        </a-form-item>
+                                                    </a-form>
                                                 </div>
                                             </template>
                                         </a-popover>
