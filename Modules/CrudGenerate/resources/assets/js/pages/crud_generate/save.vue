@@ -8,20 +8,31 @@
                             表格设计
                             <template #sublist>
                                 <a-anchor-link href="#table-design-base">基础信息</a-anchor-link>
-                                <template v-for="(item, index) in formData.column_list" :key="index">
+                                <draggable :list="formData.column_list">
+                                    <template #item="{element,index}">
+                                        <a-anchor-link :href="`#table-design-column-${index}`">
+                                            <span class="move cursor-ns-resize">
+                                                <icon-drag-dot-vertical />
+                                            </span>
+                                            {{ element.comment || element.field_name || `字段${index + 1}` }}
+                                        </a-anchor-link>
+                                    </template>
+                                </draggable>
+                                <!-- <template v-for="(item, index) in formData.column_list" :key="index">
                                     <a-anchor-link :href="`#table-design-column-${index}`">
                                         {{ item.comment || item.field_name || `字段${index + 1}` }}
                                     </a-anchor-link>
-                                </template>
+                                </template> -->
                                 <a-anchor-link href="#table-design-add-column">添加字段</a-anchor-link>
                             </template>
                         </a-anchor-link>
+                        <a-anchor-link href="#menu-design">菜单设计</a-anchor-link>
                     </a-anchor>
                 </a-scrollbar>
             </div>
             <div class="ml-[162px]">
+                <div id="table-design"></div>
                 <a-card title="表格设计">
-                    <div id="table-design"></div>
                     <a-divider orientation="left" id="table-design-base">基础信息</a-divider>
                     <a-row :gutter="24">
                         <form-col>
@@ -37,6 +48,11 @@
                         <form-col>
                             <a-form-item label="主键" field="primary_key">
                                 <a-input v-model="formData.primary_key" placeholder="请输入主键"></a-input>
+                            </a-form-item>
+                        </form-col>
+                        <form-col>
+                            <a-form-item label="是否软删" field="soft_delete">
+                                <dict-radio v-model="formData.soft_delete" code="yes_or_no"></dict-radio>
                             </a-form-item>
                         </form-col>
                     </a-row>
@@ -73,42 +89,27 @@
                             </form-col>
                             <form-col>
                                 <a-form-item label="是否可空" field="nullable">
-                                    <a-radio-group v-model="item.nullable">
-                                        <a-radio :value="true">是</a-radio>
-                                        <a-radio :value="false">否</a-radio>
-                                    </a-radio-group>
+                                    <dict-radio v-model="item.nullable" code="yes_or_no"></dict-radio>
                                 </a-form-item>
                             </form-col>
                             <form-col>
                                 <a-form-item label="生成到表单" field="gen_form">
-                                    <a-radio-group v-model="item.gen_form">
-                                        <a-radio :value="true">是</a-radio>
-                                        <a-radio :value="false">否</a-radio>
-                                    </a-radio-group>
+                                    <dict-radio v-model="item.gen_form" code="yes_or_no"></dict-radio>
                                 </a-form-item>
                             </form-col>
                             <form-col>
                                 <a-form-item label="生成到列表" field="gen_index">
-                                    <a-radio-group v-model="item.gen_index">
-                                        <a-radio :value="true">是</a-radio>
-                                        <a-radio :value="false">否</a-radio>
-                                    </a-radio-group>
+                                    <dict-radio v-model="item.gen_index" code="yes_or_no"></dict-radio>
                                 </a-form-item>
                             </form-col>
                             <form-col>
                                 <a-form-item label="生成到查询" field="gen_query">
-                                    <a-radio-group v-model="item.gen_query">
-                                        <a-radio :value="true">是</a-radio>
-                                        <a-radio :value="false">否</a-radio>
-                                    </a-radio-group>
+                                    <dict-radio v-model="item.gen_query" code="yes_or_no"></dict-radio>
                                 </a-form-item>
                             </form-col>
                             <form-col>
                                 <a-form-item label="参与排序" field="gen_sort">
-                                    <a-radio-group v-model="item.gen_sort">
-                                        <a-radio :value="true">是</a-radio>
-                                        <a-radio :value="false">否</a-radio>
-                                    </a-radio-group>
+                                    <dict-radio v-model="item.gen_sort" code="yes_or_no"></dict-radio>
                                 </a-form-item>
                             </form-col>
                             <form-col>
@@ -123,19 +124,66 @@
                         <a-button @click="addColumn" type="primary">添加字段</a-button>
                     </div>
                 </a-card>
+
+                <div id="menu-design" class="mt-3"></div>
+                <a-card title="菜单设计">
+                    <a-row :gutter="24">
+                        <form-col>
+                            <a-form-item label="上级菜单" field="parent_menu_code">
+                                <a-cascader :options="menus" v-model="formData.parent_menu_code" placeholder="请选择上级菜单"
+                                    check-strictly allow-search allow-clear></a-cascader>
+                            </a-form-item>
+                        </form-col>
+                        <form-col>
+                            <a-form-item label="菜单名称" field="menu_name">
+                                <a-input v-model="formData.menu_name" placeholder="请输入菜单名称"></a-input>
+                            </a-form-item>
+                        </form-col>
+                        <form-col>
+                            <a-form-item label="菜单图标" field="menu_icon">
+                                <a-input v-model="formData.menu_icon" placeholder="请输入菜单图标"></a-input>
+                            </a-form-item>
+                        </form-col>
+                        <form-col>
+                            <a-form-item label="生成方式" field="gen_mode">
+                                <a-radio-group v-model="formData.gen_mode">
+                                    <a-radio value="app">app</a-radio>
+                                    <a-radio value="module">module</a-radio>
+                                </a-radio-group>
+                            </a-form-item>
+                        </form-col>
+                        <form-col v-if="formData.gen_mode == 'module'">
+                            <a-form-item label="模块" field="gen_module">
+                                <a-select v-model="formData.gen_module" placeholder="请选择模块">
+                                    <a-option v-for="item of modules" :value="item.name" :label="item.name" />
+                                </a-select>
+                            </a-form-item>
+                        </form-col>
+                        <form-col>
+                            <a-form-item label="类名" field="gen_class_name">
+                                <a-input v-model="formData.gen_class_name" placeholder="请输入类名"></a-input>
+                            </a-form-item>
+                        </form-col>
+                    </a-row>
+                </a-card>
             </div>
         </save-form>
     </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
+import { recursiveFilter, recursiveMap } from '/Modules/Admin/resources/assets/js/util';
+import draggable from "vuedraggable";
 
 const formData = reactive({
     table_name: '',
     table_comment: '',
     column_list: [],
 })
+
+const modules = ref([])
+const menus = ref([])
 
 const navSize = reactive({
     width: 0,
@@ -177,5 +225,27 @@ const handleAnchorChange = (e) => {
         })
     }
 }
+
+request.get('/web/admin/ModuleManager/index').then(res => {
+    modules.value = res.data
+})
+
+request.get('/web/admin/SystemMenu/index').then(res => {
+    let a = res.data.tree
+    a = recursiveFilter(a, (item) => {
+        return item.type == 'G'
+    })
+    a = recursiveMap(a, (item) => {
+        const b = {
+            value: item.code,
+            label: item.name,
+        }
+        if (item.children?.length > 0) {
+            b.children = item.children
+        }
+        return b
+    })
+    menus.value = a
+})
 
 </script>

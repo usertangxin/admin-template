@@ -4,9 +4,6 @@ import Size from '/Modules/Admin/resources/assets/js//layouts/size.vue';
 import NotFoundPage from '/Modules/Admin/resources/assets/js/pages/404.vue'
 import _ from 'lodash';
 
-const useComms = import.meta.glob('/Modules/**/resources/assets/js/useComm.js', { eager: true })
-
-
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./pages/**/!(*components*/**).vue', { eager: true })
@@ -23,6 +20,8 @@ createInertiaApp({
 
     const app = createApp({ render: () => h(App, props) })
       .use(plugin)
+
+    const useComms = import.meta.glob('/Modules/**/resources/assets/js/useComm.js', { eager: true })
 
     _.forEach(useComms, (item, key) => {
       if (item.default) {
