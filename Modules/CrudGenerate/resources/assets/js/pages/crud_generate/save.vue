@@ -18,11 +18,6 @@
                                         </a-anchor-link>
                                     </template>
                                 </draggable>
-                                <!-- <template v-for="(item, index) in formData.column_list" :key="index">
-                                    <a-anchor-link :href="`#table-design-column-${index}`">
-                                        {{ item.comment || item.field_name || `字段${index + 1}` }}
-                                    </a-anchor-link>
-                                </template> -->
                                 <a-anchor-link href="#table-design-add-column">添加字段</a-anchor-link>
                             </template>
                         </a-anchor-link>
