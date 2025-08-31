@@ -4,6 +4,8 @@ namespace Modules\CrudGenerate\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\CrudGenerate\Classes\FieldControlEnum;
+use Modules\CrudGenerate\Classes\FieldControlJson;
 use Modules\CrudGenerate\Classes\FieldControlString;
 use Modules\CrudGenerate\Services\FieldControlService;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -31,6 +33,8 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
         $fieldControlService->add(new FieldControlString);
+        $fieldControlService->add(new FieldControlJson);
+        $fieldControlService->add(new FieldControlEnum);
     }
 
     /**
