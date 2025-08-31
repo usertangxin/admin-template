@@ -18,6 +18,8 @@ interface FieldControl
 
     /**
      * 特有参数
+     *
+     * @return array<SpecialParam>|string
      */
     public function getSpecialParams(): array|string;
 

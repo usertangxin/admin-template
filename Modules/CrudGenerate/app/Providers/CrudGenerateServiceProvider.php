@@ -4,6 +4,8 @@ namespace Modules\CrudGenerate\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\CrudGenerate\Classes\FieldControlString;
+use Modules\CrudGenerate\Services\FieldControlService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -19,7 +21,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
     /**
      * Boot the application events.
      */
-    public function boot(): void
+    public function boot(FieldControlService $fieldControlService): void
     {
         $this->registerCommands();
         $this->registerCommandSchedules();
@@ -27,6 +29,8 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+
+        $fieldControlService->add(new FieldControlString);
     }
 
     /**
@@ -36,6 +40,8 @@ class CrudGenerateServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->singleton(FieldControlService::class);
     }
 
     /**

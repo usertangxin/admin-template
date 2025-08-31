@@ -9,7 +9,7 @@
                             <template #sublist>
                                 <a-anchor-link href="#table-design-base">基础信息</a-anchor-link>
                                 <draggable :list="formData.column_list">
-                                    <template #item="{element,index}">
+                                    <template #item="{ element, index }">
                                         <a-anchor-link :href="`#table-design-column-${index}`">
                                             <span class="move cursor-ns-resize">
                                                 <icon-drag-dot-vertical />
@@ -62,24 +62,45 @@
                                     <a-input v-model="item.field_name" placeholder="请输入字段名"></a-input>
                                 </a-form-item>
                             </form-col>
-                            <form-col>
+                            <form-col :md="16" :xl="16" :xxl="18">
                                 <a-form-item label="注释" field="comment">
                                     <a-input v-model="item.comment" placeholder="请输入注释"></a-input>
                                 </a-form-item>
                             </form-col>
                             <form-col>
-                                <a-form-item label="字段类型" field="field_control">
-                                    <a-select placeholder="请选择字段类型"></a-select>
+                                <a-form-item label="字段控件" field="field_control">
+                                    <div class="flex-1 flex">
+                                        <a-select v-model="item.field_control" class="flex-1" placeholder="请选择字段控件">
+                                            <a-option v-for="item in fieldControls" :value="item.name"
+                                                :label="item.label" />
+                                        </a-select>
+                                        <a-popover title="字段控件配置">
+                                            <a-button v-if="fieldControls[item.field_control]?.specialParams.length > 0"
+                                                type="text" status="normal">配置</a-button>
+                                            <template #content>
+                                                <div class="mt-5">
+                                                    <a-form-item
+                                                        v-for="param in fieldControls[item.field_control]?.specialParams"
+                                                        :key="param.name" :label="param.label" :field="param.name">
+                                                        <component :is="param.inputComponent"
+                                                            v-model="item.field_control_special_params[param.name]"
+                                                            :placeholder="param.placeholder" v-bind="param.inputAttrs">
+                                                        </component>
+                                                    </a-form-item>
+                                                </div>
+                                            </template>
+                                        </a-popover>
+                                    </div>
                                 </a-form-item>
                             </form-col>
                             <form-col>
                                 <a-form-item label="页面控件" field="page_view_control">
-                                    <a-select placeholder="请选择页面控件"></a-select>
+                                    <a-select v-model="item.page_view_control" placeholder="请选择页面控件"></a-select>
                                 </a-form-item>
                             </form-col>
                             <form-col>
                                 <a-form-item label="查询控件" field="query_view_control">
-                                    <a-select placeholder="请选择查询控件"></a-select>
+                                    <a-select v-model="item.query_view_control" placeholder="请选择查询控件"></a-select>
                                 </a-form-item>
                             </form-col>
                             <form-col>
@@ -179,6 +200,7 @@ const formData = reactive({
 
 const modules = ref([])
 const menus = ref([])
+const fieldControls = ref([])
 
 const navSize = reactive({
     width: 0,
@@ -195,11 +217,11 @@ const addColumn = () => {
         page_view_control_special_params: {},
         query_view_control: '',
         query_view_control_special_params: {},
-        nullable: false,
-        gen_form: true,
-        gen_index: true,
-        gen_query: false,
-        gen_sort: false,
+        nullable: 'no',
+        gen_form: 'yes',
+        gen_index: 'yes',
+        gen_query: 'no',
+        gen_sort: 'no',
     })
 }
 
@@ -241,6 +263,10 @@ request.get('/web/admin/SystemMenu/index').then(res => {
         return b
     })
     menus.value = a
+})
+
+request.get('field-controls').then(res => {
+    fieldControls.value = res.data
 })
 
 </script>
