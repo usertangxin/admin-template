@@ -26,6 +26,7 @@ class AsCrudFieldList implements CastsAttributes
                 'field_control'                     => $item['field_control'], // 字段类型
                 'field_control_special_params'      => $item['field_control_special_params'], // 特有参数
                 'field_name'                        => $item['field_name'], // 字段名
+                'default_value'                     => $item['default_value'], // 默认值
                 'nullable'                          => (bool) $item['nullable'], // 是否可空
                 'comment'                           => $item['comment'], // 注释
                 'gen_form'                          => (bool) $item['gen_form'], // 是否生成表到单页面

@@ -63,9 +63,14 @@
                                     <a-input v-model="item.field_name" placeholder="请输入字段名"></a-input>
                                 </a-form-item>
                             </form-col>
-                            <form-col :md="16" :xl="16" :xxl="18">
+                            <form-col>
                                 <a-form-item label="注释" field="comment">
                                     <a-input v-model="item.comment" placeholder="请输入注释"></a-input>
+                                </a-form-item>
+                            </form-col>
+                            <form-col>
+                                <a-form-item label="默认值" field="default_value">
+                                    <a-input v-model="item.default_value" placeholder="请输入默认值"></a-input>
                                 </a-form-item>
                             </form-col>
                             <form-col>
@@ -215,6 +220,7 @@ const addColumn = () => {
     formData.column_list.push({
         field_name: '',
         comment: '',
+        default_value: '',
         field_control: '',
         field_control_special_params: {},
         page_view_control: '',
