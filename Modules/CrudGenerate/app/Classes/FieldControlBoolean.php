@@ -8,6 +8,6 @@ class FieldControlBoolean extends AbstractFieldControl
 {
     public function getMigrateCodeFragment(): string
     {
-        return '';
+        return 'boolean(\'' . $this->field['field_name'] . '\')';
     }
 }

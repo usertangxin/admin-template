@@ -8,6 +8,6 @@ class FieldControlJson extends AbstractFieldControl
 {
     public function getMigrateCodeFragment(): string
     {
-        return '';
+        return 'json(\'' . $this->field['field_name'] . '\')';
     }
 }
