@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\CrudGenerate\Classes\FieldControlBoolean;
 use Modules\CrudGenerate\Classes\FieldControlDateTime;
+use Modules\CrudGenerate\Classes\FieldControlDict;
 use Modules\CrudGenerate\Classes\FieldControlEnum;
 use Modules\CrudGenerate\Classes\FieldControlJson;
 use Modules\CrudGenerate\Classes\FieldControlString;
@@ -41,6 +42,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $fieldControlService->add(new FieldControlBoolean);
         $fieldControlService->add(new FieldControlDateTime);
         $fieldControlService->add(new FieldControlUuid);
+        $fieldControlService->add(new FieldControlDict);
     }
 
     /**

@@ -2,26 +2,32 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-use Modules\CrudGenerate\Interfaces\FieldControl;
+use Modules\Admin\Services\SystemDictService;
 
-class FieldControlEnum extends AbstractFieldControl
+class FieldControlDict extends AbstractFieldControl
 {
     public function getSpecialParams(): array
     {
         return [
-            new SpecialParamAllowed,
+            new class extends AbstractSpecialParam {
+                public function __construct()
+                {
+                    parent::__construct(
+                        label: '字典',
+                        name: 'dict_code',
+                        inputComponent: 'a-input',
+                        placeholder: '请输入字典编码',
+                    );
+                }
+            },
         ];
     }
 
     public function getMigrateCodeFragment(): string
     {
-        // 1. 提取allowed数组并做默认值处理（避免未定义报错）
-        $allowedValues = $this->field['field_control_special_params']['allowed'] ?? [];
-
-        // 2. 校验是否为有效数组，非数组则返回空枚举（或根据业务需求调整默认值）
-        if (!is_array($allowedValues)) {
-            return "enum('" . $this->field['field_name'] . "', [])";
-        }
+        $systemDictService = \app(SystemDictService::class);
+        $dictCode = $this->field['field_control_special_params']['dict_code'];
+        $allowedValues = $systemDictService->getValuesByCode($dictCode)->toArray();
 
         // 3. 将数组元素转换为带单引号的字符串（处理字符串/数字类型元素）
         $quotedValues = array_map(function ($value) {
@@ -34,5 +40,4 @@ class FieldControlEnum extends AbstractFieldControl
 
         return "enum('" . $this->field['field_name'] . "', " . $allowedStr . ")";
     }
-
 }

@@ -27,11 +27,12 @@ class CrudGenerateTest extends AbstractAuthTestCase
                     'field_name'                        => 'id',
                     'comment'                           => '主键',
                     'default_value'                     => null,
-                    'field_control'                     => 'String',
+                    'field_control'                     => 'Dict',
                     'field_control_special_params'      => [
                         'precision' => '0',
                         'allowed' => ['1', '2'],
                         'length' => 100,
+                        'dict_code' => 'storage_mode',
                     ],
                     'page_view_control'                 => null,
                     'page_view_control_special_params'  => [],

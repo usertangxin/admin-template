@@ -6,7 +6,7 @@ use Modules\CrudGenerate\Interfaces\FieldControl;
 
 class FieldControlString extends AbstractFieldControl
 {
-    public function getSpecialParams(): array|string
+    public function getSpecialParams(): array
     {
         return [
             new SpecialParamLength,
