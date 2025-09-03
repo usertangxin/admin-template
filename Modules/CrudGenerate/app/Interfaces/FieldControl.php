@@ -7,6 +7,9 @@ use Modules\CrudGenerate\Models\SystemCrudHistory;
 interface FieldControl
 {
 
+    /**
+     * 初始化
+     */
     public function make(array $field, array $allFields, SystemCrudHistory $crudHistory);
 
     /**

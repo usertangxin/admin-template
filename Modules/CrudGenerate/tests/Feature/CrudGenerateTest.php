@@ -3,6 +3,9 @@
 namespace Modules\CrudGenerate\Tests\Feature;
 
 use Modules\Admin\Tests\AbstractAuthTestCase;
+use Modules\CrudGenerate\Models\SystemCrudHistory;
+use Modules\CrudGenerate\Services\CrudGenerateService;
+use Modules\CrudGenerate\Services\FieldControlService;
 
 class CrudGenerateTest extends AbstractAuthTestCase
 {
@@ -40,5 +43,15 @@ class CrudGenerateTest extends AbstractAuthTestCase
         ];
         $response = $this->postJson('web/crud-generate/CrudGenerate/create', $data);
         $response->assertJson(['code' => 0]);
+
+        $history = SystemCrudHistory::find($response->json('data.id'));
+
+        // $fieldControlService = $this->app->make(FieldControlService::class);
+        // $fieldFragment = $fieldControlService->analysisFieldContent($history);
+        // \dd($fieldFragment);
+
+        // $crudGenerateService = $this->app->make(CrudGenerateService::class);
+        // $migrationContent = $crudGenerateService->getMigrationContent($history);
+        // \dd($migrationContent);
     }
 }
