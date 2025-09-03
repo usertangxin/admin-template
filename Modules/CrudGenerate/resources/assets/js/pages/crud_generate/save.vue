@@ -3,8 +3,8 @@
         <save-form :model="formData" class="!pr-0" :auto-label-width="true">
             <div v-self-resize="handleNavResize" class="fixed top-[95px] bottom-[20px] w-[150px] z-10">
                 <a-scrollbar class="overflow-y-auto" :style="{ height: navSize.height + 'px' }">
-                    <a-anchor :key="formData.column_list.length" line-less :change-hash="false" :smooth="true" :boundary="95"
-                        @change="handleAnchorChange">
+                    <a-anchor :key="formData.column_list.length" line-less :change-hash="false" :smooth="true"
+                        :boundary="95" @change="handleAnchorChange">
                         <a-anchor-link href="#table-design">
                             表格设计
                             <template #sublist>
@@ -76,7 +76,8 @@
                             <form-col>
                                 <a-form-item label="字段控件" field="field_control">
                                     <div class="flex-1 flex">
-                                        <a-select v-model="item.field_control" class="flex-1" placeholder="请选择字段控件">
+                                        <a-select v-model="item.field_control" class="flex-1" placeholder="请选择字段控件"
+                                            allow-search>
                                             <a-option v-for="item in fieldControls" :value="item.name"
                                                 :label="item.label" />
                                         </a-select>
@@ -104,12 +105,12 @@
                             </form-col>
                             <form-col>
                                 <a-form-item label="页面控件" field="page_view_control">
-                                    <a-select v-model="item.page_view_control" placeholder="请选择页面控件"></a-select>
+                                    <a-select v-model="item.page_view_control" placeholder="请选择页面控件" allow-search></a-select>
                                 </a-form-item>
                             </form-col>
                             <form-col>
                                 <a-form-item label="查询控件" field="query_view_control">
-                                    <a-select v-model="item.query_view_control" placeholder="请选择查询控件"></a-select>
+                                    <a-select v-model="item.query_view_control" placeholder="请选择查询控件" allow-search></a-select>
                                 </a-form-item>
                             </form-col>
                             <form-col>

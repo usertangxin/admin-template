@@ -9,6 +9,7 @@ use Modules\CrudGenerate\Classes\FieldControlDateTime;
 use Modules\CrudGenerate\Classes\FieldControlEnum;
 use Modules\CrudGenerate\Classes\FieldControlJson;
 use Modules\CrudGenerate\Classes\FieldControlString;
+use Modules\CrudGenerate\Classes\FieldControlUuid;
 use Modules\CrudGenerate\Services\FieldControlService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
@@ -39,6 +40,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $fieldControlService->add(new FieldControlEnum);
         $fieldControlService->add(new FieldControlBoolean);
         $fieldControlService->add(new FieldControlDateTime);
+        $fieldControlService->add(new FieldControlUuid);
     }
 
     /**
