@@ -5,7 +5,7 @@ namespace Modules\CrudGenerate\Classes;
 use JsonSerializable;
 use Modules\CrudGenerate\Interfaces\SpecialParam;
 
-class AbstractSpecialParam implements JsonSerializable, SpecialParam
+abstract class AbstractSpecialParam implements JsonSerializable, SpecialParam
 {
     public function __construct(
         protected string $label,

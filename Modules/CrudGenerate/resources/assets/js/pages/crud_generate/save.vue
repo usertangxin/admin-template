@@ -105,12 +105,14 @@
                             </form-col>
                             <form-col>
                                 <a-form-item label="页面控件" field="page_view_control">
-                                    <a-select v-model="item.page_view_control" placeholder="请选择页面控件" allow-search></a-select>
+                                    <a-select v-model="item.page_view_control" placeholder="请选择页面控件"
+                                        allow-search></a-select>
                                 </a-form-item>
                             </form-col>
                             <form-col>
                                 <a-form-item label="查询控件" field="query_view_control">
-                                    <a-select v-model="item.query_view_control" placeholder="请选择查询控件" allow-search></a-select>
+                                    <a-select v-model="item.query_view_control" placeholder="请选择查询控件"
+                                        allow-search></a-select>
                                 </a-form-item>
                             </form-col>
                             <form-col>
@@ -206,6 +208,8 @@ const formData = reactive({
     table_name: '',
     table_comment: '',
     column_list: [],
+    soft_delete: 'yes',
+    gen_mode: 'app',
 })
 
 const modules = ref([])

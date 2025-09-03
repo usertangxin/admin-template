@@ -17,7 +17,7 @@ class SpecialParamAllowed extends AbstractSpecialParam
             $name,
             $inputComponent,
             $placeholder,
-            \array_merge(['style'=>['width' => '320px']], $inputAttrs),
+            \array_merge(['style' => ['width' => '320px']], $inputAttrs),
             $defaultValue,
         );
     }

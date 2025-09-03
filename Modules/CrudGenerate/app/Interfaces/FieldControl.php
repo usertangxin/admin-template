@@ -6,6 +6,9 @@ use Modules\CrudGenerate\Models\SystemCrudHistory;
 
 interface FieldControl
 {
+
+    public function make(array $field, array $allFields, SystemCrudHistory $crudHistory);
+
     /**
      * 显示在 crud 页面上的名称
      */
@@ -23,12 +26,11 @@ interface FieldControl
      */
     public function getSpecialParams(): array|string;
 
+
+    public function getMigrateCodeFragment(): string;
+
     /**
-     * 迁移代码字段片段
-     *
-     * @param array             $filed       字段信息
-     * @param array             $allFields   所有字段信息
-     * @param SystemCrudHistory $crudHistory crud历史信息
+     * 模型使用的 trait
      */
-    public function getMigrateCodeFragment($filed, $allFields, $crudHistory): string;
+    public function getModelUseTraits(): array;
 }

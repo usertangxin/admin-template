@@ -2,27 +2,22 @@
 
 namespace Modules\CrudGenerate\Classes;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Modules\CrudGenerate\Interfaces\FieldControl;
 
-class FieldControlUuid implements FieldControl
+class FieldControlUuid extends AbstractFieldControl
 {
-    public function getLabel(): string
+    public function getMigrateCodeFragment(): string
     {
-        return 'uuid';
+        $field_name = $this->field['field_name'];
+
+        return "uuid('$field_name')";
     }
 
-    public function getName(): string
+    public function getModelUseTraits(): array
     {
-        return 'uuid';
-    }
-
-    public function getSpecialParams(): array|string
-    {
-        return [];
-    }
-
-    public function getMigrateCodeFragment($filed, $allFields, $crudHistory): string
-    {
-        return '';
+        return [
+            HasUuids::class,
+        ];
     }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
 
             $table->string('table_comment', 50)->nullable()->comment('表注释');
             $table->string('table_name', 50)->comment('表名');
+            $table->string('primary_key', 50)->comment('主键');
             $table->json('file_list')->nullable()->comment('文件列表');
             $table->enum('gen_mode', ['app', 'module'])->default('app')->comment('生成方式');
             $table->string('gen_class_name')->comment('生成的类名');

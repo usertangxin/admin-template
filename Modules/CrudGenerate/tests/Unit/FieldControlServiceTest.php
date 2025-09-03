@@ -10,7 +10,7 @@ class FieldControlServiceTest extends AbstractAuthTestCase
     public function test_field_control_service(): void
     {
         $fieldControlService = $this->app->make(FieldControlService::class);
-        $a = $fieldControlService->jsonSerialize();
+        $a                   = $fieldControlService->jsonSerialize();
         foreach ($a as $item) {
             $this->assertArrayHasKey('label', $item);
             $this->assertArrayHasKey('name', $item);

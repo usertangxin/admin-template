@@ -4,24 +4,10 @@ namespace Modules\CrudGenerate\Classes;
 
 use Modules\CrudGenerate\Interfaces\FieldControl;
 
-class FieldControlJson implements FieldControl
+class FieldControlJson extends AbstractFieldControl
 {
-    public function getLabel(): string
+    public function getMigrateCodeFragment(): string
     {
-        return 'json';
-    }
-
-    public function getName(): string
-    {
-        return 'json';
-    }
-
-    public function getSpecialParams(): array|string
-    {
-        return [];
-    }
-
-    public function getMigrateCodeFragment($filed, $allFields, $crudHistory): string {
         return '';
     }
 }
