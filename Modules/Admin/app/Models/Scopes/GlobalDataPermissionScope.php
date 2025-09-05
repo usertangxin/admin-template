@@ -14,8 +14,5 @@ class GlobalDataPermissionScope implements Scope
     public function apply(Builder $builder, Model $model): void
     {
         // TODO: 实现 apply() 方法.
-        // if (! $model->globalDataPermission) {
-        //     return;
-        // }
     }
 }
