@@ -9,6 +9,8 @@ use Modules\Admin\Models\Scopes\GlobalDataPermissionScope;
  */
 trait GlobalDataPermission
 {
+    public bool $globalDataPermission = true;
+
     public static function bootGlobalDataPermission()
     {
         static::addGlobalScope(app(GlobalDataPermissionScope::class));
@@ -22,5 +24,29 @@ trait GlobalDataPermission
     public static function withoutGlobalDataPermissionScope()
     {
         return static::withoutGlobalScope(app(GlobalDataPermissionScope::class));
+    }
+
+    /**
+     * 启用全局数据权限
+     *
+     * @return $this
+     */
+    public function enableGlobalDataPermission()
+    {
+        $this->globalDataPermission = true;
+
+        return $this;
+    }
+
+    /**
+     * 禁用全局数据权限
+     *
+     * @return $this
+     */
+    public function disableGlobalDataPermission()
+    {
+        $this->globalDataPermission = false;
+
+        return $this;
     }
 }
