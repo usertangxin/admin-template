@@ -2,8 +2,6 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-use Modules\CrudGenerate\Interfaces\FieldControl;
-
 class FieldControlEnum extends AbstractFieldControl
 {
     public function getSpecialParams(): array
@@ -19,7 +17,7 @@ class FieldControlEnum extends AbstractFieldControl
         $allowedValues = $this->field['field_control_special_params']['allowed'] ?? [];
 
         // 2. 校验是否为有效数组，非数组则返回空枚举（或根据业务需求调整默认值）
-        if (!is_array($allowedValues)) {
+        if (! is_array($allowedValues)) {
             return "enum('" . $this->field['field_name'] . "', [])";
         }
 
@@ -32,7 +30,6 @@ class FieldControlEnum extends AbstractFieldControl
         // 4. 拼接数组为逗号分隔的字符串，生成最终枚举语法
         $allowedStr = '[' . implode(', ', $quotedValues) . ']';
 
-        return "enum('" . $this->field['field_name'] . "', " . $allowedStr . ")";
+        return "enum('" . $this->field['field_name'] . "', " . $allowedStr . ')';
     }
-
 }

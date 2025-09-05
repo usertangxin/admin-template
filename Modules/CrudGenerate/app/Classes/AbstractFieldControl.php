@@ -9,13 +9,15 @@ use Modules\CrudGenerate\Models\SystemCrudHistory;
 abstract class AbstractFieldControl implements FieldControl
 {
     protected array $field;
+
     protected array $allFields;
+
     protected SystemCrudHistory $crudHistory;
 
     public function make(array $field, array $allFields, SystemCrudHistory $crudHistory): void
     {
-        $this->field = $field;
-        $this->allFields = $allFields;
+        $this->field       = $field;
+        $this->allFields   = $allFields;
         $this->crudHistory = $crudHistory;
     }
 

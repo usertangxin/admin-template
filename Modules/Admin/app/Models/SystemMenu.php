@@ -13,7 +13,6 @@ class SystemMenu extends AbstractModel
 
     protected static function booted()
     {
-        parent::booted();
         static::deleting(function ($model) {
             \app(PermissionRegistrar::class)->getPermissionClass()::whereName($model->code)->delete();
         });

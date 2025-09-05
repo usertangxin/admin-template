@@ -3,7 +3,6 @@
 namespace Modules\CrudGenerate\Classes;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Modules\CrudGenerate\Interfaces\FieldControl;
 
 class FieldControlUuid extends AbstractFieldControl
 {

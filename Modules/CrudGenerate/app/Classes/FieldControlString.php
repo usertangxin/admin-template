@@ -2,8 +2,6 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-use Modules\CrudGenerate\Interfaces\FieldControl;
-
 class FieldControlString extends AbstractFieldControl
 {
     public function getSpecialParams(): array
@@ -19,6 +17,7 @@ class FieldControlString extends AbstractFieldControl
         if (isset($this->field['field_control_special_params']['length'])) {
             $lengthStr = '\', ' . $this->field['field_control_special_params']['length'];
         }
-        return 'string(\'' . $this->field['field_name'] .  $lengthStr . ')';
+
+        return 'string(\'' . $this->field['field_name'] . $lengthStr . ')';
     }
 }

@@ -9,7 +9,8 @@ class FieldControlDict extends AbstractFieldControl
     public function getSpecialParams(): array
     {
         return [
-            new class extends AbstractSpecialParam {
+            new class extends AbstractSpecialParam
+            {
                 public function __construct()
                 {
                     parent::__construct(
@@ -26,8 +27,8 @@ class FieldControlDict extends AbstractFieldControl
     public function getMigrateCodeFragment(): string
     {
         $systemDictService = \app(SystemDictService::class);
-        $dictCode = $this->field['field_control_special_params']['dict_code'];
-        $allowedValues = $systemDictService->getValuesByCode($dictCode)->toArray();
+        $dictCode          = $this->field['field_control_special_params']['dict_code'];
+        $allowedValues     = $systemDictService->getValuesByCode($dictCode)->toArray();
 
         // 3. 将数组元素转换为带单引号的字符串（处理字符串/数字类型元素）
         $quotedValues = array_map(function ($value) {
@@ -38,6 +39,6 @@ class FieldControlDict extends AbstractFieldControl
         // 4. 拼接数组为逗号分隔的字符串，生成最终枚举语法
         $allowedStr = '[' . implode(', ', $quotedValues) . ']';
 
-        return "enum('" . $this->field['field_name'] . "', " . $allowedStr . ")";
+        return "enum('" . $this->field['field_name'] . "', " . $allowedStr . ')';
     }
 }

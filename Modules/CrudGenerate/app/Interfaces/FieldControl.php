@@ -6,7 +6,6 @@ use Modules\CrudGenerate\Models\SystemCrudHistory;
 
 interface FieldControl
 {
-
     /**
      * 初始化
      */
@@ -28,7 +27,6 @@ interface FieldControl
      * @return array<SpecialParam>|string
      */
     public function getSpecialParams(): array|string;
-
 
     public function getMigrateCodeFragment(): string;
 

@@ -5,7 +5,6 @@ namespace Modules\CrudGenerate\Services;
 use Exception;
 use JsonSerializable;
 use Modules\CrudGenerate\Interfaces\FieldControl;
-use Modules\CrudGenerate\Interfaces\SpecialParam;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
 
 class FieldControlService implements JsonSerializable
@@ -34,7 +33,7 @@ class FieldControlService implements JsonSerializable
     /**
      * 添加字段控件
      *
-     * @param  class-string<FieldControl>  $fieldControl
+     * @param  class-string<FieldControl> $fieldControl
      * @return void
      *
      * @throws Exception
@@ -78,12 +77,12 @@ class FieldControlService implements JsonSerializable
     public function analysisFieldContent(SystemCrudHistory $crudHistory)
     {
         $column_list = $crudHistory->column_list;
-        $content = '';
+        $content     = '';
         foreach ($column_list as $column) {
             $fieldControl = $this->fieldControls[$column['field_control']];
             $fieldControl->make($column, $column_list, $crudHistory);
             $fragment = $fieldControl->getMigrateCodeFragment();
-            $fragment  = '$table->' . $fragment;
+            $fragment = '$table->' . $fragment;
             if ($crudHistory['primary_key'] == $column['field_name']) {
                 $fragment .= '->primary()';
             }
@@ -98,14 +97,15 @@ class FieldControlService implements JsonSerializable
             }
             $content .= $fragment . ';' . PHP_EOL;
         }
-        $content .= <<<CODE
-\$table->dateTime('created_at')->nullable()->comment('创建时间');
-\$table->dateTime('updated_at')->nullable()->comment('更新时间');
+        $content .= <<<'CODE'
+$table->dateTime('created_at')->nullable()->comment('创建时间');
+$table->dateTime('updated_at')->nullable()->comment('更新时间');
 
 CODE;
         if ($crudHistory->soft_delete) {
             $content .= '$table->dateTime(\'deleted_at\')->nullable()->comment(\'删除时间\');' . PHP_EOL;
         }
+
         return $content;
     }
 }
