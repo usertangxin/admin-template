@@ -11,7 +11,7 @@ trait GlobalDataPermission
 {
     public static function bootGlobalDataPermission()
     {
-        static::addGlobalScope(GlobalDataPermissionScope::class);
+        static::addGlobalScope(app(GlobalDataPermissionScope::class));
     }
 
     /**
@@ -21,6 +21,6 @@ trait GlobalDataPermission
      */
     public static function withoutGlobalDataPermissionScope()
     {
-        return static::withoutGlobalScope(GlobalDataPermissionScope::class);
+        return static::withoutGlobalScope(app(GlobalDataPermissionScope::class));
     }
 }
