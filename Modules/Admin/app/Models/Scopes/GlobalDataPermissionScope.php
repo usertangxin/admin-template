@@ -11,5 +11,8 @@ class GlobalDataPermissionScope implements Scope
     /**
      * Apply the scope to a given Eloquent query builder.
      */
-    public function apply(Builder $builder, Model $model): void {}
+    public function apply(Builder $builder, Model $model): void
+    {
+        // TODO: 实现 apply() 方法.
+    }
 }

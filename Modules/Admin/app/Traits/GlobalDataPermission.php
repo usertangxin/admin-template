@@ -16,7 +16,8 @@ trait GlobalDataPermission
 
     /**
      * 禁用全局数据权限
-     * @return mixed 
+     *
+     * @return mixed
      */
     public static function withoutGlobalDataPermissionScope()
     {
