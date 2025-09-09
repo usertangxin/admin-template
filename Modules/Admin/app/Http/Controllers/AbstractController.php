@@ -2,9 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Http\JsonResponse;
-use Inertia\Response;
+use Illuminate\Support\Facades\Response;
 use Modules\Admin\Services\ResponseService;
 
 abstract class AbstractController
@@ -12,11 +10,9 @@ abstract class AbstractController
     /**
      * 视图
      *
-     * @param  array    $data 数据
+     * @param  mixed    $data 数据
      * @param  mixed    $view 视图
      * @return Response
-     *
-     * @throws BindingResolutionException
      */
     protected function inertia($data = [], $view = null)
     {
@@ -26,13 +22,11 @@ abstract class AbstractController
     /**
      * 成功
      *
-     * @param  mixed                 $data    数据
-     * @param  string                $message 消息
-     * @param  int                   $code    状态码
-     * @param  mixed                 $view    视图
-     * @return JsonResponse|Response
-     *
-     * @throws BindingResolutionException
+     * @param  mixed    $data    数据
+     * @param  string   $message 消息
+     * @param  int      $code    状态码
+     * @param  mixed    $view    视图
+     * @return Response
      */
     protected function success($data = [], $message = '', $code = 0, $view = null)
     {
@@ -42,12 +36,10 @@ abstract class AbstractController
     /**
      * 失败
      *
-     * @param  string                $message 消息
-     * @param  int                   $code    状态码
-     * @param  mixed                 $view    视图
-     * @return JsonResponse|Response
-     *
-     * @throws BindingResolutionException
+     * @param  string   $message 消息
+     * @param  int      $code    状态码
+     * @param  mixed    $view    视图
+     * @return Response
      */
     protected function fail($message = 'fail', $code = 400, $view = null)
     {
