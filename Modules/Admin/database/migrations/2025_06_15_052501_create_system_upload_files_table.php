@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_uploadfiles', function (Blueprint $table) {
+        Schema::create('system_upload_files', function (Blueprint $table) {
             $table->comment('附件管理表');
             $table->uuid('id')->primary()->comment('主键');
             $table->string('storage_mode')->nullable()->default('public')->comment('存储模式:dict=upload_mode');
             $table->string('upload_mode')->nullable()->default('file')->comment('上传模式:dict=upload_mode');
             $table->string('origin_name')->nullable()->comment('原文件名');
             $table->string('object_name', 50)->nullable()->comment('新文件名');
-            $table->string('hash', 64)->nullable()->index('system_uploadfiles_hash')->comment('文件hash');
+            $table->string('hash', 64)->nullable()->index('system_upload_files_hash')->comment('文件hash');
             $table->string('mime_type')->nullable()->comment('附件类型');
-            $table->string('storage_path', 100)->nullable()->index('system_uploadfile_storage_path')->comment('存储目录');
+            $table->string('storage_path', 100)->nullable()->index('system_upload_files_storage_path')->comment('存储目录');
             $table->string('suffix', 10)->nullable()->comment('文件后缀');
             $table->string('origin_suffix', 10)->nullable()->comment('客户端文件后缀');
             $table->unsignedBigInteger('size_byte')->nullable()->comment('字节数');
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('system_uploadfiles');
+        Schema::dropIfExists('system_upload_files');
     }
 };

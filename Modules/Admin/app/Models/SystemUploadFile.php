@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Modules\Admin\Services\FileStorageService;
 
-// use Modules\Admin\Database\Factories\SystemUploadfileFactory;
+// use Modules\Admin\Database\Factories\SystemUploadFileFactory;
 
-class SystemUploadfile extends AbstractSoftDelModel
+class SystemUploadFile extends AbstractSoftDelModel
 {
     use HasUuids;
 
-    protected $table = 'system_uploadfiles';
+    protected $table = 'system_upload_files';
 
     protected $fillable = [
         'storage_mode',

@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('system_dicts');
+        Schema::dropIfExists('system_dictionaries');
     }
 };

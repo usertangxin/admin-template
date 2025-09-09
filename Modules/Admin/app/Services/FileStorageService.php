@@ -5,7 +5,7 @@ namespace Modules\Admin\Services;
 use DateTime;
 use Modules\Admin\Interfaces\UploadFileConstraintInterface;
 use Modules\Admin\Interfaces\UploadFileStorageInterface;
-use Modules\Admin\Models\SystemUploadfile;
+use Modules\Admin\Models\SystemUploadFile;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class FileStorageService
@@ -74,8 +74,8 @@ class FileStorageService
         if (! \is_array($ids)) {
             $ids = \explode(',', $ids);
         }
-        /** @var SystemUploadfile[] $systemUploadfiles */
-        $systemUploadfiles = SystemUploadfile::withTrashed()->whereIn('id', $ids)->get();
+        /** @var SystemUploadFile[] $systemUploadfiles */
+        $systemUploadfiles = SystemUploadFile::withTrashed()->whereIn('id', $ids)->get();
         $success_paths     = [];
         $fail_paths        = [];
         foreach ($systemUploadfiles as $systemUploadfile) {
@@ -98,8 +98,8 @@ class FileStorageService
 
     public function temporaryUrl($id, DateTime $expiration)
     {
-        /** @var SystemUploadfile $systemUploadfile */
-        $systemUploadfile = SystemUploadfile::withTrashed()->find($id);
+        /** @var SystemUploadFile $systemUploadfile */
+        $systemUploadfile = SystemUploadFile::withTrashed()->find($id);
         if (empty($systemUploadfile)) {
             throw new NotFoundResourceException('文件不存在');
         }

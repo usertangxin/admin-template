@@ -7,7 +7,7 @@ use Illuminate\Filesystem\LocalFilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Modules\Admin\Interfaces\UploadFileStorageInterface;
-use Modules\Admin\Models\SystemUploadfile;
+use Modules\Admin\Models\SystemUploadFile;
 use Modules\Admin\Services\SystemConfigService;
 
 class PublicStorage implements UploadFileStorageInterface
@@ -70,7 +70,7 @@ class PublicStorage implements UploadFileStorageInterface
 
         foreach ($files as $file) {
             $hash             = md5_file($file->getRealPath());
-            $systemUploadfile = SystemUploadfile::where([
+            $systemUploadfile = SystemUploadFile::where([
                 'hash'         => $hash,
                 'storage_mode' => $this->storage_mode(),
                 'upload_mode'  => $upload_mode,
@@ -95,7 +95,7 @@ class PublicStorage implements UploadFileStorageInterface
                     'url'           => $disk->url($path),
                     'remark'        => request('remark'),
                 ];
-                SystemUploadfile::create($data);
+                SystemUploadFile::create($data);
                 $arr[] = $data;
             }
         }
