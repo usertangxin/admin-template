@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('system_dicts', function (Blueprint $table) {
+        Schema::create('system_dictionaries', function (Blueprint $table) {
             $table->comment('字典数据');
             $table->uuid('id')->primary()->comment('主键');
             $table->string('label', 50)->comment('字典标签');
