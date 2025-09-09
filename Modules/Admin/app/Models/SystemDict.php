@@ -8,7 +8,7 @@ class SystemDict extends AbstractModel
 {
     use HasUuids;
 
-    protected $table = 'system_dicts';
+    protected $table = 'system_dictionaries';
 
     protected $fillable = [
         'label',
