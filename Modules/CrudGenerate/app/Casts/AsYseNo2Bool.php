@@ -20,6 +20,6 @@ class AsYseNo2Bool implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return $value ? 'yes' : 'no';
+        return ($value === true || $value === 'yes') ? 'yes' : 'no';
     }
 }
