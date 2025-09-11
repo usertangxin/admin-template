@@ -81,9 +81,9 @@
                                             <a-option v-for="item in fieldControls" :value="item.name"
                                                 :label="item.label" />
                                         </a-select>
-                                        <a-popover>
+                                        <a-popover trigger="click">
                                             <a-button v-if="fieldControls[item.field_control]?.specialParams.length > 0"
-                                                type="text" status="normal">配置</a-button>
+                                                type="primary" status="normal">配置</a-button>
                                             <template #content>
                                                 <div class="mt-5">
                                                     <a-form :auto-label-width="true">
