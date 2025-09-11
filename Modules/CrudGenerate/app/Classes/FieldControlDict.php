@@ -16,8 +16,9 @@ class FieldControlDict extends AbstractFieldControl
                     parent::__construct(
                         label: '字典',
                         name: 'dict_code',
-                        inputComponent: 'a-input',
-                        placeholder: '请输入字典编码',
+                        inputComponent: 'dict-group-select',
+                        placeholder: '请选择字典编码',
+                        inputAttrs: ['style' => 'width: 220px'],
                     );
                 }
             },
