@@ -17,7 +17,7 @@
                         </slot>
                         <template v-if="page.props.__page_index__">
                             <slot name="action-update" v-bind="scope">
-                                <a-button v-if="!$slots['action-update']" size="medium" status="warning"
+                                <a-button v-if="!$slots['action-update']" size="medium" type="primary" status="warning"
                                     @click="handleUpdate(scope.record)">
                                     编辑
                                 </a-button>
