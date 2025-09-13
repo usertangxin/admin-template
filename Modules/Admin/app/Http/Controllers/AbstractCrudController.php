@@ -61,8 +61,8 @@ abstract class AbstractCrudController extends AbstractController
         if (str_starts_with(static::class, 'Modules')) {
             // 从类名中提取模块名称，格式为 Modules\ModuleName\Http\Controllers\...
             $moduleParts = explode('\\', static::class);
-            $moduleName = $moduleParts[1]; // 第二个部分即为模块名称
-            $prefix = 'module.' . $moduleName . '.' . $prefix;
+            $moduleName  = $moduleParts[1]; // 第二个部分即为模块名称
+            $prefix      = 'module.' . $moduleName . '.' . $prefix;
         } else {
             $prefix = 'app.' . $prefix;
         }

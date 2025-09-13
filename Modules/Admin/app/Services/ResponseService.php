@@ -26,15 +26,15 @@ class ResponseService
     {
         if ($view === null) {
             $action    = \request()->route()->getActionMethod();
-            $class = \request()->route()->getControllerClass();
+            $class     = \request()->route()->getControllerClass();
             $shortName = \class_basename($class);
             $prefix    = Str::of($shortName)->replace('Controller', '')->snake('_');
             $view      = $prefix . '/' . $action;
-            if(str_starts_with($class, 'Modules')) {
+            if (str_starts_with($class, 'Modules')) {
                 // 从类名中提取模块名称，格式为 Modules\ModuleName\Http\Controllers\...
                 $moduleParts = explode('\\', $class);
-                $moduleName = $moduleParts[1]; // 第二个部分即为模块名称
-                $view = 'module.' . $moduleName . '.' . $view;
+                $moduleName  = $moduleParts[1]; // 第二个部分即为模块名称
+                $view        = 'module.' . $moduleName . '.' . $view;
             } else {
                 $view = 'app.' . $view;
             }

@@ -2,9 +2,9 @@
 
 namespace Modules\Admin\Providers;
 
-use Gate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Models\SystemAdmin;
 use Modules\Admin\Services\SystemPermissionService;
