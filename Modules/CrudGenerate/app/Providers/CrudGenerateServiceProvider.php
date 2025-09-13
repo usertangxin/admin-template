@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Modules\CrudGenerate\Classes\FieldControlBigIncrements;
 use Modules\CrudGenerate\Classes\FieldControlBoolean;
 use Modules\CrudGenerate\Classes\FieldControlDateTime;
-use Modules\CrudGenerate\Classes\FieldControlDict;
+use Modules\CrudGenerate\Classes\FieldControlEnumDict;
 use Modules\CrudGenerate\Classes\FieldControlEnum;
 use Modules\CrudGenerate\Classes\FieldControlInteger;
 use Modules\CrudGenerate\Classes\FieldControlJson;
@@ -51,10 +51,10 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $fieldControlService->add(new FieldControlLongText);
         $fieldControlService->add(new FieldControlJson);
         $fieldControlService->add(new FieldControlEnum);
+        $fieldControlService->add(new FieldControlEnumDict);
         $fieldControlService->add(new FieldControlBoolean);
         $fieldControlService->add(new FieldControlDateTime);
         $fieldControlService->add(new FieldControlUuid);
-        $fieldControlService->add(new FieldControlDict);
     }
 
     /**

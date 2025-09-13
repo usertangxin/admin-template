@@ -4,7 +4,7 @@ namespace Modules\CrudGenerate\Classes;
 
 use Modules\Admin\Services\SystemDictService;
 
-class FieldControlDict extends AbstractFieldControl
+class FieldControlEnumDict extends AbstractFieldControl
 {
     public function getSpecialParams(): array
     {
