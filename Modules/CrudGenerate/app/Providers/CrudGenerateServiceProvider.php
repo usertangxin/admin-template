@@ -9,6 +9,7 @@ use Modules\CrudGenerate\Classes\FieldControlBoolean;
 use Modules\CrudGenerate\Classes\FieldControlDateTime;
 use Modules\CrudGenerate\Classes\FieldControlDict;
 use Modules\CrudGenerate\Classes\FieldControlEnum;
+use Modules\CrudGenerate\Classes\FieldControlInteger;
 use Modules\CrudGenerate\Classes\FieldControlJson;
 use Modules\CrudGenerate\Classes\FieldControlLongText;
 use Modules\CrudGenerate\Classes\FieldControlString;
@@ -41,6 +42,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
+        $fieldControlService->add(new FieldControlInteger);
         $fieldControlService->add(new FieldControlUnsignedInteger);
         $fieldControlService->add(new FieldControlUnsignedBigInteger);
         $fieldControlService->add(new FieldControlBigIncrements);
