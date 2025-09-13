@@ -93,6 +93,7 @@
                                                             <component :is="param.inputComponent"
                                                                 v-model="item.field_control_special_params[param.name]"
                                                                 :placeholder="param.placeholder"
+                                                                :default-value="param.defaultValue"
                                                                 v-bind="param.inputAttrs">
                                                             </component>
                                                         </a-form-item>
