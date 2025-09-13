@@ -4,7 +4,6 @@ namespace Modules\CrudGenerate\Classes;
 
 class FieldControlUnsignedBigInteger extends AbstractFieldControl
 {
-
     public function getSpecialParams(): array
     {
         return [
@@ -18,6 +17,7 @@ class FieldControlUnsignedBigInteger extends AbstractFieldControl
         if (isset($this->field['field_control_special_params']['autoIncrement'])) {
             $autoIncrement = ', ' . ($this->field['field_control_special_params']['precision'] == 'yes' ? 'true' : 'false');
         }
+
         return 'unsignedBigInteger(\'' . $this->field['field_name'] . '\'' . $autoIncrement . ')';
     }
 }

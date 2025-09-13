@@ -17,7 +17,7 @@ class SpecialParamYesOrNo extends AbstractSpecialParam
             $name,
             $inputComponent,
             $placeholder,
-            array_merge($inputAttrs, ['code' => 'yes_or_no'],),
+            array_merge($inputAttrs, ['code' => 'yes_or_no']),
             $defaultValue,
         );
     }

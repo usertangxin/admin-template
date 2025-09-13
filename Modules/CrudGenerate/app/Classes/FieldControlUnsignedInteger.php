@@ -17,6 +17,7 @@ class FieldControlUnsignedInteger extends AbstractFieldControl
         if (isset($this->field['field_control_special_params']['autoIncrement'])) {
             $autoIncrement = ', ' . ($this->field['field_control_special_params']['autoIncrement'] == 'yes' ? 'true' : 'false');
         }
+
         return 'unsignedInteger(\'' . $this->field['field_name'] . '\'' . $autoIncrement . ')';
     }
 }
