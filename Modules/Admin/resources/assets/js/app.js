@@ -6,9 +6,14 @@ import _ from 'lodash';
 
 createInertiaApp({
   resolve: name => {
-    const pages = import.meta.glob('./pages/**/!(*components*/**).vue', { eager: true })
-    let page = pages[`./pages/${name}.vue`]
+    const [prefix, moduleName, action] = name.split('.')
+    let page = null
+    if (prefix == 'module') {
+      const pages = import.meta.glob('/Modules/**/resources/assets/js/pages/**/!(*components*/**).vue', { eager: true })
+      page = pages[`/Modules/${moduleName}/resources/assets/js/pages/${action}.vue`]
+    }
     if (!page) {
+      console.error(prefix, moduleName, action)
       page = NotFoundPage
     }
     if (page.default) {

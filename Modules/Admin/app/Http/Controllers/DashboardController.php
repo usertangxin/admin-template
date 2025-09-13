@@ -15,7 +15,7 @@ class DashboardController extends AbstractController
                 'system_menus_list' => SystemPermissionService::getInstance()->getMyPermissionList(),
                 'auth'              => Auth::user(),
             ],
-            view: 'main'
+            view: 'module.Admin.main'
         );
     }
 }

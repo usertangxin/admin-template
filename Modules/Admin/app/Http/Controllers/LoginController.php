@@ -16,7 +16,7 @@ class LoginController extends AbstractController
             return redirect()->route('web.admin.index');
         }
 
-        return $this->inertia(view: 'login');
+        return $this->inertia(view: 'module.Admin.login');
     }
 
     #[SystemMenu('登录页', type: SystemMenuType::MENU, code: 'web.admin.login.authenticate', parent_code: 'system_admin.login', allow_all: true)]
