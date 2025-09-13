@@ -4,12 +4,17 @@ namespace Modules\CrudGenerate\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\CrudGenerate\Classes\FieldControlBigIncrements;
 use Modules\CrudGenerate\Classes\FieldControlBoolean;
 use Modules\CrudGenerate\Classes\FieldControlDateTime;
 use Modules\CrudGenerate\Classes\FieldControlDict;
 use Modules\CrudGenerate\Classes\FieldControlEnum;
 use Modules\CrudGenerate\Classes\FieldControlJson;
+use Modules\CrudGenerate\Classes\FieldControlLongText;
 use Modules\CrudGenerate\Classes\FieldControlString;
+use Modules\CrudGenerate\Classes\FieldControlText;
+use Modules\CrudGenerate\Classes\FieldControlUnsignedBigInteger;
+use Modules\CrudGenerate\Classes\FieldControlUnsignedInteger;
 use Modules\CrudGenerate\Classes\FieldControlUuid;
 use Modules\CrudGenerate\Services\FieldControlService;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -36,7 +41,12 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
+        $fieldControlService->add(new FieldControlUnsignedInteger);
+        $fieldControlService->add(new FieldControlUnsignedBigInteger);
+        $fieldControlService->add(new FieldControlBigIncrements);
         $fieldControlService->add(new FieldControlString);
+        $fieldControlService->add(new FieldControlText);
+        $fieldControlService->add(new FieldControlLongText);
         $fieldControlService->add(new FieldControlJson);
         $fieldControlService->add(new FieldControlEnum);
         $fieldControlService->add(new FieldControlBoolean);
