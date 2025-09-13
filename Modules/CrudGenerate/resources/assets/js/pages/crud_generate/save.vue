@@ -86,7 +86,7 @@
                                                 type="primary" status="normal">配置</a-button>
                                             <template #content>
                                                 <div class="mt-5">
-                                                    <a-form :auto-label-width="true">
+                                                    <a-form :auto-label-width="true" class=" min-w-[270px]">
                                                         <a-form-item
                                                             v-for="param in fieldControls[item.field_control]?.specialParams"
                                                             :key="param.name" :label="param.label" :field="param.name">

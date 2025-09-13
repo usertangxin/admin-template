@@ -10,7 +10,7 @@ class SpecialParamAllowed extends AbstractSpecialParam
         string $inputComponent = 'a-input-tag',
         string $placeholder = '请输入允许的值并回车',
         array $inputAttrs = [],
-        mixed $defaultValue = null
+        mixed $defaultValue = [],
     ) {
         parent::__construct(
             $label,
