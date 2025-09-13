@@ -9,6 +9,8 @@ use Modules\Admin\Models\Scopes\GlobalDataPermissionScope;
  */
 trait GlobalDataPermission
 {
+    public bool $ignoreGlobalDataPermission = false;
+
     public static function bootGlobalDataPermission()
     {
         static::addGlobalScope(app(GlobalDataPermissionScope::class));

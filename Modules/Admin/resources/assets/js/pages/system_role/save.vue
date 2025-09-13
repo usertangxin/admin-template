@@ -10,7 +10,7 @@
             <a-form-item label="状态" field="status">
                 <dict-radio code="data_status" v-model="formData.status"></dict-radio>
             </a-form-item>
-            <a-form-item label="权限" field="permissions">
+            <a-form-item label="菜单权限" field="permissions">
                 <div>
                     <a-button-group>
                         <a-button @click="handleToggleExpanded">{{ expandedKeys.length ? '收起全部' : '展开全部' }}</a-button>
