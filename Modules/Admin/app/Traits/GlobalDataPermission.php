@@ -9,7 +9,7 @@ use Modules\Admin\Models\Scopes\GlobalDataPermissionScope;
  */
 trait GlobalDataPermission
 {
-    public bool $ignoreGlobalDataPermission = false;
+    public $ignoreGlobalDataPermission = false;
 
     public static function bootGlobalDataPermission()
     {
