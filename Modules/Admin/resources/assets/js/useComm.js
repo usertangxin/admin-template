@@ -1,4 +1,3 @@
-import '../sass/app.scss'
 import './axios'
 import { Boot } from '@wangeditor/editor'
 import selectImage from './components/wang-editor-menu/select-image'
@@ -7,6 +6,7 @@ import { router } from '@inertiajs/vue3';
 import ArcoVue from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import '@arco-design/web-vue/dist/arco.css';
+import '../sass/app.scss'
 import { ZiggyVue } from 'ziggy-js';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
