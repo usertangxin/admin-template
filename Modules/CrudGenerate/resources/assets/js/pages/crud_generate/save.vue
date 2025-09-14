@@ -75,7 +75,7 @@
                             </form-col>
                             <form-col>
                                 <a-form-item label="字段控件" field="field_control">
-                                    <a-input-group>
+                                    <a-input-group class="flex-1">
                                         <a-select v-model="item.field_control" placeholder="请选择字段控件"
                                             allow-search>
                                             <a-option v-for="item in fieldControls" :value="item.name"
