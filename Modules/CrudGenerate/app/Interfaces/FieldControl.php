@@ -28,6 +28,11 @@ interface FieldControl
      */
     public function getSpecialParams(): array|string;
 
+    /**
+     * 迁移文件代码片段
+     * 
+     * @return string 
+     */
     public function getMigrateCodeFragment(): string;
 
     /**
