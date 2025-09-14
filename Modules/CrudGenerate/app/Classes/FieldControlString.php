@@ -15,9 +15,9 @@ class FieldControlString extends AbstractFieldControl
     {
         $lengthStr = '';
         if (isset($this->field['field_control_special_params']['length'])) {
-            $lengthStr = '\', ' . $this->field['field_control_special_params']['length'];
+            $lengthStr = ', ' . $this->field['field_control_special_params']['length'];
         }
 
-        return 'string(\'' . $this->field['field_name'] . $lengthStr . ')';
+        return 'string(\'' . $this->field['field_name'] . '\'' . $lengthStr . ')';
     }
 }
