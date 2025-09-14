@@ -11,7 +11,7 @@ class FieldControlDateTimeTest extends TestCase
     public function test_fragment_1()
     {
         $class = $this->app->make(FieldControlDateTime::class);
-        $class->make(['field_name' => 'created_at', 'field_control_special_params'=>['precision' => 3]],[], new SystemCrudHistory);
+        $class->make(['field_name' => 'created_at', 'field_control_special_params' => ['precision' => 3]], [], new SystemCrudHistory);
         $fragment = $class->getMigrateCodeFragment();
         $this->assertEquals('dateTime(\'created_at\', 3)', $fragment);
     }

@@ -5,7 +5,6 @@ namespace Modules\CrudGenerate\Tests\Unit;
 use Modules\Admin\Tests\AbstractAuthTestCase;
 use Modules\CrudGenerate\Classes\FieldControlEnumDict;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
-use Tests\TestCase;
 
 class FieldControlEnumDictTest extends AbstractAuthTestCase
 {
