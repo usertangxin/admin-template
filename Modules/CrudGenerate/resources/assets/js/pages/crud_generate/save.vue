@@ -75,8 +75,8 @@
                             </form-col>
                             <form-col>
                                 <a-form-item label="字段控件" field="field_control">
-                                    <div class="flex-1 flex">
-                                        <a-select v-model="item.field_control" class="flex-1" placeholder="请选择字段控件"
+                                    <a-input-group>
+                                        <a-select v-model="item.field_control" placeholder="请选择字段控件"
                                             allow-search>
                                             <a-option v-for="item in fieldControls" :value="item.name"
                                                 :label="item.label" />
@@ -101,7 +101,7 @@
                                                 </div>
                                             </template>
                                         </a-popover>
-                                    </div>
+                                    </a-input-group>
                                 </a-form-item>
                             </form-col>
                             <form-col>
