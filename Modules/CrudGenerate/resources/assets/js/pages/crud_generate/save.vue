@@ -76,8 +76,7 @@
                             <form-col>
                                 <a-form-item label="字段控件" field="field_control">
                                     <a-input-group class="flex-1">
-                                        <a-select v-model="item.field_control" placeholder="请选择字段控件"
-                                            allow-search>
+                                        <a-select v-model="item.field_control" placeholder="请选择字段控件" allow-search>
                                             <a-option v-for="item in fieldControls" :value="item.name"
                                                 :label="item.label" />
                                         </a-select>
@@ -87,16 +86,23 @@
                                             <template #content>
                                                 <div class="mt-5">
                                                     <a-form :auto-label-width="true" class=" min-w-[270px]">
-                                                        <a-form-item
-                                                            v-for="param in fieldControls[item.field_control]?.specialParams"
-                                                            :key="param.name" :label="param.label" :field="param.name">
-                                                            <component :is="param.inputComponent"
-                                                                v-model="item.field_control_special_params[param.name]"
-                                                                :placeholder="param.placeholder"
-                                                                :default-value="param.defaultValue"
-                                                                v-bind="param.inputAttrs">
-                                                            </component>
-                                                        </a-form-item>
+                                                        <template
+                                                            v-if="Array.isArray(fieldControls[item.field_control]?.specialParams)">
+                                                            <a-form-item
+                                                                v-for="param in fieldControls[item.field_control]?.specialParams"
+                                                                :key="param.name" :label="param.label"
+                                                                :field="param.name">
+                                                                <component :is="param.inputComponent"
+                                                                    v-model="item.field_control_special_params[param.name]"
+                                                                    :placeholder="param.placeholder"
+                                                                    :default-value="param.defaultValue"
+                                                                    v-bind="param.inputAttrs">
+                                                                </component>
+                                                            </a-form-item>
+                                                        </template>
+                                                        <template v-else>
+                                                            <field-control-render :html="fieldControls[item.field_control]?.specialParams" v-model:params="item.field_control_special_params"></field-control-render>
+                                                        </template>
                                                     </a-form>
                                                 </div>
                                             </template>
@@ -204,6 +210,8 @@
 import { reactive, ref } from 'vue';
 import { recursiveFilter, recursiveMap } from '/Modules/Admin/resources/assets/js/util';
 import draggable from "vuedraggable";
+import fieldControlRender from '../../fieldControlRender';
+
 
 const formData = reactive({
     table_name: '',
