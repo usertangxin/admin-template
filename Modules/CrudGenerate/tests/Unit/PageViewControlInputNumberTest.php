@@ -18,9 +18,9 @@ class PageViewControlInputNumberTest extends TestCase
             'step' => 1,
         ]], [], new SystemCrudHistory);
         $fragment = $class->getFormCodeFragment();
-        $this->assertStringContainsString(':min="0" :max="100"', $fragment);
-        $this->assertStringContainsString(':precision="1"', $fragment);
-        $this->assertStringContainsString('mode="button"', $fragment);
-        $this->assertStringContainsString(':step="1"', $fragment);
+        $this->assertStringContainsString(' :min="0" :max="100"', $fragment);
+        $this->assertStringContainsString(' :precision="1"', $fragment);
+        $this->assertStringContainsString(' mode="button"', $fragment);
+        $this->assertStringContainsString(' :step="1"', $fragment);
     }
 }
