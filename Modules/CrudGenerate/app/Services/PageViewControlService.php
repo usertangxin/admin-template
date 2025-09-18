@@ -74,6 +74,31 @@ class PageViewControlService implements JsonSerializable
         return isset($this->pageViewControls[$name instanceof PageViewControl ? $name->getName() : $name]);
     }
 
+    /**
+     * 分析索引列片段
+     *
+     * @return string
+     */
+    public function analysisIndexColumnFragment(SystemCrudHistory $crudHistory)
+    {
+        $column_list = $crudHistory->column_list;
+        $content     = '';
+        foreach ($column_list as $column) {
+            $pageViewControl = $this->pageViewControls[$column['page_view_control']];
+            $pageViewControl->make($column, $column_list, $crudHistory);
+            $arr = $pageViewControl->getIndexColumnFragment();
+            $arr = array_merge(['title' => $column['comment'], 'dataIndex' => $column['field_name']], $arr);
+            $content .= json_encode($arr, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . PHP_EOL;
+        }
+
+        return $content;
+    }
+
+    /**
+     * 分析表单代码片段
+     *
+     * @return string|false
+     */
     public function analysisFormCodeFragment(SystemCrudHistory $crudHistory)
     {
         $column_list = $crudHistory->column_list;
