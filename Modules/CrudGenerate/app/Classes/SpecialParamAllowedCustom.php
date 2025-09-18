@@ -2,7 +2,7 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-class SpecialParamAllowed extends AbstractSpecialParam
+class SpecialParamAllowedCustom extends AbstractSpecialParam
 {
     public function __construct(
         string $label = '允许的值',

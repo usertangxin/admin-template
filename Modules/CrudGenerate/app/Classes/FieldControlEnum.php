@@ -7,7 +7,7 @@ class FieldControlEnum extends AbstractFieldControl
     public function getSpecialParams(): array
     {
         return [
-            new SpecialParamAllowed,
+            new SpecialParamAllowedCustom,
         ];
     }
 

@@ -18,6 +18,7 @@ use Modules\CrudGenerate\Classes\FieldControlUnsignedBigInteger;
 use Modules\CrudGenerate\Classes\FieldControlUnsignedInteger;
 use Modules\CrudGenerate\Classes\FieldControlUuid;
 use Modules\CrudGenerate\Classes\PageViewControlInput;
+use Modules\CrudGenerate\Classes\PageViewControlInputNumber;
 use Modules\CrudGenerate\Services\FieldControlService;
 use Modules\CrudGenerate\Services\PageViewControlService;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -59,6 +60,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $fieldControlService->add(new FieldControlUuid);
 
         $pageViewControlService->add(new PageViewControlInput);
+        $pageViewControlService->add(new PageViewControlInputNumber);
     }
 
     /**
