@@ -7,6 +7,7 @@ use Modules\Admin\Classes\Utils\SystemMenuType;
 use Modules\Admin\Http\Controllers\AbstractCrudController;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
 use Modules\CrudGenerate\Services\FieldControlService;
+use Modules\CrudGenerate\Services\PageViewControlService;
 
 #[SystemMenu('Crud生成', type: SystemMenuType::MENU, parent_code: 'system.dev', icon: 'fas trowel-bricks')]
 class CrudGenerateController extends AbstractCrudController
@@ -20,5 +21,11 @@ class CrudGenerateController extends AbstractCrudController
     public function getFieldControls(FieldControlService $field_control_service)
     {
         return $this->success($field_control_service->jsonSerialize());
+    }
+
+    #[SystemMenu('获取页面控件')]
+    public function getPageViewControls(PageViewControlService $page_view_control_service)
+    {
+        return $this->success($page_view_control_service->jsonSerialize());
     }
 }

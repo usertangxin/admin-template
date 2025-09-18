@@ -101,7 +101,9 @@
                                                             </a-form-item>
                                                         </template>
                                                         <template v-else>
-                                                            <field-control-render :html="fieldControls[item.field_control]?.specialParams" v-model:params="item.field_control_special_params"></field-control-render>
+                                                            <field-control-render
+                                                                :html="fieldControls[item.field_control]?.specialParams"
+                                                                v-model:params="item.field_control_special_params"></field-control-render>
                                                         </template>
                                                     </a-form>
                                                 </div>
@@ -112,8 +114,41 @@
                             </form-col>
                             <form-col>
                                 <a-form-item label="页面控件" field="page_view_control">
-                                    <a-select v-model="item.page_view_control" placeholder="请选择页面控件"
-                                        allow-search></a-select>
+                                    <a-input-group class="flex-1">
+                                        <a-select v-model="item.page_view_control" placeholder="请选择页面控件" allow-search>
+                                            <a-option v-for="item in pageViewControls" :value="item.name"
+                                                :label="item.label" />
+                                        </a-select>
+                                        <a-popover trigger="click">
+                                            <a-button v-if="pageViewControls[item.page_view_control]?.specialParams.length > 0"
+                                                type="primary" status="normal">配置</a-button>
+                                            <template #content>
+                                                <div class="mt-5">
+                                                    <a-form :auto-label-width="true" class=" min-w-[270px]">
+                                                        <template
+                                                            v-if="Array.isArray(pageViewControls[item.page_view_control]?.specialParams)">
+                                                            <a-form-item
+                                                                v-for="param in pageViewControls[item.page_view_control]?.specialParams"
+                                                                :key="param.name" :label="param.label"
+                                                                :field="param.name">
+                                                                <component :is="param.inputComponent"
+                                                                    v-model="item.page_view_control_special_params[param.name]"
+                                                                    :placeholder="param.placeholder"
+                                                                    :default-value="param.defaultValue"
+                                                                    v-bind="param.inputAttrs">
+                                                                </component>
+                                                            </a-form-item>
+                                                        </template>
+                                                        <template v-else>
+                                                            <field-control-render
+                                                                :html="pageViewControls[item.page_view_control]?.specialParams"
+                                                                v-model:params="item.page_view_control_special_params"></field-control-render>
+                                                        </template>
+                                                    </a-form>
+                                                </div>
+                                            </template>
+                                        </a-popover>
+                                    </a-input-group>
                                 </a-form-item>
                             </form-col>
                             <form-col>
@@ -224,6 +259,7 @@ const formData = reactive({
 const modules = ref([])
 const menus = ref([])
 const fieldControls = ref([])
+const pageViewControls = ref([])
 
 const navSize = reactive({
     width: 0,
@@ -292,5 +328,10 @@ request.get('/web/admin/SystemMenu/index').then(res => {
 request.get('field-controls').then(res => {
     fieldControls.value = res.data
 })
+
+request.get('page-view-controls').then(res => {
+    pageViewControls.value = res.data
+})
+
 
 </script>
