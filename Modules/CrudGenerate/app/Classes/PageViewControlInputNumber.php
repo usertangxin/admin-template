@@ -29,13 +29,13 @@ class PageViewControlInputNumber extends AbstractPageViewControl
             $attrs .= " :precision=\"{$precision}\"";
         }
         if($mode) {
-            $attrs .= " :mode=\"{$mode}\"";
+            $attrs .= " mode=\"{$mode}\"";
         }
         if($step) {
             $attrs .= " :step=\"{$step}\"";
         }
         return <<<code
-            <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+            <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                 <a-input-number v-model="formData.{$this->getFieldName()}" placeholder="请输入{$this->getComment()}"$attrs></a-input-number>
             </a-form-item>
         code;
