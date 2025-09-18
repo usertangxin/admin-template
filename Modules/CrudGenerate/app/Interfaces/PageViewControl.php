@@ -29,5 +29,11 @@ interface PageViewControl
     /**
      * 视图代码片段
      */
-    public function getViewCodeFragment(): string;
+    public function getFormCodeFragment(): string;
+
+    /**
+     * 列表页列代码片段
+     * @return array 
+     */
+    public function getIndexColumnFragment(): array;
 }
