@@ -17,7 +17,9 @@ use Modules\CrudGenerate\Classes\FieldControlText;
 use Modules\CrudGenerate\Classes\FieldControlUnsignedBigInteger;
 use Modules\CrudGenerate\Classes\FieldControlUnsignedInteger;
 use Modules\CrudGenerate\Classes\FieldControlUuid;
+use Modules\CrudGenerate\Classes\PageViewControlInput;
 use Modules\CrudGenerate\Services\FieldControlService;
+use Modules\CrudGenerate\Services\PageViewControlService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -33,7 +35,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
     /**
      * Boot the application events.
      */
-    public function boot(FieldControlService $fieldControlService): void
+    public function boot(FieldControlService $fieldControlService, PageViewControlService $pageViewControlService): void
     {
         $this->registerCommands();
         $this->registerCommandSchedules();
@@ -55,6 +57,8 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $fieldControlService->add(new FieldControlBoolean);
         $fieldControlService->add(new FieldControlDateTime);
         $fieldControlService->add(new FieldControlUuid);
+
+        $pageViewControlService->add(new PageViewControlInput);
     }
 
     /**
@@ -66,6 +70,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
 
         $this->app->singleton(FieldControlService::class);
+        $this->app->singleton(PageViewControlService::class);
     }
 
     /**

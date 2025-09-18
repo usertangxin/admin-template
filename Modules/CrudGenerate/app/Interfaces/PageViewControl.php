@@ -33,7 +33,6 @@ interface PageViewControl
 
     /**
      * 列表页列代码片段
-     * @return array 
      */
     public function getIndexColumnFragment(): array;
 }
