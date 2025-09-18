@@ -22,6 +22,5 @@ class PageViewControlInputNumberTest extends TestCase
         $this->assertStringContainsString(':precision="1"', $fragment);
         $this->assertStringContainsString('mode="button"', $fragment);
         $this->assertStringContainsString(':step="1"', $fragment);
-        var_dump($fragment);
     }
 }
