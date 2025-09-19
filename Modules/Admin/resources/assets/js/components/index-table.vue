@@ -93,8 +93,12 @@
                     </a-switch>
                 </template>
                 <template v-else-if="column.type === 'link'">
-                    <a-link :href="scope.record[column.dataIndex]" target="_blank">{{ scope.record[column.dataIndex]
-                        }}</a-link>
+                    <a-link :href="scope.record[column.dataIndex]" target="_blank">
+                        {{ scope.record[column.dataIndex] }}
+                    </a-link>
+                </template>
+                <template v-else>
+                    <component :is="column.type" :value="scope.record[column.dataIndex]" v-bind="column"></component>
                 </template>
             </slot>
         </template>
@@ -193,9 +197,9 @@ const comRowSelection = computed(() => {
             showCheckedAll: true,
         }
     }
-    return { 
-        type: params['__multiple__'] === 'true' ? 'checkbox' : 'radio', 
-        showCheckedAll: params['__multiple__'] && params['__limit__'] == 0, 
+    return {
+        type: params['__multiple__'] === 'true' ? 'checkbox' : 'radio',
+        showCheckedAll: params['__multiple__'] && params['__limit__'] == 0,
     }
 })
 
