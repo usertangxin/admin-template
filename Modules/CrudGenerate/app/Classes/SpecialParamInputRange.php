@@ -2,7 +2,7 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-class SpecialParamInputRange  extends AbstractSpecialParam
+class SpecialParamInputRange extends AbstractSpecialParam
 {
     public function __construct(
         string $label = '范围',

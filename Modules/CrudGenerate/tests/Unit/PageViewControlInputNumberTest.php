@@ -12,10 +12,10 @@ class PageViewControlInputNumberTest extends TestCase
     {
         $class = $this->app->make(PageViewControlInputNumber::class);
         $class->make(['field_name' => 'aaa', 'comment' => '测试', 'page_view_control_special_params' => [
-            'range' => [0, 100],
+            'range'     => [0, 100],
             'precision' => 1,
-            'mode' => 'button',
-            'step' => 1,
+            'mode'      => 'button',
+            'step'      => 1,
         ]], [], new SystemCrudHistory);
         $fragment = $class->getFormCodeFragment();
         $this->assertStringContainsString(' :min="0" :max="100"', $fragment);

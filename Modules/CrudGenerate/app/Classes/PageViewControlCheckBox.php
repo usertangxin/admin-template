@@ -2,13 +2,12 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-class PageViewControlCheckBox  extends AbstractPageViewControl
+class PageViewControlCheckBox extends AbstractPageViewControl
 {
-
     public function getSpecialParams(): array|string
     {
         return [
-            new SpecialParamKv(),
+            new SpecialParamKv,
         ];
     }
 
