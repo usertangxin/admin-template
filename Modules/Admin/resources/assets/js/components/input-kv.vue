@@ -24,7 +24,6 @@ import { reactive } from 'vue'
 
 const value = defineModel({
     type: Array,
-    default: () => reactive([])
 })
 
 const props = defineProps({
@@ -40,6 +39,10 @@ const props = defineProps({
 })
 
 const addItem = () => {
+    if (!value.value) {
+        value.value = [['', '']]
+        return
+    }
     value.value.push(['', ''])
 }
 
