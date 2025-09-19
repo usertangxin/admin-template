@@ -34,6 +34,7 @@ import UploadImage from './components/upload-image.vue'
 import SaveForm from './components/save-form.vue'
 import ResourceModel from './components/resource-model.vue'
 import InputRange from './components/input-range.vue'
+import InputKv from './components/input-kv.vue'
 import SelfResize from './directive/selfResizeDirective.js'
 
 const selectFileConfig = {
@@ -107,6 +108,7 @@ const useComm = {
       .component('search-col', searchCol)
       .component('resource-model', ResourceModel)
       .component('input-range', InputRange)
+      .component('input-kv', InputKv)
 
     app.directive('self-resize', SelfResize.directive)
   }
