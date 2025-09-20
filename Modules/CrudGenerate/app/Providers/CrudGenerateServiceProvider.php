@@ -22,6 +22,7 @@ use Modules\CrudGenerate\Classes\PageViewControlDatePicker;
 use Modules\CrudGenerate\Classes\PageViewControlInput;
 use Modules\CrudGenerate\Classes\PageViewControlInputNumber;
 use Modules\CrudGenerate\Classes\PageViewControlInputRange;
+use Modules\CrudGenerate\Classes\PageViewControlRate;
 use Modules\CrudGenerate\Services\FieldControlService;
 use Modules\CrudGenerate\Services\PageViewControlService;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -67,6 +68,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $pageViewControlService->add(new PageViewControlInputRange);
         $pageViewControlService->add(new PageViewControlCheckBox);
         $pageViewControlService->add(new PageViewControlDatePicker);
+        $pageViewControlService->add(new PageViewControlRate);
     }
 
     /**
