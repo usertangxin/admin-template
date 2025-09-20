@@ -20,6 +20,7 @@ use Modules\CrudGenerate\Classes\FieldControlUuid;
 use Modules\CrudGenerate\Classes\PageViewControlCheckBox;
 use Modules\CrudGenerate\Classes\PageViewControlInput;
 use Modules\CrudGenerate\Classes\PageViewControlInputNumber;
+use Modules\CrudGenerate\Classes\PageViewControlInputRange;
 use Modules\CrudGenerate\Services\FieldControlService;
 use Modules\CrudGenerate\Services\PageViewControlService;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -62,6 +63,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
 
         $pageViewControlService->add(new PageViewControlInput);
         $pageViewControlService->add(new PageViewControlInputNumber);
+        $pageViewControlService->add(new PageViewControlInputRange);
         $pageViewControlService->add(new PageViewControlCheckBox);
     }
 
