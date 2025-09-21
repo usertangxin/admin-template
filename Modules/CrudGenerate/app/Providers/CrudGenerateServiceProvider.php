@@ -26,6 +26,7 @@ use Modules\CrudGenerate\Classes\PageViewControlRate;
 use Modules\CrudGenerate\Classes\PageViewControlSelect;
 use Modules\CrudGenerate\Classes\PageViewControlSlider;
 use Modules\CrudGenerate\Classes\PageViewControlSwitch;
+use Modules\CrudGenerate\Classes\PageViewControlTextarea;
 use Modules\CrudGenerate\Classes\PageViewControlTimePicker;
 use Modules\CrudGenerate\Services\FieldControlService;
 use Modules\CrudGenerate\Services\PageViewControlService;
@@ -70,6 +71,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $pageViewControlService->add(new PageViewControlInput);
         $pageViewControlService->add(new PageViewControlInputNumber);
         $pageViewControlService->add(new PageViewControlInputRange);
+        $pageViewControlService->add(new PageViewControlTextarea);
         $pageViewControlService->add(new PageViewControlCheckBox);
         $pageViewControlService->add(new PageViewControlSwitch);
         $pageViewControlService->add(new PageViewControlSelect);
