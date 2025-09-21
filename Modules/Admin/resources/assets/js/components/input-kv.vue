@@ -1,8 +1,8 @@
 <template>
     <div class="flex-1 text-center">
         <div class="grid grid-cols-2 gap-2">
-            <div class="">{{ props.keyTitle }}</div>
-            <div class="">{{ props.valueTitle }}</div>
+            <div class="leading-[36px]">{{ props.keyTitle }}</div>
+            <div class="leading-[36px]">{{ props.valueTitle }}</div>
             <template v-for="(item, index) in value" :key="index">
                 <div>
                     <a-input v-model="item[0]" :placeholder="`请输入${props.keyTitle}`"></a-input>

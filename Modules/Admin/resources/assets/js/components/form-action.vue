@@ -1,5 +1,6 @@
 <template>
-    <div class="-m-3 p-3 mb-3 form-action sticky top-0 z-[2000]">
+    <!-- 如果层级过高会导致表单组件/提示组件弹出内容被遮挡 -->
+    <div class="-m-3 p-3 mb-3 form-action sticky top-0 z-[500]">
         <a-row>
             <a-col flex="auto">
                 <a-space>
