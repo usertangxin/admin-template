@@ -24,7 +24,7 @@ class PageViewControlCheckBox extends AbstractPageViewControl
 
         return <<<code
             <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
-                <a-checkbox-group v-model="formData.{$this->getFieldName()}" :options="$options" placeholder="请输入{$this->getComment()}"></a-checkbox-group>
+                <a-checkbox-group v-model="formData.{$this->getFieldName()}" :options='$options' placeholder="请输入{$this->getComment()}"></a-checkbox-group>
             </a-form-item>
         code;
     }

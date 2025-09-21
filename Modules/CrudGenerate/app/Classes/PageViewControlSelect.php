@@ -44,7 +44,7 @@ class PageViewControlSelect extends AbstractPageViewControl
 
         return <<<code
             <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
-                <a-select v-model="formData.{$this->getFieldName()}" :options="$options" placeholder="请输入{$this->getComment()}"$attrs></a-select>
+                <a-select v-model="formData.{$this->getFieldName()}" :options='$options' placeholder="请输入{$this->getComment()}"$attrs></a-select>
             </a-form-item>
         code;
     }

@@ -24,6 +24,6 @@ class PageViewControlSelectTest extends TestCase
         $this->assertStringContainsString(' allow-clear', $fragment);
         $this->assertStringContainsString(' allow-search', $fragment);
         $this->assertStringContainsString(' multiple', $fragment);
-        $this->assertStringContainsString(' :options="[{"label":"选项1","value":"1"},{"label":"选项2","value":"2"}]', $fragment);
+        $this->assertStringContainsString(' :options=\'[{"label":"选项1","value":"1"},{"label":"选项2","value":"2"}]\'', $fragment);
     }
 }

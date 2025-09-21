@@ -17,12 +17,12 @@ class PageViewControlSliderTest extends TestCase
             'range'       => 'yes',
             'show-ticks'  => 'yes',
             'show-input'  => 'yes',
-            'marks' => [
-                [ '不爽', 0],
-                [ '有点爽', 50],
-                [ '很爽', 100],
-                [ '超爽', 150],
-            ]
+            'marks'       => [
+                ['不爽', 0],
+                ['有点爽', 50],
+                ['很爽', 100],
+                ['超爽', 150],
+            ],
         ]], [], new SystemCrudHistory);
         $fragment = $class->getFormCodeFragment();
         $this->assertStringContainsString(' :step="2"', $fragment);

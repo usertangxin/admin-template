@@ -20,13 +20,13 @@ class PageViewControlSlider extends AbstractPageViewControl
     {
         $options = [];
 
-        $rangeValue  = $this->field['page_view_control_special_params']['range-value'] ?? [0, 100];
-        $step        = $this->field['page_view_control_special_params']['step'] ?? 1;
-        $range       = $this->field['page_view_control_special_params']['range'] ?? 'no';
-        $showTicks   = $this->field['page_view_control_special_params']['show-ticks'] ?? 'no';
-        $showInput   = $this->field['page_view_control_special_params']['show-input'] ?? 'no';
-        $marks       = $this->field['page_view_control_special_params']['marks'] ?? [];
-        $attrs       = '';
+        $rangeValue = $this->field['page_view_control_special_params']['range-value'] ?? [0, 100];
+        $step       = $this->field['page_view_control_special_params']['step'] ?? 1;
+        $range      = $this->field['page_view_control_special_params']['range'] ?? 'no';
+        $showTicks  = $this->field['page_view_control_special_params']['show-ticks'] ?? 'no';
+        $showInput  = $this->field['page_view_control_special_params']['show-input'] ?? 'no';
+        $marks      = $this->field['page_view_control_special_params']['marks'] ?? [];
+        $attrs      = '';
 
         foreach ($marks as $item) {
             $options[$item[1]] = $item[0];
