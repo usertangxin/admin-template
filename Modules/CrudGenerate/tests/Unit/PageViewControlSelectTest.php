@@ -8,16 +8,17 @@ use Tests\TestCase;
 
 class PageViewControlSelectTest extends TestCase
 {
-    public function test_get_form_code_fragment() {
+    public function test_get_form_code_fragment()
+    {
         $class = $this->app->make(PageViewControlSelect::class);
         $class->make(['field_name' => 'aaa', 'comment' => '测试', 'page_view_control_special_params' => [
-            'allow-clear' => 'yes',
+            'allow-clear'  => 'yes',
             'allow-search' => 'yes',
-            'multiple' => 'yes',
-            'kv' => [
+            'multiple'     => 'yes',
+            'kv'           => [
                 ['选项1', '1'],
                 ['选项2', '2'],
-            ]
+            ],
         ]], [], new SystemCrudHistory);
         $fragment = $class->getFormCodeFragment();
         $this->assertStringContainsString(' allow-clear', $fragment);

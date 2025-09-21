@@ -6,7 +6,7 @@ class PageViewControlDatePicker extends AbstractPageViewControl
 {
     public function getSpecialParams(): array|string
     {
-        return <<<code
+        return <<<'code'
             <a-form-item label="类型">
                 <a-radio-group v-model="params.type" :options="[{label: '日期选择器', value: 'date'}, {label: '日期时间选择', value: 'datetime'}, {label: '月份选择器', value: 'month'}, {label: '年份选择器', value: 'year'}, {label: '周选择器', value: 'week'}, {label: '季度选择器', value: 'quarter'},]" default-value="date"></a-radio-group>
             </a-form-item>
@@ -30,9 +30,9 @@ class PageViewControlDatePicker extends AbstractPageViewControl
         /** 是否为特殊组件 */
         $in_special_view = false;
 
-        $type = $this->field['page_view_control_special_params']['type'] ?? 'date';
+        $type      = $this->field['page_view_control_special_params']['type'] ?? 'date';
         $use_panel = $this->field['page_view_control_special_params']['use_panel'] ?? 'no';
-        $is_range = $this->field['page_view_control_special_params']['is_range'] ?? 'no';
+        $is_range  = $this->field['page_view_control_special_params']['is_range'] ?? 'no';
 
         if (in_array($type, ['month', 'year', 'week', 'quarter'])) {
             $in_special_view = true;

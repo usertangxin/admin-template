@@ -18,11 +18,11 @@ class PageViewControlSelect extends AbstractPageViewControl
     {
         $options = [];
 
-        $kv = $this->field['page_view_control_special_params']['kv'] ?? [];
-        $allowClear = $this->field['page_view_control_special_params']['allow-clear'] ?? false;
-        $multiple = $this->field['page_view_control_special_params']['multiple'] ?? false;
+        $kv          = $this->field['page_view_control_special_params']['kv'] ?? [];
+        $allowClear  = $this->field['page_view_control_special_params']['allow-clear'] ?? false;
+        $multiple    = $this->field['page_view_control_special_params']['multiple'] ?? false;
         $allowSearch = $this->field['page_view_control_special_params']['allow-search'] ?? false;
-        $attrs = '';
+        $attrs       = '';
 
         foreach ($kv as $item) {
             $options[] = ['label' => $item[0], 'value' => $item[1]];

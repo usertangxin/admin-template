@@ -12,9 +12,9 @@ class PageViewControlTimePickerTest extends TestCase
     {
         $class = $this->app->make(PageViewControlTimePicker::class);
         $class->make([
-            'field_name' => 'aaa',
-            'comment' => '测试',
-            'page_view_control_special_params' => ['is_range' => 'no']
+            'field_name'                       => 'aaa',
+            'comment'                          => '测试',
+            'page_view_control_special_params' => ['is_range' => 'no'],
         ], [], new SystemCrudHistory);
 
         $fragment = $class->getFormCodeFragment();
@@ -26,9 +26,9 @@ class PageViewControlTimePickerTest extends TestCase
     {
         $class = $this->app->make(PageViewControlTimePicker::class);
         $class->make([
-            'field_name' => 'aaa',
-            'comment' => '测试',
-            'page_view_control_special_params' => ['disable_confirm' => 'yes', 'is_range' => 'yes', 'step_hour' => 2,],
+            'field_name'                       => 'aaa',
+            'comment'                          => '测试',
+            'page_view_control_special_params' => ['disable_confirm' => 'yes', 'is_range' => 'yes', 'step_hour' => 2],
         ], [], new SystemCrudHistory);
 
         $fragment = $class->getFormCodeFragment();

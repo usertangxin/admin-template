@@ -12,7 +12,7 @@ class PageViewControlRateTest extends TestCase
     {
         $class = $this->app->make(PageViewControlRate::class);
         $class->make(['field_name' => 'aaa', 'comment' => '测试', 'page_view_control_special_params' => [
-            'count'     => 5,
+            'count'      => 5,
             'allow-half' => 'yes',
         ]], [], new SystemCrudHistory);
         $fragment = $class->getFormCodeFragment();
