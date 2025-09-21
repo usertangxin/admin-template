@@ -1,5 +1,5 @@
 <template>
-    <div class="m-3 p-3 page-content">
+    <div class=" m-3 p-3 page-content">
         <save-form :model="formData" class="!pr-0" :auto-label-width="true">
             <div v-self-resize="handleNavResize" class="fixed top-[95px] bottom-[20px] w-[150px] z-10">
                 <a-scrollbar class="overflow-y-auto" :style="{ height: navSize.height + 'px' }">
@@ -80,35 +80,38 @@
                                             <a-option v-for="item in fieldControls" :value="item.name"
                                                 :label="item.label" />
                                         </a-select>
-                                        <a-popover trigger="click">
-                                            <a-button v-if="fieldControls[item.field_control]?.specialParams.length > 0"
-                                                type="primary" status="normal">配置</a-button>
-                                            <template #content>
-                                                <div class="mt-5">
-                                                    <a-form :auto-label-width="true" class=" min-w-[270px]">
-                                                        <template
-                                                            v-if="Array.isArray(fieldControls[item.field_control]?.specialParams)">
-                                                            <a-form-item
-                                                                v-for="param in fieldControls[item.field_control]?.specialParams"
-                                                                :key="param.name" :label="param.label"
-                                                                :field="param.name">
-                                                                <component :is="param.inputComponent"
-                                                                    v-model="item.field_control_special_params[param.name]"
-                                                                    :placeholder="param.placeholder"
-                                                                    :default-value="param.defaultValue"
-                                                                    v-bind="param.inputAttrs">
-                                                                </component>
-                                                            </a-form-item>
-                                                        </template>
-                                                        <template v-else>
-                                                            <field-control-render
-                                                                :html="fieldControls[item.field_control]?.specialParams"
-                                                                v-model:params="item.field_control_special_params"></field-control-render>
-                                                        </template>
-                                                    </a-form>
-                                                </div>
-                                            </template>
-                                        </a-popover>
+
+                                        <a-button v-if="fieldControls[item.field_control]?.specialParams.length > 0"
+                                            type="primary" status="normal"
+                                            @click="item.field_control_special_params_drawer_visible = true">配置</a-button>
+
+                                        <a-drawer popup-container="#popup-container"
+                                            v-model:visible="item.field_control_special_params_drawer_visible"
+                                            width="500px">
+                                            <div class="mt-5">
+                                                <a-form :auto-label-width="true" class=" min-w-[270px]">
+                                                    <template
+                                                        v-if="Array.isArray(fieldControls[item.field_control]?.specialParams)">
+                                                        <a-form-item
+                                                            v-for="param in fieldControls[item.field_control]?.specialParams"
+                                                            :key="param.name" :label="param.label" :field="param.name">
+                                                            <component :is="param.inputComponent"
+                                                                v-model="item.field_control_special_params[param.name]"
+                                                                :placeholder="param.placeholder"
+                                                                :default-value="param.defaultValue"
+                                                                v-bind="param.inputAttrs">
+                                                            </component>
+                                                        </a-form-item>
+                                                    </template>
+                                                    <template v-else>
+                                                        <field-control-render
+                                                            :html="fieldControls[item.field_control]?.specialParams"
+                                                            v-model:params="item.field_control_special_params"></field-control-render>
+                                                    </template>
+                                                </a-form>
+                                            </div>
+                                        </a-drawer>
+
                                     </a-input-group>
                                 </a-form-item>
                             </form-col>
@@ -119,35 +122,39 @@
                                             <a-option v-for="item in pageViewControls" :value="item.name"
                                                 :label="item.label" />
                                         </a-select>
-                                        <a-popover trigger="click">
-                                            <a-button v-if="pageViewControls[item.page_view_control]?.specialParams.length > 0"
-                                                type="primary" status="normal">配置</a-button>
-                                            <template #content>
-                                                <div class="mt-5">
-                                                    <a-form :auto-label-width="true" class=" min-w-[270px]">
-                                                        <template
-                                                            v-if="Array.isArray(pageViewControls[item.page_view_control]?.specialParams)">
-                                                            <a-form-item
-                                                                v-for="param in pageViewControls[item.page_view_control]?.specialParams"
-                                                                :key="param.name" :label="param.label"
-                                                                :field="param.name">
-                                                                <component :is="param.inputComponent"
-                                                                    v-model="item.page_view_control_special_params[param.name]"
-                                                                    :placeholder="param.placeholder"
-                                                                    :default-value="param.defaultValue"
-                                                                    v-bind="param.inputAttrs">
-                                                                </component>
-                                                            </a-form-item>
-                                                        </template>
-                                                        <template v-else>
-                                                            <field-control-render
-                                                                :html="pageViewControls[item.page_view_control]?.specialParams"
-                                                                v-model:params="item.page_view_control_special_params"></field-control-render>
-                                                        </template>
-                                                    </a-form>
-                                                </div>
-                                            </template>
-                                        </a-popover>
+
+                                        <a-button
+                                            v-if="pageViewControls[item.page_view_control]?.specialParams.length > 0"
+                                            type="primary" status="normal"
+                                            @click="item.page_view_control_special_params_drawer_visible = true">配置</a-button>
+
+                                        <a-drawer popup-container="#popup-container"
+                                            v-model:visible="item.page_view_control_special_params_drawer_visible"
+                                            width="500px">
+                                            <div class="mt-5">
+                                                <a-form :auto-label-width="true" class=" min-w-[270px]">
+                                                    <template
+                                                        v-if="Array.isArray(pageViewControls[item.page_view_control]?.specialParams)">
+                                                        <a-form-item
+                                                            v-for="param in pageViewControls[item.page_view_control]?.specialParams"
+                                                            :key="param.name" :label="param.label" :field="param.name">
+                                                            <component :is="param.inputComponent"
+                                                                v-model="item.page_view_control_special_params[param.name]"
+                                                                :placeholder="param.placeholder"
+                                                                :default-value="param.defaultValue"
+                                                                v-bind="param.inputAttrs">
+                                                            </component>
+                                                        </a-form-item>
+                                                    </template>
+                                                    <template v-else>
+                                                        <field-control-render
+                                                            :html="pageViewControls[item.page_view_control]?.specialParams"
+                                                            v-model:params="item.page_view_control_special_params"></field-control-render>
+                                                    </template>
+                                                </a-form>
+                                            </div>
+                                        </a-drawer>
+
                                     </a-input-group>
                                 </a-form-item>
                             </form-col>
