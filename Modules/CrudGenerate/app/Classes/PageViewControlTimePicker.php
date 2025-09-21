@@ -6,7 +6,7 @@ class PageViewControlTimePicker extends AbstractPageViewControl
 {
     public function getSpecialParams(): array|string
     {
-        return <<<code
+        return <<<'code'
             <a-form-item label="范围选择">
                 <dict-radio v-model="params.is_range" code="yes_or_no" default-value="no"></dict-radio>
             </a-form-item>

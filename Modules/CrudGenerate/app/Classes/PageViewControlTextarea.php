@@ -6,7 +6,7 @@ class PageViewControlTextarea extends AbstractPageViewControl
 {
     public function getSpecialParams(): array|string
     {
-        return <<<code
+        return <<<'code'
             <a-form-item label="自适应高度">
                 <a-radio-group v-model="params.auto_size" :options="[{label: '是', value: true}, {label: '否', value: false}, {label: '自定义行数', value: 'custom'},]" :default-value="false"></a-radio-group>
             </a-form-item>
@@ -29,16 +29,16 @@ class PageViewControlTextarea extends AbstractPageViewControl
 
     public function getFormCodeFragment(): string
     {
-        $attrs = '';
-        $auto_size = $this->innerGetSpecialParam('auto_size', false);
-        $rows = $this->innerGetSpecialParam('rows', null);
-        $max_length = $this->innerGetSpecialParam('max_length', null);
+        $attrs           = '';
+        $auto_size       = $this->innerGetSpecialParam('auto_size', false);
+        $rows            = $this->innerGetSpecialParam('rows', null);
+        $max_length      = $this->innerGetSpecialParam('max_length', null);
         $show_word_limit = $this->innerGetSpecialParam('show_word_limit', false);
-        $allow_clear = $this->innerGetSpecialParam('allow_clear', false);
+        $allow_clear     = $this->innerGetSpecialParam('allow_clear', false);
 
         if ($auto_size === 'custom' && $rows !== null) {
             $attrs .= " :auto-size=\"{ minRows: {$rows[0]}, maxRows: {$rows[1]} }\"";
-        } else if($auto_size === true) {
+        } elseif ($auto_size === true) {
             $attrs .= ' :auto-size="true"';
         }
 

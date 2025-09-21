@@ -18,13 +18,13 @@ class PageViewControlSwitch extends AbstractPageViewControl
     public function getFormCodeFragment(): string
     {
 
-        $checkedValue = $this->innerGetSpecialParam('checked-value');
+        $checkedValue   = $this->innerGetSpecialParam('checked-value');
         $uncheckedValue = $this->innerGetSpecialParam('unchecked-value');
-        $checkedText = $this->innerGetSpecialParam('checked-text');
-        $uncheckedText = $this->innerGetSpecialParam('unchecked-text');
-        $type = $this->innerGetSpecialParam('type', 'circle');
+        $checkedText    = $this->innerGetSpecialParam('checked-text');
+        $uncheckedText  = $this->innerGetSpecialParam('unchecked-text');
+        $type           = $this->innerGetSpecialParam('type', 'circle');
 
-        $attrs      = ' type="' . $type . '"';
+        $attrs = ' type="' . $type . '"';
 
         if ($checkedValue !== null) {
             $checkedValue = str_replace('\'', '"', $checkedValue);

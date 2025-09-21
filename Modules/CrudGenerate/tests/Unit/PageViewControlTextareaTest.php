@@ -55,17 +55,17 @@ class PageViewControlTextareaTest extends TestCase
             ],
             'textarea with all attributes' => [
                 [
-                    'auto_size' => 'custom',
-                    'rows' => [3, 10],
-                    'max_length' => 500,
+                    'auto_size'       => 'custom',
+                    'rows'            => [3, 10],
+                    'max_length'      => 500,
                     'show_word_limit' => 'yes',
-                    'allow_clear' => 'yes'
+                    'allow_clear'     => 'yes',
                 ],
                 [
                     ':auto-size="{ minRows: 3, maxRows: 10 }"',
                     ':maxlength="500"',
                     ':show-word-limit="true"',
-                    ':allow-clear="true"'
+                    ':allow-clear="true"',
                 ],
             ],
             'textarea with auto size false' => [

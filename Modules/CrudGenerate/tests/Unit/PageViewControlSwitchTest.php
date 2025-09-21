@@ -59,18 +59,18 @@ class PageViewControlSwitchTest extends TestCase
             ],
             'switch with all attributes' => [
                 [
-                    'type' => 'round',
-                    'checked-value' => 'true',
+                    'type'            => 'round',
+                    'checked-value'   => 'true',
                     'unchecked-value' => 'false',
-                    'checked-text' => '启用',
-                    'unchecked-text' => '禁用'
+                    'checked-text'    => '启用',
+                    'unchecked-text'  => '禁用',
                 ],
                 [
                     'type="round"',
                     ':checked-value=\'true\'',
                     ':unchecked-value=\'false\'',
                     'checked-text="启用"',
-                    'unchecked-text="禁用"'
+                    'unchecked-text="禁用"',
                 ],
             ],
             'switch with string checked value' => [
