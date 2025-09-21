@@ -46,6 +46,11 @@ abstract class AbstractPageViewControl implements PageViewControl
         return [];
     }
 
+    protected function innerGetSpecialParam(string $name, mixed $default = null)
+    {
+        return $this->field['page_view_control_special_params'][$name] ?? $default;
+    }
+
     public function getIndexColumnFragment(): array
     {
         return [];
