@@ -13,8 +13,6 @@
 
 <body>
     @inertia
-    {{-- 弹窗容器，一些arco弹窗会改变body宽度为窗口宽度，这在iframe页面中会导致页面变形，如果遇到这问题，可以将挂载容器指向此元素试试 --}}
-    <div id="popup-container"></div>
 </body>
 
 </html>

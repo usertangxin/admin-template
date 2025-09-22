@@ -85,9 +85,8 @@
                                             type="primary" status="normal"
                                             @click="item.field_control_special_params_drawer_visible = true">配置</a-button>
 
-                                        <a-drawer popup-container="#popup-container"
-                                            v-model:visible="item.field_control_special_params_drawer_visible"
-                                            width="500px">
+                                        <a-drawer v-model:visible="item.field_control_special_params_drawer_visible"
+                                            width="500px" :footer="false">
                                             <div class="mt-5">
                                                 <a-form :auto-label-width="true" class=" min-w-[270px]">
                                                     <template
@@ -128,9 +127,8 @@
                                             type="primary" status="normal"
                                             @click="item.page_view_control_special_params_drawer_visible = true">配置</a-button>
 
-                                        <a-drawer popup-container="#popup-container"
-                                            v-model:visible="item.page_view_control_special_params_drawer_visible"
-                                            width="500px">
+                                        <a-drawer v-model:visible="item.page_view_control_special_params_drawer_visible"
+                                            width="500px" :footer="false">
                                             <div class="mt-5">
                                                 <a-form :auto-label-width="true" class=" min-w-[270px]">
                                                     <template

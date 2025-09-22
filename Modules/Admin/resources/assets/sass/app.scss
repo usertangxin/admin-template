@@ -1,5 +1,8 @@
 body, html {
 
+    // 一些arco弹窗会改变body宽度为窗口宽度，这在iframe页面中会导致页面变形
+    width: 100% !important;
+
     --color-bg-2: #fcfcfc;
 
     background-color: var(--color-neutral-2);
@@ -42,20 +45,6 @@ body, html {
         --w-e-textarea-color: var(--color-text-1);
         --w-e-toolbar-active-color: var(--color-text-1);
         --w-e-modal-button-bg-color: var(--color-neutral-4);
-    }
-}
-
-#popup-container {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 2000;
-    pointer-events: none;
-
-    >* {
-        pointer-events: auto;
     }
 }
 

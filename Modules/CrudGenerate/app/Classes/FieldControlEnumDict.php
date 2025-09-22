@@ -9,19 +9,7 @@ class FieldControlEnumDict extends AbstractFieldControl
     public function getSpecialParams(): array
     {
         return [
-            new class extends AbstractSpecialParam
-            {
-                public function __construct()
-                {
-                    parent::__construct(
-                        label: '字典',
-                        name: 'dict_code',
-                        inputComponent: 'dict-group-select',
-                        placeholder: '请选择字典编码',
-                        inputAttrs: ['style' => 'width: 220px'],
-                    );
-                }
-            },
+            new SpecialParamDictGroupSelect,
         ];
     }
 
