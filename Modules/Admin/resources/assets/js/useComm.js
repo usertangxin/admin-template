@@ -27,6 +27,7 @@ import FormAction from './components/form-action.vue'
 import FormCol from './components/form-col.vue'
 import searchCol from './components/search-col.vue';
 import DictRadio from './components/dict-radio.vue'
+import DictCheckbox from './components/dict-checkbox.vue'
 import DictTag from './components/dict-tag.vue'
 import DictSelect from './components/dict-select.vue'
 import UploadFile from './components/upload-file.vue'
@@ -98,6 +99,7 @@ const useComm = {
       .component('index-table', IndexTable)
       .component('dict-tag', DictTag)
       .component('dict-radio', DictRadio)
+      .component('dict-checkbox', DictCheckbox)
       .component('dict-select', DictSelect)
       .component('upload-file', UploadFile)
       .component('upload-image', UploadImage)
