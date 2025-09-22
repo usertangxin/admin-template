@@ -2,7 +2,7 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-class PageViewControlCheckBox extends AbstractPageViewControl
+class PageViewControlRadio extends AbstractPageViewControl
 {
     public function getSpecialParams(): array|string
     {
@@ -24,7 +24,7 @@ class PageViewControlCheckBox extends AbstractPageViewControl
 
         return <<<code
             <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
-                <a-checkbox-group v-model="formData.{$this->getFieldName()}" :options='$options'"></a-checkbox-group>
+                <a-radio-group v-model="formData.{$this->getFieldName()}" :options='$options'"></a-radio-group>
             </a-form-item>
         code;
     }
