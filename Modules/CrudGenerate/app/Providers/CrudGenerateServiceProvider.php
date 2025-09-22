@@ -19,6 +19,7 @@ use Modules\CrudGenerate\Classes\FieldControlUnsignedInteger;
 use Modules\CrudGenerate\Classes\FieldControlUuid;
 use Modules\CrudGenerate\Classes\PageViewControlCheckBox;
 use Modules\CrudGenerate\Classes\PageViewControlDatePicker;
+use Modules\CrudGenerate\Classes\PageViewControlDictCheckbox;
 use Modules\CrudGenerate\Classes\PageViewControlDictRadio;
 use Modules\CrudGenerate\Classes\PageViewControlInput;
 use Modules\CrudGenerate\Classes\PageViewControlInputNumber;
@@ -75,6 +76,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $pageViewControlService->add(new PageViewControlInputRange);
         $pageViewControlService->add(new PageViewControlTextarea);
         $pageViewControlService->add(new PageViewControlCheckBox);
+        $pageViewControlService->add(new PageViewControlDictCheckbox);
         $pageViewControlService->add(new PageViewControlRadio);
         $pageViewControlService->add(new PageViewControlDictRadio);
         $pageViewControlService->add(new PageViewControlSwitch);
