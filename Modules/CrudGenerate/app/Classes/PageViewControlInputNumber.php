@@ -21,7 +21,7 @@ class PageViewControlInputNumber extends AbstractPageViewControl
         $precision = $this->innerGetSpecialParam('precision', null);
         $mode      = $this->innerGetSpecialParam('mode', null);
         $step      = $this->innerGetSpecialParam('step', null);
-        
+
         if ($range) {
             $attrs .= " :min=\"{$range[0]}\" :max=\"{$range[1]}\"";
         }
