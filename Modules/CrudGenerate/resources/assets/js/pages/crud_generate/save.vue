@@ -179,11 +179,11 @@
                                     <dict-radio v-model="item.gen_index" code="yes_or_no"></dict-radio>
                                 </a-form-item>
                             </form-col>
-                            <form-col>
+                            <!-- <form-col>
                                 <a-form-item label="生成到查询" field="gen_query">
                                     <dict-radio v-model="item.gen_query" code="yes_or_no"></dict-radio>
                                 </a-form-item>
-                            </form-col>
+                            </form-col> -->
                             <form-col>
                                 <a-form-item label="参与排序" field="gen_sort">
                                     <dict-radio v-model="item.gen_sort" code="yes_or_no"></dict-radio>
