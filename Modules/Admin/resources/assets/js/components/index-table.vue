@@ -135,6 +135,7 @@ const comData = computed(() => {
     let data = props.data ?? store.listData.value
     return data?.map(item => {
         if (params['__multiple__'] === 'true') {
+            // 限制选择数量仅限制当前选择数量，外部调用需要做好数量计算
             if (store.selectedKeys.value.length >= params['__limit__'] && params['__limit__'] > 0) {
                 if (!store.selectedKeys.value.includes(item[props.rowKey])) {
                     item['old_disabled'] ??= item['disabled'] ?? false

@@ -34,6 +34,7 @@ use Modules\CrudGenerate\Classes\PageViewControlTextarea;
 use Modules\CrudGenerate\Classes\PageViewControlTimePicker;
 use Modules\CrudGenerate\Classes\PageViewControlUploadFile;
 use Modules\CrudGenerate\Classes\PageViewControlUploadImage;
+use Modules\CrudGenerate\Classes\PageViewControlWangEditor;
 use Modules\CrudGenerate\Services\FieldControlService;
 use Modules\CrudGenerate\Services\PageViewControlService;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -78,6 +79,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $pageViewControlService->add(new PageViewControlInputNumber);
         $pageViewControlService->add(new PageViewControlInputRange);
         $pageViewControlService->add(new PageViewControlTextarea);
+        $pageViewControlService->add(new PageViewControlWangEditor);
         $pageViewControlService->add(new PageViewControlCheckBox);
         $pageViewControlService->add(new PageViewControlDictCheckbox);
         $pageViewControlService->add(new PageViewControlRadio);
