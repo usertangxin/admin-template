@@ -27,12 +27,12 @@ class AsCrudFieldList implements CastsAttributes
                 'field_control_special_params' => $item['field_control_special_params'], // 特有参数
                 'field_name'                   => $item['field_name'], // 字段名
                 'default_value'                => $item['default_value'], // 默认值
-                'nullable'                     => $item['nullable'] == 'yes', // 是否可空
+                'nullable'                     => $item['nullable'], // 是否可空
                 'comment'                      => $item['comment'], // 注释
-                'gen_form'                     => $item['gen_form'] == 'yes', // 是否生成表到单页面
-                'gen_index'                    => $item['gen_index'] == 'yes', // 是否生成到列表页面
-                // 'gen_query'                         => $item['gen_query'] == 'yes', // 是否生成到查询区域
-                'gen_sort'                          => $item['gen_sort'] == 'yes', // 是否参与排序
+                'gen_form'                     => $item['gen_form'], // 是否生成表到单页面
+                'gen_index'                    => $item['gen_index'], // 是否生成到列表页面
+                // 'gen_query'                         => $item['gen_query'], // 是否生成到查询区域
+                'gen_sort'                          => $item['gen_sort'], // 是否参与排序
                 'page_view_control'                 => $item['page_view_control'], // 页面控件
                 'page_view_control_special_params'  => $item['page_view_control_special_params'], // 特有参数
                 'query_view_control'                => $item['query_view_control'], // 查询控件

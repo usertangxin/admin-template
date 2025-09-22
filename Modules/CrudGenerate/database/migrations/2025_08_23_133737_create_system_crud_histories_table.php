@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('module_name', 50)->nullable()->comment('模块名');
             $table->json('index_list')->nullable()->comment('数据表索引列表');
             $table->json('column_list')->nullable()->comment('数据表字段列表');
-            $table->boolean('soft_delete')->default(true)->comment('是否软删除');
+            $table->string('soft_delete')->default('yes')->comment('是否软删除');
             $table->string('parent_menu_code')->nullable()->comment('父菜单编码');
             $table->string('menu_code')->nullable()->comment('菜单编码');
             $table->string('menu_name')->nullable()->comment('菜单名称');

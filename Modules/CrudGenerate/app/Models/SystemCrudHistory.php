@@ -5,7 +5,6 @@ namespace Modules\CrudGenerate\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\CrudGenerate\Casts\AsCrudFieldList;
-use Modules\CrudGenerate\Casts\AsYseNo2Bool;
 
 // use Modules\CrudGenerate\Database\Factories\SystemCrudHistoryFactory;
 
@@ -31,6 +30,5 @@ class SystemCrudHistory extends AbstractSoftDelModel
 
     protected $casts = [
         'column_list' => AsCrudFieldList::class,
-        'soft_delete' => AsYseNo2Bool::class,
     ];
 }

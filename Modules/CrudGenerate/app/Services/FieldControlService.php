@@ -86,7 +86,7 @@ class FieldControlService implements JsonSerializable
             if ($crudHistory['primary_key'] == $column['field_name']) {
                 $fragment .= '->primary()';
             }
-            if ($column['nullable']) {
+            if ($column['nullable'] == 'yes') {
                 $fragment .= '->nullable()';
             }
             if ($column['default_value'] !== null) {

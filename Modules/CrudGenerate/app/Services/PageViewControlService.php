@@ -84,11 +84,16 @@ class PageViewControlService implements JsonSerializable
         $column_list = $crudHistory->column_list;
         $content     = '';
         foreach ($column_list as $column) {
-            $pageViewControl = $this->pageViewControls[$column['page_view_control']];
-            $pageViewControl->make($column, $column_list, $crudHistory);
-            $arr = $pageViewControl->getIndexColumnFragment();
-            $arr = array_merge(['title' => $column['comment'], 'dataIndex' => $column['field_name']], $arr);
-            $content .= json_encode($arr, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . PHP_EOL;
+            if ($column['gen_index'] == 'yes') {
+                $pageViewControl = $this->pageViewControls[$column['page_view_control']];
+                $pageViewControl->make($column, $column_list, $crudHistory);
+                $arr = $pageViewControl->getIndexColumnFragment();
+                if ($column['gen_sort'] == 'yes') {
+                    $arr = array_merge(['sortable' => ['sortDirections' => ['ascend', 'descend']]], $arr);
+                }
+                $arr = array_merge(['title' => $column['comment'], 'dataIndex' => $column['field_name']], $arr);
+                $content .= json_encode($arr, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . ',' . PHP_EOL;
+            }
         }
 
         return $content;
@@ -104,10 +109,12 @@ class PageViewControlService implements JsonSerializable
         $column_list = $crudHistory->column_list;
         $content     = '';
         foreach ($column_list as $column) {
-            $pageViewControl = $this->pageViewControls[$column['page_view_control']];
-            $pageViewControl->make($column, $column_list, $crudHistory);
-            $fragment = $pageViewControl->getFormCodeFragment();
-            $content .= $fragment . PHP_EOL;
+            if ($column['gen_form'] == 'yes') {
+                $pageViewControl = $this->pageViewControls[$column['page_view_control']];
+                $pageViewControl->make($column, $column_list, $crudHistory);
+                $fragment = $pageViewControl->getFormCodeFragment();
+                $content .= $fragment . PHP_EOL;
+            }
         }
 
         if (extension_loaded('tidy')) {
