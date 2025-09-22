@@ -4,7 +4,6 @@ namespace Modules\CrudGenerate\Classes;
 
 class PageViewControlDictCheckbox extends AbstractPageViewControl
 {
-
     public function getSpecialParams(): array|string
     {
         return [

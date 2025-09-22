@@ -7,7 +7,7 @@ class PageViewControlDictSelect extends AbstractPageViewControl
     public function getSpecialParams(): array|string
     {
         return [
-            new SpecialParamDictGroupSelect(),
+            new SpecialParamDictGroupSelect,
             new SpecialParamYesOrNo('允许清除', 'allow-clear'),
             new SpecialParamYesOrNo('多选', 'multiple'),
             new SpecialParamYesOrNo('允许搜索', 'allow-search'),
@@ -18,7 +18,7 @@ class PageViewControlDictSelect extends AbstractPageViewControl
     {
         $options = [];
 
-        $dictCode = $this->innerGetSpecialParam('dict_code');
+        $dictCode    = $this->innerGetSpecialParam('dict_code');
         $allowClear  = $this->innerGetSpecialParam('allow-clear', 'no');
         $multiple    = $this->innerGetSpecialParam('multiple', 'no');
         $allowSearch = $this->innerGetSpecialParam('allow-search', 'no');
