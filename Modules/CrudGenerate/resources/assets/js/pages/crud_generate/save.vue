@@ -54,6 +54,12 @@
                     </a-row>
 
                     <template v-for="(item, index) in formData.column_list">
+                        <div class="text-right">
+                            <a-link @click="addColumn(index)">
+                                <icon-arrow-left class="mr-1" />
+                                在此处插入字段
+                            </a-link>
+                        </div>
                         <a-divider orientation="left" :id="`table-design-column-${index}`">
                             {{ item.comment || item.field_name || `字段${index + 1}` }}
                         </a-divider>
@@ -196,7 +202,7 @@
                     </template>
 
                     <div id="table-design-add-column">
-                        <a-button @click="addColumn" type="primary">添加字段</a-button>
+                        <a-button @click="addColumn(formData.column_list.length)" type="primary">添加字段</a-button>
                     </div>
                 </a-card>
 
@@ -271,8 +277,8 @@ const navSize = reactive({
     height: 0,
 })
 
-const addColumn = () => {
-    formData.column_list.push({
+const addColumn = (index) => {
+    formData.column_list.splice(index, 0, {
         field_name: '',
         comment: '',
         default_value: '',
