@@ -36,6 +36,11 @@ abstract class AbstractFieldControl implements FieldControl
         return [];
     }
 
+    protected function innerGetSpecialParam(string $name, mixed $default = null)
+    {
+        return $this->field['field_control_special_params'][$name] ?? $default;
+    }
+
     public function getModelUseTraits(): array
     {
         return [];
