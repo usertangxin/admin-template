@@ -17,10 +17,11 @@ class PageViewControlInputNumber extends AbstractPageViewControl
     public function getFormCodeFragment(): string
     {
         $attrs     = '';
-        $range     = $this->field['page_view_control_special_params']['range'] ?? [];
-        $precision = $this->field['page_view_control_special_params']['precision'] ?? null;
-        $mode      = $this->field['page_view_control_special_params']['mode'] ?? null;
-        $step      = $this->field['page_view_control_special_params']['step'] ?? null;
+        $range     = $this->innerGetSpecialParam('range', []);
+        $precision = $this->innerGetSpecialParam('precision', null);
+        $mode      = $this->innerGetSpecialParam('mode', null);
+        $step      = $this->innerGetSpecialParam('step', null);
+        
         if ($range) {
             $attrs .= " :min=\"{$range[0]}\" :max=\"{$range[1]}\"";
         }

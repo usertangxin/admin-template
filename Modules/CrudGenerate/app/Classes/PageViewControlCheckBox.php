@@ -15,7 +15,7 @@ class PageViewControlCheckBox extends AbstractPageViewControl
     {
         $options = [];
 
-        $kv = $this->field['page_view_control_special_params']['kv'] ?? [];
+        $kv = $this->innerGetSpecialParam('kv', []);
         foreach ($kv as $item) {
             $options[] = ['label' => $item[0], 'value' => $item[1]];
         }

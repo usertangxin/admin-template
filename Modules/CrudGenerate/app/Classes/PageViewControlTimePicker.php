@@ -32,11 +32,11 @@ class PageViewControlTimePicker extends AbstractPageViewControl
         /** 日期选择器组件 v-model 绑定的变量名 */
         $v_model = 'v-model';
 
-        $is_range        = $this->field['page_view_control_special_params']['is_range'] ?? 'no';
-        $disable_confirm = $this->field['page_view_control_special_params']['disable_confirm'] ?? 'no';
-        $step_hour       = $this->field['page_view_control_special_params']['step_hour'] ?? null;
-        $step_minute     = $this->field['page_view_control_special_params']['step_minute'] ?? null;
-        $step_second     = $this->field['page_view_control_special_params']['step_second'] ?? null;
+        $is_range        = $this->innerGetSpecialParam('is_range', 'no');
+        $disable_confirm = $this->innerGetSpecialParam('disable_confirm', 'no');
+        $step_hour       = $this->innerGetSpecialParam('step_hour', null);
+        $step_minute     = $this->innerGetSpecialParam('step_minute', null);
+        $step_second     = $this->innerGetSpecialParam('step_second', null);
 
         if ($is_range == 'yes') {
             $attrs .= ' type="time-range"';

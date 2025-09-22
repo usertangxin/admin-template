@@ -15,8 +15,8 @@ class PageViewControlRate extends AbstractPageViewControl
     public function getFormCodeFragment(): string
     {
         $attrs     = '';
-        $count     = $this->field['page_view_control_special_params']['count'] ?? null;
-        $allowHalf = $this->field['page_view_control_special_params']['allow-half'] ?? 'no';
+        $count     = $this->innerGetSpecialParam('count', null);
+        $allowHalf = $this->innerGetSpecialParam('allow-half', 'no');
         if ($count) {
             $attrs .= " :count=\"$count\"";
         }
