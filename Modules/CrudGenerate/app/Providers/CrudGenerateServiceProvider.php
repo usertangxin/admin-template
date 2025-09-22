@@ -32,6 +32,7 @@ use Modules\CrudGenerate\Classes\PageViewControlSlider;
 use Modules\CrudGenerate\Classes\PageViewControlSwitch;
 use Modules\CrudGenerate\Classes\PageViewControlTextarea;
 use Modules\CrudGenerate\Classes\PageViewControlTimePicker;
+use Modules\CrudGenerate\Classes\PageViewControlUploadFile;
 use Modules\CrudGenerate\Services\FieldControlService;
 use Modules\CrudGenerate\Services\PageViewControlService;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -87,6 +88,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $pageViewControlService->add(new PageViewControlTimePicker);
         $pageViewControlService->add(new PageViewControlRate);
         $pageViewControlService->add(new PageViewControlSlider);
+        $pageViewControlService->add(new PageViewControlUploadFile);
     }
 
     /**
