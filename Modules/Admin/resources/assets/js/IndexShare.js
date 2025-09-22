@@ -38,8 +38,7 @@ export function useIndexShareStore() {
         }), { preserveState: true, })
     }
 
-    /** 重置搜索参数 */
-    const resetSearchQuery = () => {
+    const toPage1 = () => {
         searchQuery.value.__page__ = 1
         fetchListData()
     }
@@ -54,6 +53,18 @@ export function useIndexShareStore() {
     /** 设置搜索参数项 */
     const setSearchQueryItem = (key, value) => {
         searchQuery.value[key] = value
+    }
+
+    /** 删除搜索参数项 */
+    const removeSearchQueryItem = (key) => {
+        delete searchQuery.value[key]
+        // 如果url中含有key的参数，就删除
+        const urlSearch = qs.parse(location.search, { ignoreQueryPrefix: true })
+        if (urlSearch[key]) {
+            delete urlSearch[key]
+            const newSearch = qs.stringify(urlSearch, { addQueryPrefix: true })
+            window.history.replaceState({}, '', newSearch ? `${location.pathname}${newSearch}` : location.pathname)
+        }
     }
 
     /** 获取搜索参数项 */
@@ -75,9 +86,10 @@ export function useIndexShareStore() {
         selectedKeys,
         listData,
         fetchListData,
-        resetSearchQuery,
+        toPage1,
         setSearchQuery,
         setSearchQueryItem,
+        removeSearchQueryItem,
         getSearchQueryItem,
         getSearchQuery,
     }

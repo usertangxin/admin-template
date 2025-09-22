@@ -117,12 +117,12 @@
                                 <slot name="fast-search-input">
                                     <a-input v-if="!$slots['search-input']"
                                         v-model="store.searchQuery.value.fast_search"
-                                        @press-enter="store.resetSearchQuery" placeholder="请输入内容并回车" :allow-clear="true"
-                                        @clear="store.resetSearchQuery">
+                                        @press-enter="store.toPage1" placeholder="请输入内容并回车" :allow-clear="true"
+                                        @clear="store.toPage1">
                                         <template #suffix>
                                             <div>
                                                 <icon class="cursor-pointer" icon="a search"
-                                                    @click="store.resetSearchQuery">
+                                                    @click="store.toPage1">
                                                 </icon>
                                             </div>
                                         </template>

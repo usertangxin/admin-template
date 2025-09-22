@@ -3,7 +3,7 @@
         cell: true,
     }" :row-key="rowKey" :row-selection="comRowSelection" v-model:selectedKeys="store.selectedKeys.value"
         :columns="comColumns" :data="comData" :pagination="pagination" @page-change="handlePageChange"
-        @page-size-change="handlePageSizeChange" v-bind="attrs">
+        @page-size-change="handlePageSizeChange" @sorter-change="handleSorterChange" v-bind="attrs">
         <template v-for="(column, index) in comColumns" :key="index" v-slot:[column.slotName]="scope">
             <slot :name="column.slotName" v-bind="scope">
                 <template v-if="column.slotName === 'action-column'">
@@ -221,8 +221,15 @@ const handlePageSizeChange = (pageSize) => {
     store.setSearchQueryItem('__per_page__', pageSize)
 }
 
-const refreshList = () => {
-    store.resetSearchQuery()
+const handleSorterChange = (dataIndex, direction) => {
+    if (direction) {
+        const o = {}
+        o[dataIndex] = direction == 'ascend' ? 'asc' : 'desc'
+        store.setSearchQueryItem('__order_by__', o)
+    } else {
+        store.removeSearchQueryItem('__order_by__')
+    }
+    store.fetchListData()
 }
 
 const getList = () => {

@@ -89,7 +89,7 @@ class PageViewControlService implements JsonSerializable
                 $pageViewControl->make($column, $column_list, $crudHistory);
                 $arr = $pageViewControl->getIndexColumnFragment();
                 if ($column['gen_sort'] == 'yes') {
-                    $arr = array_merge(['sortable' => ['sortDirections' => ['ascend', 'descend']]], $arr);
+                    $arr = array_merge(['sortable' => ['sortDirections' => ['ascend', 'descend'], 'sorter' => true]], $arr);
                 }
                 $arr = array_merge(['title' => $column['comment'], 'dataIndex' => $column['field_name']], $arr);
                 $content .= json_encode($arr, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . ',' . PHP_EOL;
