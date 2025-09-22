@@ -12,8 +12,7 @@ const props = defineProps({
     accept: {
         type: String,
         default: () => {
-            const exts = config_map.value['upload_allow_image'].value.replace(/\s/g, '').split(',');
-            return _.map(exts, ext => ext.startsWith('.') ? ext : `.${ext}`).join(',');
+            return config_map.value['upload_allow_image'].value;
         }
     },
     uploadMode: {

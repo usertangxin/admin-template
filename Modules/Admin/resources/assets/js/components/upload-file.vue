@@ -57,7 +57,7 @@ const props = defineProps({
     },
     accept: {
         type: String,
-        default: ''
+        default: null
     },
     fileSize: {
         type: Number,
@@ -98,10 +98,8 @@ const innerFileList = ref([]);
 
 // 计算接受的文件类型
 const comAccept = computed(() => {
-    if (props.accept) {
-        return props.accept;
-    }
-    const exts = config_map.value['upload_allow_file'].value.replace(/\s/g, '').split(',');
+    let accept = props.accept ?? config_map.value['upload_allow_file'].value;
+    const exts = accept.replace(/\s/g, '').split(',');
     return _.map(exts, ext => ext.startsWith('.') ? ext : `.${ext}`).join(',');
 });
 const mimeType = computed(() => {
