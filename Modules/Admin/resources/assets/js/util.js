@@ -171,3 +171,17 @@ export function changeFullScreen() {
         openFullscreen()
     }
 }
+
+export function globalCursorProgress() {
+    document.documentElement.style.cursor = 'progress'
+    document.getElementsByTagName('iframe').forEach(item => {
+        item.contentWindow.document.documentElement.style.cursor = 'progress'
+    })
+}
+
+export function globalCursorDefault() {
+    document.documentElement.style.cursor = 'default'
+    document.getElementsByTagName('iframe').forEach(item => {
+        item.contentWindow.document.documentElement.style.cursor = 'default'
+    })
+}

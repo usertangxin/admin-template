@@ -1,8 +1,9 @@
-import { createApp, h } from 'vue'
-import { createInertiaApp } from '@inertiajs/vue3'
+import { createApp, h} from 'vue'
+import { createInertiaApp, router } from '@inertiajs/vue3'
 import Size from '/Modules/Admin/resources/assets/js//layouts/size.vue';
 import NotFoundPage from '/Modules/Admin/resources/assets/js/pages/404.vue'
 import _ from 'lodash';
+import { globalCursorDefault, globalCursorProgress } from './util';
 
 createInertiaApp({
   resolve: name => {
@@ -22,6 +23,23 @@ createInertiaApp({
     return page
   },
   setup({ el, App, props, plugin }) {
+    const handleRouteChange = (event) => {
+      console.log('路由即将变更:', event.detail.to)
+    }
+
+    const handleRouteChanged = (event) => {
+      console.log('路由已变更:', event.detail.to)
+    }
+
+    router.on('start', (event) => {
+      console.log(`Starting a visit to ${event.detail.visit.url}`)
+      globalCursorProgress()
+    })
+
+    router.on('finish', (event) => {
+      globalCursorDefault()
+    })
+
 
     const app = createApp({ render: () => h(App, props) })
       .use(plugin)

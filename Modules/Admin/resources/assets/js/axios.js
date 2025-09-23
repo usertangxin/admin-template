@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Message } from '@arco-design/web-vue';
 import nProgress from 'nprogress';
+import { globalCursorProgress, globalCursorDefault } from './util.js'
 
 const instance = axios.create({
     headers: {
@@ -10,11 +11,13 @@ const instance = axios.create({
 
 instance.interceptors.request.use(function (config) {
     nProgress.inc()
+    globalCursorProgress()
     return config
 })
 
 instance.interceptors.response.use(function (response) {
     nProgress.done()
+    globalCursorDefault()
     const data = response.data
     if (data.code === 0) {
         if (response.config.method !== 'get') {
@@ -27,6 +30,7 @@ instance.interceptors.response.use(function (response) {
     return data
 }, function (error) {
     nProgress.done()
+    globalCursorDefault()
     Message.error(error.response?.data?.message ?? error.message);
     return Promise.reject(error);
 })

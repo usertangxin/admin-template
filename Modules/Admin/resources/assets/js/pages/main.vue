@@ -104,6 +104,7 @@ import RecursionMenu from '../components/recursion-menu.vue'
 import nProgress from 'nprogress';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
+import { globalCursorProgress, globalCursorDefault } from '../util.js'
 
 const NProgressContainerId = 'nprogress-container' + uuidv4()
 
@@ -295,12 +296,14 @@ const clearBrowserCache = () => {
 const startNProgress = () => {
     showNProgress.value = true
     nProgressObj.inc()
+    globalCursorProgress()
 }
 
 const endNProgress = () => {
     nProgressObj.done()
     setTimeout(() => {
         showNProgress.value = false
+        globalCursorDefault()
     }, 1000);
 }
 
