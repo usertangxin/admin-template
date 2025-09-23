@@ -11,6 +11,7 @@ class SpecialParamAllowedCustom extends AbstractSpecialParam
         string $placeholder = '请输入允许的值并回车',
         array $inputAttrs = [],
         mixed $defaultValue = [],
+        bool $required = false,
     ) {
         parent::__construct(
             $label,
@@ -19,6 +20,7 @@ class SpecialParamAllowedCustom extends AbstractSpecialParam
             $placeholder,
             \array_merge(['style' => ['width' => '320px']], $inputAttrs),
             $defaultValue,
+            $required,
         );
     }
 }

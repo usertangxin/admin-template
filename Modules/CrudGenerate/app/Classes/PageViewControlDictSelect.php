@@ -7,7 +7,7 @@ class PageViewControlDictSelect extends AbstractPageViewControl
     public function getSpecialParams(): array|string
     {
         return [
-            new SpecialParamDictGroupSelect,
+            new SpecialParamDictGroupSelect(required: true),
             new SpecialParamYesOrNo('允许清除', 'allow-clear'),
             new SpecialParamYesOrNo('多选', 'multiple'),
             new SpecialParamYesOrNo('允许搜索', 'allow-search'),

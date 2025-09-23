@@ -99,7 +99,8 @@
                                                         v-if="Array.isArray(fieldControls[item.field_control]?.specialParams)">
                                                         <a-form-item
                                                             v-for="param in fieldControls[item.field_control]?.specialParams"
-                                                            :key="param.name" :label="param.label" :field="param.name">
+                                                            :key="param.name" :label="param.label" :field="param.name"
+                                                            :required="param.required">
                                                             <component :is="param.inputComponent"
                                                                 v-model="item.field_control_special_params[param.name]"
                                                                 :placeholder="param.placeholder"
@@ -109,7 +110,7 @@
                                                         </a-form-item>
                                                     </template>
                                                     <template v-else>
-                                                        <field-control-render
+                                                        <field-control-render :key="item.page_view_control"
                                                             :html="fieldControls[item.field_control]?.specialParams"
                                                             v-model:params="item.field_control_special_params"></field-control-render>
                                                     </template>
@@ -141,7 +142,8 @@
                                                         v-if="Array.isArray(pageViewControls[item.page_view_control]?.specialParams)">
                                                         <a-form-item
                                                             v-for="param in pageViewControls[item.page_view_control]?.specialParams"
-                                                            :key="param.name" :label="param.label" :field="param.name">
+                                                            :key="param.name" :label="param.label" :field="param.name"
+                                                            :required="param.required">
                                                             <component :is="param.inputComponent"
                                                                 v-model="item.page_view_control_special_params[param.name]"
                                                                 :placeholder="param.placeholder"
@@ -151,7 +153,7 @@
                                                         </a-form-item>
                                                     </template>
                                                     <template v-else>
-                                                        <field-control-render
+                                                        <field-control-render :key="item.page_view_control"
                                                             :html="pageViewControls[item.page_view_control]?.specialParams"
                                                             v-model:params="item.page_view_control_special_params"></field-control-render>
                                                     </template>

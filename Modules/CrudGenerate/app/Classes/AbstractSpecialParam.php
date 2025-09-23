@@ -14,6 +14,7 @@ abstract class AbstractSpecialParam implements JsonSerializable, SpecialParam
         protected string $placeholder = '',
         protected array $inputAttrs = [],
         protected mixed $defaultValue = null,
+        protected bool $required = false,
     ) {}
 
     public function getLabel(): string
@@ -55,6 +56,7 @@ abstract class AbstractSpecialParam implements JsonSerializable, SpecialParam
             'placeholder'    => $this->placeholder,
             'inputAttrs'     => $this->inputAttrs,
             'defaultValue'   => $this->defaultValue,
+            'required'       => $this->required,
         ];
     }
 }

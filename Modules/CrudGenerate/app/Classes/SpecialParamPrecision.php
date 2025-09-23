@@ -10,7 +10,8 @@ class SpecialParamPrecision extends AbstractSpecialParam
         string $inputComponent = 'a-input-number',
         string $placeholder = '请输入精度',
         array $inputAttrs = [],
-        mixed $defaultValue = null
+        mixed $defaultValue = null,
+        bool $required = false,
     ) {
         parent::__construct(
             $label,
@@ -19,6 +20,7 @@ class SpecialParamPrecision extends AbstractSpecialParam
             $placeholder,
             array_merge(['mode' => 'button', 'precision' => 0, 'step' => 1, 'min' => 0], $inputAttrs),
             $defaultValue,
+            $required,
         );
     }
 }

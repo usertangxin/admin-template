@@ -10,7 +10,8 @@ class SpecialParamStep extends AbstractSpecialParam
         string $inputComponent = 'a-input-number',
         string $placeholder = '请输入步长',
         array $inputAttrs = [],
-        mixed $defaultValue = 1
+        mixed $defaultValue = 1,
+        bool $required = false,
     ) {
         parent::__construct(
             $label,
@@ -19,6 +20,7 @@ class SpecialParamStep extends AbstractSpecialParam
             $placeholder,
             array_merge(['mode' => 'button', 'step' => 1, 'min' => 0], $inputAttrs),
             $defaultValue,
+            $required,
         );
     }
 }

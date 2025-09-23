@@ -7,7 +7,7 @@ class PageViewControlDictCheckbox extends AbstractPageViewControl
     public function getSpecialParams(): array|string
     {
         return [
-            new SpecialParamDictGroupSelect,
+            new SpecialParamDictGroupSelect(required: true),
         ];
     }
 

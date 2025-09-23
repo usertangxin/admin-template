@@ -10,7 +10,8 @@ class SpecialParamYesOrNo extends AbstractSpecialParam
         string $inputComponent = 'dict-radio',
         string $placeholder = '请选择',
         array $inputAttrs = ['code' => 'yes_or_no'],
-        mixed $defaultValue = 'no'
+        mixed $defaultValue = 'no',
+        bool $required = false,
     ) {
         parent::__construct(
             $label,
@@ -19,6 +20,7 @@ class SpecialParamYesOrNo extends AbstractSpecialParam
             $placeholder,
             array_merge($inputAttrs, ['code' => 'yes_or_no']),
             $defaultValue,
+            $required,
         );
     }
 }

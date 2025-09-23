@@ -11,6 +11,7 @@ class SpecialParamKv extends AbstractSpecialParam
         string $placeholder = '请输入选项',
         array $inputAttrs = [],
         mixed $defaultValue = [],
+        bool $required = false,
     ) {
         parent::__construct(
             $label,
@@ -19,6 +20,7 @@ class SpecialParamKv extends AbstractSpecialParam
             $placeholder,
             array_merge(['keyTitle' => 'Label', 'valueTitle' => 'Value'], $inputAttrs),
             $defaultValue,
+            $required,
         );
     }
 }

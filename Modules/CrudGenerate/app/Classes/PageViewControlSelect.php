@@ -7,7 +7,7 @@ class PageViewControlSelect extends AbstractPageViewControl
     public function getSpecialParams(): array|string
     {
         return [
-            new SpecialParamKv,
+            new SpecialParamKv(required: true),
             new SpecialParamYesOrNo('允许清除', 'allow-clear'),
             new SpecialParamYesOrNo('多选', 'multiple'),
             new SpecialParamYesOrNo('允许搜索', 'allow-search'),
@@ -44,7 +44,7 @@ class PageViewControlSelect extends AbstractPageViewControl
 
         return <<<code
             <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
-                <a-select v-model="formData.{$this->getFieldName()}" :options='$options' placeholder="请输入{$this->getComment()}"$attrs></a-select>
+                <a-select v-model="formData.{$this->getFieldName()}" :options='$options' placeholder="请选择{$this->getComment()}"$attrs></a-select>
             </a-form-item>
         code;
     }

@@ -10,7 +10,8 @@ class SpecialParamLength extends AbstractSpecialParam
         string $inputComponent = 'a-input-number',
         string $placeholder = '请输入长度',
         array $inputAttrs = [],
-        mixed $defaultValue = null
+        mixed $defaultValue = null,
+        bool $required = false,
     ) {
         parent::__construct(
             $label,
@@ -19,6 +20,7 @@ class SpecialParamLength extends AbstractSpecialParam
             $placeholder,
             array_merge(['mode' => 'button', 'precision' => 0, 'step' => 1, 'min' => 1, 'max' => 255], $inputAttrs),
             $defaultValue,
+            $required,
         );
     }
 }

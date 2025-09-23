@@ -27,6 +27,7 @@ use Modules\CrudGenerate\Classes\PageViewControlInputNumber;
 use Modules\CrudGenerate\Classes\PageViewControlInputRange;
 use Modules\CrudGenerate\Classes\PageViewControlRadio;
 use Modules\CrudGenerate\Classes\PageViewControlRate;
+use Modules\CrudGenerate\Classes\PageViewControlRemoteSelect;
 use Modules\CrudGenerate\Classes\PageViewControlSelect;
 use Modules\CrudGenerate\Classes\PageViewControlSlider;
 use Modules\CrudGenerate\Classes\PageViewControlSwitch;
@@ -86,6 +87,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
         $pageViewControlService->add(new PageViewControlDictRadio);
         $pageViewControlService->add(new PageViewControlSwitch);
         $pageViewControlService->add(new PageViewControlSelect);
+        $pageViewControlService->add(new PageViewControlRemoteSelect);
         $pageViewControlService->add(new PageViewControlDictSelect);
         $pageViewControlService->add(new PageViewControlDatePicker);
         $pageViewControlService->add(new PageViewControlTimePicker);

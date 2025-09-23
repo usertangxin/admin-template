@@ -9,7 +9,7 @@ class FieldControlEnumDict extends AbstractFieldControl
     public function getSpecialParams(): array
     {
         return [
-            new SpecialParamDictGroupSelect,
+            new SpecialParamDictGroupSelect(required: true,),
         ];
     }
 

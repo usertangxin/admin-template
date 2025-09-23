@@ -10,7 +10,8 @@ class SpecialParamInput extends AbstractSpecialParam
         string $inputComponent = 'a-input',
         string $placeholder = '请输入文本',
         array $inputAttrs = [],
-        mixed $defaultValue = null
+        mixed $defaultValue = null,
+        bool $required = false,
     ) {
         parent::__construct(
             $label,
@@ -19,6 +20,7 @@ class SpecialParamInput extends AbstractSpecialParam
             $placeholder,
             array_merge([], $inputAttrs),
             $defaultValue,
+            $required,
         );
     }
 }

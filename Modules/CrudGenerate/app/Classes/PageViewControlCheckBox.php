@@ -7,7 +7,7 @@ class PageViewControlCheckBox extends AbstractPageViewControl
     public function getSpecialParams(): array|string
     {
         return [
-            new SpecialParamKv,
+            new SpecialParamKv(required: true),
         ];
     }
 

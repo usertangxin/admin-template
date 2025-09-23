@@ -12,6 +12,7 @@ class SpecialParamAllowedRadio extends AbstractSpecialParam
         string $inputComponent = 'a-radio-group',
         array $inputAttrs = [],
         mixed $defaultValue = null,
+        bool $required = false,
     ) {
         $trans_options = [];
         foreach ($options as $value) {
@@ -27,6 +28,7 @@ class SpecialParamAllowedRadio extends AbstractSpecialParam
             $placeholder,
             \array_merge(['options' => $trans_options], $inputAttrs),
             $defaultValue,
+            $required,
         );
     }
 }

@@ -10,6 +10,7 @@ class SpecialParamDictGroupSelect extends AbstractSpecialParam
         string $inputComponent = 'dict-group-select',
         string $placeholder = '请选择字典编码',
         array $inputAttrs = ['style' => 'width: 220px'],
+        bool $required = false,
     ) {
         parent::__construct(
             label: $label,
@@ -17,6 +18,7 @@ class SpecialParamDictGroupSelect extends AbstractSpecialParam
             inputComponent: $inputComponent,
             placeholder: $placeholder,
             inputAttrs: $inputAttrs,
+            required: $required,
         );
     }
 }
