@@ -21,7 +21,7 @@ const ins = getCurrentInstance();
 onMounted(()=>{
     if (treeRef.value) {
         for(const a in treeRef.value) {
-            ins.exposeProxy[a] ??= treeRef.value[a]
+            ins.exposed[a] ??= treeRef.value[a]
         }
     }
 })

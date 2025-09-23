@@ -106,7 +106,7 @@
 </template>
 
 <script setup>
-import { computed, ref, useAttrs, defineExpose, watch } from 'vue';
+import { computed, ref, useAttrs, watch, onMounted, getCurrentInstance } from 'vue';
 import { useInjectIndexShareStore } from '../IndexShare'
 import { router, usePage } from '@inertiajs/vue3';
 import { recursiveFilter } from '../util';
@@ -127,6 +127,17 @@ const props = defineProps({
     data: {
         type: Array,
         default: () => null
+    }
+})
+
+const ins = getCurrentInstance();
+
+onMounted(() => {
+    if (tableRef.value) {
+        console.log(ins)
+        for (const a in tableRef.value) {
+            ins.exposed[a] ??= tableRef.value[a]
+        }
     }
 })
 
@@ -292,15 +303,4 @@ const handleRecovery = (record) => {
         router.reload();
     })
 }
-
-defineExpose({
-    selectAll: (...args) => tableRef.value.selectAll(...args),
-    select: (...args) => tableRef.value.select(...args),
-    expandAll: (...args) => tableRef.value.expandAll(...args),
-    expand: (...args) => tableRef.value.expand(...args),
-    resetFilters: (...args) => tableRef.value.resetFilters(...args),
-    clearFilters: (...args) => tableRef.value.clearFilters(...args),
-    resetSorters: (...args) => tableRef.value.resetSorters(...args),
-    clearSorters: (...args) => tableRef.value.clearSorters(...args),
-})
 </script>
