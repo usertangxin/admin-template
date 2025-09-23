@@ -76,13 +76,45 @@ const handleSubmit = () => {
 
 <style scoped lang="scss">
 :deep(.disabled-form) {
-    [disabled],.arco-select-view-disabled {
+
+    [disabled],
+    .arco-select-view-disabled {
         color: var(--color-text-1);
         -webkit-text-fill-color: var(--color-text-1);
         cursor: not-allowed;
 
         &::placeholder {
             opacity: 0;
+        }
+    }
+
+    .arco-radio-checked.arco-radio-disabled {
+
+        .arco-radio-icon {
+            background-color: rgb(var(--primary-6));
+            border-color: rgb(var(--primary-6));
+
+            &::after {
+                background-color: var(--color-white);
+            }
+        }
+
+        .arco-radio-label {
+            color: var(--color-text-1);
+        }
+    }
+
+    .arco-checkbox.arco-checkbox-checked.arco-checkbox-disabled {
+        .arco-checkbox-icon-check {
+            color: var(--color-white);
+        }
+
+        .arco-checkbox-icon {
+            background-color: rgb(var(--primary-6));
+        }
+
+        .arco-checkbox-label {
+            color: var(--color-text-1);
         }
     }
 }
