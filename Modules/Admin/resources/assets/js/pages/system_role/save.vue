@@ -13,13 +13,17 @@
             <a-form-item label="菜单权限" field="permissions">
                 <div>
                     <a-button-group>
-                        <a-button @click="handleToggleExpanded">{{ expandedKeys.length ? '收起全部' : '展开全部' }}</a-button>
-                        <a-button @click="handleToggleChecked">{{ formData.permissions.length ? '取消选中' : '全部选中' }}</a-button>
+                        <div class="arco-btn arco-btn-secondary arco-btn-shape-square arco-btn-size-large arco-btn-status-normal"
+                            @click="handleToggleExpanded">{{ expandedKeys.length ? '收起全部' : '展开全部' }}
+                        </div>
+                        <a-button @click="handleToggleChecked">
+                            {{ formData.permissions.length ? '取消选中' : '全部选中' }}
+                        </a-button>
                     </a-button-group>
-                    <a-tree ref="permissionTreeRef" v-model:checked-keys="formData.permissions"
-                        v-model:expanded-keys="expandedKeys"
-                        v-model:selected-keys="selectedKeys" @select="handlePermissionSelect" :data="permissionTree"
-                        :default-expand-all="false" :multiple="true" :show-line="true" :checkable="true"></a-tree>
+                    <custom-tree ref="permissionTreeRef" v-model:checked-keys="formData.permissions"
+                        v-model:expanded-keys="expandedKeys" v-model:selected-keys="selectedKeys"
+                        @select="handlePermissionSelect" :data="permissionTree" :default-expand-all="false"
+                        :multiple="true" :show-line="true" :checkable="true"></custom-tree>
                 </div>
             </a-form-item>
         </save-form>
@@ -54,7 +58,7 @@ const rules = {
 const handlePermissionSelect = (_, data) => {
     selectedKeys.value = []
     const index = formData.permissions.indexOf(data.node.key)
-    if(index > -1) {
+    if (index > -1) {
         permissionTreeRef.value.checkNode(data.node.key, false)
     } else {
         permissionTreeRef.value.checkNode(data.node.key, true)

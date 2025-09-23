@@ -37,6 +37,7 @@ import ResourceModel from './components/resource-model.vue'
 import InputRange from './components/input-range.vue'
 import InputKv from './components/input-kv.vue'
 import RemoteSelect from './components/remote-select.vue'
+import CustomTree from './components/custom-tree.vue'
 import SelfResize from './directive/selfResizeDirective.js'
 
 const selectFileConfig = {
@@ -113,6 +114,7 @@ const useComm = {
       .component('input-range', InputRange)
       .component('input-kv', InputKv)
       .component('remote-select', RemoteSelect)
+      .component('custom-tree', CustomTree)
 
     app.directive('self-resize', SelfResize.directive)
   }
