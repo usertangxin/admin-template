@@ -31,7 +31,23 @@ const props = defineProps({
     dataField: {
         type: String,
         default: 'data',
-    }
+    },
+    lastPageField: {
+        type: String,
+        default: 'meta.last_page',
+    },
+    fastSearchParamName: {
+        type: String,
+        default: 'fast_search',
+    },
+    pageParamName: {
+        type: String,
+        default: '__page__',
+    },
+    perPageParamName: {
+        type: String,
+        default: '__per_page__',
+    },
 })
 
 const loading = ref(false)
@@ -67,16 +83,16 @@ const getList = () => {
     }
     page++
     loading.value = true
+    const params = {}
+    params[props.pageParamName] = page
+    params[props.perPageParamName] = props.perPage
+    params[props.fastSearchParamName] = search_value
     request.get(props.url, {
-        params: {
-            __page__: page,
-            __per_page__: props.perPage,
-            fast_search: search_value,
-        }
+        params: params,
     }).then(res => {
         loading.value = false
         let res_data = _.get(res, props.dataField, []);
-        last_page = _.get(res, 'meta.last_page', null)
+        last_page = _.get(res, props.lastPageField, null)
         res_data.forEach(item => {
             options.value.push({
                 label: item[props.labelField],
