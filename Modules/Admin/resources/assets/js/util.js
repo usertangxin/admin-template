@@ -173,15 +173,41 @@ export function changeFullScreen() {
 }
 
 export function globalCursorProgress() {
-    document.documentElement.style.cursor = 'progress'
-    document.getElementsByTagName('iframe').forEach(item => {
-        item.contentWindow.document.documentElement.style.cursor = 'progress'
+    const el = document.getElementById('global-cursor')
+    if(!el) {
+        const cursor = document.createElement('style')
+        cursor.id = 'global-cursor'
+        cursor.innerHTML = `
+            * {
+                cursor: progress !important;
+            }
+        `
+        document.head.appendChild(cursor)
+    }
+    document.getElementsByTagName('iframe').forEach(function(item) {
+        let cursor = item.contentWindow.document.getElementById('global-cursor')
+        if(!cursor) {
+            cursor = document.createElement('style')
+            cursor.id = 'global-cursor'
+            cursor.innerHTML = `
+                * {
+                    cursor: progress !important;
+                }
+            `
+            item.contentWindow.document.head.appendChild(cursor)
+        }
     })
 }
 
 export function globalCursorDefault() {
-    document.documentElement.style.cursor = 'default'
-    document.getElementsByTagName('iframe').forEach(item => {
-        item.contentWindow.document.documentElement.style.cursor = 'default'
+    const el = document.getElementById('global-cursor')
+    if(el) {
+        el.remove()
+    }
+    document.getElementsByTagName('iframe').forEach(function(item) {
+        let cursor = item.contentWindow.document.getElementById('global-cursor')
+        if(cursor) {
+            cursor.remove()
+        }
     })
 }

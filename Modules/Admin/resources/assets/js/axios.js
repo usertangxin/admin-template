@@ -3,21 +3,30 @@ import { Message } from '@arco-design/web-vue';
 import nProgress from 'nprogress';
 import { globalCursorProgress, globalCursorDefault } from './util.js'
 
+let requestIngNumber = 0
+
 const instance = axios.create({
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
-    }
+    },
 })
 
 instance.interceptors.request.use(function (config) {
     nProgress.inc()
+    requestIngNumber++
     globalCursorProgress()
     return config
 })
 
 instance.interceptors.response.use(function (response) {
-    nProgress.done()
-    globalCursorDefault()
+    requestIngNumber--
+    if(requestIngNumber === 0) {
+        nProgress.done()
+        globalCursorDefault()
+    } else {
+        nProgress.inc()
+        globalCursorProgress()
+    }
     const data = response.data
     if (data.code === 0) {
         if (response.config.method !== 'get') {
@@ -29,8 +38,14 @@ instance.interceptors.response.use(function (response) {
 
     return data
 }, function (error) {
-    nProgress.done()
-    globalCursorDefault()
+    requestIngNumber--
+    if (requestIngNumber === 0) {
+        nProgress.done()
+        globalCursorDefault()
+    } else {
+        nProgress.inc()
+        globalCursorProgress()
+    }
     Message.error(error.response?.data?.message ?? error.message);
     return Promise.reject(error);
 })

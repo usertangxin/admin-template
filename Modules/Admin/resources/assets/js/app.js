@@ -4,6 +4,7 @@ import Size from '/Modules/Admin/resources/assets/js//layouts/size.vue';
 import NotFoundPage from '/Modules/Admin/resources/assets/js/pages/404.vue'
 import _ from 'lodash';
 import { globalCursorDefault, globalCursorProgress } from './util';
+import nProgress from 'nprogress';
 
 createInertiaApp({
   resolve: name => {
@@ -23,20 +24,15 @@ createInertiaApp({
     return page
   },
   setup({ el, App, props, plugin }) {
-    const handleRouteChange = (event) => {
-      console.log('路由即将变更:', event.detail.to)
-    }
-
-    const handleRouteChanged = (event) => {
-      console.log('路由已变更:', event.detail.to)
-    }
-
+    
     router.on('start', (event) => {
       console.log(`Starting a visit to ${event.detail.visit.url}`)
+      nProgress.start()
       globalCursorProgress()
     })
 
     router.on('finish', (event) => {
+      nProgress.done()
       globalCursorDefault()
     })
 
