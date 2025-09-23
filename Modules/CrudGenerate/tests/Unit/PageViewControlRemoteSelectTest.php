@@ -32,13 +32,13 @@ class PageViewControlRemoteSelectTest extends TestCase
             'remote select basic' => [
                 [],
                 [
-                    'remote-select', 
+                    'remote-select',
                     'v-model="formData.remote_select"',
                     'placeholder="请搜索选择远程选择"',
                     'url=""',
                     'label-field="name"',
                     'value-field="id"',
-                    'data-field="data"'
+                    'data-field="data"',
                 ],
             ],
             'remote select with custom url' => [
@@ -49,12 +49,12 @@ class PageViewControlRemoteSelectTest extends TestCase
                 [
                     'label-field' => 'title',
                     'value-field' => 'uid',
-                    'data-field' => 'items'
+                    'data-field'  => 'items',
                 ],
                 [
                     'label-field="title"',
                     'value-field="uid"',
-                    'data-field="items"'
+                    'data-field="items"',
                 ],
             ],
             'remote select with allow clear' => [
@@ -71,13 +71,13 @@ class PageViewControlRemoteSelectTest extends TestCase
             ],
             'remote select with all attributes' => [
                 [
-                    'url' => '/api/categories',
-                    'label-field' => 'name',
-                    'value-field' => 'code',
-                    'data-field' => 'list',
-                    'allow-clear' => 'yes',
-                    'multiple' => 'yes',
-                    'allow-search' => 'yes'
+                    'url'          => '/api/categories',
+                    'label-field'  => 'name',
+                    'value-field'  => 'code',
+                    'data-field'   => 'list',
+                    'allow-clear'  => 'yes',
+                    'multiple'     => 'yes',
+                    'allow-search' => 'yes',
                 ],
                 [
                     'url="/api/categories"',
@@ -86,7 +86,7 @@ class PageViewControlRemoteSelectTest extends TestCase
                     'data-field="list"',
                     ' allow-clear',
                     ' multiple',
-                    ' allow-search'
+                    ' allow-search',
                 ],
             ],
             'remote select with complex url' => [

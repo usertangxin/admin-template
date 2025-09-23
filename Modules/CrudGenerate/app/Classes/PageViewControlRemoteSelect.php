@@ -7,7 +7,7 @@ class PageViewControlRemoteSelect extends AbstractPageViewControl
     public function getSpecialParams(): array|string
     {
         return [
-            new SpecialParamInput('远程接口', 'url', placeholder: '请输入远程接口', required: true,),
+            new SpecialParamInput('远程接口', 'url', placeholder: '请输入远程接口', required: true),
             new SpecialParamInput('标签字段', 'label-field', placeholder: '请输入标签字段'),
             new SpecialParamInput('值字段', 'value-field', placeholder: '请输入值字段'),
             new SpecialParamInput('数据字段', 'data-field', placeholder: '请输入数据字段'),
