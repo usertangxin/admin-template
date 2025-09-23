@@ -48,6 +48,10 @@ const props = defineProps({
         type: String,
         default: '__per_page__',
     },
+    otherParams: {
+        type: Object,
+        default: () => {},
+    }
 })
 
 const loading = ref(false)
@@ -83,7 +87,7 @@ const getList = () => {
     }
     page++
     loading.value = true
-    const params = {}
+    const params = {...props.otherParams};
     params[props.pageParamName] = page
     params[props.perPageParamName] = props.perPage
     params[props.fastSearchParamName] = search_value
