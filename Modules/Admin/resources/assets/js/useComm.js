@@ -36,6 +36,7 @@ import SaveForm from './components/save-form.vue'
 import ResourceModel from './components/resource-model.vue'
 import InputRange from './components/input-range.vue'
 import InputKv from './components/input-kv.vue'
+import RemoteSelect from './components/remote-select.vue'
 import SelfResize from './directive/selfResizeDirective.js'
 
 const selectFileConfig = {
@@ -111,6 +112,7 @@ const useComm = {
       .component('resource-model', ResourceModel)
       .component('input-range', InputRange)
       .component('input-kv', InputKv)
+      .component('remote-select', RemoteSelect)
 
     app.directive('self-resize', SelfResize.directive)
   }

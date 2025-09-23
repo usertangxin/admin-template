@@ -72,7 +72,7 @@ body, html {
     }
 }
 
-.arco-list-virtual {
+.arco-list-virtual, .arco-virtual-list {
     &::-webkit-scrollbar {
         width: 3px;
         background-color: unset;
