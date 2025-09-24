@@ -12,7 +12,7 @@
                     <template #item="{ item: group, index: group_index }">
                         <a-list-item :class="{ 'group_active': current_group_index == group_index }">
                             <a-list-item-meta class=" cursor-pointer" :title="group.name" :description="group.remark"
-                                @click="current_group_index = group_index"></a-list-item-meta>
+                                @click="handleClickGroup(group_index)"></a-list-item-meta>
                             <template #actions>
                                 <div>
                                     <a-space>
@@ -115,6 +115,17 @@ const handleSubmit = (data) => {
             refreshOriginKvs()
         }, 50);
     })
+}
+
+const handleClickGroup = (index) => {
+    if (current_group_index.value == index) {
+        return;
+    }
+    current_group_index.value = index;
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 }
 
 </script>
