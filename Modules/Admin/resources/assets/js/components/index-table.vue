@@ -134,7 +134,6 @@ const ins = getCurrentInstance();
 
 onMounted(() => {
     if (tableRef.value) {
-        // console.log(ins)
         for (const a in tableRef.value) {
             ins.exposed[a] ??= tableRef.value[a]
         }
