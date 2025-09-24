@@ -21,7 +21,7 @@ class HandleInertiaShare
      */
     public function handle(Request $request, Closure $next)
     {
-        $data = app(SystemCommonCacheService::class)->remember('system_config_dict_hash', 60 * 60 * 24, function () {
+        $data = Cache::remember('system_config_dict_hash', 60 * 60 * 24, function () {
             return [
                 'system_dict_hash' => SystemDictService::getInstance()->getListHash(),
                 'system_dict_group_hash' => SystemDictService::getInstance()->getGroupsHash(),

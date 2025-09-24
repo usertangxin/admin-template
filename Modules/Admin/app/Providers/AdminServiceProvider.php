@@ -63,9 +63,6 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
-        $this->app->singleton('system_common_cache', function () {
-            return new SystemCommonCacheService();
-        });
     }
 
     /**
