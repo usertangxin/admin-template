@@ -9,7 +9,7 @@
                             表格设计
                             <template #sublist>
                                 <a-anchor-link href="#table-design-base">基础信息</a-anchor-link>
-                                <draggable :list="formData.column_list">
+                                <draggable :list="formData.column_list" item-key="field_name">
                                     <template #item="{ element, index }">
                                         <a-anchor-link :href="`#table-design-column-${index}`">
                                             <span class="move cursor-ns-resize">
@@ -94,7 +94,7 @@
                                         <a-drawer v-model:visible="item.field_control_special_params_drawer_visible"
                                             width="500px" :footer="false">
                                             <div class="mt-5">
-                                                <a-form :auto-label-width="true" class=" min-w-[270px]">
+                                                <a-form :model="item.field_control_special_params" :auto-label-width="true" class=" min-w-[270px]">
                                                     <template
                                                         v-if="Array.isArray(fieldControls[item.field_control]?.specialParams)">
                                                         <a-form-item
@@ -137,7 +137,7 @@
                                         <a-drawer v-model:visible="item.page_view_control_special_params_drawer_visible"
                                             width="500px" :footer="false">
                                             <div class="mt-5">
-                                                <a-form :auto-label-width="true" class=" min-w-[270px]">
+                                                <a-form :model="item.page_view_control_special_params" :auto-label-width="true" class=" min-w-[270px]">
                                                     <template
                                                         v-if="Array.isArray(pageViewControls[item.page_view_control]?.specialParams)">
                                                         <a-form-item
