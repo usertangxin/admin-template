@@ -2,9 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         if (app()->runningInConsole()) {
-            if (!app()->runningConsoleCommand('optimize', 'config:cache')) {
+            if (! app()->runningConsoleCommand('optimize', 'config:cache')) {
                 $replacements = config('modules.stubs.replacements');
                 foreach ($replacements as $key => &$value) {
                     $value['SNAKE_NAME'] = fn (\Nwidart\Modules\Generators\ModuleGenerator $generator) => \Illuminate\Support\Str::snake($generator->getName());

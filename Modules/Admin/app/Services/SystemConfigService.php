@@ -32,7 +32,7 @@ class SystemConfigService
         if (\app()->runningInConsole() && str_contains(implode(' ', $_SERVER['argv']), 'migrate')) {
             return collect([]);
         }
-        $this->config_group ??= collect(Cache::remember('system_config_group_list', 60 * 60 * 24, function () {
+        $this->config_group ??= collect(Cache::remember(config('admin.cache_name_map.system_config_group_list'), 60 * 60 * 24, function () {
             return SystemConfigGroup::all();
         }));
 
@@ -58,7 +58,7 @@ class SystemConfigService
      */
     public function getList(): Collection
     {
-        $this->config_list ??= collect(Cache::remember('system_config_list', 60 * 60 * 24, function () {
+        $this->config_list ??= collect(Cache::remember(config('admin.cache_name_map.system_config_list'), 60 * 60 * 24, function () {
             return SystemConfig::all();
         }));
 

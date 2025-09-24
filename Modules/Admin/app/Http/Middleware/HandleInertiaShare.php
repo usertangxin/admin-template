@@ -6,7 +6,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
-use Modules\Admin\Services\SystemCommonCacheService;
 use Modules\Admin\Services\SystemConfigService;
 use Modules\Admin\Services\SystemDictService;
 
@@ -23,9 +22,9 @@ class HandleInertiaShare
     {
         $data = Cache::remember('system_config_dict_hash', 60 * 60 * 24, function () {
             return [
-                'system_dict_hash' => SystemDictService::getInstance()->getListHash(),
-                'system_dict_group_hash' => SystemDictService::getInstance()->getGroupsHash(),
-                'system_config_hash' => SystemConfigService::getInstance()->getListHash(),
+                'system_dict_hash'         => SystemDictService::getInstance()->getListHash(),
+                'system_dict_group_hash'   => SystemDictService::getInstance()->getGroupsHash(),
+                'system_config_hash'       => SystemConfigService::getInstance()->getListHash(),
                 'system_config_group_hash' => SystemConfigService::getInstance()->getGroupsHash(),
             ];
         });

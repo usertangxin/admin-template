@@ -33,7 +33,7 @@ class SystemDictService
      */
     public function getGroups(): Collection
     {
-        $this->group ??= collect(Cache::remember('system_dict_group_list', 60 * 60 * 24, function () {
+        $this->group ??= collect(Cache::remember(config('admin.cache_name_map.system_dict_group_list'), 60 * 60 * 24, function () {
             return SystemDictType::all();
         }));
 
@@ -45,7 +45,7 @@ class SystemDictService
      */
     public function getList(): Collection
     {
-        $this->list ??= collect(Cache::remember('system_dict_list', 60 * 60 * 24, function () {
+        $this->list ??= collect(Cache::remember(config('admin.cache_name_map.system_dict_list'), 60 * 60 * 24, function () {
             return SystemDict::all();
         }));
 
