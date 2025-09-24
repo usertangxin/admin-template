@@ -4,6 +4,7 @@ namespace Modules\Admin\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 use Modules\Admin\Services\SystemConfigService;
 use Modules\Admin\Services\SystemDictService;
@@ -19,10 +20,18 @@ class HandleInertiaShare
      */
     public function handle(Request $request, Closure $next)
     {
-        Inertia::share('system_dict_hash', SystemDictService::getInstance()->getListHash());
-        Inertia::share('system_dict_group_hash', SystemDictService::getInstance()->getGroupsHash());
-        Inertia::share('system_config_hash', SystemConfigService::getInstance()->getListHash());
-        Inertia::share('system_config_group_hash', SystemConfigService::getInstance()->getGroupsHash());
+        $data = Cache::remember('system_config_dict_hash', 60 * 60 * 24, function () {
+            return [
+                'system_dict_hash' => SystemDictService::getInstance()->getListHash(),
+                'system_dict_group_hash' => SystemDictService::getInstance()->getGroupsHash(),
+                'system_config_hash' => SystemConfigService::getInstance()->getListHash(),
+                'system_config_group_hash' => SystemConfigService::getInstance()->getGroupsHash(),
+            ];
+        });
+        Inertia::share('system_dict_hash', $data['system_dict_hash']);
+        Inertia::share('system_dict_group_hash', $data['system_dict_group_hash']);
+        Inertia::share('system_config_hash', $data['system_config_hash']);
+        Inertia::share('system_config_group_hash', $data['system_config_group_hash']);
 
         return $next($request);
     }
