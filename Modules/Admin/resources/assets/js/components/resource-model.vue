@@ -1,18 +1,29 @@
 <template>
-    <a-modal v-model:visible="visible" body-class="resource-model-body" :fullscreen="true" :title="title" v-bind="$attrs"
-        @ok="handleOk">
+    <a-modal v-model:visible="visible" body-class="resource-model-body" :fullscreen="true" :title="title"
+        v-bind="$attrs" @ok="handleOk">
         <!-- 此处如果不跟随 visible 就会导致导航 back 出现问题 -->
-        <iframe v-if="visible" ref="iframeRef" :src="comSrc" style="width: 100%; height: 100%;"></iframe>
+        <iframe v-if="visible" ref="iframeRef" :src="comSrc" @load="endNProgress" style="width: 100%; height: 100%;"></iframe>
     </a-modal>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import qs from 'qs'
+import nProgress from 'nprogress';
+import { globalCursorProgress, globalCursorDefault } from '../util.js'
 
 const visible = defineModel('visible', {
     type: Boolean,
     default: false
+})
+
+watch(() => visible.value, (newVal) => {
+    console.log('visible change to true')
+    if (newVal) {
+        setTimeout(() => {
+            startNProgress()
+        }, 0);
+    }
 })
 
 const props = defineProps({
@@ -52,6 +63,16 @@ const comSrc = computed(function () {
 const handleOk = () => {
     const selectedKeys = iframeRef.value.contentWindow.getSelectedKeys()
     emit('ok', selectedKeys)
+}
+
+const startNProgress = () => {
+    nProgress.inc()
+    globalCursorProgress()
+}
+
+const endNProgress = () => {
+    nProgress.done()
+    globalCursorDefault()
 }
 
 </script>
