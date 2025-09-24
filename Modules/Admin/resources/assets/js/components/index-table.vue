@@ -1,7 +1,7 @@
 <template>
     <a-table ref="tableRef" :bordered="{
         cell: true,
-    }" :row-key="rowKey" :row-selection="comRowSelection" v-model:selectedKeys="store.selectedKeys.value"
+    }" :row-key="rowKey" :row-selection="comRowSelection" v-model:selectedKeys="store.selectedKeys"
         :columns="comColumns" :data="comData" :pagination="pagination" @page-change="handlePageChange"
         @page-size-change="handlePageSizeChange" @sorter-change="handleSorterChange" v-bind="attrs">
         <template v-for="(column, index) in comColumns" :key="index" v-slot:[column.slotName]="scope">
@@ -143,12 +143,12 @@ onMounted(() => {
 
 const store = useInjectIndexShareStore()
 const comData = computed(() => {
-    let data = props.data ?? store.listData.value
+    let data = props.data ?? store.listData
     return data?.map(item => {
         if (params['__multiple__'] === 'true') {
             // 限制选择数量仅限制当前选择数量，外部调用需要做好数量计算
-            if (store.selectedKeys.value.length >= params['__limit__'] && params['__limit__'] > 0) {
-                if (!store.selectedKeys.value.includes(item[props.rowKey])) {
+            if (store.selectedKeys.length >= params['__limit__'] && params['__limit__'] > 0) {
+                if (!store.selectedKeys.includes(item[props.rowKey])) {
                     item['old_disabled'] ??= item['disabled'] ?? false
                     item['disabled'] = true
                 }
@@ -162,8 +162,8 @@ const comData = computed(() => {
 
 const pagination = computed(() => {
     return {
-        current: store.searchQuery.value.__page__,
-        pageSize: store.searchQuery.value.__per_page__,
+        current: store.searchQuery.__page__,
+        pageSize: store.searchQuery.__per_page__,
         total: page.props.meta?.total ?? 0,
         showPageSize: true,
         showTotal: true,
@@ -171,24 +171,24 @@ const pagination = computed(() => {
     }
 })
 
-watch(() => store.searchQuery.value.__page__, (newVal, oldVal) => {
+watch(() => store.searchQuery.__page__, (newVal, oldVal) => {
     if (newVal !== oldVal) {
         getList()
     }
 })
 
-watch(() => store.searchQuery.value.__per_page__, (newVal, oldVal) => {
+watch(() => store.searchQuery.__per_page__, (newVal, oldVal) => {
     if (newVal !== oldVal) {
         getList()
     }
 })
 
 window.getSelectedKeys = () => {
-    return store.selectedKeys.value
+    return store.selectedKeys
 }
 
 const comColumns = computed(() => {
-    const newColumns = JSON.parse(JSON.stringify(store.columns.value))
+    const newColumns = JSON.parse(JSON.stringify(store.columns))
     const columns = recursiveFilter(newColumns, item => {
         item.slotName ??= item.dataIndex
         item.show ??= true
@@ -196,10 +196,10 @@ const comColumns = computed(() => {
             return item
         }
     })
-    if (!store.actionColumn.value) {
+    if (!store.actionColumn) {
         return columns
     }
-    return [...columns, store.actionColumn.value]
+    return [...columns, store.actionColumn]
 })
 
 const comRowSelection = computed(() => {
@@ -221,7 +221,7 @@ const handleSwitchBeforeChange = async (newValue, record, dataIndex) => {
 }
 
 const handleSelectionChange = (rowKeys) => {
-    store.selectedKeys.value = rowKeys
+    store.selectedKeys = rowKeys
 }
 
 const handlePageChange = (page) => {

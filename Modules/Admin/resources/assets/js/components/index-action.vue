@@ -1,6 +1,6 @@
 <template>
     <div v-show="showSearch" class="mb-3 pb-3 search-box">
-        <a-form :model="store.searchQuery.value" @submit="handleSearchSubmit" ref="searchForm" :auto-label-width="true">
+        <a-form :model="store.searchQuery" @submit="handleSearchSubmit" ref="searchForm" :auto-label-width="true">
             <a-row :gutter="12">
                 <slot name="search"></slot>
                 <a-col flex="none">
@@ -78,7 +78,7 @@
                             <slot name="destroy">
                                 <a-popconfirm v-if="!$slots.destroy" content="确认删除选中项吗？" @ok="handleDestroy">
                                     <a-button type="primary" status="danger"
-                                        :disabled="store.selectedKeys.value.length === 0">删除</a-button>
+                                        :disabled="store.selectedKeys.length === 0">删除</a-button>
                                 </a-popconfirm>
                             </slot>
                             <slot name="destroy-after"></slot>
@@ -88,7 +88,7 @@
                             <slot name="recovery">
                                 <a-popconfirm v-if="!$slots.recovery" content="确认恢复选中项吗？" @ok="handleRecovery">
                                     <a-button type="primary" status="success"
-                                        :disabled="store.selectedKeys.value.length === 0">恢复</a-button>
+                                        :disabled="store.selectedKeys.length === 0">恢复</a-button>
                                 </a-popconfirm>
                             </slot>
                             <slot name="recovery-after"></slot>
@@ -97,7 +97,7 @@
                                 <a-popconfirm v-if="!$slots['real-destroy']" content="确认永久删除选中项吗？"
                                     @ok="handleRealDestroy">
                                     <a-button type="primary" status="danger"
-                                        :disabled="store.selectedKeys.value.length === 0">永久删除</a-button>
+                                        :disabled="store.selectedKeys.length === 0">永久删除</a-button>
                                 </a-popconfirm>
                             </slot>
                             <slot name="real-destroy-after"></slot>
@@ -116,7 +116,7 @@
                                 <slot name="fast-search-input-before"></slot>
                                 <slot name="fast-search-input">
                                     <a-input v-if="!$slots['search-input']"
-                                        v-model="store.searchQuery.value.fast_search"
+                                        v-model="store.searchQuery.fast_search"
                                         @press-enter="store.toPage1" placeholder="请输入内容并回车" :allow-clear="true"
                                         @clear="store.toPage1">
                                         <template #suffix>
@@ -172,11 +172,12 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { router, usePage, useRemember } from '@inertiajs/vue3';
 import { useInjectIndexShareStore } from '../IndexShare';
 import { recursiveForEach, recursiveMap } from '../util';
 import { changeFullScreen } from '../util'
+import qs from 'qs'
 
 const page = usePage();
 const store = useInjectIndexShareStore()
@@ -207,7 +208,7 @@ watch(store.columns, (newVal, oldVal) => {
 })
 watch(selectedKeys, (newVal, oldVal) => {
     const waitFire = {}
-    recursiveForEach(store.columns.value, (item, key, parent) => {
+    recursiveForEach(store.columns, (item, key, parent) => {
         if (!selectedKeys.value.includes(item.dataIndex)) {
             item.show = false
         } else {
@@ -220,6 +221,11 @@ watch(selectedKeys, (newVal, oldVal) => {
     Object.values(waitFire).forEach(item => {
         item.show = true
     })
+})
+
+onMounted(() => {
+    searchForm.value.resetFields()
+    store.searchQuery = qs.parse(location.search, { ignoreQueryPrefix: true })
 })
 
 const toRecycle = () => {
@@ -241,10 +247,10 @@ const toCreate = () => {
 const handleDestroy = () => {
     request.delete('./destroy', {
         data: {
-            ids: store.selectedKeys.value,
+            ids: store.selectedKeys,
         }
     }).then(() => {
-        store.selectedKeys.value = []
+        store.selectedKeys = []
         router.reload();
     })
 }
@@ -252,17 +258,17 @@ const handleDestroy = () => {
 const handleRealDestroy = () => {
     request.delete('./real-destroy', {
         data: {
-            ids: store.selectedKeys.value,
+            ids: store.selectedKeys,
         }
     }).then(() => {
-        store.selectedKeys.value = []
+        store.selectedKeys = []
         router.reload();
     })
 }
 
 const handleRecovery = () => {
-    request.post('./recovery', { ids: store.selectedKeys.value, }).then(() => {
-        store.selectedKeys.value = []
+    request.post('./recovery', { ids: store.selectedKeys, }).then(() => {
+        store.selectedKeys = []
         router.reload();
     })
 }

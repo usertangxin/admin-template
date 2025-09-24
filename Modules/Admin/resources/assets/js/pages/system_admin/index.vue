@@ -4,22 +4,22 @@
             <template #search>
                 <search-col>
                     <a-form-item label="管理员账号" field="admin_name">
-                        <a-input v-model="store.searchQuery.value.admin_name"></a-input>
+                        <a-input v-model="store.searchQuery.admin_name"></a-input>
                     </a-form-item>
                 </search-col>
                 <search-col>
                     <a-form-item label="管理员昵称" field="nickname">
-                        <a-input v-model="store.searchQuery.value.nickname"></a-input>
+                        <a-input v-model="store.searchQuery.nickname"></a-input>
                     </a-form-item>
                 </search-col>
                 <search-col>
                     <a-form-item label="手机号" field="phone">
-                        <a-input v-model="store.searchQuery.value.phone"></a-input>
+                        <a-input v-model="store.searchQuery.phone"></a-input>
                     </a-form-item>
                 </search-col>
                 <search-col>
                     <a-form-item label="电子邮箱" field="email">
-                        <a-input v-model="store.searchQuery.value.email"></a-input>
+                        <a-input v-model="store.searchQuery.email"></a-input>
                     </a-form-item>
                 </search-col>
             </template>

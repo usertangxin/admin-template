@@ -96,15 +96,15 @@ export function useIndexShareStore() {
 }
 
 export function provideIndexShareStore(props = {}) {
-    const store = useIndexShareStore()
+    const store = reactive(useIndexShareStore())
     if (props.columns && router.restore('indexShareColumns' + window.location.href.split('?')[0])?.length < 1) {
-        store.columns.value = props.columns
+        store.columns = props.columns
     }
     if (props.searchQuery) {
-        _.merge(store.searchQuery.value, props.searchQuery)
+        _.merge(store.searchQuery, props.searchQuery)
     }
-    props.actionColumn !== undefined && (store.actionColumn.value = props.actionColumn)
-    props.innerFetchListData !== undefined && (store.innerFetchListData.value = props.innerFetchListData)
+    props.actionColumn !== undefined && (store.actionColumn = props.actionColumn)
+    props.innerFetchListData !== undefined && (store.innerFetchListData = props.innerFetchListData)
     provide('indexShareStore', store)
     return store
 }

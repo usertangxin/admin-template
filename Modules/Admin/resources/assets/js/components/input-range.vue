@@ -3,14 +3,18 @@
         <template #split>
             -
         </template>
-        <a-input-number v-if="Array.isArray(value)" v-model="value[0]" :placeholder="startPlaceholder" :precision="precision" :step="step" :disabled="disabled" :min="min" :max="max < value[1] ? max : value[1]" :readonly="readonly"></a-input-number>
-        <a-input-number v-if="Array.isArray(value)" v-model="value[1]" :placeholder="endPlaceholder" :precision="precision" :step="step" :disabled="disabled" :min="min > value[0] ? min : value[0]" :max="max" :readonly="readonly"></a-input-number>
+        <a-input-number v-if="Array.isArray(value)" v-model="value[0]"
+            :placeholder="startPlaceholder" :precision="precision" :step="step" :disabled="disabled" :min="min"
+            :max="max < value[1] ? max : value[1]" :readonly="readonly"></a-input-number>
+        <a-input-number v-if="Array.isArray(value)" v-model="value[1]"
+            :placeholder="endPlaceholder" :precision="precision" :step="step" :disabled="disabled"
+            :min="min > value[0] ? min : value[0]" :max="max" :readonly="readonly"></a-input-number>
     </a-space>
 </template>
 
 <script setup>
 import { watch } from 'vue'
-
+// TODO: 刷新页面后传入值为字符串导致无法回填
 const value = defineModel()
 
 const props = defineProps({
