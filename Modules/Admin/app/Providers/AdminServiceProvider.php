@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Models\SystemAdmin;
+use Modules\Admin\Services\SystemCommonCacheService;
 use Modules\Admin\Services\SystemPermissionService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
@@ -49,7 +50,6 @@ class AdminServiceProvider extends ServiceProvider
                 if ($menu['allow_admin'] ?? false) {
                     return true;
                 }
-
             }
 
             return null;
@@ -63,6 +63,9 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+        $this->app->singleton('system_common_cache', function () {
+            return new SystemCommonCacheService();
+        });
     }
 
     /**

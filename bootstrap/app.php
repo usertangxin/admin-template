@@ -42,7 +42,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if (Context::get('__is_admin_background__')) {
                 $messages = implode('', Arr::flatten($exception->errors()));
 
-                return ResponseService::fail($messages, $exception->status, '500', $exception->errors());
+                return ResponseService::fail($messages, $exception->status, 'module.Admin.500', $exception->errors());
             }
         });
 
@@ -60,7 +60,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $exceptions->render(function (Throwable $exception, Request $request) {
             if (Context::get('__is_admin_background__')) {
-                return ResponseService::fail($exception->getMessage(), 500, '500', app()->isLocal() ? ['trace' => $exception->getTrace()] : []);
+                return ResponseService::fail($exception->getMessage(), 500, 'module.Admin.500', app()->isLocal() ? ['trace' => $exception->getTrace()] : []);
             }
         });
     })->create();
