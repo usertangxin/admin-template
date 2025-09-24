@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Models\SystemAdmin;
+use Modules\Admin\Models\SystemConfig;
+use Modules\Admin\Models\SystemConfigGroup;
+use Modules\Admin\Models\SystemDict;
+use Modules\Admin\Models\SystemDictType;
+use Modules\Admin\Observers\SystemConfigDictObserverObserver;
 use Modules\Admin\Services\SystemCommonCacheService;
 use Modules\Admin\Services\SystemPermissionService;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -34,6 +39,11 @@ class AdminServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
         Model::preventSilentlyDiscardingAttributes(\app()->isLocal() || \app()->runningUnitTests());
+
+        SystemConfig::observe(SystemConfigDictObserverObserver::class);
+        SystemConfigGroup::observe(SystemConfigDictObserverObserver::class);
+        SystemDict::observe(SystemConfigDictObserverObserver::class);
+        SystemDictType::observe(SystemConfigDictObserverObserver::class);
 
         Gate::before(function ($user, $ability) {
             if ($user instanceof SystemAdmin) {

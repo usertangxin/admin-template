@@ -4,6 +4,7 @@ namespace Modules\Admin\Services;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Modules\Admin\Models\SystemDict;
 use Modules\Admin\Models\SystemDictType;
 
@@ -32,7 +33,9 @@ class SystemDictService
      */
     public function getGroups(): Collection
     {
-        $this->group ??= SystemDictType::all()->collect();
+        $this->group ??= collect(Cache::remember('system_dict_group_list', 60 * 60 * 24, function () {
+            return SystemDictType::all();
+        }));
 
         return $this->group;
     }
@@ -42,7 +45,9 @@ class SystemDictService
      */
     public function getList(): Collection
     {
-        $this->list ??= SystemDict::all()->collect();
+        $this->list ??= collect(Cache::remember('system_dict_list', 60 * 60 * 24, function () {
+            return SystemDict::all();
+        }));
 
         return $this->list;
     }

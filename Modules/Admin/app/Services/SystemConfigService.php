@@ -4,6 +4,7 @@ namespace Modules\Admin\Services;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use InvalidArgumentException;
 use Modules\Admin\Models\SystemConfig;
 use Modules\Admin\Models\SystemConfigGroup;
@@ -31,7 +32,9 @@ class SystemConfigService
         if (\app()->runningInConsole() && str_contains(implode(' ', $_SERVER['argv']), 'migrate')) {
             return collect([]);
         }
-        $this->config_group ??= SystemConfigGroup::all()->collect();
+        $this->config_group ??= collect(Cache::remember('system_config_group_list', 60 * 60 * 24, function () {
+            return SystemConfigGroup::all();
+        }));
 
         return $this->config_group;
     }
@@ -55,7 +58,9 @@ class SystemConfigService
      */
     public function getList(): Collection
     {
-        $this->config_list ??= SystemConfig::all()->collect();
+        $this->config_list ??= collect(Cache::remember('system_config_list', 60 * 60 * 24, function () {
+            return SystemConfig::all();
+        }));
 
         return $this->config_list;
     }
