@@ -29,6 +29,6 @@ class FieldControlUnsignedBigIntegerTest extends TestCase
         $class = $this->app->make(FieldControlUnsignedBigInteger::class);
         $class->make(['field_name' => 'aaa'], [], new SystemCrudHistory);
         $fragment = $class->getMigrateCodeFragment();
-        $this->assertEquals("unsignedBigInteger('aaa')", $fragment);
+        $this->assertEquals("unsignedBigInteger('aaa', false)", $fragment);
     }
 }

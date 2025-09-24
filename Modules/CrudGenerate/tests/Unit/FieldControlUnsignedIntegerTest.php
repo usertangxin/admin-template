@@ -29,6 +29,6 @@ class FieldControlUnsignedIntegerTest extends TestCase
         $class = $this->app->make(FieldControlUnsignedInteger::class);
         $class->make(['field_name' => 'aaa'], [], new SystemCrudHistory);
         $fragment = $class->getMigrateCodeFragment();
-        $this->assertEquals("unsignedInteger('aaa')", $fragment);
+        $this->assertEquals("unsignedInteger('aaa', false)", $fragment);
     }
 }
