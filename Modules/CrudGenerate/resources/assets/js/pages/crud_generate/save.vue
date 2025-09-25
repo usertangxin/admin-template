@@ -130,7 +130,7 @@
                                             <a-option v-for="item in pageViewControls" :value="item.name"
                                                 :label="item.label" />
                                         </a-select>
-                                        <a-button
+                                        <a-button v-if="item.page_view_control"
                                             type="primary" status="normal"
                                             @click="item.page_view_control_special_params_drawer_visible = true">配置</a-button>
 
