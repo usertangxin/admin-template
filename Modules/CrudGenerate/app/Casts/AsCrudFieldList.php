@@ -31,12 +31,11 @@ class AsCrudFieldList implements CastsAttributes
                 'comment'                      => $item['comment'], // 注释
                 'gen_form'                     => $item['gen_form'], // 是否生成表到单页面
                 'gen_index'                    => $item['gen_index'], // 是否生成到列表页面
-                // 'gen_query'                         => $item['gen_query'], // 是否生成到查询区域
+                'gen_query'                         => $item['gen_query'], // 是否生成到查询区域
                 'gen_sort'                          => $item['gen_sort'], // 是否参与排序
                 'page_view_control'                 => $item['page_view_control'], // 页面控件
                 'page_view_control_special_params'  => $item['page_view_control_special_params'], // 特有参数
-                'query_view_control'                => $item['query_view_control'], // 查询控件
-                'query_view_control_special_params' => $item['query_view_control_special_params'], // 特有参数
+                'page_view_control_query_params'  => $item['page_view_control_query_params'], // 特有参数
             ];
         }
 

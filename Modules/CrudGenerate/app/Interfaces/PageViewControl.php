@@ -27,6 +27,11 @@ interface PageViewControl
     public function getSpecialParams(): array|string;
 
     /**
+     * 特有查询参数
+     */
+    public function getQueryParams(): array|string;
+
+    /**
      * 视图代码片段
      */
     public function getFormCodeFragment(): string;
@@ -35,4 +40,9 @@ interface PageViewControl
      * 列表页列代码片段
      */
     public function getIndexColumnFragment(): array;
+
+    /**
+     * 列表页查询代码片段
+     */
+    public function getIndexQueryFragment(): string;
 }

@@ -45,6 +45,11 @@ abstract class AbstractPageViewControl implements PageViewControl
     {
         return [];
     }
+    
+    public function getQueryParams(): array|string
+    {
+        return [];
+    }
 
     protected function innerGetSpecialParam(string $name, mixed $default = null)
     {
@@ -59,5 +64,10 @@ abstract class AbstractPageViewControl implements PageViewControl
     public function getFormImportFragment(): array
     {
         return [];
+    }
+
+    public function getIndexQueryFragment(): string
+    {
+        return '';
     }
 }

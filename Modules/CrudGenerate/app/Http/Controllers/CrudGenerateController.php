@@ -17,6 +17,15 @@ class CrudGenerateController extends AbstractCrudController
         return new SystemCrudHistory;
     }
 
+    #[SystemMenu('获取所有控件')]
+    public function getControls(FieldControlService $field_control_service, PageViewControlService $page_view_control_service)
+    {
+        return $this->success([
+            'field_controls' => $field_control_service->jsonSerialize(),
+            'page_view_controls' => $page_view_control_service->jsonSerialize(),
+        ]);
+    }
+
     #[SystemMenu('获取字段控件')]
     public function getFieldControls(FieldControlService $field_control_service)
     {

@@ -14,6 +14,13 @@ class PageViewControlSelect extends AbstractPageViewControl
         ];
     }
 
+    public function getQueryParams(): array|string
+    {
+        return [
+            new SpecialParamYesOrNo('多选查询', 'mul_select'),
+        ];
+    }
+
     public function getFormCodeFragment(): string
     {
         $options = [];

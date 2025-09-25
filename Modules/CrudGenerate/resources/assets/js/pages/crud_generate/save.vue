@@ -91,10 +91,12 @@
                                             type="primary" status="normal"
                                             @click="item.field_control_special_params_drawer_visible = true">配置</a-button>
 
-                                        <a-drawer v-model:visible="item.field_control_special_params_drawer_visible"
+                                        <a-drawer title="字段控件特殊参数配置"
+                                            v-model:visible="item.field_control_special_params_drawer_visible"
                                             width="500px" :footer="false">
                                             <div class="mt-5">
-                                                <a-form :model="item.field_control_special_params" :auto-label-width="true" class=" min-w-[270px]">
+                                                <a-form :model="item.field_control_special_params"
+                                                    :auto-label-width="true" class=" min-w-[270px]">
                                                     <template
                                                         v-if="Array.isArray(fieldControls[item.field_control]?.specialParams)">
                                                         <a-form-item
@@ -128,46 +130,68 @@
                                             <a-option v-for="item in pageViewControls" :value="item.name"
                                                 :label="item.label" />
                                         </a-select>
-
                                         <a-button
-                                            v-if="pageViewControls[item.page_view_control]?.specialParams.length > 0"
                                             type="primary" status="normal"
                                             @click="item.page_view_control_special_params_drawer_visible = true">配置</a-button>
 
                                         <a-drawer v-model:visible="item.page_view_control_special_params_drawer_visible"
                                             width="500px" :footer="false">
                                             <div class="mt-5">
-                                                <a-form :model="item.page_view_control_special_params" :auto-label-width="true" class=" min-w-[270px]">
-                                                    <template
-                                                        v-if="Array.isArray(pageViewControls[item.page_view_control]?.specialParams)">
-                                                        <a-form-item
-                                                            v-for="param in pageViewControls[item.page_view_control]?.specialParams"
-                                                            :key="param.name" :label="param.label" :field="param.name"
-                                                            :required="param.required">
-                                                            <component :is="param.inputComponent"
-                                                                v-model="item.page_view_control_special_params[param.name]"
-                                                                :placeholder="param.placeholder"
-                                                                :default-value="param.defaultValue"
-                                                                v-bind="param.inputAttrs">
-                                                            </component>
-                                                        </a-form-item>
-                                                    </template>
-                                                    <template v-else>
-                                                        <field-control-render :key="item.page_view_control"
-                                                            :html="pageViewControls[item.page_view_control]?.specialParams"
-                                                            v-model:params="item.page_view_control_special_params"></field-control-render>
-                                                    </template>
-                                                </a-form>
+                                                <template
+                                                    v-if="pageViewControls[item.page_view_control]?.specialParams.length > 0">
+                                                    <a-divider>页面参数配置</a-divider>
+                                                    <a-form :model="item.page_view_control_special_params"
+                                                        :auto-label-width="true" class="min-w-[270px]">
+                                                        <template
+                                                            v-if="Array.isArray(pageViewControls[item.page_view_control]?.specialParams)">
+                                                            <a-form-item
+                                                                v-for="param in pageViewControls[item.page_view_control]?.specialParams"
+                                                                :key="param.name" :label="param.label"
+                                                                :field="param.name" :required="param.required">
+                                                                <component :is="param.inputComponent"
+                                                                    v-model="item.page_view_control_special_params[param.name]"
+                                                                    :placeholder="param.placeholder"
+                                                                    :default-value="param.defaultValue"
+                                                                    v-bind="param.inputAttrs">
+                                                                </component>
+                                                            </a-form-item>
+                                                        </template>
+                                                        <template v-else>
+                                                            <field-control-render :key="item.page_view_control"
+                                                                :html="pageViewControls[item.page_view_control]?.specialParams"
+                                                                v-model:params="item.page_view_control_special_params"></field-control-render>
+                                                        </template>
+                                                    </a-form>
+                                                </template>
+                                                <template
+                                                    v-if="pageViewControls[item.page_view_control]?.queryParams.length > 0">
+                                                    <a-divider>查询参数配置</a-divider>
+                                                    <a-form :model="item.page_view_control_query_params"
+                                                        :auto-label-width="true" class="min-w-[270px]">
+                                                        <template
+                                                            v-if="Array.isArray(pageViewControls[item.page_view_control]?.queryParams)">
+                                                            <a-form-item
+                                                                v-for="param in pageViewControls[item.page_view_control]?.queryParams"
+                                                                :key="param.name" :label="param.label"
+                                                                :field="param.name" :required="param.required">
+                                                                <component :is="param.inputComponent"
+                                                                    v-model="item.page_view_control_special_params[param.name]"
+                                                                    :placeholder="param.placeholder"
+                                                                    :default-value="param.defaultValue"
+                                                                    v-bind="param.inputAttrs">
+                                                                </component>
+                                                            </a-form-item>
+                                                        </template>
+                                                        <template v-else>
+                                                            <field-control-render :key="item.page_view_control"
+                                                                :html="pageViewControls[item.page_view_control]?.queryParams"
+                                                                v-model:params="item.page_view_control_query_params"></field-control-render>
+                                                        </template>
+                                                    </a-form>
+                                                </template>
                                             </div>
                                         </a-drawer>
-
                                     </a-input-group>
-                                </a-form-item>
-                            </form-col>
-                            <form-col>
-                                <a-form-item label="查询控件" field="query_view_control">
-                                    <a-select v-model="item.query_view_control" placeholder="请选择查询控件"
-                                        allow-search></a-select>
                                 </a-form-item>
                             </form-col>
                             <form-col>
@@ -185,11 +209,11 @@
                                     <dict-radio v-model="item.gen_index" code="yes_or_no"></dict-radio>
                                 </a-form-item>
                             </form-col>
-                            <!-- <form-col>
+                            <form-col>
                                 <a-form-item label="生成到查询" field="gen_query">
                                     <dict-radio v-model="item.gen_query" code="yes_or_no"></dict-radio>
                                 </a-form-item>
-                            </form-col> -->
+                            </form-col>
                             <form-col>
                                 <a-form-item label="参与排序" field="gen_sort">
                                     <dict-radio v-model="item.gen_sort" code="yes_or_no"></dict-radio>
@@ -273,6 +297,7 @@ const modules = ref([])
 const menus = ref([])
 const fieldControls = ref([])
 const pageViewControls = ref([])
+const queryViewControls = ref([])
 
 const navSize = reactive({
     width: 0,
@@ -288,8 +313,9 @@ const addColumn = (index) => {
         field_control_special_params: {},
         page_view_control: '',
         page_view_control_special_params: {},
-        query_view_control: '',
-        query_view_control_special_params: {},
+        page_view_control_query_params: {},
+        // query_view_control: '',
+        // query_view_control_special_params: {},
         nullable: 'no',
         gen_form: 'yes',
         gen_index: 'yes',
@@ -338,13 +364,17 @@ request.get('/web/admin/SystemMenu/index').then(res => {
     menus.value = a
 })
 
-request.get('field-controls').then(res => {
-    fieldControls.value = res.data
-})
+// request.get('field-controls').then(res => {
+//     fieldControls.value = res.data
+// })
 
-request.get('page-view-controls').then(res => {
-    pageViewControls.value = res.data
-})
+// request.get('page-view-controls').then(res => {
+//     pageViewControls.value = res.data
+// })
 
+request.get('controls').then(res => {
+    fieldControls.value = res.data.field_controls
+    pageViewControls.value = res.data.page_view_controls
+})
 
 </script>

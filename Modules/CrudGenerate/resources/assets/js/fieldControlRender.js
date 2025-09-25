@@ -1,4 +1,5 @@
-import { compile } from "vue";
+import * as Vue from 'vue';
+import { compile } from "@vue/compiler-dom";
 
 export default {
     props: {
@@ -12,8 +13,12 @@ export default {
         }
     },
     setup(props) {
-        return () => compile(props.html)({
-            params: props.params
-        })
+        return () => {
+            const { code } = compile(props.html)
+            const render = new Function('Vue', code)(Vue);
+            return render({
+                params: props.params
+            })
+        }
     },
 }

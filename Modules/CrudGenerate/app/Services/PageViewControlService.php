@@ -24,6 +24,7 @@ class PageViewControlService implements JsonSerializable
                 'label'         => $pageViewControl->getLabel(),
                 'name'          => $pageViewControl->getName(),
                 'specialParams' => $pageViewControl->getSpecialParams(),
+                'queryParams'   => $pageViewControl->getQueryParams(),
             ];
         }
 

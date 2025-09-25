@@ -19,6 +19,13 @@ class PageViewControlDatePicker extends AbstractPageViewControl
         code;
     }
 
+    public function getQueryParams(): array|string
+    {
+        return [
+            new SpecialParamYesOrNo('范围查询', 'range_query'),
+        ];
+    }
+
     public function getFormCodeFragment(): string
     {
         /** 日期选择器组件类型 */

@@ -16,6 +16,13 @@ class PageViewControlSlider extends AbstractPageViewControl
         ];
     }
 
+    public function getQueryParams(): array|string
+    {
+        return [
+            new SpecialParamYesOrNo('范围查询', 'range_query'),
+        ];
+    }
+
     public function getFormCodeFragment(): string
     {
         $options = [];

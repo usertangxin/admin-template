@@ -11,6 +11,13 @@ class PageViewControlCheckBox extends AbstractPageViewControl
         ];
     }
 
+    public function getQueryParams(): array|string
+    {
+        return [
+            new SpecialParamYesOrNo('多选查询', 'mul_select'),
+        ];
+    }
+
     public function getFormCodeFragment(): string
     {
         $options = [];
@@ -26,6 +33,26 @@ class PageViewControlCheckBox extends AbstractPageViewControl
             <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
                 <a-checkbox-group v-model="formData.{$this->getFieldName()}" :options='$options'"></a-checkbox-group>
             </a-form-item>
+        code;
+    }
+
+    public function getIndexQueryFragment(): string
+    {
+        $options = [];
+
+        $kv = $this->innerGetSpecialParam('kv', []);
+        foreach ($kv as $item) {
+            $options[] = ['label' => $item[0], 'value' => $item[1]];
+        }
+
+        $options = json_encode($options, JSON_UNESCAPED_UNICODE);
+
+        return <<<code
+            <search-col>
+                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                     <a-checkbox-group v-model="formData.{$this->getFieldName()}" :options='$options'"></a-checkbox-group>
+                </a-form-item>
+            </search-col>
         code;
     }
 }
