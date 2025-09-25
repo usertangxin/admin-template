@@ -1,5 +1,5 @@
 <template>
-    <a-table ref="tableRef" :bordered="{
+    <a-table :ref="tableFunRef" :bordered="{
         cell: true,
     }" :row-key="rowKey" :row-selection="comRowSelection" v-model:selectedKeys="store.selectedKeys"
         :columns="comColumns" :data="comData" :pagination="pagination" @page-change="handlePageChange"
@@ -106,7 +106,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch, onMounted, getCurrentInstance } from 'vue';
+import { computed, ref, watch, getCurrentInstance } from 'vue';
 import { useInjectIndexShareStore } from '../IndexShare'
 import { router, usePage } from '@inertiajs/vue3';
 import { recursiveFilter } from '../util';
@@ -118,6 +118,8 @@ let params = qs.parse(search, { ignoreQueryPrefix: true })
 
 const page = usePage()
 const tableRef = ref(null);
+const ins = getCurrentInstance();
+
 const props = defineProps({
     rowKey: {
         type: String,
@@ -129,15 +131,6 @@ const props = defineProps({
     }
 })
 
-const ins = getCurrentInstance();
-
-onMounted(() => {
-    if (tableRef.value) {
-        for (const a in tableRef.value) {
-            ins.exposed[a] ??= tableRef.value[a]
-        }
-    }
-})
 
 const store = useInjectIndexShareStore()
 const comData = computed(() => {
@@ -212,6 +205,11 @@ const comRowSelection = computed(() => {
         showCheckedAll: params['__multiple__'] && params['__limit__'] == 0,
     }
 })
+
+function tableFunRef(a) {
+    tableRef.value = a
+    ins.exposed = a
+}
 
 const handleSwitchBeforeChange = async (newValue, record, dataIndex) => {
     const res = await request.post('./change-status', { ...record, status: newValue })

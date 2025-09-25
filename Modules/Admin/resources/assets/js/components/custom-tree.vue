@@ -1,5 +1,5 @@
 <template>
-    <a-tree ref="treeRef" :selectable="selectable && !mergedDisabled" v-bind="$attrs"></a-tree>
+    <a-tree :ref="treeFunRef" :selectable="selectable && !mergedDisabled" v-bind="$attrs"></a-tree>
 </template>
 
 <script setup>
@@ -18,12 +18,9 @@ const props = defineProps({
 
 const ins = getCurrentInstance();
 
-onMounted(()=>{
-    if (treeRef.value) {
-        for(const a in treeRef.value) {
-            ins.exposed[a] ??= treeRef.value[a]
-        }
-    }
-})
+function treeFunRef(a) {
+    treeRef.value = a
+    ins.exposed = a
+}
 
 </script>
