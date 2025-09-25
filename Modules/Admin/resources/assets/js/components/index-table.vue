@@ -3,7 +3,7 @@
         cell: true,
     }" :row-key="rowKey" :row-selection="comRowSelection" v-model:selectedKeys="store.selectedKeys"
         :columns="comColumns" :data="comData" :pagination="pagination" @page-change="handlePageChange"
-        @page-size-change="handlePageSizeChange" @sorter-change="handleSorterChange" v-bind="attrs">
+        @page-size-change="handlePageSizeChange" @sorter-change="handleSorterChange" v-bind="$attrs">
         <template v-for="(column, index) in comColumns" :key="index" v-slot:[column.slotName]="scope">
             <slot :name="column.slotName" v-bind="scope">
                 <template v-if="column.slotName === 'action-column'">
@@ -106,7 +106,7 @@
 </template>
 
 <script setup>
-import { computed, ref, useAttrs, watch, onMounted, getCurrentInstance } from 'vue';
+import { computed, ref, watch, onMounted, getCurrentInstance } from 'vue';
 import { useInjectIndexShareStore } from '../IndexShare'
 import { router, usePage } from '@inertiajs/vue3';
 import { recursiveFilter } from '../util';
@@ -117,7 +117,6 @@ let search = location.search;
 let params = qs.parse(search, { ignoreQueryPrefix: true })
 
 const page = usePage()
-const attrs = useAttrs()
 const tableRef = ref(null);
 const props = defineProps({
     rowKey: {
