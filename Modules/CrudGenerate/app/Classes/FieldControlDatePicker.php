@@ -2,9 +2,9 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-class PageViewControlDatePicker extends AbstractPageViewControl
+class FieldControlDatePicker extends AbstractFieldControl
 {
-    public function getSpecialParams(): array|string
+    public function getConfigParams(): array|string
     {
         return <<<'code'
             <a-form-item label="类型">
@@ -16,14 +16,10 @@ class PageViewControlDatePicker extends AbstractPageViewControl
             <a-form-item label="使用面板">
                 <dict-radio v-model="params.use_panel" code="yes_or_no" default-value="no"></dict-radio>
             </a-form-item>
+            <a-form-item label="范围查询">
+                <dict-radio v-model="params.range_query" code="yes_or_no" default-value="no"></dict-radio>
+            </a-form-item>
         code;
-    }
-
-    public function getQueryParams(): array|string
-    {
-        return [
-            new SpecialParamYesOrNo('范围查询', 'range_query'),
-        ];
     }
 
     public function getFormCodeFragment(): string
@@ -37,9 +33,9 @@ class PageViewControlDatePicker extends AbstractPageViewControl
         /** 是否为特殊组件 */
         $in_special_view = false;
 
-        $type      = $this->innerGetSpecialParam('type', 'date');
-        $use_panel = $this->innerGetSpecialParam('use_panel', 'no');
-        $is_range  = $this->innerGetSpecialParam('is_range', 'no');
+        $type      = $this->innerGetConfigParam('type', 'date');
+        $use_panel = $this->innerGetConfigParam('use_panel', 'no');
+        $is_range  = $this->innerGetConfigParam('is_range', 'no');
 
         if (in_array($type, ['month', 'year', 'week', 'quarter'])) {
             $in_special_view = true;
@@ -71,5 +67,21 @@ class PageViewControlDatePicker extends AbstractPageViewControl
                 <$input_type $v_model="formData.{$this->getFieldName()}" placeholder="请选择{$this->getComment()}"$attrs></$input_type>
             </a-form-item>
         code;
+    }
+
+    public function getMigrateCodeFragment(): string
+    {
+        $precisionStr = '';
+        if ($precision = $this->innerGetConfigParam('precision')) {
+            $precisionStr = ', ' . $precision;
+        }
+
+        return 'dateTime(\'' . $this->field['field_name'] . '\'' . $precisionStr . ')';
+    }
+
+    public function getIndexQueryFragment(): string
+    {
+        // TODO: 索引查询
+        return '';
     }
 }

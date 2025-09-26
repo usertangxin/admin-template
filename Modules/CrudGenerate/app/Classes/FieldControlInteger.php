@@ -15,12 +15,12 @@ class FieldControlInteger extends AbstractFieldControl
     public function getMigrateCodeFragment(): string
     {
         $str = '';
-        if ($autoIncrement = $this->innerGetSpecialParam('autoIncrement', 'no')) {
+        if ($autoIncrement = $this->innerGetConfigParam('autoIncrement', 'no')) {
             $str = ', ' . ($autoIncrement == 'yes' ? 'true' : 'false');
         } else {
             $str = ', false';
         }
-        if ($unsigned = $this->innerGetSpecialParam('unsigned', 'no')) {
+        if ($unsigned = $this->innerGetConfigParam('unsigned', 'no')) {
             $str .= ', ' . ($unsigned == 'yes' ? 'true' : 'false');
         } else {
             $str .= ', false';

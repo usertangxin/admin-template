@@ -2,21 +2,20 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-class PageViewControlSelect extends AbstractPageViewControl
+class FieldControlDictSelect extends AbstractFieldControl
 {
+    public function getIndexQueryFragment(): string
+    {
+        // TODO: 索引查询
+        return '';
+    }
     public function getSpecialParams(): array|string
     {
         return [
-            new SpecialParamKv(required: true),
+            new SpecialParamDictGroupSelect(required: true),
             new SpecialParamYesOrNo('允许清除', 'allow-clear'),
             new SpecialParamYesOrNo('多选', 'multiple'),
             new SpecialParamYesOrNo('允许搜索', 'allow-search'),
-        ];
-    }
-
-    public function getQueryParams(): array|string
-    {
-        return [
             new SpecialParamYesOrNo('多选查询', 'mul_select'),
         ];
     }
@@ -25,15 +24,11 @@ class PageViewControlSelect extends AbstractPageViewControl
     {
         $options = [];
 
-        $kv          = $this->innerGetSpecialParam('kv', []);
-        $allowClear  = $this->innerGetSpecialParam('allow-clear', 'no');
-        $multiple    = $this->innerGetSpecialParam('multiple', 'no');
-        $allowSearch = $this->innerGetSpecialParam('allow-search', 'no');
+        $dictCode    = $this->innerGetConfigParam('dict_code');
+        $allowClear  = $this->innerGetConfigParam('allow-clear', 'no');
+        $multiple    = $this->innerGetConfigParam('multiple', 'no');
+        $allowSearch = $this->innerGetConfigParam('allow-search', 'no');
         $attrs       = '';
-
-        foreach ($kv as $item) {
-            $options[] = ['label' => $item[0], 'value' => $item[1]];
-        }
 
         $options = json_encode($options, JSON_UNESCAPED_UNICODE);
 
@@ -51,8 +46,13 @@ class PageViewControlSelect extends AbstractPageViewControl
 
         return <<<code
             <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
-                <a-select v-model="formData.{$this->getFieldName()}" :options='$options' placeholder="请选择{$this->getComment()}"$attrs></a-select>
+                <dict-select v-model="formData.{$this->getFieldName()}" code="{$dictCode}" placeholder="请输入{$this->getComment()}"$attrs></dict-select>
             </a-form-item>
         code;
+    }
+
+    public function getMigrateCodeFragment(): string
+    {
+        return 'json(\'' . $this->field['field_name'] . '\')';
     }
 }

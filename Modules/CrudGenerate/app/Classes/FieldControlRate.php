@@ -2,28 +2,33 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-class PageViewControlRate extends AbstractPageViewControl
+class FieldControlRate extends AbstractFieldControl
 {
-    public function getSpecialParams(): array|string
+    public function getConfigParams(): array|string
     {
         return [
             new SpecialParamYesOrNo('半选', 'allow-half', defaultValue: 'no'),
             new SpecialParamLength('长度', 'count', defaultValue: 5),
+            new SpecialParamYesOrNo('范围查询', 'range_query'),
         ];
     }
 
-    public function getQueryParams(): array|string
+    public function getIndexQueryFragment(): string
     {
-        return [
-            new SpecialParamYesOrNo('范围查询', 'range_query'),
-        ];
+        // TODO
+        return '';
+    }
+
+    public function getMigrateCodeFragment(): string
+    {
+        return 'unsignedInteger(\'' . $this->field['field_name'] . '\')';
     }
 
     public function getFormCodeFragment(): string
     {
         $attrs     = '';
-        $count     = $this->innerGetSpecialParam('count', null);
-        $allowHalf = $this->innerGetSpecialParam('allow-half', 'no');
+        $count     = $this->innerGetConfigParam('count', null);
+        $allowHalf = $this->innerGetConfigParam('allow-half', 'no');
         if ($count) {
             $attrs .= " :count=\"$count\"";
         }

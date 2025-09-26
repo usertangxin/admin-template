@@ -2,7 +2,7 @@
 
 namespace Modules\CrudGenerate\Tests\Unit;
 
-use Modules\CrudGenerate\Classes\PageViewControlInputRange;
+use Modules\CrudGenerate\Classes\FieldControlInputRange;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
 use Tests\TestCase;
 
@@ -10,7 +10,7 @@ class PageViewControlInputRangeTest extends TestCase
 {
     public function test_get_form_code_fragment()
     {
-        $class = $this->app->make(PageViewControlInputRange::class);
+        $class = $this->app->make(FieldControlInputRange::class);
         $class->make(['field_name' => 'aaa', 'comment' => '测试', 'page_view_control_special_params' => [
             'range'     => [0, 100],
             'precision' => 1,

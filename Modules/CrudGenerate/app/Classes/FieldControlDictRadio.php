@@ -4,13 +4,32 @@ namespace Modules\CrudGenerate\Classes;
 
 use Modules\Admin\Services\SystemDictService;
 
-class FieldControlEnumDict extends AbstractFieldControl
+class FieldControlDictRadio extends AbstractFieldControl
 {
-    public function getConfigParams(): array
+    public function getSpecialParams(): array|string
     {
         return [
             new SpecialParamDictGroupSelect(required: true),
+            new SpecialParamYesOrNo('多选查询', 'mul_select'),
         ];
+    }
+
+    public function getIndexQueryFragment(): string
+    {
+        // TODO
+        return '';
+    }
+
+    public function getFormCodeFragment(): string
+    {
+
+        $dictCode = $this->innerGetConfigParam('dict_code');
+
+        return <<<code
+            <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                <dict-radio v-model="formData.{$this->getFieldName()}" code="{$dictCode}"></dict-radio>
+            </a-form-item>
+        code;
     }
 
     public function getMigrateCodeFragment(): string

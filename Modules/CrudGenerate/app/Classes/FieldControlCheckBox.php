@@ -2,27 +2,26 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-class PageViewControlCheckBox extends AbstractPageViewControl
+class FieldControlCheckBox extends AbstractFieldControl
 {
-    public function getSpecialParams(): array|string
+    public function getConfigParams(): array|string
     {
         return [
             new SpecialParamKv(required: true),
+            new SpecialParamYesOrNo('多选查询', 'mul_select'),
         ];
     }
 
-    public function getQueryParams(): array|string
+    public function getMigrateCodeFragment(): string
     {
-        return [
-            new SpecialParamYesOrNo('多选查询', 'mul_select'),
-        ];
+        return 'json(\'' . $this->field['field_name'] . '\')';
     }
 
     public function getFormCodeFragment(): string
     {
         $options = [];
 
-        $kv = $this->innerGetSpecialParam('kv', []);
+        $kv = $this->innerGetConfigParam('kv', []);
         foreach ($kv as $item) {
             $options[] = ['label' => $item[0], 'value' => $item[1]];
         }
@@ -40,7 +39,7 @@ class PageViewControlCheckBox extends AbstractPageViewControl
     {
         $options = [];
 
-        $kv = $this->innerGetSpecialParam('kv', []);
+        $kv = $this->innerGetConfigParam('kv', []);
         foreach ($kv as $item) {
             $options[] = ['label' => $item[0], 'value' => $item[1]];
         }

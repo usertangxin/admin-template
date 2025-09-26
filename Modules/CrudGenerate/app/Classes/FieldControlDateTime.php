@@ -14,7 +14,7 @@ class FieldControlDateTime extends AbstractFieldControl
     public function getMigrateCodeFragment(): string
     {
         $precisionStr = '';
-        if ($precision = $this->innerGetSpecialParam('precision')) {
+        if ($precision = $this->innerGetConfigParam('precision')) {
             $precisionStr = ', ' . $precision;
         }
 
