@@ -4,7 +4,7 @@ namespace Modules\CrudGenerate\Classes;
 
 class FieldControlInteger extends AbstractFieldControl
 {
-    public function getSpecialParams(): array
+    public function getConfigParams(): array
     {
         return [
             new SpecialParamYesOrNo('是否自增', 'autoIncrement'),

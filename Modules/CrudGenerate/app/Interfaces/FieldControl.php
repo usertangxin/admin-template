@@ -26,7 +26,7 @@ interface FieldControl
      *
      * @return array<SpecialParam>|string
      */
-    public function getSpecialParams(): array|string;
+    public function getConfigParams(): array|string;
 
     /**
      * 迁移文件代码片段
@@ -37,4 +37,19 @@ interface FieldControl
      * 模型使用的 trait
      */
     public function getModelUseTraits(): array;
+
+    /**
+     * 视图代码片段
+     */
+    public function getFormCodeFragment(): string;
+
+    /**
+     * 列表页列代码片段
+     */
+    public function getIndexColumnFragment(): array;
+
+    /**
+     * 列表页查询代码片段
+     */
+    public function getIndexQueryFragment(): string;
 }

@@ -23,7 +23,7 @@ class FieldControlService implements JsonSerializable
             $arr[$fieldControl->getName()] = [
                 'label'         => $fieldControl->getLabel(),
                 'name'          => $fieldControl->getName(),
-                'specialParams' => $fieldControl->getSpecialParams(),
+                'specialParams' => $fieldControl->getConfigParams(),
             ];
         }
 

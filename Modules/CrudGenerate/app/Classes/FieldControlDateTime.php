@@ -4,7 +4,7 @@ namespace Modules\CrudGenerate\Classes;
 
 class FieldControlDateTime extends AbstractFieldControl
 {
-    public function getSpecialParams(): array
+    public function getConfigParams(): array
     {
         return [
             new SpecialParamPrecision,

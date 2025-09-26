@@ -31,7 +31,7 @@ abstract class AbstractFieldControl implements FieldControl
         return Str::studly(\str_replace('FieldControl', '', \class_basename($this)));
     }
 
-    public function getSpecialParams(): array|string
+    public function getConfigParams(): array|string
     {
         return [];
     }
@@ -44,5 +44,20 @@ abstract class AbstractFieldControl implements FieldControl
     public function getModelUseTraits(): array
     {
         return [];
+    }
+
+    public function getFormCodeFragment(): string
+    {
+        return '';
+    }
+
+    public function getIndexColumnFragment(): array
+    {
+        return [];
+    }
+
+    public function getIndexQueryFragment(): string
+    {
+        return '';
     }
 }
