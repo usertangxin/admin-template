@@ -4,7 +4,7 @@ namespace Modules\CrudGenerate\Classes;
 
 class FieldControlString extends AbstractFieldControl
 {
-    public function getConfigParams(): array|string
+    public function getSpecialParams(): array|string
     {
         // return [
         //     new SpecialParamLength,

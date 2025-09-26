@@ -4,7 +4,7 @@ namespace Modules\CrudGenerate\Classes;
 
 class FieldControlEnum extends AbstractFieldControl
 {
-    public function getConfigParams(): array
+    public function getSpecialParams(): array
     {
         return [
             new SpecialParamAllowedCustom(required: true),

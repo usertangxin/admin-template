@@ -6,7 +6,7 @@ use Modules\Admin\Services\SystemDictService;
 
 class FieldControlEnumDict extends AbstractFieldControl
 {
-    public function getConfigParams(): array
+    public function getSpecialParams(): array
     {
         return [
             new SpecialParamDictGroupSelect(required: true),

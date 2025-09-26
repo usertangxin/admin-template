@@ -4,7 +4,7 @@ namespace Modules\CrudGenerate\Classes;
 
 class FieldControlUnsignedBigInteger extends AbstractFieldControl
 {
-    public function getConfigParams(): array
+    public function getSpecialParams(): array
     {
         return [
             new SpecialParamYesOrNo('是否自增', 'autoIncrement'),
