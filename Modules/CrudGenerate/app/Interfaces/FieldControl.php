@@ -46,7 +46,7 @@ interface FieldControl
     /**
      * 列表页列代码片段
      */
-    public function getIndexColumnPropFragment(): array;
+    public function getIndexColumnFragment(): array;
 
     /**
      * 列表页查询代码片段

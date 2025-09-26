@@ -14,7 +14,7 @@ class FieldControlEnum extends AbstractFieldControl
     public function getMigrateCodeFragment(): string
     {
         // 1. 提取allowed数组并做默认值处理（避免未定义报错）
-        $allowedValues = $this->innerGetConfigParam('allowed', []);
+        $allowedValues = $this->innerGetSpecialParam('allowed', []);
 
         // 2. 校验是否为有效数组，非数组则返回空枚举（或根据业务需求调整默认值）
         if (! is_array($allowedValues)) {

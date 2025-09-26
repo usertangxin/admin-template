@@ -14,7 +14,7 @@ class FieldControlUnsignedBigInteger extends AbstractFieldControl
     public function getMigrateCodeFragment(): string
     {
         $autoIncrement = '';
-        if ($autoIncrement = $this->innerGetConfigParam('autoIncrement', 'no')) {
+        if ($autoIncrement = $this->innerGetSpecialParam('autoIncrement', 'no')) {
             $autoIncrement = ', ' . ($autoIncrement == 'yes' ? 'true' : 'false');
         }
 

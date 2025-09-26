@@ -2,7 +2,7 @@
 
 namespace Modules\CrudGenerate\Tests\Unit;
 
-use Modules\CrudGenerate\Classes\FieldControlDatePicker;
+use Modules\CrudGenerate\Classes\PageViewControlDatePicker;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
@@ -12,7 +12,7 @@ class PageViewControlDatePickerTest extends TestCase
     #[DataProvider('formCodeFragmentProvider')]
     public function test_get_form_code_fragment(array $params, array $expectedStrings)
     {
-        $class = $this->app->make(FieldControlDatePicker::class);
+        $class = $this->app->make(PageViewControlDatePicker::class);
         $class->make([
             'field_name'                       => 'aaa',
             'comment'                          => '测试',

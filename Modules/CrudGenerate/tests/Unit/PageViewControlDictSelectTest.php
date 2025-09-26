@@ -2,7 +2,7 @@
 
 namespace Modules\CrudGenerate\Tests\Unit;
 
-use Modules\CrudGenerate\Classes\FieldControlDictSelect;
+use Modules\CrudGenerate\Classes\PageViewControlDictSelect;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
 use Tests\TestCase;
 
@@ -10,7 +10,7 @@ class PageViewControlDictSelectTest extends TestCase
 {
     public function test_get_form_code_fragment()
     {
-        $class = $this->app->make(FieldControlDictSelect::class);
+        $class = $this->app->make(PageViewControlDictSelect::class);
         $class->make(['field_name' => 'aaa', 'comment' => '测试', 'page_view_control_special_params' => [
             'allow-clear'  => 'yes',
             'allow-search' => 'yes',

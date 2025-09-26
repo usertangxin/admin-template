@@ -19,7 +19,7 @@ class FieldControlString extends AbstractFieldControl
     public function getMigrateCodeFragment(): string
     {
         $lengthStr = '';
-        if ($length = $this->innerGetConfigParam('length', null)) {
+        if ($length = $this->innerGetSpecialParam('length', null)) {
             $lengthStr = ', ' . $length;
         }
 

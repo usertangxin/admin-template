@@ -2,7 +2,7 @@
 
 namespace Modules\CrudGenerate\Tests\Unit;
 
-use Modules\CrudGenerate\Classes\FieldControlDictRadio;
+use Modules\CrudGenerate\Classes\PageViewControlDictRadio;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
 use Tests\TestCase;
 
@@ -10,7 +10,7 @@ class PageViewControlDictRadioTest extends TestCase
 {
     public function test_get_form_code_fragment()
     {
-        $class = $this->app->make(FieldControlDictRadio::class);
+        $class = $this->app->make(PageViewControlDictRadio::class);
         $class->make(['field_name' => 'aaa', 'comment' => '测试', 'page_view_control_special_params' => [
             'dict_code' => 'data_status',
         ]], [], new SystemCrudHistory);

@@ -2,7 +2,7 @@
 
 namespace Modules\CrudGenerate\Tests\Unit;
 
-use Modules\CrudGenerate\Classes\FieldControlRemoteSelect;
+use Modules\CrudGenerate\Classes\PageViewControlRemoteSelect;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
@@ -12,7 +12,7 @@ class PageViewControlRemoteSelectTest extends TestCase
     #[DataProvider('formCodeFragmentProvider')]
     public function test_get_form_code_fragment(array $params, array $expectedStrings)
     {
-        $class = $this->app->make(FieldControlRemoteSelect::class);
+        $class = $this->app->make(PageViewControlRemoteSelect::class);
         $class->make([
             'field_name'                       => 'remote_select',
             'comment'                          => '远程选择',

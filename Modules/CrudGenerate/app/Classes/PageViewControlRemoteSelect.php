@@ -2,12 +2,11 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-class FieldControlRemoteSelect extends AbstractFieldControl
+class PageViewControlRemoteSelect extends AbstractPageViewControl
 {
-    public function getConfigParams(): array|string
+    public function getSpecialParams(): array|string
     {
         return [
-            new SpecialParamAllowedRadio('字段类型', 'field_type', ['string', 'uuid', 'text', 'longText','integer', 'unsignedInteger', 'unsignedBigInteger', 'float', 'double', 'decimal'], defaultValue: 'integer'),
             new SpecialParamInput('远程接口', 'url', placeholder: '请输入远程接口', required: true),
             new SpecialParamInput('标签字段', 'label-field', placeholder: '请输入标签字段'),
             new SpecialParamInput('值字段', 'value-field', placeholder: '请输入值字段'),
@@ -15,19 +14,7 @@ class FieldControlRemoteSelect extends AbstractFieldControl
             new SpecialParamYesOrNo('允许清除', 'allow-clear'),
             new SpecialParamYesOrNo('多选', 'multiple'),
             new SpecialParamYesOrNo('允许搜索', 'allow-search'),
-            new SpecialParamYesOrNo('多选查询', 'mul_select'),
         ];
-    }
-
-    public function getIndexQueryFragment(): string {
-        // TODO
-        return '';
-    }
-
-    public function getMigrateCodeFragment(): string
-    {
-        // TODO 其他类型
-        return 'string(\'' . $this->field['field_name'] . '\')';
     }
 
     public function getQueryParams(): array|string
@@ -40,13 +27,13 @@ class FieldControlRemoteSelect extends AbstractFieldControl
     public function getFormCodeFragment(): string
     {
 
-        $url         = $this->innerGetConfigParam('url', '');
-        $labelField  = $this->innerGetConfigParam('label-field', 'name');
-        $valueField  = $this->innerGetConfigParam('value-field', 'id');
-        $dataField   = $this->innerGetConfigParam('data-field', 'data');
-        $allowClear  = $this->innerGetConfigParam('allow-clear', 'no');
-        $multiple    = $this->innerGetConfigParam('multiple', 'no');
-        $allowSearch = $this->innerGetConfigParam('allow-search', 'no');
+        $url         = $this->innerGetSpecialParam('url', '');
+        $labelField  = $this->innerGetSpecialParam('label-field', 'name');
+        $valueField  = $this->innerGetSpecialParam('value-field', 'id');
+        $dataField   = $this->innerGetSpecialParam('data-field', 'data');
+        $allowClear  = $this->innerGetSpecialParam('allow-clear', 'no');
+        $multiple    = $this->innerGetSpecialParam('multiple', 'no');
+        $allowSearch = $this->innerGetSpecialParam('allow-search', 'no');
         $attrs       = '';
 
         $attrs .= " url=\"{$url}\"";

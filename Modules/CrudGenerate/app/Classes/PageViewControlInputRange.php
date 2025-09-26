@@ -2,10 +2,9 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-class FieldControlInputRange extends AbstractFieldControl
+class PageViewControlInputRange extends AbstractPageViewControl
 {
-   
-    public function getConfigParams(): array|string
+    public function getSpecialParams(): array|string
     {
         return [
             new SpecialParamInputRange,
@@ -14,23 +13,12 @@ class FieldControlInputRange extends AbstractFieldControl
         ];
     }
 
-    public function getIndexQueryFragment(): string
-    {
-        // TODO
-        return '';
-    }
-
-    public function getMigrateCodeFragment(): string
-    {
-        return 'json(\'' . $this->field['field_name'] . '\')';
-    }
-
     public function getFormCodeFragment(): string
     {
         $attrs     = '';
-        $range     = $this->innerGetConfigParam('range', []);
-        $precision = $this->innerGetConfigParam('precision', null);
-        $step      = $this->innerGetConfigParam('step', null);
+        $range     = $this->innerGetSpecialParam('range', []);
+        $precision = $this->innerGetSpecialParam('precision', null);
+        $step      = $this->innerGetSpecialParam('step', null);
         if ($range) {
             $attrs .= " :min=\"{$range[0]}\" :max=\"{$range[1]}\"";
         }

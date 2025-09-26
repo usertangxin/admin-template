@@ -16,7 +16,7 @@ class FieldControlEnumDict extends AbstractFieldControl
     public function getMigrateCodeFragment(): string
     {
         $systemDictService = \app(SystemDictService::class);
-        $dictCode          = $this->innerGetConfigParam('dict_code');
+        $dictCode          = $this->innerGetSpecialParam('dict_code');
         $allowedValues     = $systemDictService->getValuesByCode($dictCode)->toArray();
 
         // 3. 将数组元素转换为带单引号的字符串（处理字符串/数字类型元素）
