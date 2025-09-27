@@ -21,7 +21,7 @@ class CrudGenerateController extends AbstractCrudController
     public function getControls(FieldControlService $field_control_service, PageViewControlService $page_view_control_service)
     {
         return $this->success([
-            'field_controls' => $field_control_service->jsonSerialize(),
+            'field_controls'     => $field_control_service->jsonSerialize(),
             'page_view_controls' => $page_view_control_service->jsonSerialize(),
         ]);
     }

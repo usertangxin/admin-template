@@ -45,7 +45,7 @@ abstract class AbstractPageViewControl implements PageViewControl
     {
         return [];
     }
-    
+
     public function getQueryParams(): array|string
     {
         return [];
@@ -54,6 +54,11 @@ abstract class AbstractPageViewControl implements PageViewControl
     protected function innerGetSpecialParam(string $name, mixed $default = null)
     {
         return $this->field['page_view_control_special_params'][$name] ?? $default;
+    }
+
+    protected function innerGetQueryParam(string $name, mixed $default = null)
+    {
+        return $this->field['page_view_control_query_params'][$name] ?? $default;
     }
 
     public function getIndexColumnFragment(): array
@@ -66,8 +71,8 @@ abstract class AbstractPageViewControl implements PageViewControl
         return [];
     }
 
-    public function getIndexQueryFragment(): string
-    {
-        return '';
-    }
+    // public function getIndexQueryFragment(): string
+    // {
+    //     return '';
+    // }
 }

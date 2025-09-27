@@ -47,4 +47,22 @@ class PageViewControlSwitch extends AbstractPageViewControl
             </a-form-item>
         code;
     }
+
+    public function getIndexQueryFragment(): string
+    {
+        $options = [
+            ['label' => $this->innerGetSpecialParam('checked-text'), 'value' => $this->innerGetSpecialParam('checked-value')],
+            ['label' => $this->innerGetSpecialParam('unchecked-text'), 'value' => $this->innerGetSpecialParam('unchecked-value')],
+        ];
+
+        $options = json_encode($options, JSON_UNESCAPED_UNICODE);
+
+        return <<<code
+            <search-col>
+                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                     <a-select v-model="store.searchQuery.{$this->getFieldName()}" :options='$options'"></a-select>
+                </a-form-item>
+            </search-col>
+        code;
+    }
 }

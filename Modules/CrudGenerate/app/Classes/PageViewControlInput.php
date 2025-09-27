@@ -4,10 +4,9 @@ namespace Modules\CrudGenerate\Classes;
 
 class PageViewControlInput extends AbstractPageViewControl
 {
-
     public function getQueryParams(): array|string
     {
-        return <<<code
+        return <<<'code'
             <a-form-item label="是否模糊查询" field="query_like">
                 <dict-radio v-model="params.query_like" code="yes_or_no" default-value="no"></dict-radio>
             </a-form-item>

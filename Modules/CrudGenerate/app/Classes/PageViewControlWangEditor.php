@@ -17,4 +17,9 @@ class PageViewControlWangEditor extends AbstractPageViewControl
             </a-form-item>
         code;
     }
+
+    public function getIndexQueryFragment(): string
+    {
+        return '';
+    }
 }

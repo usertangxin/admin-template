@@ -19,6 +19,24 @@ class PageViewControlRate extends AbstractPageViewControl
         ];
     }
 
+    public function getIndexQueryFragment(): string
+    {
+        $range_query = $this->innerGetQueryParam('range_query', 'no');
+        $input_type  = 'a-input-number';
+
+        if ($range_query === 'yes') {
+            $input_type = 'input-range';
+        }
+
+        return <<<code
+            <search-col>
+                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                    <{$input_type} v-model="store.searchQuery.{$this->getFieldName()}" placeholder="请输入{$this->getComment()}"></{$input_type}>
+                </a-form-item>
+            </search-col>
+        code;
+    }
+
     public function getFormCodeFragment(): string
     {
         $attrs     = '';

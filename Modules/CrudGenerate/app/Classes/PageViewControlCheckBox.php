@@ -13,9 +13,7 @@ class PageViewControlCheckBox extends AbstractPageViewControl
 
     public function getQueryParams(): array|string
     {
-        return [
-            new SpecialParamYesOrNo('多选查询', 'mul_select'),
-        ];
+        return [];
     }
 
     public function getFormCodeFragment(): string
@@ -50,7 +48,7 @@ class PageViewControlCheckBox extends AbstractPageViewControl
         return <<<code
             <search-col>
                 <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
-                     <a-checkbox-group v-model="formData.{$this->getFieldName()}" :options='$options'"></a-checkbox-group>
+                     <a-select v-model="store.searchQuery.{$this->getFieldName()}" :options='$options'"></a-select>
                 </a-form-item>
             </search-col>
         code;

@@ -35,4 +35,24 @@ class PageViewControlRadio extends AbstractPageViewControl
             </a-form-item>
         code;
     }
+
+    public function getIndexQueryFragment(): string
+    {
+        $options = [];
+
+        $kv = $this->innerGetSpecialParam('kv', []);
+        foreach ($kv as $item) {
+            $options[] = ['label' => $item[0], 'value' => $item[1]];
+        }
+
+        $options = json_encode($options, JSON_UNESCAPED_UNICODE);
+
+        return <<<code
+            <search-col>
+                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                     <a-select v-model="store.searchQuery.{$this->getFieldName()}" :options='$options'"></a-select>
+                </a-form-item>
+            </search-col>
+        code;
+    }
 }

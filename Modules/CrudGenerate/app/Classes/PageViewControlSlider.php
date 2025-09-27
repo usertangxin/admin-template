@@ -9,7 +9,6 @@ class PageViewControlSlider extends AbstractPageViewControl
         return [
             new SpecialParamStep,
             new SpecialParamInputRange(defaultValue: [0, 100], name: 'range-value'),
-            new SpecialParamYesOrNo('范围选择', 'range'),
             new SpecialParamYesOrNo('显示刻度', 'show-ticks'),
             new SpecialParamYesOrNo('显示输入框', 'show-input'),
             new SpecialParamKv('标签', 'marks', inputAttrs: ['keyTitle' => '显示内容', 'valueTitle' => '值']),
@@ -61,6 +60,24 @@ class PageViewControlSlider extends AbstractPageViewControl
             <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
                 <a-slider v-model="formData.{$this->getFieldName()}" :marks='$options'$attrs></a-slider>
             </a-form-item>
+        code;
+    }
+
+    public function getIndexQueryFragment(): string
+    {
+        $range_query = $this->innerGetQueryParam('range_query', 'no');
+        $input_type  = 'a-input-number';
+
+        if ($range_query === 'yes') {
+            $input_type = 'input-range';
+        }
+
+        return <<<code
+            <search-col>
+                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                    <{$input_type} v-model="store.searchQuery.{$this->getFieldName()}" placeholder="请输入{$this->getComment()}"></{$input_type}>
+                </a-form-item>
+            </search-col>
         code;
     }
 }

@@ -16,9 +16,7 @@ class PageViewControlSelect extends AbstractPageViewControl
 
     public function getQueryParams(): array|string
     {
-        return [
-            new SpecialParamYesOrNo('多选查询', 'mul_select'),
-        ];
+        return [];
     }
 
     public function getFormCodeFragment(): string
@@ -53,6 +51,26 @@ class PageViewControlSelect extends AbstractPageViewControl
             <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
                 <a-select v-model="formData.{$this->getFieldName()}" :options='$options' placeholder="请选择{$this->getComment()}"$attrs></a-select>
             </a-form-item>
+        code;
+    }
+
+    public function getIndexQueryFragment(): string
+    {
+        $options = [];
+
+        $kv = $this->innerGetSpecialParam('kv', []);
+        foreach ($kv as $item) {
+            $options[] = ['label' => $item[0], 'value' => $item[1]];
+        }
+
+        $options = json_encode($options, JSON_UNESCAPED_UNICODE);
+
+        return <<<code
+            <search-col>
+                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                     <a-select v-model="store.searchQuery.{$this->getFieldName()}" :options='$options'"></a-select>
+                </a-form-item>
+            </search-col>
         code;
     }
 }

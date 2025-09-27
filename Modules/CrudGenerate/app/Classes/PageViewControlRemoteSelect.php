@@ -19,9 +19,7 @@ class PageViewControlRemoteSelect extends AbstractPageViewControl
 
     public function getQueryParams(): array|string
     {
-        return [
-            new SpecialParamYesOrNo('多选查询', 'mul_select'),
-        ];
+        return [];
     }
 
     public function getFormCodeFragment(): string
@@ -57,6 +55,29 @@ class PageViewControlRemoteSelect extends AbstractPageViewControl
             <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
                 <remote-select v-model="formData.{$this->getFieldName()}" placeholder="请搜索选择{$this->getComment()}"$attrs></remote-select>
             </a-form-item>
+        code;
+    }
+
+    public function getIndexQueryFragment(): string
+    {
+        $attrs = ' allow-clear allow-search';
+
+        $url        = $this->innerGetSpecialParam('url', '');
+        $labelField = $this->innerGetSpecialParam('label-field', 'name');
+        $valueField = $this->innerGetSpecialParam('value-field', 'id');
+        $dataField  = $this->innerGetSpecialParam('data-field', 'data');
+
+        $attrs .= " url=\"{$url}\"";
+        $attrs .= " label-field=\"{$labelField}\"";
+        $attrs .= " value-field=\"{$valueField}\"";
+        $attrs .= " data-field=\"{$dataField}\"";
+
+        return <<<code
+            <search-col>
+                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                    <remote-select v-model="store.searchQuery.{$this->getFieldName()}" placeholder="请搜索选择{$this->getComment()}"$attrs></remote-select>
+                </a-form-item>
+            </search-col>
         code;
     }
 }

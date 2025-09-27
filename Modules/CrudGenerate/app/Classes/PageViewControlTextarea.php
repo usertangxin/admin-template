@@ -58,4 +58,15 @@ class PageViewControlTextarea extends AbstractPageViewControl
             </a-form-item>
         code;
     }
+
+    public function getIndexQueryFragment(): string
+    {
+        return <<<code
+            <search-col>
+                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                    <a-input v-model="store.searchQuery.{$this->getFieldName()}" placeholder="请输入{$this->getComment()}"></a-input>
+                </a-form-item>
+            </search-col>
+        code;
+    }
 }
