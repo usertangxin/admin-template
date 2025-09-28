@@ -1,0 +1,29 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Admin\Models\AbstractSoftDelModel;
+use Modules\Admin\Models\AbstractModel;
+
+class $CLASS$ extends $PARENT_MODEL$
+{
+
+    $TRAITS$
+
+    protected $table = '$TABLE$';
+
+    /**
+     * The attributes that are mass assignable.
+     */
+    protected $fillable = [
+$FILLABLE$
+    ];
+
+    protected $casts = [
+        $CASTS$
+    ];
+
+    $SCOPES$
+}

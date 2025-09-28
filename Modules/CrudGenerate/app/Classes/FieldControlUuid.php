@@ -15,8 +15,12 @@ class FieldControlUuid extends AbstractFieldControl
 
     public function getModelUseTraits(): array
     {
-        return [
-            HasUuids::class,
-        ];
+        if ($this->crudHistory->primary_key == $this->getFieldName()) {
+            return [
+                HasUuids::class,
+            ];
+        }
+
+        return [];
     }
 }

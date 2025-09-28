@@ -27,6 +27,7 @@ class PageViewControlRate extends AbstractPageViewControl
         if ($this->innerGetQueryParam('range_query', 'no') == 'yes') {
             $name = $this->getFieldName();
             $name = Str::studly($name);
+
             return <<<code
                 protected function scope{$name}(Builder \$query, \$value)
                 {

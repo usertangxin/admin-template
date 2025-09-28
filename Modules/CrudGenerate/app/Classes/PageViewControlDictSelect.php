@@ -36,7 +36,7 @@ class PageViewControlDictSelect extends AbstractPageViewControl
                 \$query->whereJsonContains('{$this->getFieldName()}', \$value);
             }
         code;
-        
+
     }
 
     public function getFormCodeFragment(): string

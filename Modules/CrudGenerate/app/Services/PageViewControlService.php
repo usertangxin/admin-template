@@ -128,4 +128,42 @@ class PageViewControlService implements JsonSerializable
 
         return $content;
     }
+
+    public function analysisQueryScopeFragment(SystemCrudHistory $crudHistory)
+    {
+        $column_list = $crudHistory->column_list;
+        $content     = '';
+
+        foreach ($column_list as $column) {
+            if ($column['gen_query'] == 'yes') {
+                $pageViewControl = $this->pageViewControls[$column['page_view_control']];
+                $pageViewControl->make($column, $column_list, $crudHistory);
+                $fragment = $pageViewControl->getQueryScopeFragment();
+                $content .= $fragment . PHP_EOL;
+            }
+        }
+
+        return $content;
+    }
+
+    public function analysisCasts(SystemCrudHistory $crudHistory)
+    {
+        $casts = '';
+        $column_list = $crudHistory->column_list;
+        foreach ($column_list as $column) {
+            $pageViewControls = $this->pageViewControls[$column['page_view_control']];
+            $pageViewControls->make($column, $column_list, $crudHistory);
+            $cast = $pageViewControls->getCast();
+            if ($cast) {
+                if (!class_exists($cast)) {
+                    $cast = '\'' . $cast . '\'';
+                }
+                $casts .= <<<CODE
+        '{$column['field_name']}' => $cast,
+CODE;
+            }
+        }
+
+        return $casts;
+    }
 }

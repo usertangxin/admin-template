@@ -22,6 +22,7 @@ class SystemCrudHistoryRequest extends FormRequest
             'gen_mode'         => 'required|in:app,module',
             'gen_class_name'   => 'required|string',
             'column_list'      => 'required|array',
+            'module_name'      => 'string|nullable',
         ];
     }
 

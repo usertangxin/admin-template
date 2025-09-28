@@ -50,4 +50,6 @@ interface PageViewControl
      * 查询查询范围代码片段
      */
     public function getQueryScopeFragment(): string;
+
+    public function getCast(): ?string;
 }

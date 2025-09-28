@@ -35,6 +35,7 @@ class AsCrudFieldList implements CastsAttributes
                 'gen_sort'                         => $item['gen_sort'], // 是否参与排序
                 'page_view_control'                => $item['page_view_control'], // 页面控件
                 'page_view_control_special_params' => $item['page_view_control_special_params'], // 特有参数
+                'page_view_control_query_params' => $item['page_view_control_query_params'], // 查询参数
             ];
         }
 

@@ -41,7 +41,7 @@ class PageViewControlTextarea extends AbstractPageViewControl
     public function getQueryScopeFragment(): string
     {
 
-        if ($this->innerGetSpecialParam('query_like', 'yes') != 'yes') {
+        if ($this->innerGetQueryParam('query_like', 'yes') != 'yes') {
             return '';
         }
 

@@ -27,19 +27,32 @@ class CrudGenerateTest extends AbstractAuthTestCase
                     'field_name'                   => 'id',
                     'comment'                      => '主键',
                     'default_value'                => null,
-                    'field_control'                => 'Dict',
-                    'field_control_special_params' => [
-                        'precision' => '0',
-                        'allowed'   => ['1', '2'],
-                        'length'    => 100,
-                        'dict_code' => 'storage_mode',
-                    ],
+                    'field_control'                => 'Uuid',
+                    'field_control_special_params' => [],
                     'page_view_control'                => null,
                     'page_view_control_special_params' => [],
+                    'page_view_control_query_params' => [],
                     'nullable'                         => 'no',
                     'gen_form'                         => 'yes',
                     'gen_index'                        => 'yes',
                     'gen_query'                        => 'no',
+                    'gen_sort'                         => 'no',
+                ],
+                [
+                    'field_name'                   => 'name',
+                    'comment'                      => '姓名',
+                    'default_value'                => null,
+                    'field_control'                => 'String',
+                    'field_control_special_params' => [],
+                    'page_view_control'                => "Input",
+                    'page_view_control_special_params' => [],
+                    'page_view_control_query_params' => [
+                        'query_like' => 'yes',
+                    ],
+                    'nullable'                         => 'no',
+                    'gen_form'                         => 'yes',
+                    'gen_index'                        => 'yes',
+                    'gen_query'                        => 'yes',
                     'gen_sort'                         => 'no',
                 ],
             ],
@@ -52,9 +65,18 @@ class CrudGenerateTest extends AbstractAuthTestCase
         // $fieldControlService = $this->app->make(FieldControlService::class);
         // $fieldFragment = $fieldControlService->analysisFieldContent($history);
         // \dd($fieldFragment);
+        // $casts = $fieldControlService->analysisCasts($history);
+        // \dd($casts);
+        // $fillable = $fieldControlService->analysisFillable($history);
+        // \dd($fillable);
+        // $use_traits = $fieldControlService->analysisUseTraits($history);
+        // \dd($use_traits);
 
         // $crudGenerateService = $this->app->make(CrudGenerateService::class);
         // $migrationContent = $crudGenerateService->getMigrationContent($history);
         // \dd($migrationContent);
+        // dd($history->toArray());
+        // $modelContent = $crudGenerateService->getModelContent($history);
+        // \dd($modelContent);
     }
 }

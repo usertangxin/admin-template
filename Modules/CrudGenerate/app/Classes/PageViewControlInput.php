@@ -18,7 +18,7 @@ class PageViewControlInput extends AbstractPageViewControl
     public function getQueryScopeFragment(): string
     {
 
-        if ($this->innerGetSpecialParam('query_like', 'no') != 'yes') {
+        if ($this->innerGetQueryParam('query_like', 'no') != 'yes') {
             return '';
         }
 
@@ -30,7 +30,7 @@ class PageViewControlInput extends AbstractPageViewControl
                 \$query->where('{$this->getFieldName()}', 'like', "%\$value%");
             }
         code;
-        
+
     }
 
     public function getFormCodeFragment(): string

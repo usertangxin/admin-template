@@ -75,4 +75,9 @@ abstract class AbstractPageViewControl implements PageViewControl
     // {
     //     return '';
     // }
+
+    public function getCast(): ?string
+    {
+        return null;
+    }
 }

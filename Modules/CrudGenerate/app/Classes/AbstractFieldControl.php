@@ -31,6 +31,16 @@ abstract class AbstractFieldControl implements FieldControl
         return Str::studly(\str_replace('FieldControl', '', \class_basename($this)));
     }
 
+    public function getFieldName()
+    {
+        return $this->field['field_name'];
+    }
+
+    public function getComment()
+    {
+        return $this->field['comment'];
+    }
+
     public function getSpecialParams(): array|string
     {
         return [];

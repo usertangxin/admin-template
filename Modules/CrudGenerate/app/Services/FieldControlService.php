@@ -74,6 +74,39 @@ class FieldControlService implements JsonSerializable
         return isset($this->fieldControls[$name instanceof FieldControl ? $name->getName() : $name]);
     }
 
+    public function analysisUseTraits(SystemCrudHistory $crudHistory)
+    {
+        $use_traits = [];
+        $column_list = $crudHistory->column_list;
+        foreach ($column_list as $column) {
+            $fieldControl = $this->fieldControls[$column['field_control']];
+            $fieldControl->make($column, $column_list, $crudHistory);
+            $use_traits = array_merge($use_traits, $fieldControl->getModelUseTraits());
+        }
+
+        $traits = implode(', ', $use_traits);
+        $traits = $traits ? 'use ' . $traits . ';' : '';
+
+        return $traits;
+    }
+
+    public function analysisFillable(SystemCrudHistory $crudHistory)
+    {
+        $fillable = '';
+        $column_list = $crudHistory->column_list;
+        foreach ($column_list as $column) {
+            if ($column['gen_form'] == 'yes') {
+                $fieldControl = $this->fieldControls[$column['field_control']];
+                $fillable .= <<<CODE
+        '{$column['field_name']}',
+
+CODE;
+            }
+        }
+
+        return $fillable;
+    }
+
     public function analysisFieldContent(SystemCrudHistory $crudHistory)
     {
         $column_list = $crudHistory->column_list;

@@ -27,6 +27,7 @@ class PageViewControlDictRadio extends AbstractPageViewControl
         if ($mul_select == 'yes') {
             $name = $this->getFieldName();
             $name = Str::studly($name);
+
             return <<<code
                 protected function scope{$name}(Builder \$query, \$value)
                 {
