@@ -2,6 +2,8 @@
 
 namespace Modules\CrudGenerate\Classes;
 
+use Illuminate\Support\Str;
+
 class PageViewControlTextarea extends AbstractPageViewControl
 {
     public function getSpecialParams(): array|string
@@ -24,6 +26,32 @@ class PageViewControlTextarea extends AbstractPageViewControl
             <a-form-item label="是否允许清空">
                 <dict-radio v-model="params.allow_clear" code="yes_or_no" default-value="no"></dict-radio>
             </a-form-item>
+        code;
+    }
+
+    public function getQueryParams(): array|string
+    {
+        return <<<'code'
+            <a-form-item label="是否模糊查询" field="query_like">
+                <dict-radio v-model="params.query_like" code="yes_or_no" default-value="yes"></dict-radio>
+            </a-form-item>
+        code;
+    }
+
+    public function getQueryScopeFragment(): string
+    {
+
+        if ($this->innerGetSpecialParam('query_like', 'yes') != 'yes') {
+            return '';
+        }
+
+        $name = Str::studly($this->getFieldName());
+
+        return <<<code
+            protected function scope{$name}(Builder \$query, \$value)
+            {
+                \$query->where('{$this->getFieldName()}', 'like', "%\$value%");
+            }
         code;
     }
 

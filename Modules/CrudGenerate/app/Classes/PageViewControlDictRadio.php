@@ -2,6 +2,8 @@
 
 namespace Modules\CrudGenerate\Classes;
 
+use Illuminate\Support\Str;
+
 class PageViewControlDictRadio extends AbstractPageViewControl
 {
     public function getSpecialParams(): array|string
@@ -13,7 +15,31 @@ class PageViewControlDictRadio extends AbstractPageViewControl
 
     public function getQueryParams(): array|string
     {
-        return [];
+        return [
+            new SpecialParamYesOrNo('多选查询', 'mul_select'),
+        ];
+    }
+
+    public function getQueryScopeFragment(): string
+    {
+        $mul_select = $this->innerGetQueryParam('mul_select', 'no');
+
+        if ($mul_select == 'yes') {
+            $name = $this->getFieldName();
+            $name = Str::studly($name);
+            return <<<code
+                protected function scope{$name}(Builder \$query, \$value)
+                {
+                    if (\$value && is_array(\$value) && count(\$value) > 0) {
+                        \$query->whereIn('{$this->getFieldName()}', \$value);
+                    } else {
+                        \$query->where('{$this->getFieldName()}', \$value);
+                    }
+                }
+            code;
+        }
+
+        return '';
     }
 
     public function getFormCodeFragment(): string

@@ -16,6 +16,11 @@ class PageViewControlCheckBox extends AbstractPageViewControl
         return [];
     }
 
+    public function getQueryScopeFragment(): string
+    {
+        return '';
+    }
+
     public function getFormCodeFragment(): string
     {
         $options = [];

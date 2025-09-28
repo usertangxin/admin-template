@@ -2,6 +2,8 @@
 
 namespace Modules\CrudGenerate\Classes;
 
+use Illuminate\Support\Str;
+
 class PageViewControlInput extends AbstractPageViewControl
 {
     public function getQueryParams(): array|string
@@ -11,6 +13,24 @@ class PageViewControlInput extends AbstractPageViewControl
                 <dict-radio v-model="params.query_like" code="yes_or_no" default-value="no"></dict-radio>
             </a-form-item>
         code;
+    }
+
+    public function getQueryScopeFragment(): string
+    {
+
+        if ($this->innerGetSpecialParam('query_like', 'no') != 'yes') {
+            return '';
+        }
+
+        $name = Str::studly($this->getFieldName());
+
+        return <<<code
+            protected function scope{$name}(Builder \$query, \$value)
+            {
+                \$query->where('{$this->getFieldName()}', 'like', "%\$value%");
+            }
+        code;
+        
     }
 
     public function getFormCodeFragment(): string

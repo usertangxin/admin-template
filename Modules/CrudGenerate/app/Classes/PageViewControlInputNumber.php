@@ -2,6 +2,8 @@
 
 namespace Modules\CrudGenerate\Classes;
 
+use Illuminate\Support\Str;
+
 class PageViewControlInputNumber extends AbstractPageViewControl
 {
     public function getSpecialParams(): array|string
@@ -19,6 +21,27 @@ class PageViewControlInputNumber extends AbstractPageViewControl
         return [
             new SpecialParamYesOrNo('范围查询', 'range_query'),
         ];
+    }
+
+    public function getQueryScopeFragment(): string
+    {
+
+        if ($this->innerGetQueryParam('range_query', 'no') == 'yes') {
+            $name = $this->getFieldName();
+            $name = Str::studly($name);
+            return <<<code
+                protected function scope{$name}(Builder \$query, \$value)
+                {
+                    if (\$value && is_array(\$value) && count(\$value) == 2) {
+                        \$query->whereBetween('{$this->getFieldName()}', \$value);
+                    } else {
+                        \$query->where('{$this->getFieldName()}', \$value);
+                    }
+                }
+            code;
+        }
+
+        return '';
     }
 
     public function getIndexQueryFragment(): string

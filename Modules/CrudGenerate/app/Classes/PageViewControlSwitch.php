@@ -15,6 +15,11 @@ class PageViewControlSwitch extends AbstractPageViewControl
         ];
     }
 
+    public function getQueryScopeFragment(): string
+    {
+        return '';
+    }
+
     public function getFormCodeFragment(): string
     {
 

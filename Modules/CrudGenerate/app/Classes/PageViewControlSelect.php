@@ -2,6 +2,8 @@
 
 namespace Modules\CrudGenerate\Classes;
 
+use Illuminate\Support\Str;
+
 class PageViewControlSelect extends AbstractPageViewControl
 {
     public function getSpecialParams(): array|string
@@ -17,6 +19,23 @@ class PageViewControlSelect extends AbstractPageViewControl
     public function getQueryParams(): array|string
     {
         return [];
+    }
+
+    public function getQueryScopeFragment(): string
+    {
+
+        if ($this->innerGetSpecialParam('multiple', 'no') != 'yes') {
+            return '';
+        }
+
+        $name = Str::studly($this->getFieldName());
+
+        return <<<code
+            protected function scope{$name}(Builder \$query, \$value)
+            {
+                \$query->whereJsonContains('{$this->getFieldName()}', \$value);
+            }
+        code;
     }
 
     public function getFormCodeFragment(): string

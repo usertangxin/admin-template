@@ -31,6 +31,11 @@ class PageViewControlUploadImage extends AbstractPageViewControl
         code;
     }
 
+    public function getQueryScopeFragment(): string
+    {
+        return '';
+    }
+
     public function getFormCodeFragment(): string
     {
         $attrs        = '';

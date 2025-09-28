@@ -9,6 +9,11 @@ class PageViewControlWangEditor extends AbstractPageViewControl
         return [];
     }
 
+    public function getQueryScopeFragment(): string
+    {
+        return '';
+    }
+
     public function getFormCodeFragment(): string
     {
         return <<<code
