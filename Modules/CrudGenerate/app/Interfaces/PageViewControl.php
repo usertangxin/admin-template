@@ -53,7 +53,6 @@ interface PageViewControl
 
     /**
      * 数据库字段类型转换
-     * @return null|string 
      */
     public function getCast(): ?string;
 }

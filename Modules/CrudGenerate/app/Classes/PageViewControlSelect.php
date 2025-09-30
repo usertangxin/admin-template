@@ -27,6 +27,7 @@ class PageViewControlSelect extends AbstractPageViewControl
         if ($this->innerGetSpecialParam('multiple', 'no') != 'yes') {
             return null;
         }
+
         return AsArrayObject::class;
     }
 

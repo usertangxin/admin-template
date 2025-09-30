@@ -86,7 +86,7 @@ class PageViewControlService implements JsonSerializable
         $content     = '';
         foreach ($column_list as $column) {
             if ($column['gen_index'] == 'yes') {
-                if (!$column['page_view_control']) {
+                if (! $column['page_view_control']) {
                     continue;
                 }
                 $pageViewControl = $this->pageViewControls[$column['page_view_control']];
@@ -114,7 +114,7 @@ class PageViewControlService implements JsonSerializable
         $content     = '';
         foreach ($column_list as $column) {
             if ($column['gen_form'] == 'yes') {
-                if (!$column['page_view_control']) {
+                if (! $column['page_view_control']) {
                     continue;
                 }
                 $pageViewControl = $this->pageViewControls[$column['page_view_control']];
@@ -142,7 +142,7 @@ class PageViewControlService implements JsonSerializable
 
         foreach ($column_list as $column) {
             if ($column['gen_query'] == 'yes') {
-                if (!$column['page_view_control']) {
+                if (! $column['page_view_control']) {
                     continue;
                 }
                 $pageViewControl = $this->pageViewControls[$column['page_view_control']];
@@ -157,10 +157,10 @@ class PageViewControlService implements JsonSerializable
 
     public function analysisCasts(SystemCrudHistory $crudHistory)
     {
-        $casts = '';
+        $casts       = '';
         $column_list = $crudHistory->column_list;
         foreach ($column_list as $column) {
-            if (!$column['page_view_control']) {
+            if (! $column['page_view_control']) {
                 continue;
             }
             $pageViewControls = $this->pageViewControls[$column['page_view_control']];

@@ -76,7 +76,7 @@ class FieldControlService implements JsonSerializable
 
     public function analysisUseTraits(SystemCrudHistory $crudHistory)
     {
-        $use_traits = [];
+        $use_traits  = [];
         $column_list = $crudHistory->column_list;
         foreach ($column_list as $column) {
             $fieldControl = $this->fieldControls[$column['field_control']];
@@ -92,7 +92,7 @@ class FieldControlService implements JsonSerializable
 
     public function analysisFillable(SystemCrudHistory $crudHistory)
     {
-        $fillable = '';
+        $fillable    = '';
         $column_list = $crudHistory->column_list;
         foreach ($column_list as $column) {
             if ($column['gen_form'] == 'yes') {
