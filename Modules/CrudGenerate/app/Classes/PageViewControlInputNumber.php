@@ -23,6 +23,22 @@ class PageViewControlInputNumber extends AbstractPageViewControl
         ];
     }
 
+    public function getCast(): ?string
+    {
+        $precision = $this->innerGetSpecialParam('precision', null);
+
+        if ($precision !== null) {
+            if ($precision <= 0) {
+                return 'integer';
+            }
+            if ($precision <= 2) {
+                return 'double';
+            }
+        }
+
+        return 'float';
+    }
+
     public function getQueryScopeFragment(): string
     {
 

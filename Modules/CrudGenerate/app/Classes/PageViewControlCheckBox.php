@@ -2,6 +2,8 @@
 
 namespace Modules\CrudGenerate\Classes;
 
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+
 class PageViewControlCheckBox extends AbstractPageViewControl
 {
     public function getSpecialParams(): array|string
@@ -57,5 +59,10 @@ class PageViewControlCheckBox extends AbstractPageViewControl
                 </a-form-item>
             </search-col>
         code;
+    }
+
+    public function getCast(): ?string
+    {
+        return AsArrayObject::class;
     }
 }

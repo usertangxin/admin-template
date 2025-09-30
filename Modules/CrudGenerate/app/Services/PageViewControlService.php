@@ -155,9 +155,7 @@ class PageViewControlService implements JsonSerializable
             $pageViewControls->make($column, $column_list, $crudHistory);
             $cast = $pageViewControls->getCast();
             if ($cast) {
-                if (!class_exists($cast)) {
-                    $cast = '\'' . $cast . '\'';
-                }
+                $cast = '\'' . $cast . '\'';
                 $casts .= <<<CODE
         '{$column['field_name']}' => $cast,
 CODE;

@@ -14,7 +14,6 @@ class PageViewControlRemoteSelect extends AbstractPageViewControl
             new SpecialParamInput('值字段', 'value-field', placeholder: '请输入值字段'),
             new SpecialParamInput('数据字段', 'data-field', placeholder: '请输入数据字段'),
             new SpecialParamYesOrNo('允许清除', 'allow-clear'),
-            new SpecialParamYesOrNo('多选', 'multiple'),
             new SpecialParamYesOrNo('允许搜索', 'allow-search'),
         ];
     }

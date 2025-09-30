@@ -21,6 +21,12 @@ class PageViewControlRate extends AbstractPageViewControl
         ];
     }
 
+    public function getCast(): ?string
+    {
+        return 'double';
+    }
+
+
     public function getQueryScopeFragment(): string
     {
 

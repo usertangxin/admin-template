@@ -2,6 +2,7 @@
 
 namespace Modules\CrudGenerate\Classes;
 
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Support\Str;
 
 class PageViewControlSelect extends AbstractPageViewControl
@@ -19,6 +20,14 @@ class PageViewControlSelect extends AbstractPageViewControl
     public function getQueryParams(): array|string
     {
         return [];
+    }
+
+    public function getCast(): ?string
+    {
+        if ($this->innerGetSpecialParam('multiple', 'no') != 'yes') {
+            return null;
+        }
+        return AsArrayObject::class;
     }
 
     public function getQueryScopeFragment(): string

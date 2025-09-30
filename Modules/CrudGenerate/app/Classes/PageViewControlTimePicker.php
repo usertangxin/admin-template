@@ -29,6 +29,11 @@ class PageViewControlTimePicker extends AbstractPageViewControl
         ];
     }
 
+    public function getCast(): ?string
+    {
+        return 'datetime:H:i:s';
+    }
+
     public function getQueryScopeFragment(): string
     {
 

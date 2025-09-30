@@ -2,6 +2,7 @@
 
 namespace Modules\CrudGenerate\Classes;
 
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Support\Str;
 
 class PageViewControlDictSelect extends AbstractPageViewControl
@@ -14,6 +15,14 @@ class PageViewControlDictSelect extends AbstractPageViewControl
             new SpecialParamYesOrNo('多选', 'multiple'),
             new SpecialParamYesOrNo('允许搜索', 'allow-search'),
         ];
+    }
+
+    public function getCast(): ?string
+    {
+        if ($this->innerGetSpecialParam('multiple', 'no') != 'yes') {
+            return null;
+        }
+        return AsArrayObject::class;
     }
 
     public function getQueryParams(): array|string

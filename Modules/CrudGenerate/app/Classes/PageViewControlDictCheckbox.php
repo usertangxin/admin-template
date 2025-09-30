@@ -2,6 +2,7 @@
 
 namespace Modules\CrudGenerate\Classes;
 
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Support\Str;
 
 class PageViewControlDictCheckbox extends AbstractPageViewControl
@@ -11,6 +12,11 @@ class PageViewControlDictCheckbox extends AbstractPageViewControl
         return [
             new SpecialParamDictGroupSelect(required: true),
         ];
+    }
+
+    public function getCast(): ?string
+    {
+        return AsArrayObject::class;
     }
 
     public function getQueryParams(): array|string

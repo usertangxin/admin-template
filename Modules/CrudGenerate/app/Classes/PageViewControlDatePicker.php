@@ -18,6 +18,32 @@ class PageViewControlDatePicker extends AbstractPageViewControl
         code;
     }
 
+    public function getCast(): ?string
+    {
+        $type = $this->innerGetSpecialParam('type', 'date');
+        if ($type == 'date') {
+            return 'datetime:Y-m-d';
+        }
+
+        if ($type == 'month') {
+            return 'datetime:Y-m';
+        }
+
+        if ($type == 'year') {
+            return 'datetime:Y';
+        }
+
+        if ($type == 'week') {
+            return 'datetime:oW';
+        }
+
+        if ($type == 'quarter') {
+            return 'datetime:Y-Q';
+        }
+
+        return 'datetime:Y-m-d H:i:s';
+    }
+
     public function getQueryParams(): array|string
     {
         return [
