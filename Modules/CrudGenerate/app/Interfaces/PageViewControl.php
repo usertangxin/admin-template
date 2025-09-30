@@ -51,5 +51,9 @@ interface PageViewControl
      */
     public function getQueryScopeFragment(): string;
 
+    /**
+     * 数据库字段类型转换
+     * @return null|string 
+     */
     public function getCast(): ?string;
 }

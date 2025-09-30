@@ -72,11 +72,13 @@ class CrudGenerateTest extends AbstractAuthTestCase
         // $use_traits = $fieldControlService->analysisUseTraits($history);
         // \dd($use_traits);
 
-        // $crudGenerateService = $this->app->make(CrudGenerateService::class);
+        $crudGenerateService = $this->app->make(CrudGenerateService::class);
         // $migrationContent = $crudGenerateService->getMigrationContent($history);
         // \dd($migrationContent);
         // dd($history->toArray());
         // $modelContent = $crudGenerateService->getModelContent($history);
         // \dd($modelContent);
+        $requestContent = $crudGenerateService->getRequestContent($history);
+        \dd($requestContent);
     }
 }

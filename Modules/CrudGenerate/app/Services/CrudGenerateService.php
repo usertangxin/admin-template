@@ -19,6 +19,25 @@ class CrudGenerateService
         return \module_path('CrudGenerate', 'stubs');
     }
 
+    public function getDefaultNamespace($type): string
+    {
+        return config("modules.paths.generator.{$type}.namespace")
+            ?? ltrim(config("modules.paths.generator.{$type}.path", 'Classes'), config('modules.paths.app_folder', ''));
+    }
+
+    /**
+     * Get class namespace.
+     *
+     * @param  \Nwidart\Modules\Module $module
+     * @return string
+     */
+    public function getClassNamespace($module, $class_name, $type)
+    {
+        $path_namespace = $this->path_namespace(str_replace(class_basename($class_name), '', $class_name));
+
+        return $this->module_namespace($module->getStudlyName(), $this->getDefaultNamespace($type) . ($path_namespace ? '\\' . $path_namespace : ''));
+    }
+
     public function gen() {}
 
     public function getMigrationContent(SystemCrudHistory $crudHistory)
@@ -76,21 +95,21 @@ class CrudGenerateService
         return $stub->render();
     }
 
-    public function getDefaultNamespace($type): string
+    public function getRequestContent(SystemCrudHistory $crudHistory)
     {
-        return config("modules.paths.generator.{$type}.namespace", 'Classes');
+        $class_name = $crudHistory->gen_class_name;
+
+        $module_name = $crudHistory->module_name;
+
+        $namespace = $crudHistory->gen_mode === 'module' ? $this->getClassNamespace(module($module_name, true), $class_name, 'request') : 'App\Http\Requests';
+
+        $stub = new Stub('/request.stub', [
+            'NAMESPACE'     => $namespace,
+            'CLASS'         => class_basename($class_name) . 'Request',
+        ]);
+        $stub->setBasePath($this->getStubsBasePath());
+
+        return $stub->render();
     }
 
-    /**
-     * Get class namespace.
-     *
-     * @param  \Nwidart\Modules\Module $module
-     * @return string
-     */
-    public function getClassNamespace($module, $class_name, $type)
-    {
-        $path_namespace = $this->path_namespace(str_replace(class_basename($class_name), '', $class_name));
-
-        return $this->module_namespace($module->getStudlyName(), $this->getDefaultNamespace($type) . ($path_namespace ? '\\' . $path_namespace : ''));
-    }
 }

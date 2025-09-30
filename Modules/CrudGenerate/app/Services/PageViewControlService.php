@@ -86,6 +86,9 @@ class PageViewControlService implements JsonSerializable
         $content     = '';
         foreach ($column_list as $column) {
             if ($column['gen_index'] == 'yes') {
+                if (!$column['page_view_control']) {
+                    continue;
+                }
                 $pageViewControl = $this->pageViewControls[$column['page_view_control']];
                 $pageViewControl->make($column, $column_list, $crudHistory);
                 $arr = $pageViewControl->getIndexColumnFragment();
@@ -111,6 +114,9 @@ class PageViewControlService implements JsonSerializable
         $content     = '';
         foreach ($column_list as $column) {
             if ($column['gen_form'] == 'yes') {
+                if (!$column['page_view_control']) {
+                    continue;
+                }
                 $pageViewControl = $this->pageViewControls[$column['page_view_control']];
                 $pageViewControl->make($column, $column_list, $crudHistory);
                 $fragment = $pageViewControl->getFormCodeFragment();
@@ -136,6 +142,9 @@ class PageViewControlService implements JsonSerializable
 
         foreach ($column_list as $column) {
             if ($column['gen_query'] == 'yes') {
+                if (!$column['page_view_control']) {
+                    continue;
+                }
                 $pageViewControl = $this->pageViewControls[$column['page_view_control']];
                 $pageViewControl->make($column, $column_list, $crudHistory);
                 $fragment = $pageViewControl->getQueryScopeFragment();
@@ -151,6 +160,9 @@ class PageViewControlService implements JsonSerializable
         $casts = '';
         $column_list = $crudHistory->column_list;
         foreach ($column_list as $column) {
+            if (!$column['page_view_control']) {
+                continue;
+            }
             $pageViewControls = $this->pageViewControls[$column['page_view_control']];
             $pageViewControls->make($column, $column_list, $crudHistory);
             $cast = $pageViewControls->getCast();
