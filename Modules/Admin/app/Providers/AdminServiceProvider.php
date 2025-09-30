@@ -5,6 +5,8 @@ namespace Modules\Admin\Providers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Validator as IlluminateValidator;
 use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Models\SystemAdmin;
 use Modules\Admin\Models\SystemConfig;
@@ -12,6 +14,7 @@ use Modules\Admin\Models\SystemConfigGroup;
 use Modules\Admin\Models\SystemDict;
 use Modules\Admin\Models\SystemDictType;
 use Modules\Admin\Observers\SystemConfigDictObserverObserver;
+use Modules\Admin\Rules\InDict;
 use Modules\Admin\Services\SystemPermissionService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
@@ -43,6 +46,14 @@ class AdminServiceProvider extends ServiceProvider
         SystemConfigGroup::observe(SystemConfigDictObserverObserver::class);
         SystemDict::observe(SystemConfigDictObserverObserver::class);
         SystemDictType::observe(SystemConfigDictObserverObserver::class);
+
+        Validator::extend('in_dict', function ($attribute, $value, $parameters, IlluminateValidator $validator) {
+            $rule = new InDict($parameters[0]);
+            $rule->validate($attribute, $value, function ($message) use ($validator, $attribute) {
+                $validator->errors()->add($attribute, $message);
+            });
+            return true;
+        });
 
         Gate::before(function ($user, $ability) {
             if ($user instanceof SystemAdmin) {

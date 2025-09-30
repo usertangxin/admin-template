@@ -80,4 +80,9 @@ abstract class AbstractPageViewControl implements PageViewControl
     {
         return null;
     }
+
+    public function getRequestRules(): null|array|string
+    {
+        return null;
+    }
 }

@@ -18,6 +18,14 @@ class PageViewControlCheckBox extends AbstractPageViewControl
         return [];
     }
 
+    public function getRequestRules(): null|array|string
+    {
+        return [
+            'array',
+            'in:' . implode(',', array_column($this->innerGetSpecialParam('kv', []), 1)),
+        ];
+    }
+
     public function getQueryScopeFragment(): string
     {
         return '';

@@ -4,6 +4,8 @@ namespace Modules\CrudGenerate\Classes;
 
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+use Modules\Admin\Rules\InDict;
 
 class PageViewControlDictCheckbox extends AbstractPageViewControl
 {
@@ -17,6 +19,16 @@ class PageViewControlDictCheckbox extends AbstractPageViewControl
     public function getModelCast(): ?string
     {
         return AsArrayObject::class;
+    }
+
+    public function getRequestRules(): null|array|string
+    {
+        $dictCode = $this->innerGetSpecialParam('dict_code');
+
+        return [
+            'array',
+            'in_dict:' . $dictCode,
+        ];
     }
 
     public function getQueryParams(): array|string

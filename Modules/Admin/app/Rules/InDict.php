@@ -3,7 +3,9 @@
 namespace Modules\Admin\Rules;
 
 use Closure;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Validation\Validator;
 use Modules\Admin\Services\SystemDictService;
 
 /**
@@ -21,7 +23,7 @@ class InDict implements ValidationRule
     /**
      * Run the validation rule.
      */
-    public function validate(string $attribute, mixed $value, Closure $fail): void
+    public function validate(string $attribute, mixed $value, Closure|Validator $fail): void
     {
         if (! is_array($value)) {
             $value = [$value];
@@ -31,6 +33,7 @@ class InDict implements ValidationRule
                 $fail(__('admin::validation.in_dict', [
                     'value' => $v,
                     'dict'  => $this->dictCode,
+                    'attribute' => $attribute,
                 ]));
             }
         }

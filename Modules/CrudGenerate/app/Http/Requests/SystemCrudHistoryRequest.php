@@ -12,7 +12,7 @@ class SystemCrudHistoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'table_name'       => 'required|string',
+            'table_name'       => 'required|string|in_dict:data_status',
             'table_comment'    => 'string',
             'soft_delete'      => 'required|in:yes,no',
             'primary_key'      => 'required|string',

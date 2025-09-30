@@ -20,6 +20,15 @@ class PageViewControlDictRadio extends AbstractPageViewControl
         ];
     }
 
+    public function getRequestRules(): null|array|string
+    {
+        $dictCode = $this->innerGetSpecialParam('dict_code');
+
+        return [
+            'in_dict:' . $dictCode,
+        ];
+    }
+
     public function getQueryScopeFragment(): string
     {
         $mul_select = $this->innerGetQueryParam('mul_select', 'no');

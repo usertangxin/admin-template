@@ -55,4 +55,9 @@ interface PageViewControl
      * 数据库字段类型转换
      */
     public function getModelCast(): ?string;
+
+    /**
+     * 请求验证规则
+     */
+    public function getRequestRules(): null|array|string;
 }
