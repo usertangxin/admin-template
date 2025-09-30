@@ -21,7 +21,7 @@ class PageViewControlRate extends AbstractPageViewControl
         ];
     }
 
-    public function getCast(): ?string
+    public function getModelCast(): ?string
     {
         return 'double';
     }

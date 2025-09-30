@@ -54,5 +54,5 @@ interface PageViewControl
     /**
      * 数据库字段类型转换
      */
-    public function getCast(): ?string;
+    public function getModelCast(): ?string;
 }

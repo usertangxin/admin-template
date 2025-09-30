@@ -165,7 +165,7 @@ class PageViewControlService implements JsonSerializable
             }
             $pageViewControls = $this->pageViewControls[$column['page_view_control']];
             $pageViewControls->make($column, $column_list, $crudHistory);
-            $cast = $pageViewControls->getCast();
+            $cast = $pageViewControls->getModelCast();
             if ($cast) {
                 $cast = '\'' . $cast . '\'';
                 $casts .= <<<CODE

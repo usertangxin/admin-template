@@ -23,7 +23,7 @@ class PageViewControlInputNumber extends AbstractPageViewControl
         ];
     }
 
-    public function getCast(): ?string
+    public function getModelCast(): ?string
     {
         $precision = $this->innerGetSpecialParam('precision', null);
 

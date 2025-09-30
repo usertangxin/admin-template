@@ -22,7 +22,7 @@ class PageViewControlSelect extends AbstractPageViewControl
         return [];
     }
 
-    public function getCast(): ?string
+    public function getModelCast(): ?string
     {
         if ($this->innerGetSpecialParam('multiple', 'no') != 'yes') {
             return null;

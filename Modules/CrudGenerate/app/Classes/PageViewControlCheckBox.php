@@ -61,7 +61,7 @@ class PageViewControlCheckBox extends AbstractPageViewControl
         code;
     }
 
-    public function getCast(): ?string
+    public function getModelCast(): ?string
     {
         return AsArrayObject::class;
     }

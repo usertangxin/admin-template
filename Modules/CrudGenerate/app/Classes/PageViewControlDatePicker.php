@@ -18,7 +18,7 @@ class PageViewControlDatePicker extends AbstractPageViewControl
         code;
     }
 
-    public function getCast(): ?string
+    public function getModelCast(): ?string
     {
         $type = $this->innerGetSpecialParam('type', 'date');
         if ($type == 'date') {
