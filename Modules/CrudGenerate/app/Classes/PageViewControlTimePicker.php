@@ -22,6 +22,12 @@ class PageViewControlTimePicker extends AbstractPageViewControl
         code;
     }
 
+    public function getRequestRules(): null|array|string
+    {
+        $a = ['date_format:H:i:s'];
+        return $a;
+    }
+
     public function getQueryParams(): array|string
     {
         return [

@@ -17,6 +17,18 @@ class PageViewControlSelect extends AbstractPageViewControl
         ];
     }
 
+    public function getRequestRules(): null|array|string
+    {
+
+        $a = ['in_dict:' . implode(',', array_column($this->innerGetSpecialParam('kv', []), 1))];
+
+        if ($this->innerGetSpecialParam('multiple', 'no') == 'yes') {
+            $a[] = 'array';
+        }
+
+        return $a;
+    }
+
     public function getQueryParams(): array|string
     {
         return [];

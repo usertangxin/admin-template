@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Validator as IlluminateValidator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Validator as IlluminateValidator;
 use Modules\Admin\Models\SystemAdmin;
 use Modules\Admin\Models\SystemConfig;
 use Modules\Admin\Models\SystemConfigGroup;
 use Modules\Admin\Models\SystemDict;
 use Modules\Admin\Models\SystemDictType;
 use Modules\Admin\Observers\SystemConfigDictObserverObserver;
+use Modules\Admin\Rules\BetweenArr;
 use Modules\Admin\Rules\InDict;
 use Modules\Admin\Services\SystemPermissionService;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -52,6 +53,16 @@ class AdminServiceProvider extends ServiceProvider
             $rule->validate($attribute, $value, function ($message) use ($validator, $attribute) {
                 $validator->errors()->add($attribute, $message);
             });
+
+            return true;
+        });
+
+        Validator::extend('between_arr', function ($attribute, $value, $parameters, IlluminateValidator $validator) {
+            $rule = new BetweenArr($parameters[0], $parameters[1]);
+            $rule->validate($attribute, $value, function ($message) use ($validator, $attribute) {
+                $validator->errors()->add($attribute, $message);
+            });
+
             return true;
         });
 

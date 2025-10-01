@@ -29,6 +29,16 @@ class PageViewControlTextarea extends AbstractPageViewControl
         code;
     }
 
+    public function getRequestRules(): null|array|string
+    {
+        $max_length = $this->innerGetSpecialParam('max_length', null);
+        $a = ['string'];
+        if ($max_length !== null) {
+            $a[] = 'max:' . $max_length;
+        }
+        return $a;
+    }
+
     public function getQueryParams(): array|string
     {
         return <<<'code'

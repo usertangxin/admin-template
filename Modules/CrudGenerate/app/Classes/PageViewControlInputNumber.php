@@ -23,6 +23,18 @@ class PageViewControlInputNumber extends AbstractPageViewControl
         ];
     }
 
+    public function getRequestRules(): null|array|string
+    {
+        $a     = ['numeric'];
+        $range = $this->innerGetSpecialParam('range', null);
+
+        if ($range) {
+            $a[] = 'between:' . $range[0] . ',' . $range[1];
+        }
+
+        return $a;
+    }
+
     public function getModelCast(): ?string
     {
         $precision = $this->innerGetSpecialParam('precision', null);

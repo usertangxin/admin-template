@@ -15,6 +15,13 @@ class PageViewControlSwitch extends AbstractPageViewControl
         ];
     }
 
+    public function getRequestRules(): null|array|string
+    {
+        $a = ['in:' . $this->innerGetSpecialParam('checked-value') . ',' . $this->innerGetSpecialParam('unchecked-value')];
+
+        return $a;
+    }
+
     public function getQueryScopeFragment(): string
     {
         return '';

@@ -13,6 +13,18 @@ class PageViewControlInputRange extends AbstractPageViewControl
         ];
     }
 
+    public function getRequestRules(): null|array|string
+    {
+        $a     = ['array:0,1', 'size:2'];
+        $range = $this->innerGetSpecialParam('range', null);
+
+        if ($range) {
+            $a[] = 'between_arr:' . $range[0] . ',' . $range[1];
+        }
+
+        return $a;
+    }
+
     public function getIndexQueryFragment(): string
     {
         return <<<code

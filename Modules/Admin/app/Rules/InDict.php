@@ -3,7 +3,6 @@
 namespace Modules\Admin\Rules;
 
 use Closure;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Validator;
 use Modules\Admin\Services\SystemDictService;
@@ -31,8 +30,8 @@ class InDict implements ValidationRule
         foreach ($value as $v) {
             if (! SystemDictService::getInstance()->getValuesByCode($this->dictCode)->contains($v)) {
                 $fail(__('admin::validation.in_dict', [
-                    'value' => $v,
-                    'dict'  => $this->dictCode,
+                    'value'     => $v,
+                    'dict'      => $this->dictCode,
                     'attribute' => $attribute,
                 ]));
             }

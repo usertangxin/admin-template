@@ -17,6 +17,15 @@ class PageViewControlSlider extends AbstractPageViewControl
         ];
     }
 
+    public function getRequestRules(): null|array|string
+    {
+        $range = $this->innerGetSpecialParam('range-value', [0, 100]);
+        $a = ['numeric'];
+        $a[] = 'between:' . $range[0] . ',' . $range[1];
+
+        return $a;
+    }
+
     public function getQueryParams(): array|string
     {
         return [

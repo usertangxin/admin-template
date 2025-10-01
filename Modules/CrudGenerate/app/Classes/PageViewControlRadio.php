@@ -13,6 +13,13 @@ class PageViewControlRadio extends AbstractPageViewControl
         ];
     }
 
+    public function getRequestRules(): null|array|string
+    {
+        return [
+            'in:' . implode(',', array_column($this->innerGetSpecialParam('kv', []), 1)),
+        ];
+    }
+
     public function getQueryParams(): array|string
     {
         return [

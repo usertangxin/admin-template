@@ -21,7 +21,7 @@ class PageViewControlDictSelect extends AbstractPageViewControl
     {
         $dictCode = $this->innerGetSpecialParam('dict_code');
 
-        $a = ['in_dict:' . $dictCode,];
+        $a = ['in_dict:' . $dictCode];
 
         if ($this->innerGetSpecialParam('multiple', 'no') == 'yes') {
             $a[] = 'array';

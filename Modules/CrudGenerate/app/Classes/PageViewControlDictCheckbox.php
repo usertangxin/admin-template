@@ -4,8 +4,6 @@ namespace Modules\CrudGenerate\Classes;
 
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
-use Modules\Admin\Rules\InDict;
 
 class PageViewControlDictCheckbox extends AbstractPageViewControl
 {

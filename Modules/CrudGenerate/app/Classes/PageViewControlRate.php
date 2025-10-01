@@ -14,6 +14,13 @@ class PageViewControlRate extends AbstractPageViewControl
         ];
     }
 
+    public function getRequestRules(): null|array|string
+    {
+        $a     = ['numeric'];
+        $a[] = 'between:' . 0 . ',' . $this->innerGetSpecialParam('count', 5);
+        return $a;
+    }
+
     public function getQueryParams(): array|string
     {
         return [
