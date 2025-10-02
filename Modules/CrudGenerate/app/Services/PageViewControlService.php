@@ -176,4 +176,35 @@ CODE;
 
         return $casts;
     }
+
+    public function analysisRequestRules(SystemCrudHistory $crudHistory)
+    {
+        $rules = '';
+        $column_list = $crudHistory->column_list;
+        foreach ($column_list as $column) {
+            if (! $column['page_view_control']) {
+                continue;
+            }
+            $pageViewControls = $this->pageViewControls[$column['page_view_control']];
+            $pageViewControls->make($column, $column_list, $crudHistory);
+            $rule = $pageViewControls->getRequestRules();
+            if ($rule) {
+                if(is_string($rule)) {
+                    $rule = explode('|', $rule);
+                }
+                if($column['nullable'] == 'yes') {
+                    array_unshift($rule, 'nullable');
+                } else {
+                    array_unshift($rule, 'required');
+                }
+                $rule = implode('|', $rule);
+                $rules .= <<<CODE
+        '{$column['field_name']}' => '$rule',
+    
+CODE;
+            }
+        }
+
+        return $rules;
+    }
 }

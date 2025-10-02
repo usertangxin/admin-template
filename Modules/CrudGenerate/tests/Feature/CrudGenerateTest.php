@@ -55,6 +55,48 @@ class CrudGenerateTest extends AbstractAuthTestCase
                     'gen_query' => 'yes',
                     'gen_sort'  => 'no',
                 ],
+                [
+                    'field_name'                       => 'arr',
+                    'comment'                          => '数组',
+                    'default_value'                    => null,
+                    'field_control'                    => 'String',
+                    'field_control_special_params'     => [],
+                    'page_view_control'                => 'CheckBox',
+                    'page_view_control_special_params' => [
+                        'kv' => [
+                            ['选项1', 'a'],
+                            ['选项2', 'b'],
+                            ['选项3', 'c'],
+                        ],
+                    ],
+                    'page_view_control_query_params'   => [
+                        'query_like' => 'yes',
+                    ],
+                    'nullable'  => 'no',
+                    'gen_form'  => 'yes',
+                    'gen_index' => 'yes',
+                    'gen_query' => 'yes',
+                    'gen_sort'  => 'no',
+                ],
+                [
+                    'field_name'                       => 'num',
+                    'comment'                          => '数字',
+                    'default_value'                    => null,
+                    'field_control'                    => 'Integer',
+                    'field_control_special_params'     => [],
+                    'page_view_control'                => 'InputNumber',
+                    'page_view_control_special_params' => [
+                        'range' => [1, 100],
+                    ],
+                    'page_view_control_query_params'   => [
+                        'query_like' => 'yes',
+                    ],
+                    'nullable'  => 'no',
+                    'gen_form'  => 'yes',
+                    'gen_index' => 'yes',
+                    'gen_query' => 'yes',
+                    'gen_sort'  => 'no',
+                ],
             ],
         ];
         $response = $this->postJson('web/crud-generate/CrudGenerate/create', $data);
