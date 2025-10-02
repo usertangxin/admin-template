@@ -96,7 +96,7 @@ class PageViewControlTimePicker extends AbstractPageViewControl
         code;
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
         /** 日期选择器组件类型 */
         $input_type = 'a-time-picker';

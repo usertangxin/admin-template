@@ -34,7 +34,7 @@ interface PageViewControl
     /**
      * 视图代码片段
      */
-    public function getFormCodeFragment(): string;
+    public function getFormCodeHtmlFragment(): string;
 
     /**
      * 列表页列代码片段

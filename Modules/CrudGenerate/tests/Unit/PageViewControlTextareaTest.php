@@ -19,7 +19,7 @@ class PageViewControlTextareaTest extends TestCase
             'page_view_control_special_params' => $params,
         ], [], new SystemCrudHistory);
 
-        $fragment = $class->getFormCodeFragment();
+        $fragment = $class->getFormCodeHtmlFragment();
 
         foreach ($expectedStrings as $expected) {
             $this->assertStringContainsString($expected, $fragment);

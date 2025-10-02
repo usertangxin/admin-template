@@ -27,7 +27,7 @@ class PageViewControlSwitch extends AbstractPageViewControl
         return '';
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
 
         $checkedValue   = $this->innerGetSpecialParam('checked-value');

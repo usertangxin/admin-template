@@ -17,7 +17,7 @@ class PageViewControlInputNumberTest extends TestCase
             'mode'      => 'button',
             'step'      => 1,
         ]], [], new SystemCrudHistory);
-        $fragment = $class->getFormCodeFragment();
+        $fragment = $class->getFormCodeHtmlFragment();
         $this->assertStringContainsString(' :min="0" :max="100"', $fragment);
         $this->assertStringContainsString(' :precision="1"', $fragment);
         $this->assertStringContainsString(' mode="button"', $fragment);

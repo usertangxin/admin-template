@@ -37,7 +37,7 @@ class PageViewControlInputRange extends AbstractPageViewControl
         return '';
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
         $attrs     = '';
         $range     = $this->innerGetSpecialParam('range', []);

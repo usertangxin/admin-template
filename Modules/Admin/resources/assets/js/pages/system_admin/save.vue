@@ -36,7 +36,7 @@
 
 <script setup>
 import _ from 'lodash';
-import { reactive, watch, ref } from 'vue';
+import { reactive, ref } from 'vue';
 
 const props = defineProps(['data'])
 const roles = ref([]);

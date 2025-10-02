@@ -73,7 +73,7 @@ class PageViewControlRate extends AbstractPageViewControl
         code;
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
         $attrs     = '';
         $count     = $this->innerGetSpecialParam('count', null);

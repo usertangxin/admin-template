@@ -52,7 +52,7 @@ class PageViewControlDictRadio extends AbstractPageViewControl
         return '';
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
 
         $dictCode = $this->innerGetSpecialParam('dict_code');

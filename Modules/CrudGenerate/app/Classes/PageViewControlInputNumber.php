@@ -91,7 +91,7 @@ class PageViewControlInputNumber extends AbstractPageViewControl
         code;
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
         $attrs     = '';
         $range     = $this->innerGetSpecialParam('range', []);

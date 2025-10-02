@@ -65,7 +65,7 @@ class PageViewControlTextarea extends AbstractPageViewControl
         code;
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
         $attrs           = '';
         $auto_size       = $this->innerGetSpecialParam('auto_size', false);

@@ -14,7 +14,7 @@ class PageViewControlDictRadioTest extends TestCase
         $class->make(['field_name' => 'aaa', 'comment' => '测试', 'page_view_control_special_params' => [
             'dict_code' => 'data_status',
         ]], [], new SystemCrudHistory);
-        $fragment = $class->getFormCodeFragment();
+        $fragment = $class->getFormCodeHtmlFragment();
         $this->assertStringContainsString(' code="data_status"', $fragment);
     }
 }

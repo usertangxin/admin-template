@@ -17,7 +17,7 @@ class PageViewControlCheckBoxTest extends TestCase
                 ['选项2', '2'],
             ],
         ]], [], new SystemCrudHistory);
-        $fragment = $class->getFormCodeFragment();
+        $fragment = $class->getFormCodeHtmlFragment();
         $this->assertStringContainsString(' :options=\'[{"label":"选项1","value":"1"},{"label":"选项2","value":"2"}]\'', $fragment);
     }
 }

@@ -153,7 +153,7 @@ class PageViewControlService implements JsonSerializable
                 }
                 $pageViewControl = $this->pageViewControls[$column['page_view_control']];
                 $pageViewControl->make($column, $column_list, $crudHistory);
-                $fragment = $pageViewControl->getFormCodeFragment();
+                $fragment = $pageViewControl->getFormCodeHtmlFragment();
                 $content .= $fragment . PHP_EOL;
             }
         }

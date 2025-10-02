@@ -46,7 +46,7 @@ class PageViewControlDictCheckbox extends AbstractPageViewControl
         code;
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
 
         $dictCode = $this->innerGetSpecialParam('dict_code');

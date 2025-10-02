@@ -17,7 +17,7 @@ class PageViewControlDictSelectTest extends TestCase
             'multiple'     => 'yes',
             'dict_code'    => 'yes_or_no',
         ]], [], new SystemCrudHistory);
-        $fragment = $class->getFormCodeFragment();
+        $fragment = $class->getFormCodeHtmlFragment();
         $this->assertStringContainsString(' allow-clear', $fragment);
         $this->assertStringContainsString(' allow-search', $fragment);
         $this->assertStringContainsString(' multiple', $fragment);

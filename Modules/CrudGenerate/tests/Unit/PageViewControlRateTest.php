@@ -15,7 +15,7 @@ class PageViewControlRateTest extends TestCase
             'count'      => 5,
             'allow-half' => 'yes',
         ]], [], new SystemCrudHistory);
-        $fragment = $class->getFormCodeFragment();
+        $fragment = $class->getFormCodeHtmlFragment();
         $this->assertStringContainsString(' :count="5"', $fragment);
         $this->assertStringContainsString(' :allow-half="true"', $fragment);
     }

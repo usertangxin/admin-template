@@ -1,0 +1,20 @@
+<template>
+    <div class="m-3 p-3 page-content">
+        <save-form :model="formData" :rules="rules">
+$FORM_HTML$
+        </save-form>
+    </div>
+</template>
+
+<script setup>
+import { reactive, ref } from 'vue';
+
+const formData = reactive({
+    $FORM_DATA_JS$
+})
+
+const rules = {
+    
+}
+
+</script>

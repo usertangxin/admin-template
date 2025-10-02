@@ -62,7 +62,7 @@ class PageViewControlDictSelect extends AbstractPageViewControl
 
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
         $options = [];
 

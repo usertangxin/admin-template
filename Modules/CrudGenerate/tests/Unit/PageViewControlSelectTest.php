@@ -20,7 +20,7 @@ class PageViewControlSelectTest extends TestCase
                 ['选项2', '2'],
             ],
         ]], [], new SystemCrudHistory);
-        $fragment = $class->getFormCodeFragment();
+        $fragment = $class->getFormCodeHtmlFragment();
         $this->assertStringContainsString(' allow-clear', $fragment);
         $this->assertStringContainsString(' allow-search', $fragment);
         $this->assertStringContainsString(' multiple', $fragment);

@@ -40,7 +40,7 @@ class PageViewControlRemoteSelect extends AbstractPageViewControl
         code;
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
 
         $url         = $this->innerGetSpecialParam('url', '');

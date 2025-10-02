@@ -24,7 +24,7 @@ class PageViewControlSliderTest extends TestCase
                 ['超爽', 150],
             ],
         ]], [], new SystemCrudHistory);
-        $fragment = $class->getFormCodeFragment();
+        $fragment = $class->getFormCodeHtmlFragment();
         $this->assertStringContainsString(' :step="2"', $fragment);
         $this->assertStringContainsString(' :min="0"', $fragment);
         $this->assertStringContainsString(' :max="150"', $fragment);

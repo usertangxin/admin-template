@@ -14,7 +14,7 @@ class PageViewControlWangEditor extends AbstractPageViewControl
         return '';
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
         return <<<code
             <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">

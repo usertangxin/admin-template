@@ -36,7 +36,7 @@ class PageViewControlUploadImage extends AbstractPageViewControl
         return '';
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
         $attrs        = '';
         $multiple     = $this->innerGetSpecialParam('multiple', false);

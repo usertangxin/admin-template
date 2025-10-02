@@ -17,7 +17,7 @@ class PageViewControlTimePickerTest extends TestCase
             'page_view_control_special_params' => ['is_range' => 'no'],
         ], [], new SystemCrudHistory);
 
-        $fragment = $class->getFormCodeFragment();
+        $fragment = $class->getFormCodeHtmlFragment();
 
         $this->assertStringContainsString('a-time-picker', $fragment);
     }
@@ -31,7 +31,7 @@ class PageViewControlTimePickerTest extends TestCase
             'page_view_control_special_params' => ['disable_confirm' => 'yes', 'is_range' => 'yes', 'step_hour' => 2],
         ], [], new SystemCrudHistory);
 
-        $fragment = $class->getFormCodeFragment();
+        $fragment = $class->getFormCodeHtmlFragment();
 
         $this->assertStringContainsString(' :step="{hour: 2, minute: 1, second: 1}"', $fragment);
         $this->assertStringContainsString(' type="time-range"', $fragment);

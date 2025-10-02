@@ -60,7 +60,7 @@ class PageViewControlSelect extends AbstractPageViewControl
         code;
     }
 
-    public function getFormCodeFragment(): string
+    public function getFormCodeHtmlFragment(): string
     {
         $options = [];
 
