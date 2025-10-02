@@ -1,0 +1,17 @@
+<?php
+
+namespace $CLASS_NAMESPACE$;
+
+use Modules\Admin\Classes\Attrs\SystemMenu;
+use Modules\Admin\Classes\Utils\SystemMenuType;
+use Modules\Admin\Http\Controllers\AbstractCrudController;
+use $MODEL_NAMESPACE$;
+
+#[SystemMenu('$MENU_NAME$', type: SystemMenuType::MENU, parent_code: $PARENT_CODE$, icon: '$ICON$')]
+class $CLASS$ extends AbstractCrudController
+{
+    protected function getModel()
+    {
+        return new $MODEL$;
+    }
+}

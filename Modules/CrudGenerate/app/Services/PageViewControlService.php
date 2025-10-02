@@ -185,6 +185,9 @@ CODE;
             if (! $column['page_view_control']) {
                 continue;
             }
+            if($column['gen_form'] !== 'yes') {
+                continue;
+            }
             $pageViewControls = $this->pageViewControls[$column['page_view_control']];
             $pageViewControls->make($column, $column_list, $crudHistory);
             $rule = $pageViewControls->getRequestRules();

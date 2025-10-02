@@ -114,4 +114,28 @@ class CrudGenerateService
 
         return $stub->render();
     }
+
+    public function getControllerContent(SystemCrudHistory $crudHistory)
+    {
+        $class_name = $crudHistory->gen_class_name;
+
+        $module_name = $crudHistory->module_name;
+
+        $namespace = $crudHistory->gen_mode === 'module' ? $this->getClassNamespace(module($module_name, true), $class_name, 'controller') : 'App\Http\Controllers';
+
+        $model_namespace = $crudHistory->gen_mode === 'module' ? $this->getClassNamespace(module($module_name, true), $class_name, 'model') : 'App\Models';
+
+        $stub = new Stub('/controller.stub', [
+            'CLASS_NAMESPACE' => $namespace,
+            'MODEL_NAMESPACE' => $model_namespace . '\\' . class_basename($class_name),
+            'CLASS'     => class_basename($class_name) . 'Controller',
+            'MODEL' => class_basename($class_name),
+            'MENU_NAME' => $crudHistory->menu_name,
+            'PARENT_CODE' => $crudHistory->parent_menu_code ? "'{$crudHistory->parent_menu_code}'" : 'null',
+            'ICON' => $crudHistory->menu_icon,
+        ]);
+        $stub->setBasePath($this->getStubsBasePath());
+
+        return $stub->render();
+    }
 }
