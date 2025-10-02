@@ -68,7 +68,7 @@ class PageViewControlRadio extends AbstractPageViewControl
         code;
     }
 
-    public function getIndexQueryFragment(): string
+    public function getIndexQueryHtmlFragment(): string
     {
         $options = [];
 
@@ -81,7 +81,7 @@ class PageViewControlRadio extends AbstractPageViewControl
 
         return <<<code
             <search-col>
-                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                      <a-select v-model="store.searchQuery.{$this->getFieldName()}" :options='$options'"></a-select>
                 </a-form-item>
             </search-col>

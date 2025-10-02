@@ -76,6 +76,40 @@ class PageViewControlService implements JsonSerializable
     }
 
     /**
+     * 分析索引查询HTML片段
+     * @param SystemCrudHistory $crudHistory 
+     * @return string 
+     */
+    public function analysisIndexSearchHtmlFragment(SystemCrudHistory $crudHistory)
+    {
+        $column_list = $crudHistory->column_list;
+        $content     = '';
+        foreach ($column_list as $column) {
+            if ($column['gen_query'] == 'yes') {
+                if (! $column['page_view_control']) {
+                    continue;
+                }
+                $pageViewControl = $this->pageViewControls[$column['page_view_control']];
+                $pageViewControl->make($column, $column_list, $crudHistory);
+                $fragment = $pageViewControl->getIndexQueryHtmlFragment();
+                if (! $fragment) {
+                    continue;
+                }
+
+                $content .= $fragment . PHP_EOL;
+            }
+        }
+
+        $lines         = explode("\n", $content);
+        $indentedLines = array_map(function ($index, $line) {
+            return '            ' . $line;
+        }, array_keys($lines), $lines);
+        $content = implode("\n", $indentedLines);
+
+        return $content;
+    }
+
+    /**
      * 分析索引列片段
      *
      * @return string
@@ -96,7 +130,7 @@ class PageViewControlService implements JsonSerializable
                     $arr = array_merge(['sortable' => ['sortDirections' => ['ascend', 'descend'], 'sorter' => true]], $arr);
                 }
                 $arr = array_merge(['title' => $column['comment'], 'dataIndex' => $column['field_name']], $arr);
-                $content .= json_encode($arr, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . ',' . PHP_EOL;
+                $content .= '        ' . json_encode($arr, JSON_UNESCAPED_UNICODE) . ',' . PHP_EOL;
             }
         }
 
@@ -122,14 +156,6 @@ class PageViewControlService implements JsonSerializable
                 $fragment = $pageViewControl->getFormCodeFragment();
                 $content .= $fragment . PHP_EOL;
             }
-        }
-
-        if (extension_loaded('tidy')) {
-            $content = tidy_repair_string($content, [
-                'indent'        => true,
-                'indent-spaces' => 4,
-                'wrap'          => 120,
-            ]);
         }
 
         return $content;
@@ -185,17 +211,17 @@ CODE;
             if (! $column['page_view_control']) {
                 continue;
             }
-            if($column['gen_form'] !== 'yes') {
+            if ($column['gen_form'] !== 'yes') {
                 continue;
             }
             $pageViewControls = $this->pageViewControls[$column['page_view_control']];
             $pageViewControls->make($column, $column_list, $crudHistory);
             $rule = $pageViewControls->getRequestRules();
             if ($rule) {
-                if(is_string($rule)) {
+                if (is_string($rule)) {
                     $rule = explode('|', $rule);
                 }
-                if($column['nullable'] == 'yes') {
+                if ($column['nullable'] == 'yes') {
                     array_unshift($rule, 'nullable');
                 } else {
                     array_unshift($rule, 'required');

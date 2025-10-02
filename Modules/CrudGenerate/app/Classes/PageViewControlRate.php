@@ -55,7 +55,7 @@ class PageViewControlRate extends AbstractPageViewControl
         return '';
     }
 
-    public function getIndexQueryFragment(): string
+    public function getIndexQueryHtmlFragment(): string
     {
         $range_query = $this->innerGetQueryParam('range_query', 'no');
         $input_type  = 'a-input-number';
@@ -66,7 +66,7 @@ class PageViewControlRate extends AbstractPageViewControl
 
         return <<<code
             <search-col>
-                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                     <{$input_type} v-model="store.searchQuery.{$this->getFieldName()}" placeholder="请输入{$this->getComment()}"></{$input_type}>
                 </a-form-item>
             </search-col>

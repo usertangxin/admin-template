@@ -25,7 +25,7 @@ class PageViewControlInputRange extends AbstractPageViewControl
         return $a;
     }
 
-    public function getIndexQueryFragment(): string
+    public function getIndexQueryHtmlFragment(): string
     {
         return <<<code
             <!-- TODO: 自行实现 {$this->getFieldName()} 的查询 -->

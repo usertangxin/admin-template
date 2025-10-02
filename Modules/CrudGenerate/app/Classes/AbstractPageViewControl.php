@@ -38,7 +38,7 @@ abstract class AbstractPageViewControl implements PageViewControl
 
     public function getComment()
     {
-        return $this->field['comment'];
+        return $this->field['comment'] ?? $this->getFieldName();
     }
 
     public function getSpecialParams(): array|string

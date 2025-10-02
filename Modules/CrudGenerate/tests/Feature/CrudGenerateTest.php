@@ -122,7 +122,9 @@ class CrudGenerateTest extends AbstractAuthTestCase
         // \dd($modelContent);
         // $requestContent = $crudGenerateService->getRequestContent($history);
         // \dd($requestContent);
-        $controllerContent = $crudGenerateService->getControllerContent($history);
-        \dd($controllerContent);
+        // $controllerContent = $crudGenerateService->getControllerContent($history);
+        // \dd($controllerContent);
+        $viewIndexContent = $crudGenerateService->getViewIndexContent($history);
+        \dd($viewIndexContent);
     }
 }

@@ -76,7 +76,7 @@ class PageViewControlRemoteSelect extends AbstractPageViewControl
         code;
     }
 
-    public function getIndexQueryFragment(): string
+    public function getIndexQueryHtmlFragment(): string
     {
         $attrs = ' allow-clear allow-search';
 
@@ -92,7 +92,7 @@ class PageViewControlRemoteSelect extends AbstractPageViewControl
 
         return <<<code
             <search-col>
-                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                     <remote-select v-model="store.searchQuery.{$this->getFieldName()}" placeholder="请搜索选择{$this->getComment()}"$attrs></remote-select>
                 </a-form-item>
             </search-col>

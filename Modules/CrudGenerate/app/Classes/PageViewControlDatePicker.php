@@ -83,7 +83,7 @@ class PageViewControlDatePicker extends AbstractPageViewControl
         return '';
     }
 
-    public function getIndexQueryFragment(): string
+    public function getIndexQueryHtmlFragment(): string
     {
         /** 日期选择器组件类型 */
         $input_type = 'a-date-picker';
@@ -125,7 +125,7 @@ class PageViewControlDatePicker extends AbstractPageViewControl
 
         return <<<code
             <search-col>
-                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                     <$input_type $v_model="store.searchQuery.{$this->getFieldName()}" placeholder="请选择{$this->getComment()}"$attrs></$input_type>
                 </a-form-item>
              </search-col>

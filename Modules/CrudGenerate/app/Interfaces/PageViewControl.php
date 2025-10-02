@@ -44,7 +44,7 @@ interface PageViewControl
     /**
      * 列表页查询代码片段
      */
-    public function getIndexQueryFragment(): string;
+    public function getIndexQueryHtmlFragment(): string;
 
     /**
      * 查询查询范围代码片段

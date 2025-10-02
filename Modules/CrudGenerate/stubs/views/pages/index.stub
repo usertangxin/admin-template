@@ -1,0 +1,23 @@
+<template>
+    <div class="m-3 p-3 page-content">
+        <index-action>
+            <template #search>
+$SEARCH_HTML$
+            </template>
+        </index-action>
+        <index-table></index-table>
+    </div>
+</template>
+
+<script setup>
+import { provideIndexShareStore } from '/Modules/Admin/resources/assets/js/IndexShare'
+
+const store = provideIndexShareStore({
+    columns: [
+$COLUMNS_JS$
+    ],
+    searchQuery: {
+        // 如发现搜索表单无法正常重置某个属性尝试填写默认值在此处初始化,例如 name: '',
+    },
+})
+</script>

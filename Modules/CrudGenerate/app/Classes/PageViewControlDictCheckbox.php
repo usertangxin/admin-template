@@ -58,7 +58,7 @@ class PageViewControlDictCheckbox extends AbstractPageViewControl
         code;
     }
 
-    public function getIndexQueryFragment(): string
+    public function getIndexQueryHtmlFragment(): string
     {
         $dictCode = $this->innerGetSpecialParam('dict_code');
 
@@ -66,7 +66,7 @@ class PageViewControlDictCheckbox extends AbstractPageViewControl
 
         return <<<code
             <search-col>
-                <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+                <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                     <dict-select v-model="store.searchQuery.{$this->getFieldName()}" code="{$dictCode}" placeholder="请选择{$this->getComment()}"$attrs></dict-select>
                 </a-form-item>
              </search-col>

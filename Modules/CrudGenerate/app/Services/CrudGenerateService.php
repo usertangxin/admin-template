@@ -2,6 +2,8 @@
 
 namespace Modules\CrudGenerate\Services;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
+use InvalidArgumentException;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
 use Nwidart\Modules\Support\Stub;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -40,6 +42,12 @@ class CrudGenerateService
 
     public function gen() {}
 
+    /**
+     * 分析迁移文件内容
+     * @param SystemCrudHistory $crudHistory 
+     * @return string 
+     * @throws BindingResolutionException 
+     */
     public function getMigrationContent(SystemCrudHistory $crudHistory)
     {
         $fieldControlService = \app(FieldControlService::class);
@@ -63,6 +71,13 @@ class CrudGenerateService
         return $stub->render();
     }
 
+    /**
+     * 分析模型文件内容
+     * @param SystemCrudHistory $crudHistory 
+     * @return string 
+     * @throws BindingResolutionException 
+     * @throws InvalidArgumentException 
+     */
     public function getModelContent(SystemCrudHistory $crudHistory)
     {
         $fieldControlService    = \app(FieldControlService::class);
@@ -95,6 +110,13 @@ class CrudGenerateService
         return $stub->render();
     }
 
+    /**
+     * 分析请求验证文件内容
+     * @param SystemCrudHistory $crudHistory 
+     * @return string 
+     * @throws BindingResolutionException 
+     * @throws InvalidArgumentException 
+     */
     public function getRequestContent(SystemCrudHistory $crudHistory)
     {
         $pageViewControlService = \app(PageViewControlService::class);
@@ -115,6 +137,13 @@ class CrudGenerateService
         return $stub->render();
     }
 
+    /**
+     * 分析控制器文件内容
+     * @param SystemCrudHistory $crudHistory 
+     * @return string 
+     * @throws BindingResolutionException 
+     * @throws InvalidArgumentException 
+     */
     public function getControllerContent(SystemCrudHistory $crudHistory)
     {
         $class_name = $crudHistory->gen_class_name;
@@ -133,6 +162,27 @@ class CrudGenerateService
             'MENU_NAME' => $crudHistory->menu_name,
             'PARENT_CODE' => $crudHistory->parent_menu_code ? "'{$crudHistory->parent_menu_code}'" : 'null',
             'ICON' => $crudHistory->menu_icon,
+        ]);
+        $stub->setBasePath($this->getStubsBasePath());
+
+        return $stub->render();
+    }
+
+    /**
+     * 分析索引视图文件内容
+     * @param SystemCrudHistory $crudHistory 
+     * @return string 
+     * @throws BindingResolutionException 
+     */
+    public function getViewIndexContent(SystemCrudHistory $crudHistory)
+    {
+        $pageViewControlService = \app(PageViewControlService::class);
+
+        // $class_name = $crudHistory->gen_class_name;
+
+        $stub = new Stub('/views/pages/index.stub', [
+            'SEARCH_HTML' => $pageViewControlService->analysisIndexSearchHtmlFragment($crudHistory),
+            'COLUMNS_JS' => $pageViewControlService->analysisIndexColumnFragment($crudHistory),
         ]);
         $stub->setBasePath($this->getStubsBasePath());
 
