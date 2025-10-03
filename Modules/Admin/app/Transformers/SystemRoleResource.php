@@ -2,9 +2,13 @@
 
 namespace Modules\Admin\Transformers;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Role
+ */
 class SystemRoleResource extends JsonResource
 {
     /**
