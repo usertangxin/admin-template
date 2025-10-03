@@ -14,9 +14,9 @@ class PageViewControlService implements JsonSerializable
      *
      * @var array<PageViewControl>
      */
-    protected $pageViewControls = [];
+    protected array $pageViewControls = [];
 
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         $arr = [];
         foreach ($this->pageViewControls as $pageViewControl) {
@@ -34,12 +34,11 @@ class PageViewControlService implements JsonSerializable
     /**
      * 添加字段控件
      *
-     * @param  class-string<PageViewControl> $pageViewControl
      * @return void
      *
      * @throws Exception
      */
-    public function add($pageViewControl)
+    public function add(PageViewControl $pageViewControl)
     {
         if (! is_a($pageViewControl, PageViewControl::class, true)) {
             throw new Exception('Page view control must be instance of PageViewControl');
@@ -77,8 +76,8 @@ class PageViewControlService implements JsonSerializable
 
     /**
      * 分析索引查询HTML片段
-     * @param SystemCrudHistory $crudHistory 
-     * @return string 
+     *
+     * @return string
      */
     public function analysisIndexSearchHtmlFragment(SystemCrudHistory $crudHistory)
     {
@@ -188,7 +187,7 @@ class PageViewControlService implements JsonSerializable
             }
         }
 
-        $content = json_encode((object)$content, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+        $content = json_encode((object) $content, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
         return $content;
     }
@@ -237,7 +236,7 @@ CODE;
 
     public function analysisRequestRules(SystemCrudHistory $crudHistory)
     {
-        $rules = '';
+        $rules       = '';
         $column_list = $crudHistory->column_list;
         foreach ($column_list as $column) {
             if (! $column['page_view_control']) {
@@ -261,7 +260,7 @@ CODE;
                 $rule = implode('|', $rule);
                 $rules .= <<<CODE
         '{$column['field_name']}' => '$rule',
-    
+
 CODE;
             }
         }
