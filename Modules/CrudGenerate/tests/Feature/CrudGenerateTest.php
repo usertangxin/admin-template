@@ -69,7 +69,7 @@ class CrudGenerateTest extends AbstractAuthTestCase
                             ['选项3', 'c'],
                         ],
                     ],
-                    'page_view_control_query_params'   => [
+                    'page_view_control_query_params' => [
                         'query_like' => 'yes',
                     ],
                     'nullable'  => 'no',
@@ -88,7 +88,7 @@ class CrudGenerateTest extends AbstractAuthTestCase
                     'page_view_control_special_params' => [
                         'range' => [1, 100],
                     ],
-                    'page_view_control_query_params'   => [
+                    'page_view_control_query_params' => [
                         'query_like' => 'yes',
                     ],
                     'nullable'  => 'no',

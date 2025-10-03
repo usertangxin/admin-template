@@ -33,7 +33,6 @@ class FieldControlService implements JsonSerializable
     /**
      * 添加字段控件
      *
-     * @param FieldControl $fieldControl
      * @return void
      *
      * @throws Exception

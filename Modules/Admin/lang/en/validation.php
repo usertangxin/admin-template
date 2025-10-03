@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'in_dict' => 'The :attribute field value :value is not in the dictionary :dict.',
+    'in_dict'     => 'The :attribute field value :value is not in the dictionary :dict.',
     'between_arr' => [
         'type'    => 'The :attribute must be an array.',
         'count'   => 'The :attribute must have 2 elements.',

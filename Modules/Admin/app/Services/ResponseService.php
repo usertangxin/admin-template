@@ -2,12 +2,14 @@
 
 namespace Modules\Admin\Services;
 
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class ResponseService
 {
@@ -16,13 +18,11 @@ class ResponseService
     /**
      * 视图
      *
-     * @param  array    $data 数据
-     * @param  mixed    $view 视图
-     * @return Response
-     *
-     * @throws BindingResolutionException
+     * @param  mixed       $data 数据
+     * @param  mixed|null  $view 视图
+     * @return Responsable
      */
-    public static function inertia($data = [], $view = null)
+    public static function inertia(mixed $data = [], mixed $view = null)
     {
         if ($view === null) {
             $action    = \request()->route()->getActionMethod();
@@ -49,15 +49,13 @@ class ResponseService
     /**
      * 成功
      *
-     * @param  mixed                 $data    数据
-     * @param  string                $message 消息
-     * @param  int                   $code    状态码
-     * @param  mixed                 $view    视图
-     * @return JsonResponse|Response
-     *
-     * @throws BindingResolutionException
+     * @param  mixed                       $data    数据
+     * @param  string                      $message 消息
+     * @param  int                         $code    状态码
+     * @param  mixed|null                  $view    视图
+     * @return Responsable|SymfonyResponse
      */
-    public static function success($data = [], $message = '', $code = 0, $view = null)
+    public static function success(mixed $data = [], string $message = '', int $code = 0, mixed $view = null)
     {
         if (\request()->expectsJson()) {
             $data = static::analysisDataToResource($data);
@@ -79,14 +77,13 @@ class ResponseService
     /**
      * 失败
      *
-     * @param  string                $message 消息
-     * @param  int                   $code    状态码
-     * @param  mixed                 $view    视图
-     * @return JsonResponse|Response
-     *
-     * @throws BindingResolutionException
+     * @param  string                      $message 消息
+     * @param  int                         $code    状态码
+     * @param  mixed|null                  $view    视图
+     * @param  mixed                       $data
+     * @return SymfonyResponse|Responsable
      */
-    public static function fail($message = 'fail', $code = 400, $view = null, $data = [])
+    public static function fail(string $message = 'fail', int $code = 400, mixed $view = null, mixed $data = [])
     {
         if (\request()->expectsJson()) {
             return Response::json([
@@ -108,7 +105,7 @@ class ResponseService
      * @param  mixed        $data
      * @return JsonResource
      */
-    protected static function analysisDataToResource($data)
+    protected static function analysisDataToResource(mixed $data)
     {
         if ($data instanceof Collection || $data instanceof AbstractPaginator) {
             $data = JsonResource::collection($data);

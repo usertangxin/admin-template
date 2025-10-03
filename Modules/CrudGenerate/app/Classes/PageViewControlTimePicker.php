@@ -25,6 +25,7 @@ class PageViewControlTimePicker extends AbstractPageViewControl
     public function getRequestRules(): null|array|string
     {
         $a = ['date_format:H:i:s'];
+
         return $a;
     }
 

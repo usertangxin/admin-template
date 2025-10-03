@@ -32,10 +32,11 @@ class PageViewControlTextarea extends AbstractPageViewControl
     public function getRequestRules(): null|array|string
     {
         $max_length = $this->innerGetSpecialParam('max_length', null);
-        $a = ['string'];
+        $a          = ['string'];
         if ($max_length !== null) {
             $a[] = 'max:' . $max_length;
         }
+
         return $a;
     }
 

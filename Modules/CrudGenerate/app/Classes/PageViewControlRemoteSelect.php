@@ -81,6 +81,7 @@ class PageViewControlRemoteSelect extends AbstractPageViewControl
         if ($this->innerGetSpecialParam('multiple', 'no') != 'yes') {
             return null;
         }
+
         return [];
     }
 

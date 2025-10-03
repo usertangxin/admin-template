@@ -21,6 +21,7 @@ use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Services\SystemDictService;
 use Throwable;
+
 use function request;
 
 abstract class AbstractCrudController extends AbstractController
@@ -415,6 +416,7 @@ abstract class AbstractCrudController extends AbstractController
      * 删除
      *
      * @return Response
+     *
      * @throws Throwable
      */
     #[SystemMenu('删除')]

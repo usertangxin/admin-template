@@ -44,9 +44,10 @@ class CrudGenerateService
 
     /**
      * 分析迁移文件内容
-     * @param SystemCrudHistory $crudHistory 
-     * @return string 
-     * @throws BindingResolutionException 
+     *
+     * @return string
+     *
+     * @throws BindingResolutionException
      */
     public function getMigrationContent(SystemCrudHistory $crudHistory)
     {
@@ -73,10 +74,11 @@ class CrudGenerateService
 
     /**
      * 分析模型文件内容
-     * @param SystemCrudHistory $crudHistory 
-     * @return string 
-     * @throws BindingResolutionException 
-     * @throws InvalidArgumentException 
+     *
+     * @return string
+     *
+     * @throws BindingResolutionException
+     * @throws InvalidArgumentException
      */
     public function getModelContent(SystemCrudHistory $crudHistory)
     {
@@ -112,10 +114,11 @@ class CrudGenerateService
 
     /**
      * 分析请求验证文件内容
-     * @param SystemCrudHistory $crudHistory 
-     * @return string 
-     * @throws BindingResolutionException 
-     * @throws InvalidArgumentException 
+     *
+     * @return string
+     *
+     * @throws BindingResolutionException
+     * @throws InvalidArgumentException
      */
     public function getRequestContent(SystemCrudHistory $crudHistory)
     {
@@ -139,10 +142,11 @@ class CrudGenerateService
 
     /**
      * 分析控制器文件内容
-     * @param SystemCrudHistory $crudHistory 
-     * @return string 
-     * @throws BindingResolutionException 
-     * @throws InvalidArgumentException 
+     *
+     * @return string
+     *
+     * @throws BindingResolutionException
+     * @throws InvalidArgumentException
      */
     public function getControllerContent(SystemCrudHistory $crudHistory)
     {
@@ -157,11 +161,11 @@ class CrudGenerateService
         $stub = new Stub('/controller.stub', [
             'CLASS_NAMESPACE' => $namespace,
             'MODEL_NAMESPACE' => $model_namespace . '\\' . class_basename($class_name),
-            'CLASS'     => class_basename($class_name) . 'Controller',
-            'MODEL' => class_basename($class_name),
-            'MENU_NAME' => $crudHistory->menu_name,
-            'PARENT_CODE' => $crudHistory->parent_menu_code ? "'{$crudHistory->parent_menu_code}'" : 'null',
-            'ICON' => $crudHistory->menu_icon,
+            'CLASS'           => class_basename($class_name) . 'Controller',
+            'MODEL'           => class_basename($class_name),
+            'MENU_NAME'       => $crudHistory->menu_name,
+            'PARENT_CODE'     => $crudHistory->parent_menu_code ? "'{$crudHistory->parent_menu_code}'" : 'null',
+            'ICON'            => $crudHistory->menu_icon,
         ]);
         $stub->setBasePath($this->getStubsBasePath());
 
@@ -170,9 +174,10 @@ class CrudGenerateService
 
     /**
      * 分析索引视图文件内容
-     * @param SystemCrudHistory $crudHistory 
-     * @return string 
-     * @throws BindingResolutionException 
+     *
+     * @return string
+     *
+     * @throws BindingResolutionException
      */
     public function getViewIndexContent(SystemCrudHistory $crudHistory)
     {
@@ -182,7 +187,7 @@ class CrudGenerateService
 
         $stub = new Stub('/views/pages/index.stub', [
             'SEARCH_HTML' => $pageViewControlService->analysisIndexSearchHtmlFragment($crudHistory),
-            'COLUMNS_JS' => $pageViewControlService->analysisIndexColumnFragment($crudHistory),
+            'COLUMNS_JS'  => $pageViewControlService->analysisIndexColumnFragment($crudHistory),
         ]);
         $stub->setBasePath($this->getStubsBasePath());
 
@@ -196,7 +201,7 @@ class CrudGenerateService
         // $class_name = $crudHistory->gen_class_name;
 
         $stub = new Stub('/views/pages/save.stub', [
-            'FORM_HTML' => $pageViewControlService->analysisFormCodeFragment($crudHistory),
+            'FORM_HTML'    => $pageViewControlService->analysisFormCodeFragment($crudHistory),
             'FORM_DATA_JS' => $pageViewControlService->analysisFormDataJsFragment($crudHistory),
         ]);
         $stub->setBasePath($this->getStubsBasePath());
