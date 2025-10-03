@@ -33,12 +33,12 @@ class FieldControlService implements JsonSerializable
     /**
      * 添加字段控件
      *
-     * @param  class-string<FieldControl> $fieldControl
+     * @param FieldControl $fieldControl
      * @return void
      *
      * @throws Exception
      */
-    public function add($fieldControl)
+    public function add(FieldControl $fieldControl)
     {
         if (! is_a($fieldControl, FieldControl::class, true)) {
             throw new Exception('Field control must be instance of FieldControl');
