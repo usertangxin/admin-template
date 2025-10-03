@@ -2,6 +2,7 @@
 
 namespace Modules\CrudGenerate\Tests\Unit;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Modules\CrudGenerate\Classes\FieldControlInteger;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -14,6 +15,8 @@ class FieldControlIntegerTest extends TestCase
      *
      * @param array  $specialParams    字段特殊参数（autoIncrement/unsigned）
      * @param string $expectedFragment 预期的迁移代码片段
+     *
+     * @throws BindingResolutionException
      */
     #[DataProvider('migrateCodeFragmentProvider')]
     public function test_get_migrate_code_fragment(array $specialParams, string $expectedFragment)

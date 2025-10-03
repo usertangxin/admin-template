@@ -47,9 +47,7 @@ class ModuleManagerController extends AbstractController
     public function destroy(Request $request)
     {
         $module = Module::find($request->input('name'));
-        if ($module) {
-            $module->delete();
-        }
+        $module?->delete();
 
         return $this->success(message: '模块删除成功');
     }

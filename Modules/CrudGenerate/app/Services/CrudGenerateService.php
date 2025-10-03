@@ -46,8 +46,6 @@ class CrudGenerateService
      * 分析迁移文件内容
      *
      * @return string
-     *
-     * @throws BindingResolutionException
      */
     public function getMigrationContent(SystemCrudHistory $crudHistory)
     {
@@ -77,7 +75,6 @@ class CrudGenerateService
      *
      * @return string
      *
-     * @throws BindingResolutionException
      * @throws InvalidArgumentException
      */
     public function getModelContent(SystemCrudHistory $crudHistory)
@@ -117,7 +114,6 @@ class CrudGenerateService
      *
      * @return string
      *
-     * @throws BindingResolutionException
      * @throws InvalidArgumentException
      */
     public function getRequestContent(SystemCrudHistory $crudHistory)
@@ -145,7 +141,6 @@ class CrudGenerateService
      *
      * @return string
      *
-     * @throws BindingResolutionException
      * @throws InvalidArgumentException
      */
     public function getControllerContent(SystemCrudHistory $crudHistory)
@@ -177,7 +172,6 @@ class CrudGenerateService
      *
      * @return string
      *
-     * @throws BindingResolutionException
      */
     public function getViewIndexContent(SystemCrudHistory $crudHistory)
     {

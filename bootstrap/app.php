@@ -30,7 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->redirectGuestsTo(function (Request $request) {
             if (Context::get('__is_admin_background__')) {
-                return \redirect()->route('web.admin.login.view');
+                return redirect()->route('web.admin.login.view');
             }
 
             return false;
@@ -54,7 +54,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $exceptions->render(function (AuthenticationException $exception, Request $request) {
             if (Context::get('__is_admin_background__')) {
-                return \redirect()->route('web.admin.login.view');
+                return redirect()->route('web.admin.login.view');
             }
         });
 

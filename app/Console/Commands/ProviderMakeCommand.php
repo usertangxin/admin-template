@@ -4,13 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
 use Nwidart\Modules\Commands\Make\ProviderMakeCommand as MakeProviderMakeCommand;
+use Nwidart\Modules\Laravel\Module;
 use Nwidart\Modules\Support\Config\GenerateConfigReader;
 use Nwidart\Modules\Support\Stub;
 
 class ProviderMakeCommand extends MakeProviderMakeCommand
 {
     /**
-     * @return mixed
+     * @return string
      */
     protected function getTemplateContents()
     {

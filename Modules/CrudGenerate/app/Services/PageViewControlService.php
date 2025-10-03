@@ -139,7 +139,7 @@ class PageViewControlService implements JsonSerializable
     /**
      * 分析表单代码片段
      *
-     * @return string|false
+     * @return string
      */
     public function analysisFormCodeFragment(SystemCrudHistory $crudHistory)
     {
@@ -161,9 +161,7 @@ class PageViewControlService implements JsonSerializable
         $indentedLines = array_map(function ($index, $line) {
             return '        ' . $line;
         }, array_keys($lines), $lines);
-        $content = implode("\n", $indentedLines);
-
-        return $content;
+        return implode("\n", $indentedLines);
     }
 
     public function analysisFormDataJsFragment(SystemCrudHistory $crudHistory)

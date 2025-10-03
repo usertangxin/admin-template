@@ -62,7 +62,7 @@ class SystemAdminTest extends AbstractAuthTestCase
         ]);
         $response->assertJson(['code' => 0]);
         $new_admin = SystemAdmin::where('admin_name', 'new admin')->first();
-        $this->assertEquals(false, $new_admin->is_root);
+        $this->assertFalse($new_admin->is_root);
     }
 
     public function test_destroy()

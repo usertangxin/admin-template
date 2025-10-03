@@ -15,7 +15,6 @@ class ModelUtil
      * 可以使用本地查询范围来定义搜索条件
      *
      * @param  Builder|Model $query
-     * @param  array         $where，键为本地查询范围的名称或者字段名称，值为搜索值
      * @return Builder
      */
     public static function bindSearch($query, $where)

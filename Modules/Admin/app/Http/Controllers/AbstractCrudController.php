@@ -3,6 +3,7 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Http\FormRequest;
@@ -20,6 +21,7 @@ use Modules\Admin\Interfaces\TreeCollectionInterface;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Services\SystemDictService;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Throwable;
 
 use function request;
@@ -187,7 +189,7 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 列表
      *
-     * @return mixed
+     * @return Responsable|SymfonyResponse
      *
      * @throws BindingResolutionException
      */
@@ -205,15 +207,10 @@ abstract class AbstractCrudController extends AbstractController
         foreach ($this->orderBy() as $key => $value) {
             $query = $query->orderBy($key, $value);
         }
-        switch ($listType) {
-            case 'tree':
-            case 'all':
-                $data = $query->get();
-                break;
-            default:
-                $data = $query->paginate(\min($this->getMaxPerPage(), request('__per_page__', 10)), pageName: '__page__');
-                break;
-        }
+        $data = match ($listType) {
+            'tree', 'all' => $query->get(),
+            default => $query->paginate(\min($this->getMaxPerPage(), request('__per_page__', 10)), pageName: '__page__'),
+        };
 
         if (! empty($visible = $this->getMakeVisibleFields())) {
             $data->each(function ($item) use ($visible) {
@@ -242,7 +239,7 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 读取详情
      *
-     * @return mixed
+     * @return Responsable|SymfonyResponse
      */
     #[SystemMenu('详情')]
     public function read()
@@ -279,11 +276,6 @@ abstract class AbstractCrudController extends AbstractController
 
     /**
      * 创建
-     *
-     * @return mixed
-     *
-     * @throws BindingResolutionException
-     * @throws InvalidArgumentException
      */
     #[SystemMenu('创建')]
     public function create(FormToken $formToken)
@@ -328,7 +320,7 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 编辑
      *
-     * @return Response
+     * @return Responsable|SymfonyResponse
      *
      * @throws BindingResolutionException
      * @throws InvalidArgumentException|Throwable
@@ -388,7 +380,7 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 切换状态
      *
-     * @return Response
+     * @return Responsable|SymfonyResponse
      */
     #[SystemMenu('切换状态')]
     public function changeStatus()
@@ -415,7 +407,7 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 删除
      *
-     * @return Response
+     * @return Responsable|SymfonyResponse
      *
      * @throws Throwable
      */
@@ -451,7 +443,7 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 回收站
      *
-     * @return Response
+     * @return Responsable|SymfonyResponse
      *
      * @throws BindingResolutionException
      */
@@ -499,7 +491,7 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 恢复
      *
-     * @return Response
+     * @return Responsable|SymfonyResponse
      *
      * @throws BindingResolutionException|Throwable
      */
@@ -535,7 +527,7 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 永久删除
      *
-     * @return Response
+     * @return Responsable|SymfonyResponse
      *
      * @throws BindingResolutionException|Throwable
      */

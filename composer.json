@@ -12,6 +12,7 @@
         "php": "^8.2",
         "ext-pdo_sqlite": "*",
         "ext-sqlite3": "*",
+        "ext-pdo": "*",
         "composer/semver": "^3.4",
         "dedoc/scramble": "^0.12.23",
         "inertiajs/inertia-laravel": "^2.0",
@@ -25,6 +26,7 @@
         "spatie/laravel-permission": "^6.21",
         "tightenco/ziggy": "^2.5",
         "yansongda/laravel-pay": "~3.7.0"
+
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.5",
