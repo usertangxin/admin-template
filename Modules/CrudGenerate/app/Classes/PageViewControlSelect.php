@@ -89,10 +89,18 @@ class PageViewControlSelect extends AbstractPageViewControl
         }
 
         return <<<code
-            <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+            <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                 <a-select v-model="formData.{$this->getFieldName()}" :options='$options' placeholder="请选择{$this->getComment()}"$attrs></a-select>
             </a-form-item>
         code;
+    }
+
+    public function getFormCodeDefaultValue()
+    {
+        if ($this->innerGetSpecialParam('multiple', 'no') != 'yes') {
+            return null;
+        }
+        return [];
     }
 
     public function getIndexQueryHtmlFragment(): string

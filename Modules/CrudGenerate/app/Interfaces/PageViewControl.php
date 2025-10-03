@@ -37,6 +37,11 @@ interface PageViewControl
     public function getFormCodeHtmlFragment(): string;
 
     /**
+     * 表单默认值
+     */
+    public function getFormCodeDefaultValue();
+
+    /**
      * 列表页列代码片段
      */
     public function getIndexColumnFragment(): array;

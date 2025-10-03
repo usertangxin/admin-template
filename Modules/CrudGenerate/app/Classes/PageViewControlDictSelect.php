@@ -62,6 +62,14 @@ class PageViewControlDictSelect extends AbstractPageViewControl
 
     }
 
+    public function getFormCodeDefaultValue()
+    {
+        if ($this->innerGetSpecialParam('multiple', 'no') != 'yes') {
+            return null;
+        }
+        return [];
+    }
+
     public function getFormCodeHtmlFragment(): string
     {
         $options = [];
@@ -87,7 +95,7 @@ class PageViewControlDictSelect extends AbstractPageViewControl
         }
 
         return <<<code
-            <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+            <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                 <dict-select v-model="formData.{$this->getFieldName()}" code="{$dictCode}" placeholder="请输入{$this->getComment()}"$attrs></dict-select>
             </a-form-item>
         code;

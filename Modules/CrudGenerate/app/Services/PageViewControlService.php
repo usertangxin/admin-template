@@ -158,6 +158,38 @@ class PageViewControlService implements JsonSerializable
             }
         }
 
+        $lines         = explode("\n", $content);
+        $indentedLines = array_map(function ($index, $line) {
+            return '        ' . $line;
+        }, array_keys($lines), $lines);
+        $content = implode("\n", $indentedLines);
+
+        return $content;
+    }
+
+    public function analysisFormDataJsFragment(SystemCrudHistory $crudHistory)
+    {
+        $column_list = $crudHistory->column_list;
+        $content     = [];
+        foreach ($column_list as $column) {
+            if ($column['gen_form'] == 'yes') {
+                if (! $column['page_view_control']) {
+                    continue;
+                }
+
+                $pageViewControl = $this->pageViewControls[$column['page_view_control']];
+                $pageViewControl->make($column, $column_list, $crudHistory);
+                $fragment = $pageViewControl->getFormCodeDefaultValue();
+
+                if (is_null($fragment)) {
+                    continue;
+                }
+                $content[$column['field_name']] = $fragment;
+            }
+        }
+
+        $content = json_encode((object)$content, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+
         return $content;
     }
 

@@ -71,7 +71,7 @@ class PageViewControlUploadImage extends AbstractPageViewControl
         }
 
         return <<<code
-            <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+            <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                 <upload-image v-model="formData.{$this->getFieldName()}"$attrs></upload-image>
             </a-form-item>
         code;

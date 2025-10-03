@@ -66,9 +66,9 @@ abstract class AbstractPageViewControl implements PageViewControl
         return [];
     }
 
-    public function getFormImportFragment(): array
+    public function getFormCodeDefaultValue()
     {
-        return [];
+        return null;
     }
 
     // public function getIndexQueryFragment(): string

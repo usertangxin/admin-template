@@ -62,7 +62,7 @@ class PageViewControlRadio extends AbstractPageViewControl
         $options = json_encode($options, JSON_UNESCAPED_UNICODE);
 
         return <<<code
-            <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+            <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                 <a-radio-group v-model="formData.{$this->getFieldName()}" :options='$options'"></a-radio-group>
             </a-form-item>
         code;

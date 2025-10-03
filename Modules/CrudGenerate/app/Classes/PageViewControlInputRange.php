@@ -37,6 +37,11 @@ class PageViewControlInputRange extends AbstractPageViewControl
         return '';
     }
 
+    public function getFormCodeDefaultValue()
+    {
+        return [];
+    }
+
     public function getFormCodeHtmlFragment(): string
     {
         $attrs     = '';

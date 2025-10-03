@@ -122,7 +122,7 @@ class PageViewControlTimePicker extends AbstractPageViewControl
         }
 
         return <<<code
-            <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+            <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                 <$input_type $v_model="formData.{$this->getFieldName()}" placeholder="请选择{$this->getComment()}"$attrs></$input_type>
             </a-form-item>
         code;

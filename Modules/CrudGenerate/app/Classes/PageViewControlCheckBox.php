@@ -43,10 +43,15 @@ class PageViewControlCheckBox extends AbstractPageViewControl
         $options = json_encode($options, JSON_UNESCAPED_UNICODE);
 
         return <<<code
-            <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+            <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                 <a-checkbox-group v-model="formData.{$this->getFieldName()}" :options='$options'"></a-checkbox-group>
             </a-form-item>
         code;
+    }
+
+    public function getFormCodeDefaultValue()
+    {
+        return [];
     }
 
     public function getIndexQueryHtmlFragment(): string

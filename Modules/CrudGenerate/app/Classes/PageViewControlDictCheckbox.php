@@ -52,10 +52,15 @@ class PageViewControlDictCheckbox extends AbstractPageViewControl
         $dictCode = $this->innerGetSpecialParam('dict_code');
 
         return <<<code
-            <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+            <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                 <dict-checkbox v-model="formData.{$this->getFieldName()}" code="{$dictCode}"></dict-checkbox>
             </a-form-item>
         code;
+    }
+
+    public function getFormCodeDefaultValue()
+    {
+        return [];
     }
 
     public function getIndexQueryHtmlFragment(): string

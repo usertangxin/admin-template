@@ -91,7 +91,7 @@ class PageViewControlTextarea extends AbstractPageViewControl
         }
 
         return <<<code
-            <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+            <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                 <a-textarea v-model="formData.{$this->getFieldName()}"$attrs></a-textarea>
             </a-form-item>
         code;

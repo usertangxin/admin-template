@@ -54,7 +54,7 @@ class PageViewControlSwitch extends AbstractPageViewControl
         }
 
         return <<<code
-            <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+            <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                 <a-switch v-model="formData.{$this->getFieldName()}"$attrs></a-switch>
             </a-form-item>
         code;

@@ -90,7 +90,7 @@ class PageViewControlSlider extends AbstractPageViewControl
         }
 
         return <<<code
-            <a-form-item label="{$this->getLabel()}" field="{$this->getFieldName()}">
+            <a-form-item label="{$this->getComment()}" field="{$this->getFieldName()}">
                 <a-slider v-model="formData.{$this->getFieldName()}" :marks='$options'$attrs></a-slider>
             </a-form-item>
         code;

@@ -188,4 +188,19 @@ class CrudGenerateService
 
         return $stub->render();
     }
+
+    public function getViewSaveContent(SystemCrudHistory $crudHistory)
+    {
+        $pageViewControlService = \app(PageViewControlService::class);
+
+        // $class_name = $crudHistory->gen_class_name;
+
+        $stub = new Stub('/views/pages/save.stub', [
+            'FORM_HTML' => $pageViewControlService->analysisFormCodeFragment($crudHistory),
+            'FORM_DATA_JS' => $pageViewControlService->analysisFormDataJsFragment($crudHistory),
+        ]);
+        $stub->setBasePath($this->getStubsBasePath());
+
+        return $stub->render();
+    }
 }

@@ -9,9 +9,7 @@ $FORM_HTML$
 <script setup>
 import { reactive, ref } from 'vue';
 
-const formData = reactive({
-    $FORM_DATA_JS$
-})
+const formData = reactive($FORM_DATA_JS$)
 
 const rules = {
     
