@@ -48,15 +48,13 @@ class SystemPermissionService
         $list = $this->getMyPermissionList();
         $list = ArrUtil::convertToTree($list, 'parent_code', 'code', 'children');
 
-        $list = ArrUtil::recursiveFilter($list, function ($item) {
+        return ArrUtil::recursiveFilter($list, function ($item) {
             if ($item['type'] == SystemMenuType::GROUP && (! isset($item['children']) || count($item['children']) == 0)) {
                 return false;
             }
 
             return true;
         });
-
-        return $list;
     }
 
     /**
@@ -103,7 +101,7 @@ class SystemPermissionService
     public function getMyPermissionList()
     {
         $list = \collect($this->getSystemMenuList());
-        $list = $list->filter(function ($item) {
+        return $list->filter(function ($item) {
             if ($item['type'] == SystemMenuType::GROUP) {
                 return true;
             }
@@ -126,8 +124,6 @@ class SystemPermissionService
 
             return false;
         })->toArray();
-
-        return $list;
     }
 
     /**
@@ -137,9 +133,8 @@ class SystemPermissionService
      * @param  mixed $key
      * @return mixed
      *
-     * @throws BindingResolutionException
      */
-    public function getBy($value, $key)
+    public function getBy(mixed $value, mixed $key)
     {
         $list = $this->getSystemMenuList();
         foreach ($list as $item) {
