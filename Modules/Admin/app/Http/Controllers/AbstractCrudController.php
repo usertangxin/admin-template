@@ -20,6 +20,8 @@ use Modules\Admin\Interfaces\TreeCollectionInterface;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Services\SystemDictService;
+use Throwable;
+use function request;
 
 abstract class AbstractCrudController extends AbstractController
 {
@@ -113,13 +115,13 @@ abstract class AbstractCrudController extends AbstractController
     protected function validate(): array
     {
 
-        if (\request()->route()->getActionMethod() === 'changeStatus') {
+        if (request()->route()->getActionMethod() === 'changeStatus') {
             $systemDictService      = SystemDictService::getInstance();
             $statusFieldAndDictCode = $this->getStatusFieldAndDictCode();
             $field                  = $statusFieldAndDictCode[0];
             $dictCode               = $statusFieldAndDictCode[1];
 
-            return \request()->validate([
+            return request()->validate([
                 'id'   => 'required',
                 $field => [
                     'required',
@@ -191,7 +193,7 @@ abstract class AbstractCrudController extends AbstractController
     #[SystemMenu('列表')]
     public function index()
     {
-        $listType = \request('__list_type__', 'list');
+        $listType = request('__list_type__', 'list');
         $where    = $this->searchWhere();
         $model    = $this->getModel();
         /** @var AbstractModel|AbstractSoftDelModel $query */
@@ -208,7 +210,7 @@ abstract class AbstractCrudController extends AbstractController
                 $data = $query->get();
                 break;
             default:
-                $data = $query->paginate(\min($this->getMaxPerPage(), \request('__per_page__', 10)), pageName: '__page__');
+                $data = $query->paginate(\min($this->getMaxPerPage(), request('__per_page__', 10)), pageName: '__page__');
                 break;
         }
 
@@ -247,7 +249,7 @@ abstract class AbstractCrudController extends AbstractController
 
         Inertia::share('__page_read__', true);
 
-        $id    = \request('id');
+        $id    = request('id');
         $model = $this->getModel();
         if (in_array(SoftDeletes::class, \class_uses_recursive($model))) {
             $query = $this->getModel()->withTrashed();
@@ -287,7 +289,7 @@ abstract class AbstractCrudController extends AbstractController
     {
         Inertia::share('__page_create__', true);
 
-        if (\request()->method() == 'GET') {
+        if (request()->method() == 'GET') {
             return $this->success(view: $this->getViewPrefix() . '/save');
         }
 
@@ -319,8 +321,6 @@ abstract class AbstractCrudController extends AbstractController
 
     /**
      * 创建后
-     *
-     * @param mixed $model
      */
     protected function afterCreate($model): void {}
 
@@ -330,15 +330,15 @@ abstract class AbstractCrudController extends AbstractController
      * @return Response
      *
      * @throws BindingResolutionException
-     * @throws InvalidArgumentException|\Throwable
+     * @throws InvalidArgumentException|Throwable
      */
     #[SystemMenu('编辑')]
     public function update(FormToken $formToken)
     {
         Inertia::share('__page_update__', true);
 
-        $id = \request('id');
-        if (\request()->method() == 'GET') {
+        $id = request('id');
+        if (request()->method() == 'GET') {
             $data = $this->getModel()->find($id);
             if (! empty($resourceCollection = $this->getResource())) {
                 $data = new $resourceCollection($data);
@@ -395,7 +395,7 @@ abstract class AbstractCrudController extends AbstractController
 
         Inertia::share('__page_change_status__', true);
 
-        $id                     = \request('id');
+        $id                     = request('id');
         $statusFieldAndDictCode = $this->getStatusFieldAndDictCode();
         $field                  = $statusFieldAndDictCode[0];
         $status                 = $this->validate()[$field];
@@ -415,7 +415,7 @@ abstract class AbstractCrudController extends AbstractController
      * 删除
      *
      * @return Response
-     * @throws \Throwable
+     * @throws Throwable
      */
     #[SystemMenu('删除')]
     public function destroy()
@@ -437,7 +437,7 @@ abstract class AbstractCrudController extends AbstractController
                 $item->delete();
             });
             DB::commit();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             DB::rollBack();
 
             throw $e;
@@ -456,7 +456,7 @@ abstract class AbstractCrudController extends AbstractController
     #[SystemMenu('回收站')]
     public function recycle()
     {
-        $listType = \request('__list_type__', 'list');
+        $listType = request('__list_type__', 'list');
         $where    = $this->searchWhere();
         $query    = ModelUtil::bindSearch($this->getModel()->onlyTrashed(), $where);
         if (! empty($with = $this->with())) {
@@ -467,7 +467,7 @@ abstract class AbstractCrudController extends AbstractController
         }
         $data = match ($listType) {
             'tree', 'all' => $query->get(),
-            default => $query->paginate(\min($this->getMaxPerPage(), \request('__per_page__', 10)), pageName: '__page__'),
+            default => $query->paginate(\min($this->getMaxPerPage(), request('__per_page__', 10)), pageName: '__page__'),
         };
 
         if (! empty($visible = $this->getMakeVisibleFields())) {
@@ -499,7 +499,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @return Response
      *
-     * @throws BindingResolutionException|\Throwable
+     * @throws BindingResolutionException|Throwable
      */
     #[SystemMenu('恢复')]
     public function recovery()
@@ -521,7 +521,7 @@ abstract class AbstractCrudController extends AbstractController
                 $item->restore();
             });
             DB::commit();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             DB::rollBack();
 
             throw $e;
@@ -535,7 +535,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @return Response
      *
-     * @throws BindingResolutionException|\Throwable
+     * @throws BindingResolutionException|Throwable
      */
     #[SystemMenu('永久删除')]
     public function realDestroy()
@@ -557,7 +557,7 @@ abstract class AbstractCrudController extends AbstractController
                 $item->forceDelete();
             });
             DB::commit();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             DB::rollBack();
 
             return $this->fail('永久删除失败：' . $e->getMessage());
