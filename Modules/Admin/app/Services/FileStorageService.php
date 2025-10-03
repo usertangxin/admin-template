@@ -15,14 +15,14 @@ class FileStorageService
      *
      * @var array<string, UploadFileConstraintInterface>
      */
-    protected $file_constraint = [];
+    protected array $file_constraint = [];
 
     /**
      * 文件存储
      *
      * @var array<string, UploadFileStorageInterface>
      */
-    protected $file_storage = [];
+    protected array $file_storage = [];
 
     public static function getInstance(): static
     {
@@ -74,19 +74,19 @@ class FileStorageService
         if (! \is_array($ids)) {
             $ids = \explode(',', $ids);
         }
-        /** @var SystemUploadFile[] $systemUploadfiles */
-        $systemUploadfiles = SystemUploadFile::withTrashed()->whereIn('id', $ids)->get();
+        /** @var SystemUploadFile[] $systemUploadFiles */
+        $systemUploadFiles = SystemUploadFile::withTrashed()->whereIn('id', $ids)->get();
         $success_paths     = [];
         $fail_paths        = [];
-        foreach ($systemUploadfiles as $systemUploadfile) {
-            $storage = $this->file_storage[$systemUploadfile->storage_mode] ?? null;
+        foreach ($systemUploadFiles as $systemUploadFile) {
+            $storage = $this->file_storage[$systemUploadFile->storage_mode] ?? null;
             if (empty($storage)) {
                 continue;
             }
-            if ($storage->delete($systemUploadfile->storage_path)) {
-                $success_paths[] = $systemUploadfile->storage_path;
+            if ($storage->delete($systemUploadFile->storage_path)) {
+                $success_paths[] = $systemUploadFile->storage_path;
             } else {
-                $fail_paths[] = $systemUploadfile->storage_path;
+                $fail_paths[] = $systemUploadFile->storage_path;
             }
         }
 
@@ -98,17 +98,17 @@ class FileStorageService
 
     public function temporaryUrl($id, DateTime $expiration)
     {
-        /** @var SystemUploadFile $systemUploadfile */
-        $systemUploadfile = SystemUploadFile::withTrashed()->find($id);
-        if (empty($systemUploadfile)) {
+        /** @var SystemUploadFile $systemUploadFile */
+        $systemUploadFile = SystemUploadFile::withTrashed()->find($id);
+        if (empty($systemUploadFile)) {
             throw new NotFoundResourceException('文件不存在');
         }
-        $storage = $this->file_storage[$systemUploadfile->storage_mode] ?? null;
+        $storage = $this->file_storage[$systemUploadFile->storage_mode] ?? null;
         if (empty($storage)) {
             throw new NotFoundResourceException('存储模式不存在');
         }
 
-        // \dump($systemUploadfile->storage_path);
-        return $storage->temporaryUrl($systemUploadfile->storage_path, $expiration);
+        // \dump($systemUploadFile->storage_path);
+        return $storage->temporaryUrl($systemUploadFile->storage_path, $expiration);
     }
 }
