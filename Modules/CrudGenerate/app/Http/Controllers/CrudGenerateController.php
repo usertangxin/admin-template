@@ -9,7 +9,7 @@ use Modules\CrudGenerate\Models\SystemCrudHistory;
 use Modules\CrudGenerate\Services\FieldControlService;
 use Modules\CrudGenerate\Services\PageViewControlService;
 
-#[SystemMenu('Crud生成', type: SystemMenuType::MENU, parent_code: 'system.dev', icon: 'fas trowel-bricks')]
+#[SystemMenu('Crud生成', type: SystemMenuType::MENU, icon: 'fas trowel-bricks', parent_code: 'system.dev')]
 class CrudGenerateController extends AbstractCrudController
 {
     protected function getModel()
