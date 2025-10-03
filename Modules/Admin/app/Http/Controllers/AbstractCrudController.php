@@ -5,8 +5,10 @@ namespace Modules\Admin\Http\Controllers;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use InvalidArgumentException;
@@ -22,7 +24,7 @@ use Modules\Admin\Services\SystemDictService;
 abstract class AbstractCrudController extends AbstractController
 {
     /**
-     * @return Model
+     * @return Model|AbstractSoftDelModel
      */
     abstract protected function getModel();
 
@@ -82,8 +84,6 @@ abstract class AbstractCrudController extends AbstractController
      * 排序
      *
      * @return mixed
-     *
-     * @throws BindingResolutionException
      */
     protected function orderBy(): array
     {
@@ -93,7 +93,7 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 资源
      *
-     * @return class-string<JsonResource>
+     * @return class-string<JsonResource>|null
      */
     protected function getResource(): ?string
     {
@@ -132,11 +132,10 @@ abstract class AbstractCrudController extends AbstractController
         $request_namespace = str_replace('Controllers', 'Requests', static::class);
         $request_namespace = str_replace(\class_basename(static::class), '', $request_namespace);
         $request_classname = $request_namespace . \class_basename($this->getModel()) . 'Request';
-        /** @var \Illuminate\Foundation\Http\FormRequest */
+        /** @var FormRequest $request */
         $request = \app()->make($request_classname);
-        $data    = $request->validated();
 
-        return $data;
+        return $request->validated();
     }
 
     /**
@@ -328,10 +327,10 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 编辑
      *
-     * @return mixed
+     * @return Response
      *
      * @throws BindingResolutionException
-     * @throws InvalidArgumentException
+     * @throws InvalidArgumentException|\Throwable
      */
     #[SystemMenu('编辑')]
     public function update(FormToken $formToken)
@@ -377,22 +376,18 @@ abstract class AbstractCrudController extends AbstractController
 
     /**
      * 更新前
-     *
-     * @param mixed $model
      */
     protected function beforeUpdate($model, array &$data): void {}
 
     /**
      * 更新后
-     *
-     * @param mixed $model
      */
     protected function afterUpdate($model): void {}
 
     /**
      * 切换状态
      *
-     * @return mixed
+     * @return Response
      */
     #[SystemMenu('切换状态')]
     public function changeStatus()
@@ -419,7 +414,8 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 删除
      *
-     * @return int
+     * @return Response
+     * @throws \Throwable
      */
     #[SystemMenu('删除')]
     public function destroy()
@@ -453,7 +449,7 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 回收站
      *
-     * @return mixed
+     * @return Response
      *
      * @throws BindingResolutionException
      */
@@ -469,15 +465,10 @@ abstract class AbstractCrudController extends AbstractController
         foreach ($this->orderBy() as $key => $value) {
             $query = $query->orderBy($key, $value);
         }
-        switch ($listType) {
-            case 'tree':
-            case 'all':
-                $data = $query->get();
-                break;
-            default:
-                $data = $query->paginate(\min($this->getMaxPerPage(), \request('__per_page__', 10)), pageName: '__page__');
-                break;
-        }
+        $data = match ($listType) {
+            'tree', 'all' => $query->get(),
+            default => $query->paginate(\min($this->getMaxPerPage(), \request('__per_page__', 10)), pageName: '__page__'),
+        };
 
         if (! empty($visible = $this->getMakeVisibleFields())) {
             $data->each(function ($item) use ($visible) {
@@ -506,9 +497,9 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 恢复
      *
-     * @return void
+     * @return Response
      *
-     * @throws BindingResolutionException
+     * @throws BindingResolutionException|\Throwable
      */
     #[SystemMenu('恢复')]
     public function recovery()
@@ -542,9 +533,9 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 永久删除
      *
-     * @return void
+     * @return Response
      *
-     * @throws BindingResolutionException
+     * @throws BindingResolutionException|\Throwable
      */
     #[SystemMenu('永久删除')]
     public function realDestroy()
