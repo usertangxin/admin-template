@@ -51,10 +51,7 @@ class SystemConfigService
     /**
      * 获取配置列表
      *
-     * @param bool $force
-     *
-     * @throws BindingResolutionException
-     * @throws InvalidArgumentException
+     * @return Collection
      */
     public function getList(): Collection
     {
