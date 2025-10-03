@@ -21,7 +21,6 @@ class SystemDictService
     /**
      * 获取字典服务实例
      *
-     * @throws BindingResolutionException
      */
     public static function getInstance(): static
     {
@@ -58,7 +57,7 @@ class SystemDictService
      * @param  mixed                         $code
      * @return Collection<string|int, mixed>
      */
-    public function getValuesByCode($code)
+    public function getValuesByCode(mixed $code)
     {
         return $this->getList()->where('code', $code)->pluck('value');
     }
@@ -69,7 +68,7 @@ class SystemDictService
      * @param  mixed      $code
      * @return Collection
      */
-    public function getListByCode($code)
+    public function getListByCode(mixed $code)
     {
         return $this->getList()->where('code', $code);
     }
