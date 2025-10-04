@@ -9,31 +9,62 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Nwidart\Modules\Module;
+use Nwidart\Modules\Traits\PathNamespace;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class ResponseService
 {
+    use PathNamespace;
+
     protected function __construct() {}
 
+    protected static function getDefaultNamespace(): string
+    {
+        return config('modules.paths.generator.controller.namespace')
+            ?? ltrim(config('modules.paths.generator.controller.path'), config('modules.paths.app_folder', ''));
+    }
+
+    /**
+     * Get class namespace.
+     *
+     * @return string
+     */
+    protected static function getClassNamespace(Module $module)
+    {
+        $my = new static;
+
+        return $my->module_namespace($module->getStudlyName(), static::getDefaultNamespace());
+    }
+
+    /**
+     * 基于完整控制器类名获取对应视图前缀
+     *
+     * @return string
+     */
     public static function getViewPrefix($class)
     {
-        $class     = is_object($class) ? get_class($class) : $class;
-        $shortName = class_basename($class);
-
-        // TODO: 此处有多级目录应该需要显示出来
-
-        $prefix = Str::of($shortName)->replace('Controller', '')->snake('_');
+        $class = is_object($class) ? get_class($class) : $class;
 
         if (str_starts_with($class, config('modules.namespace'))) {
             // 从类名中提取模块名称，格式为 Modules\ModuleName\Http\Controllers\...
             $moduleParts = explode('\\', $class);
             $moduleName  = $moduleParts[1]; // 第二个部分即为模块名称
-            $prefix      = 'module.' . $moduleName . '.' . $prefix;
+
+            $controllerBaseNamespace = static::getClassNamespace(module($moduleName, true));
+
+            $prefix = 'module.' . $moduleName . '.';
         } else {
-            $prefix = 'app.' . $prefix;
+
+            $controllerBaseNamespace = 'App\\Http\\Controllers\\';
+
+            $prefix = 'app.';
         }
 
-        return $prefix;
+        $a      = Str::of($class)->replace($controllerBaseNamespace . '\\', '')->explode('\\')->map(fn ($item) => Str::snake($item))->toArray();
+        $prefix = $prefix . implode('.', $a);
+
+        return Str::of($prefix)->replace('_controller', '')->toString();
     }
 
     /**
