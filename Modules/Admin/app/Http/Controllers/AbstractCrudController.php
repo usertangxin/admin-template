@@ -20,6 +20,7 @@ use Modules\Admin\Classes\Utils\ModelUtil;
 use Modules\Admin\Interfaces\TreeCollectionInterface;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
+use Modules\Admin\Services\ResponseService;
 use Modules\Admin\Services\SystemDictService;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Throwable;
@@ -62,19 +63,7 @@ abstract class AbstractCrudController extends AbstractController
      */
     protected function getViewPrefix(): string
     {
-        $shortName = \class_basename($this);
-        $prefix    = Str::of($shortName)->replace('Controller', '')->snake('_');
-
-        if (str_starts_with(static::class, 'Modules')) {
-            // 从类名中提取模块名称，格式为 Modules\ModuleName\Http\Controllers\...
-            $moduleParts = explode('\\', static::class);
-            $moduleName  = $moduleParts[1]; // 第二个部分即为模块名称
-            $prefix      = 'module.' . $moduleName . '.' . $prefix;
-        } else {
-            $prefix = 'app.' . $prefix;
-        }
-
-        return $prefix;
+        return ResponseService::getViewPrefix($this);
     }
 
     /**

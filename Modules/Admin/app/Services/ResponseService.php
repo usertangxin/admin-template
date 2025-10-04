@@ -15,6 +15,27 @@ class ResponseService
 {
     protected function __construct() {}
 
+    public static function getViewPrefix($class)
+    {
+        $class     = is_object($class) ? get_class($class) : $class;
+        $shortName = class_basename($class);
+
+        // TODO: 此处有多级目录应该需要显示出来
+
+        $prefix = Str::of($shortName)->replace('Controller', '')->snake('_');
+
+        if (str_starts_with($class, config('modules.namespace'))) {
+            // 从类名中提取模块名称，格式为 Modules\ModuleName\Http\Controllers\...
+            $moduleParts = explode('\\', $class);
+            $moduleName  = $moduleParts[1]; // 第二个部分即为模块名称
+            $prefix      = 'module.' . $moduleName . '.' . $prefix;
+        } else {
+            $prefix = 'app.' . $prefix;
+        }
+
+        return $prefix;
+    }
+
     /**
      * 视图
      *
@@ -25,20 +46,11 @@ class ResponseService
     public static function inertia(mixed $data = [], mixed $view = null)
     {
         if ($view === null) {
-            $action    = \request()->route()->getActionMethod();
-            $action    = Str::of($action)->replace(['get', 'post', 'put', 'delete'], '')->snake('-')->toString();
-            $class     = \request()->route()->getControllerClass();
-            $shortName = \class_basename($class);
-            $prefix    = Str::of($shortName)->replace('Controller', '')->snake('_')->toString();
-            $view      = $prefix . '/' . $action;
-            if (str_starts_with($class, 'Modules')) {
-                // 从类名中提取模块名称，格式为 Modules\ModuleName\Http\Controllers\...
-                $moduleParts = explode('\\', $class);
-                $moduleName  = $moduleParts[1]; // 第二个部分即为模块名称
-                $view        = 'module.' . $moduleName . '.' . $view;
-            } else {
-                $view = 'app.' . $view;
-            }
+            $action = \request()->route()->getActionMethod();
+            $action = Str::of($action)->replace(['get', 'post', 'put', 'delete'], '')->snake('-')->toString();
+            $class  = \request()->route()->getControllerClass();
+            $prefix = static::getViewPrefix($class);
+            $view   = $prefix . '/' . $action;
         }
 
         $data = static::analysisDataToResource($data);

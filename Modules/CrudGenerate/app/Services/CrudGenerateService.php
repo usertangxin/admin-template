@@ -2,9 +2,11 @@
 
 namespace Modules\CrudGenerate\Services;
 
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
 use Nwidart\Modules\Module;
+use Nwidart\Modules\Support\Config\GenerateConfigReader;
 use Nwidart\Modules\Support\Stub;
 use Nwidart\Modules\Traits\PathNamespace;
 
@@ -34,40 +36,59 @@ class CrudGenerateService
      */
     public function getClassNamespace(Module $module, $class_name, $type)
     {
-        $path_namespace = $this->path_namespace(str_replace(class_basename($class_name), '', $class_name));
+        $path_namespace = $this->path_namespace(rtrim($class_name, class_basename($class_name)));
 
         return $this->module_namespace($module->getStudlyName(), $this->getDefaultNamespace($type) . ($path_namespace ? '\\' . $path_namespace : ''));
+    }
+
+    protected function getDestinationFilePath(Module $module, $type, $file_name)
+    {
+        $path = module_path($module->getStudlyName());
+
+        $path = str_replace(base_path('\\'), '/', $path);
+
+        $generatorPath = GenerateConfigReader::read($type);
+
+        return $path . $generatorPath->getPath() . '/' . $file_name;
     }
 
     public function gen() {}
 
     public function fileContentMap(SystemCrudHistory $crudHistory)
     {
-        $class_name = $crudHistory->gen_class_name;
+        $class_name  = $crudHistory->gen_class_name;
+        $module_name = $crudHistory->module_name;
+
+        $migration_filename = date('Y_m_d_His_') . 'create_' . $crudHistory->table_name . '_table.php';
 
         return [
             'migration' => [
-                'file_name' => 'create_' . $crudHistory->table_name . '_table.php',
+                'file_name' => $migration_filename,
+                'path'      => $this->getDestinationFilePath(module($module_name, true), 'migration', $migration_filename),
                 'content'   => $this->getMigrationContent($crudHistory),
                 'lang'      => 'php',
             ],
             'model' => [
                 'file_name' => $class_name . '.php',
+                'path'      => $this->getDestinationFilePath(module($module_name, true), 'model', $class_name . '.php'),
                 'content'   => $this->getModelContent($crudHistory),
                 'lang'      => 'php',
             ],
             'request' => [
                 'file_name' => $class_name . 'Request.php',
+                'path'      => $this->getDestinationFilePath(module($module_name, true), 'request', $class_name . 'Request.php'),
                 'content'   => $this->getRequestContent($crudHistory),
                 'lang'      => 'php',
             ],
             'controller' => [
                 'file_name' => $class_name . 'Controller.php',
+                'path'      => $this->getDestinationFilePath(module($module_name, true), 'controller', $class_name . 'Controller.php'),
                 'content'   => $this->getControllerContent($crudHistory),
                 'lang'      => 'php',
             ],
             'index.vue' => [
                 'file_name' => 'index.vue',
+                'path'      => $this->getDestinationFilePath(module($module_name, true), 'assets', 'js/pages/' . Str::of(class_basename($class_name))->snake()->toString() . '/index.vue'),
                 'content'   => $this->getViewIndexContent($crudHistory),
                 'lang'      => 'vue',
             ],
