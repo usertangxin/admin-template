@@ -196,9 +196,7 @@ class PageViewControlService implements JsonSerializable
             }
         }
 
-        $content = json_encode((object) $content, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-        return $content;
+        return json_encode((object) $content, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
     public function analysisQueryScopeFragment(SystemCrudHistory $crudHistory)
@@ -214,7 +212,10 @@ class PageViewControlService implements JsonSerializable
                 $pageViewControl = $this->pageViewControls[$column['page_view_control']];
                 $pageViewControl->make($column, $column_list, $crudHistory);
                 $fragment = $pageViewControl->getQueryScopeFragment();
-                $content .= $fragment . PHP_EOL;
+                if ($content) {
+                    $content .= PHP_EOL . PHP_EOL;
+                }
+                $content .= $fragment;
             }
         }
 
@@ -277,7 +278,7 @@ CODE;
                 $rules .= PHP_EOL;
             }
             $rules .= <<<CODE
-        '{$column['field_name']}' => '$rule',
+            '{$column['field_name']}' => '$rule',
 CODE;
 
         }

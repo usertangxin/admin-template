@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Models\AbstractModel;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 
 class $CLASS$ extends $PARENT_MODEL$
 {
@@ -24,7 +25,7 @@ $FILLABLE$
     ];
 
     protected $casts = [
-        $CASTS$
+$CASTS$
     ];
 
 $SCOPES$

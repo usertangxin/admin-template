@@ -19,7 +19,7 @@ import {onMounted, reactive, ref} from "vue";
 
 const page = usePage()
 const codes = reactive({});
-const currKey = ref('');
+const currKey = ref(null);
 
 onMounted(async function () {
     const highlighter = await createHighlighterCore({
@@ -34,6 +34,7 @@ onMounted(async function () {
     })
 
     _.forEach(page.props.data, (value, key) => {
+        currKey.value ??= key
         const a = {...value}
         a.html = highlighter.codeToHtml(value.content, {
             lang: value.lang,
@@ -64,7 +65,7 @@ onMounted(async function () {
     code {
 
         font-family: JetBrainsMono, monospace, sans-serif;
-        font-size: 18px;
+        font-size: 17px;
         line-height: 1.6;
 
     }

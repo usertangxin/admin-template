@@ -26,6 +26,11 @@ class PageViewControlSlider extends AbstractPageViewControl
         return $a;
     }
 
+    public function getModelCast(): ?string
+    {
+        return 'double';
+    }
+
     public function getQueryParams(): array|string
     {
         return [

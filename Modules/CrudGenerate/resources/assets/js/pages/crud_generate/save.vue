@@ -175,7 +175,7 @@
                                                                 :key="param.name" :label="param.label"
                                                                 :field="param.name" :required="param.required">
                                                                 <component :is="param.inputComponent"
-                                                                    v-model="item.page_view_control_special_params[param.name]"
+                                                                    v-model="item.page_view_control_query_params[param.name]"
                                                                     :placeholder="param.placeholder"
                                                                     :default-value="param.defaultValue"
                                                                     v-bind="param.inputAttrs">
