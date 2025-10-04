@@ -2,9 +2,9 @@
 
 namespace Modules\CrudGenerate\Services;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
 use InvalidArgumentException;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
+use Nwidart\Modules\Module;
 use Nwidart\Modules\Support\Stub;
 use Nwidart\Modules\Traits\PathNamespace;
 
@@ -30,10 +30,12 @@ class CrudGenerateService
     /**
      * Get class namespace.
      *
-     * @param  \Nwidart\Modules\Module $module
+     * @param Module $module
+     * @param $class_name
+     * @param $type
      * @return string
      */
-    public function getClassNamespace($module, $class_name, $type)
+    public function getClassNamespace(Module $module, $class_name, $type)
     {
         $path_namespace = $this->path_namespace(str_replace(class_basename($class_name), '', $class_name));
 
@@ -160,7 +162,7 @@ class CrudGenerateService
             'MODEL'           => class_basename($class_name),
             'MENU_NAME'       => $crudHistory->menu_name,
             'PARENT_CODE'     => $crudHistory->parent_menu_code ? "'{$crudHistory->parent_menu_code}'" : 'null',
-            'ICON'            => $crudHistory->menu_icon,
+            'ICON'            => $crudHistory->menu_icon ? "'{$crudHistory->menu_icon}'" : 'null',
         ]);
         $stub->setBasePath($this->getStubsBasePath());
 

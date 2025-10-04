@@ -260,8 +260,8 @@
                             </a-form-item>
                         </form-col>
                         <form-col v-if="formData.gen_mode == 'module'">
-                            <a-form-item label="模块" field="gen_module">
-                                <a-select v-model="formData.gen_module" placeholder="请选择模块">
+                            <a-form-item label="模块" field="module_name">
+                                <a-select v-model="formData.module_name" placeholder="请选择模块">
                                     <a-option v-for="item of modules" :value="item.name" :label="item.name" />
                                 </a-select>
                             </a-form-item>

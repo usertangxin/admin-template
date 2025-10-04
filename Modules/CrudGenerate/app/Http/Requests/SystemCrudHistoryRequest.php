@@ -18,7 +18,7 @@ class SystemCrudHistoryRequest extends FormRequest
             'primary_key'      => 'required|string',
             'parent_menu_code' => 'string',
             'menu_name'        => 'required|string',
-            'menu_icon'        => 'string',
+            'menu_icon'        => 'nullable|string',
             'gen_mode'         => 'required|in:app,module',
             'gen_class_name'   => 'required|string',
             'column_list'      => 'required|array',
