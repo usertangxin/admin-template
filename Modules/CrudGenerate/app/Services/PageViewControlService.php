@@ -95,7 +95,11 @@ class PageViewControlService implements JsonSerializable
                     continue;
                 }
 
-                $content .= $fragment . PHP_EOL;
+                if ($content) {
+                    $content .= PHP_EOL;
+                }
+
+                $content .= $fragment;
             }
         }
 
@@ -129,7 +133,10 @@ class PageViewControlService implements JsonSerializable
                     $arr = array_merge(['sortable' => ['sortDirections' => ['ascend', 'descend'], 'sorter' => true]], $arr);
                 }
                 $arr = array_merge(['title' => $column['comment'], 'dataIndex' => $column['field_name']], $arr);
-                $content .= '        ' . json_encode($arr, JSON_UNESCAPED_UNICODE) . ',' . PHP_EOL;
+                if ($content) {
+                    $content .= PHP_EOL;
+                }
+                $content .= '        ' . json_encode($arr, JSON_UNESCAPED_UNICODE) . ',';
             }
         }
 
@@ -153,7 +160,10 @@ class PageViewControlService implements JsonSerializable
                 $pageViewControl = $this->pageViewControls[$column['page_view_control']];
                 $pageViewControl->make($column, $column_list, $crudHistory);
                 $fragment = $pageViewControl->getFormCodeHtmlFragment();
-                $content .= $fragment . PHP_EOL;
+                if ($content) {
+                    $content .= PHP_EOL;
+                }
+                $content .= $fragment;
             }
         }
 
@@ -161,6 +171,7 @@ class PageViewControlService implements JsonSerializable
         $indentedLines = array_map(function ($index, $line) {
             return '        ' . $line;
         }, array_keys($lines), $lines);
+
         return implode("\n", $indentedLines);
     }
 
@@ -223,6 +234,9 @@ class PageViewControlService implements JsonSerializable
             $cast = $pageViewControls->getModelCast();
             if ($cast) {
                 $cast = '\'' . $cast . '\'';
+                if ($casts) {
+                    $casts .= PHP_EOL;
+                }
                 $casts .= <<<CODE
         '{$column['field_name']}' => $cast,
 CODE;
@@ -245,22 +259,27 @@ CODE;
             }
             $pageViewControls = $this->pageViewControls[$column['page_view_control']];
             $pageViewControls->make($column, $column_list, $crudHistory);
-            $rule = $pageViewControls->getRequestRules();
-            if ($rule) {
-                if (is_string($rule)) {
-                    $rule = explode('|', $rule);
-                }
-                if ($column['nullable'] == 'yes') {
-                    array_unshift($rule, 'nullable');
-                } else {
-                    array_unshift($rule, 'required');
-                }
-                $rule = implode('|', $rule);
-                $rules .= <<<CODE
-        '{$column['field_name']}' => '$rule',
+            $rule = $pageViewControls->getRequestRules() ?? '';
 
-CODE;
+            if (is_string($rule)) {
+                $rule = explode('|', $rule);
             }
+            $rule = array_filter($rule, function ($item) {
+                return $item !== '';
+            });
+            if ($column['nullable'] == 'yes') {
+                array_unshift($rule, 'nullable');
+            } else {
+                array_unshift($rule, 'required');
+            }
+            $rule = implode('|', $rule);
+            if ($rules) {
+                $rules .= PHP_EOL;
+            }
+            $rules .= <<<CODE
+        '{$column['field_name']}' => '$rule',
+CODE;
+
         }
 
         return $rules;

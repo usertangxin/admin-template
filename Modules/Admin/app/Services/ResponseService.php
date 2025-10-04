@@ -26,9 +26,10 @@ class ResponseService
     {
         if ($view === null) {
             $action    = \request()->route()->getActionMethod();
+            $action    = Str::of($action)->replace(['get', 'post', 'put', 'delete'], '')->snake('-')->toString();
             $class     = \request()->route()->getControllerClass();
             $shortName = \class_basename($class);
-            $prefix    = Str::of($shortName)->replace('Controller', '')->snake('_');
+            $prefix    = Str::of($shortName)->replace('Controller', '')->snake('_')->toString();
             $view      = $prefix . '/' . $action;
             if (str_starts_with($class, 'Modules')) {
                 // 从类名中提取模块名称，格式为 Modules\ModuleName\Http\Controllers\...
@@ -80,7 +81,6 @@ class ResponseService
      * @param  string                      $message 消息
      * @param  int                         $code    状态码
      * @param  mixed|null                  $view    视图
-     * @param  mixed                       $data
      * @return SymfonyResponse|Responsable
      */
     public static function fail(string $message = 'fail', int $code = 400, mixed $view = null, mixed $data = [])
@@ -102,7 +102,6 @@ class ResponseService
     /**
      * 将数据转换为JsonResource
      *
-     * @param  mixed        $data
      * @return JsonResource
      */
     protected static function analysisDataToResource(mixed $data)

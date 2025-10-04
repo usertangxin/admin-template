@@ -6,6 +6,7 @@ use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Utils\SystemMenuType;
 use Modules\Admin\Http\Controllers\AbstractCrudController;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
+use Modules\CrudGenerate\Services\CrudGenerateService;
 use Modules\CrudGenerate\Services\FieldControlService;
 use Modules\CrudGenerate\Services\PageViewControlService;
 
@@ -36,5 +37,14 @@ class CrudGenerateController extends AbstractCrudController
     public function getPageViewControls(PageViewControlService $page_view_control_service)
     {
         return $this->success($page_view_control_service->jsonSerialize());
+    }
+
+    #[SystemMenu('预览代码')]
+    public function getPreviewCode(CrudGenerateService $service)
+    {
+        $id    = request('id');
+        $model = $this->getModel()->find($id);
+
+        return $this->success($service->fileContentMap($model));
     }
 }

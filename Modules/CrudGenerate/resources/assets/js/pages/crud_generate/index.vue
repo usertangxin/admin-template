@@ -1,9 +1,17 @@
+<!--suppress HtmlUnknownTag -->
 <template>
     <div class="m-3 p-3 page-content">
         <index-action>
             <template #search></template>
         </index-action>
-        <index-table></index-table>
+        <index-table>
+            <template #action-column-after="scope">
+                <a-button size="medium" type="primary"
+                          @click="handlePreviewCode(scope.record)">
+                    预览代码
+                </a-button>
+            </template>
+        </index-table>
     </div>
 </template>
 
@@ -22,4 +30,8 @@ const store = provideIndexShareStore({
         name: '',
     },
 })
+
+function handlePreviewCode(record) {
+    window.open('./preview-code?id=' + record.id)
+}
 </script>

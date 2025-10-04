@@ -96,9 +96,11 @@ class FieldControlService implements JsonSerializable
         foreach ($column_list as $column) {
             if ($column['gen_form'] == 'yes') {
                 $fieldControl = $this->fieldControls[$column['field_control']];
+                if ($fillable) {
+                    $fillable .= PHP_EOL;
+                }
                 $fillable .= <<<CODE
         '{$column['field_name']}',
-
 CODE;
             }
         }

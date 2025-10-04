@@ -8,7 +8,7 @@
             <slot :name="column.slotName" v-bind="scope">
                 <template v-if="column.slotName === 'action-column'">
                     <a-space wrap class="-mb-2">
-                        <slot name="action-column-before"></slot>
+                        <slot name="action-column-before" v-bind="scope"></slot>
                         <slot name="action-read" v-bind="scope">
                             <a-button v-if="!$slots['action-read']" size="medium" type="primary"
                                 @click="handleDetail(scope.record)">
@@ -51,7 +51,7 @@
                                 </a-popconfirm>
                             </slot>
                         </template>
-                        <slot name="action-column-after"></slot>
+                        <slot name="action-column-after" v-bind="scope"></slot>
                     </a-space>
                 </template>
                 <template v-else-if="!column.type">

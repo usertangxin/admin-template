@@ -30,9 +30,6 @@ class CrudGenerateService
     /**
      * Get class namespace.
      *
-     * @param Module $module
-     * @param $class_name
-     * @param $type
      * @return string
      */
     public function getClassNamespace(Module $module, $class_name, $type)
@@ -43,6 +40,44 @@ class CrudGenerateService
     }
 
     public function gen() {}
+
+    public function fileContentMap(SystemCrudHistory $crudHistory)
+    {
+        $class_name = $crudHistory->gen_class_name;
+
+        return [
+            'migration' => [
+                'file_name' => 'create_' . $crudHistory->table_name . '_table.php',
+                'content'   => $this->getMigrationContent($crudHistory),
+                'lang'      => 'php',
+            ],
+            'model' => [
+                'file_name' => $class_name . '.php',
+                'content'   => $this->getModelContent($crudHistory),
+                'lang'      => 'php',
+            ],
+            'request' => [
+                'file_name' => $class_name . 'Request.php',
+                'content'   => $this->getRequestContent($crudHistory),
+                'lang'      => 'php',
+            ],
+            'controller' => [
+                'file_name' => $class_name . 'Controller.php',
+                'content'   => $this->getControllerContent($crudHistory),
+                'lang'      => 'php',
+            ],
+            'index.vue' => [
+                'file_name' => 'index.vue',
+                'content'   => $this->getViewIndexContent($crudHistory),
+                'lang'      => 'vue',
+            ],
+            'save.vue' => [
+                'file_name' => 'save.vue',
+                'content'   => $this->getViewSaveContent($crudHistory),
+                'lang'      => 'vue',
+            ],
+        ];
+    }
 
     /**
      * 分析迁移文件内容
@@ -173,7 +208,6 @@ class CrudGenerateService
      * 分析索引视图文件内容
      *
      * @return string
-     *
      */
     public function getViewIndexContent(SystemCrudHistory $crudHistory)
     {
