@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Admin\Models\AbstractSoftDelModel;
 use Modules\Admin\Models\AbstractModel;
 use Illuminate\Database\Eloquent\Attributes\Scope;
-use Illuminate\Database\Eloquent\Casts\Attribute
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class $CLASS$ extends $PARENT_MODEL$
 {
