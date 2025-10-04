@@ -56,7 +56,7 @@ class ResponseService
             $prefix = 'module.' . $moduleName . '.';
         } else {
 
-            $controllerBaseNamespace = 'App\\Http\\Controllers\\';
+            $controllerBaseNamespace = 'App\\Http\\Controllers';
 
             $prefix = 'app.';
         }
