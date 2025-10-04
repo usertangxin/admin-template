@@ -3,9 +3,11 @@
 namespace Modules\Admin\Classes;
 
 use Artisan;
+use Exception;
 use Modules\Admin\Classes\Utils\SystemDictUtil;
 use Modules\Admin\Interfaces\AdminScriptInterface;
 use Nwidart\Modules\Module;
+use function config;
 
 class AdminScript implements AdminScriptInterface
 {
@@ -13,22 +15,22 @@ class AdminScript implements AdminScriptInterface
     {
         Artisan::call('module:seed', ['module' => 'Admin']);
 
-        $dict_groups = \config('admin.system_dict_type');
+        $dict_groups = config('admin.system_dict_type');
 
         SystemDictUtil::autoRegisterTypes($dict_groups);
 
         foreach ($dict_groups as $dict_group) {
-            SystemDictUtil::autoRegisterDicts(\config('admin.dict.' . $dict_group['code']));
+            SystemDictUtil::autoRegisterDicts(config('admin.dict.' . $dict_group['code']));
         }
     }
 
     public function disable(Module $module)
     {
-        throw new \Exception('不能禁用此模块');
+        throw new Exception('不能禁用此模块');
     }
 
     public function delete(Module $module)
     {
-        throw new \Exception('不能删除此模块');
+        throw new Exception('不能删除此模块');
     }
 }
