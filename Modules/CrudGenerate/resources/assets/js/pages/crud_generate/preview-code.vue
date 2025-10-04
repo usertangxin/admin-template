@@ -1,10 +1,13 @@
 <template>
     <div class="m-3 p-3 page-content text-white">
-        <a-tabs>
-            <a-tab-pane v-for="(item,key) in codes" :key="key" :title="item.file_name">
-                <div class="text-[18px] code" v-html="item.html"></div>
-            </a-tab-pane>
-        </a-tabs>
+        <div class="sticky top-0" style="background-color: var(--color-bg-2);">
+            <a-tabs hide-content v-model:active-key="currKey">
+                <a-tab-pane v-for="(item,key) in codes" :key="key" :title="item.file_name"></a-tab-pane>
+            </a-tabs>
+        </div>
+        <template v-for="(item,key) in codes" :key="key">
+            <div v-show="key === currKey" class="code" v-html="item.html"></div>
+        </template>
     </div>
 </template>
 <script setup>
@@ -12,10 +15,11 @@ import {createHighlighterCore} from 'shiki/core'
 import {createJavaScriptRegexEngine} from 'shiki/engine/javascript'
 import {usePage} from '@inertiajs/vue3';
 import _ from 'lodash'
-import {onMounted, reactive} from "vue";
+import {onMounted, reactive, ref} from "vue";
 
 const page = usePage()
 const codes = reactive({});
+const currKey = ref('');
 
 onMounted(async function () {
     const highlighter = await createHighlighterCore({
@@ -52,8 +56,17 @@ onMounted(async function () {
 }
 
 :deep(.code) {
+
+    .shiki {
+        padding: 15px;
+    }
+
     code {
+
         font-family: JetBrainsMono, monospace, sans-serif;
+        font-size: 18px;
+        line-height: 1.6;
+
     }
 }
 

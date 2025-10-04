@@ -129,15 +129,18 @@ CODE;
             if ($column['comment']) {
                 $fragment .= '->comment(\'' . $column['comment'] . '\')';
             }
-            $content .= $fragment . ';' . PHP_EOL;
+            if ($content) {
+                $content .= PHP_EOL;
+            }
+            $content .= $fragment . ';';
         }
         $content .= <<<'CODE'
+
 $table->dateTime('created_at')->nullable()->comment('创建时间');
 $table->dateTime('updated_at')->nullable()->comment('更新时间');
-
 CODE;
         if ($crudHistory->soft_delete) {
-            $content .= '$table->dateTime(\'deleted_at\')->nullable()->comment(\'删除时间\');' . PHP_EOL;
+            $content .= PHP_EOL . '$table->dateTime(\'deleted_at\')->nullable()->comment(\'删除时间\');';
         }
 
         return $content;
