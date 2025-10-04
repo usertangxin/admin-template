@@ -66,10 +66,10 @@ class PageViewControlDatePicker extends AbstractPageViewControl
 
         if ($this->innerGetQueryParam('range_query', 'no') == 'yes') {
             $name = $this->getFieldName();
-            $name = Str::studly($name);
 
             return <<<code
-                protected function scope{$name}(Builder \$query, \$value)
+                #[Scope]
+                protected function {$name}(Builder \$query, \$value)
                 {
                     if (\$value && is_array(\$value) && count(\$value) == 2) {
                         \$query->whereBetween('{$this->getFieldName()}', \$value);

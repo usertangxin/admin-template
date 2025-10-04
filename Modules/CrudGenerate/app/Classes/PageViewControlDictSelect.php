@@ -51,10 +51,11 @@ class PageViewControlDictSelect extends AbstractPageViewControl
             return '';
         }
 
-        $name = Str::studly($this->getFieldName());
+        $name = $this->getFieldName();
 
         return <<<code
-            protected function scope{$name}(Builder \$query, \$value)
+            #[Scope]
+            protected function {$name}(Builder \$query, \$value)
             {
                 \$query->whereJsonContains('{$this->getFieldName()}', \$value);
             }
