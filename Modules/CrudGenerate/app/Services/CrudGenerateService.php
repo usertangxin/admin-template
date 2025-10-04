@@ -23,7 +23,7 @@ class CrudGenerateService
         return \module_path('CrudGenerate', 'stubs');
     }
 
-    public function getDefaultNamespace($type): string
+    protected function getDefaultNamespace($type): string
     {
         return config("modules.paths.generator.{$type}.namespace")
             ?? ltrim(config("modules.paths.generator.{$type}.path", 'Classes'), config('modules.paths.app_folder', ''));
@@ -34,7 +34,7 @@ class CrudGenerateService
      *
      * @return string
      */
-    public function getClassNamespace(Module $module, $class_name, $type)
+    protected function getClassNamespace(Module $module, $class_name, $type)
     {
         $path_namespace = $this->path_namespace(rtrim($class_name, class_basename($class_name)));
 
