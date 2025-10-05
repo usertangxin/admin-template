@@ -17,7 +17,7 @@ class FieldControlUuid extends AbstractFieldControl
     {
         if ($this->crudHistory->primary_key == $this->getFieldName()) {
             return [
-                HasUuids::class,
+                '\\' . HasUuids::class,
             ];
         }
 
