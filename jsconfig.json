@@ -5,6 +5,6 @@
       "/Modules/*": ["Modules/*"]
     }
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "public", "vendor"],
   "include": ["**/*.js", "**/*.jsx", "**/*.vue"]
 }
