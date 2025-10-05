@@ -16,17 +16,17 @@ class CrudGenerateService
 
     public function getStubsBasePath()
     {
-        if (\is_dir(\base_path('stubs/crud-generate'))) {
-            return \base_path('stubs/crud-generate');
+        if (is_dir(base_path('stubs/crud-generate'))) {
+            return base_path('stubs/crud-generate');
         }
 
-        return \module_path('CrudGenerate', 'stubs');
+        return module_path('CrudGenerate', 'stubs');
     }
 
     protected function getDefaultNamespace($type): string
     {
-        return config("modules.paths.generator.{$type}.namespace")
-            ?? ltrim(config("modules.paths.generator.{$type}.path", 'Classes'), config('modules.paths.app_folder', ''));
+        return config("modules.paths.generator.$type.namespace")
+            ?? ltrim(config("modules.paths.generator.$type.path", 'Classes'), config('modules.paths.app_folder', ''));
     }
 
     /**
@@ -107,7 +107,7 @@ class CrudGenerateService
      */
     public function getMigrationContent(SystemCrudHistory $crudHistory)
     {
-        $fieldControlService = \app(FieldControlService::class);
+        $fieldControlService = app(FieldControlService::class);
         $fieldFragment       = $fieldControlService->analysisFieldContent($crudHistory);
         // 对 $fieldFragment 进行处理，除首行外每行前添加缩进
         $lines         = explode("\n", $fieldFragment);
@@ -137,8 +137,8 @@ class CrudGenerateService
      */
     public function getModelContent(SystemCrudHistory $crudHistory)
     {
-        $fieldControlService    = \app(FieldControlService::class);
-        $pageViewControlService = \app(PageViewControlService::class);
+        $fieldControlService    = app(FieldControlService::class);
+        $pageViewControlService = app(PageViewControlService::class);
 
         $class_name = $crudHistory->gen_class_name;
 
@@ -176,7 +176,7 @@ class CrudGenerateService
      */
     public function getRequestContent(SystemCrudHistory $crudHistory)
     {
-        $pageViewControlService = \app(PageViewControlService::class);
+        $pageViewControlService = app(PageViewControlService::class);
 
         $class_name = $crudHistory->gen_class_name;
 
@@ -217,8 +217,8 @@ class CrudGenerateService
             'CLASS'           => class_basename($class_name) . 'Controller',
             'MODEL'           => class_basename($class_name),
             'MENU_NAME'       => $crudHistory->menu_name,
-            'PARENT_CODE'     => $crudHistory->parent_menu_code ? "'{$crudHistory->parent_menu_code}'" : 'null',
-            'ICON'            => $crudHistory->menu_icon ? "'{$crudHistory->menu_icon}'" : 'null',
+            'PARENT_CODE'     => $crudHistory->parent_menu_code ? "'$crudHistory->parent_menu_code'" : 'null',
+            'ICON'            => $crudHistory->menu_icon ? "'$crudHistory->menu_icon'" : 'null',
         ]);
         $stub->setBasePath($this->getStubsBasePath());
 
@@ -232,7 +232,7 @@ class CrudGenerateService
      */
     public function getViewIndexContent(SystemCrudHistory $crudHistory)
     {
-        $pageViewControlService = \app(PageViewControlService::class);
+        $pageViewControlService = app(PageViewControlService::class);
 
         // $class_name = $crudHistory->gen_class_name;
 
@@ -247,7 +247,7 @@ class CrudGenerateService
 
     public function getViewSaveContent(SystemCrudHistory $crudHistory)
     {
-        $pageViewControlService = \app(PageViewControlService::class);
+        $pageViewControlService = app(PageViewControlService::class);
 
         // $class_name = $crudHistory->gen_class_name;
 
