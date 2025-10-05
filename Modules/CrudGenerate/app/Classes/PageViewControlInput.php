@@ -2,8 +2,6 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-use Illuminate\Support\Str;
-
 class PageViewControlInput extends AbstractPageViewControl
 {
     public function getQueryParams(): array|string

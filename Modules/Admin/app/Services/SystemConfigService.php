@@ -2,10 +2,8 @@
 
 namespace Modules\Admin\Services;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
-use InvalidArgumentException;
 use Modules\Admin\Models\SystemConfig;
 use Modules\Admin\Models\SystemConfigGroup;
 
@@ -50,8 +48,6 @@ class SystemConfigService
 
     /**
      * 获取配置列表
-     *
-     * @return Collection
      */
     public function getList(): Collection
     {

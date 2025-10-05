@@ -7,7 +7,6 @@ use Tests\TestCase;
 
 class ResponseServiceTest extends TestCase
 {
-
     public function test_get_view_prefix(): void
     {
         $class  = 'Modules\\CrudGenerate\\Http\\Controllers\\TestAbc\\TestController';

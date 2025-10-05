@@ -3,7 +3,6 @@
 namespace Modules\CrudGenerate\Classes;
 
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
-use Illuminate\Support\Str;
 
 class PageViewControlDictSelect extends AbstractPageViewControl
 {

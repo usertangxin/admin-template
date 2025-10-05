@@ -2,7 +2,6 @@
 
 namespace Modules\Admin\Services;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Modules\Admin\Models\SystemDict;
@@ -20,7 +19,6 @@ class SystemDictService
 
     /**
      * 获取字典服务实例
-     *
      */
     public static function getInstance(): static
     {
@@ -54,7 +52,6 @@ class SystemDictService
     /**
      * 根据字典组编码获取字典值集合
      *
-     * @param  mixed                         $code
      * @return Collection<string|int, mixed>
      */
     public function getValuesByCode(mixed $code)
@@ -65,7 +62,6 @@ class SystemDictService
     /**
      * 根据字典组编码获取字典集合
      *
-     * @param  mixed      $code
      * @return Collection
      */
     public function getListByCode(mixed $code)

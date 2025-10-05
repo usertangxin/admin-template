@@ -2,7 +2,6 @@
 
 namespace Modules\Admin\Services;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Modules\Admin\Classes\Utils\ArrUtil;
@@ -101,6 +100,7 @@ class SystemPermissionService
     public function getMyPermissionList()
     {
         $list = \collect($this->getSystemMenuList());
+
         return $list->filter(function ($item) {
             if ($item['type'] == SystemMenuType::GROUP) {
                 return true;
@@ -129,10 +129,7 @@ class SystemPermissionService
     /**
      * 根据编码获取菜单
      *
-     * @param  mixed $value
-     * @param  mixed $key
      * @return mixed
-     *
      */
     public function getBy(mixed $value, mixed $key)
     {

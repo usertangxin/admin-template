@@ -17,10 +17,12 @@ class CrudGenerateService
     public function getStubsBasePath()
     {
         if (is_dir(base_path('stubs/crud-generate'))) {
-            return base_path('stubs/crud-generate');
+            $path = base_path('stubs/crud-generate');
+        } else {
+            $path = module_path('CrudGenerate', 'stubs');
         }
 
-        return module_path('CrudGenerate', 'stubs');
+        return str_replace('\\', '/', $path);
     }
 
     protected function getDefaultNamespace($type): string
@@ -49,7 +51,9 @@ class CrudGenerateService
 
         $generatorPath = GenerateConfigReader::read($type);
 
-        return $path . $generatorPath->getPath() . '/' . $file_name;
+        $path = $path . $generatorPath->getPath() . '/' . $file_name;
+
+        return str_replace('\\', '/', $path);
     }
 
     public function gen() {}

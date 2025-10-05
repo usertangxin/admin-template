@@ -2,8 +2,6 @@
 
 namespace Modules\CrudGenerate\Classes;
 
-use Illuminate\Support\Str;
-
 class PageViewControlRemoteSelect extends AbstractPageViewControl
 {
     public function getSpecialParams(): array|string
