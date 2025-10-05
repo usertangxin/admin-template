@@ -89,6 +89,7 @@ class CrudGenerateService
     public function fileContentMap(SystemCrudHistory $crudHistory)
     {
         $class_name  = $crudHistory->gen_class_name;
+        $base_name = class_basename($class_name);
         $module_name = $crudHistory->module_name;
 
         $migration_filename = date('Y_m_d_His_') . 'create_' . $crudHistory->table_name . '_table.php';
@@ -101,19 +102,19 @@ class CrudGenerateService
                 'lang'      => 'php',
             ],
             'model' => [
-                'file_name' => $class_name . '.php',
+                'file_name' => $base_name . '.php',
                 'path'      => $this->getDestinationFilePath(module($module_name, true), 'model', $class_name . '.php'),
                 'content'   => $this->getModelContent($crudHistory),
                 'lang'      => 'php',
             ],
             'request' => [
-                'file_name' => $class_name . 'Request.php',
+                'file_name' => $base_name . 'Request.php',
                 'path'      => $this->getDestinationFilePath(module($module_name, true), 'request', $class_name . 'Request.php'),
                 'content'   => $this->getRequestContent($crudHistory),
                 'lang'      => 'php',
             ],
             'controller' => [
-                'file_name' => $class_name . 'Controller.php',
+                'file_name' => $base_name . 'Controller.php',
                 'path'      => $this->getDestinationFilePath(module($module_name, true), 'controller', $class_name . 'Controller.php'),
                 'content'   => $this->getControllerContent($crudHistory),
                 'lang'      => 'php',
