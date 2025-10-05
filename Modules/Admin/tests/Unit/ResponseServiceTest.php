@@ -2,13 +2,12 @@
 
 namespace Modules\Admin\Tests\Unit;
 
-use JetBrains\PhpStorm\NoReturn;
 use Modules\Admin\Services\ResponseService;
 use Tests\TestCase;
 
 class ResponseServiceTest extends TestCase
 {
-    #[NoReturn]
+
     public function test_get_view_prefix(): void
     {
         $class  = 'Modules\\CrudGenerate\\Http\\Controllers\\TestAbc\\TestController';
