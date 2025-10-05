@@ -10,10 +10,11 @@
                           @click="handlePreviewCode(scope.record)">
                     预览代码
                 </a-button>
-                <a-button size="medium" type="primary"
-                          @click="handleGenCode(scope.record)">
-                    生成代码
-                </a-button>
+                <a-popconfirm content="确定要生成吗？这会导致之前生成的文件被删除" @ok="handleGenCode(scope.record)">
+                    <a-button size="medium" type="primary" status="danger">
+                        生成代码
+                    </a-button>
+                </a-popconfirm>
             </template>
         </index-table>
     </div>
