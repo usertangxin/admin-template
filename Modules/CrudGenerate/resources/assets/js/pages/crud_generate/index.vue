@@ -1,4 +1,3 @@
-<!--suppress HtmlUnknownTag -->
 <template>
     <div class="m-3 p-3 page-content">
         <index-action>
