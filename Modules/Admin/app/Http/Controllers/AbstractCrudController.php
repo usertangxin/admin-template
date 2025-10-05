@@ -103,6 +103,11 @@ abstract class AbstractCrudController extends AbstractController
         return TreeCollection::class;
     }
 
+    /**
+     * 请求验证
+     *
+     * @throws BindingResolutionException
+     */
     protected function validate(): array
     {
 
