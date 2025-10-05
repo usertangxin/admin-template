@@ -126,6 +126,7 @@ class CrudGenerateService
             ],
             'save.vue' => [
                 'file_name' => 'save.vue',
+                'path'      => $this->getDestinationFilePath(module($module_name, true), 'assets', 'js/pages/' . Str::of(class_basename($class_name))->snake()->toString() . '/save.vue'),
                 'content'   => $this->getViewSaveContent($crudHistory),
                 'lang'      => 'vue',
             ],
