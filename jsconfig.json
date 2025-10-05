@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "/Modules/*": ["Modules/*"]
+    }
+  },
+  "exclude": ["node_modules"],
+  "include": ["**/*.js", "**/*.jsx", "**/*.vue"]
+}
