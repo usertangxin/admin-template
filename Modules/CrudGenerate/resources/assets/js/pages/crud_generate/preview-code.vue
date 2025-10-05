@@ -60,6 +60,9 @@ onMounted(async function () {
 
     .shiki {
         padding: 15px;
+        white-space: pre-wrap !important; /* 关键：允许换行 */
+        word-wrap: break-word; /* 当单词过长时强制换行 */
+        overflow-x: auto; /* 保留横向滚动以防换行影响阅读 */
     }
 
     code {
