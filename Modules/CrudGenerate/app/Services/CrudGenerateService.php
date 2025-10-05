@@ -2,6 +2,7 @@
 
 namespace Modules\CrudGenerate\Services;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
@@ -47,16 +48,43 @@ class CrudGenerateService
     {
         $path = module_path($module->getStudlyName());
 
-        $path = str_replace(base_path(DIRECTORY_SEPARATOR), '/', $path);
+        $path = str_replace(base_path(DIRECTORY_SEPARATOR), '', $path);
 
         $generatorPath = GenerateConfigReader::read($type);
 
-        $path = $path . $generatorPath->getPath() . '/' . $file_name;
+        $path = $path . '/' . $generatorPath->getPath() . '/' . $file_name;
+        $path = str_replace('//', '/', $path);
 
         return str_replace('\\', '/', $path);
     }
 
-    public function gen() {}
+    public function gen(SystemCrudHistory $crudHistory)
+    {
+        $fileContentMap = $this->fileContentMap($crudHistory);
+
+        $oldFileList = $crudHistory->file_list;
+        if ($oldFileList) {
+            foreach ($oldFileList as $file_path) {
+                $real_path = base_path($file_path);
+                if (file_exists($real_path)) {
+                    unlink($real_path);
+                }
+            }
+        }
+
+        $fileList = [];
+        foreach ($fileContentMap as $value) {
+            $file_path = $value['path'];
+            $real_path = base_path($file_path);
+            $content   = $value['content'];
+            File::ensureDirectoryExists(dirname($real_path));
+            File::put($real_path, $content);
+            $fileList[] = $file_path;
+        }
+
+        $crudHistory->file_list = $fileList;
+        $crudHistory->save();
+    }
 
     public function fileContentMap(SystemCrudHistory $crudHistory)
     {

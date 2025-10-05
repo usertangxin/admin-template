@@ -10,6 +10,10 @@
                           @click="handlePreviewCode(scope.record)">
                     预览代码
                 </a-button>
+                <a-button size="medium" type="primary"
+                          @click="handleGenCode(scope.record)">
+                    生成代码
+                </a-button>
             </template>
         </index-table>
     </div>
@@ -33,5 +37,9 @@ const store = provideIndexShareStore({
 
 function handlePreviewCode(record) {
     window.open('./preview-code?id=' + record.id)
+}
+
+function handleGenCode(record) {
+    request.post('./generate-code?id=' + record.id)
 }
 </script>

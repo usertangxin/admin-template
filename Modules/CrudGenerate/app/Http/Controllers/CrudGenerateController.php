@@ -47,4 +47,13 @@ class CrudGenerateController extends AbstractCrudController
 
         return $this->success($service->fileContentMap($model));
     }
+
+    #[SystemMenu('生成代码')]
+    public function postGenerateCode(CrudGenerateService $service)
+    {
+        $id    = request('id');
+        $model = $this->getModel()->find($id);
+        $service->gen($model);
+        return $this->success(message: '生成成功，确认迁移文件内容并运行迁移');
+    }
 }

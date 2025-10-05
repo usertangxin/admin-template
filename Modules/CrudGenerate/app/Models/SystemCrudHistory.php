@@ -30,5 +30,6 @@ class SystemCrudHistory extends AbstractSoftDelModel
 
     protected $casts = [
         'column_list' => AsCrudFieldList::class,
+        'file_list'   => 'array',
     ];
 }
