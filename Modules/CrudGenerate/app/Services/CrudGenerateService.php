@@ -45,7 +45,7 @@ class CrudGenerateService
     {
         $path = module_path($module->getStudlyName());
 
-        $path = str_replace(base_path('\\'), '/', $path);
+        $path = str_replace(base_path(DIRECTORY_SEPARATOR), '/', $path);
 
         $generatorPath = GenerateConfigReader::read($type);
 
