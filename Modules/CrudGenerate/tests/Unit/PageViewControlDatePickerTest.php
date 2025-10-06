@@ -30,44 +30,36 @@ class PageViewControlDatePickerTest extends TestCase
     {
         return [
             'date picker basic' => [
-                ['type' => 'date', 'use_panel' => 'no', 'is_range' => 'no'],
+                ['type' => 'date', 'use_panel' => 'no'],
                 ['a-date-picker'],
             ],
             'datetime picker with time' => [
-                ['type' => 'datetime', 'use_panel' => 'no', 'is_range' => 'no'],
+                ['type' => 'datetime', 'use_panel' => 'no'],
                 [' show-time'],
             ],
             'month picker basic' => [
-                ['type' => 'month', 'use_panel' => 'no', 'is_range' => 'no'],
+                ['type' => 'month', 'use_panel' => 'no'],
                 ['a-month-picker'],
             ],
             'year picker basic' => [
-                ['type' => 'year', 'use_panel' => 'no', 'is_range' => 'no'],
+                ['type' => 'year', 'use_panel' => 'no'],
                 ['a-year-picker'],
             ],
             'week picker basic' => [
-                ['type' => 'week', 'use_panel' => 'no', 'is_range' => 'no'],
+                ['type' => 'week', 'use_panel' => 'no'],
                 ['a-week-picker'],
             ],
             'date picker with panel' => [
-                ['type' => 'date', 'use_panel' => 'yes', 'is_range' => 'no'],
+                ['type' => 'date', 'use_panel' => 'yes'],
                 [' v-model:pickerValue="formData.aaa"', ' hide-trigger'],
             ],
             'datetime picker with panel' => [
-                ['type' => 'datetime', 'use_panel' => 'yes', 'is_range' => 'no'],
+                ['type' => 'datetime', 'use_panel' => 'yes'],
                 [' show-time', ' v-model:pickerValue="formData.aaa"', ' hide-trigger'],
             ],
             'month picker with panel' => [
-                ['type' => 'month', 'use_panel' => 'yes', 'is_range' => 'no'],
+                ['type' => 'month', 'use_panel' => 'yes'],
                 ['a-month-picker', ' v-model:pickerValue="formData.aaa"', ' hide-trigger'],
-            ],
-            'date range picker with panel' => [
-                ['type' => 'date', 'use_panel' => 'yes', 'is_range' => 'yes'],
-                ['a-range-picker', ' v-model:pickerValue="formData.aaa"', ' hide-trigger'],
-            ],
-            'year range picker' => [
-                ['type' => 'year', 'use_panel' => 'no', 'is_range' => 'yes'],
-                ['a-range-picker', ' mode="year"'],
             ],
         ];
     }

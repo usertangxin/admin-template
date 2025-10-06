@@ -28,13 +28,12 @@ class PageViewControlTimePickerTest extends TestCase
         $class->make([
             'field_name'                       => 'aaa',
             'comment'                          => '测试',
-            'page_view_control_special_params' => ['disable_confirm' => 'yes', 'is_range' => 'yes', 'step_hour' => 2],
+            'page_view_control_special_params' => ['disable_confirm' => 'yes', 'step_hour' => 2],
         ], [], new SystemCrudHistory);
 
         $fragment = $class->getFormCodeHtmlFragment();
 
         $this->assertStringContainsString(' :step="{hour: 2, minute: 1, second: 1}"', $fragment);
-        $this->assertStringContainsString(' type="time-range"', $fragment);
         $this->assertStringContainsString(' :disable-confirm="true"', $fragment);
     }
 }

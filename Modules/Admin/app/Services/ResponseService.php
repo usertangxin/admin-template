@@ -57,7 +57,8 @@ class ResponseService
 
         return Str::of($class)
             ->replaceFirst($controllerBaseNamespace . '\\', '')
-            ->replaceLast('Controller', '')
+            ->replaceLast(class_basename($class), '')
+            ->replaceLast('\\', '')
             ->toString();
     }
 
@@ -69,9 +70,13 @@ class ResponseService
     public static function getViewTierStr($class)
     {
         $controllerTierStr = static::getControllerTierStr($class);
-        if (! $controllerTierStr) {
-            return '';
+
+        if ($controllerTierStr) {
+            $controllerTierStr .= '\\';
         }
+
+        $controllerTierStr .= Str::of(class_basename($class))->replace('Controller', '')->toString();
+
         $a = Str::of($controllerTierStr)->explode('\\')->map(fn ($item) => Str::snake($item))->toArray();
 
         return implode('.', $a);
