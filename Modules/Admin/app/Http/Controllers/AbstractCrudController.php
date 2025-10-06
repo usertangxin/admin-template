@@ -287,6 +287,7 @@ abstract class AbstractCrudController extends AbstractController
             $this->beforeCreate($data);
             $result = $this->getModel()->create($data);
             $this->afterCreate($result);
+            $this->afterSave($result);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -304,6 +305,11 @@ abstract class AbstractCrudController extends AbstractController
      * 创建前
      */
     protected function beforeCreate(array &$data): void {}
+
+    /**
+     * 保存后
+     */
+    protected function afterSave($model): void {}
 
     /**
      * 创建后
@@ -345,6 +351,7 @@ abstract class AbstractCrudController extends AbstractController
             $this->beforeUpdate($model, $data);
             $result = $model->update($data);
             $this->afterUpdate($model);
+            $this->afterSave($model);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -374,6 +381,8 @@ abstract class AbstractCrudController extends AbstractController
      * 切换状态
      *
      * @return Responsable|SymfonyResponse
+     *
+     * @throws BindingResolutionException
      */
     #[SystemMenu('切换状态')]
     public function changeStatus()

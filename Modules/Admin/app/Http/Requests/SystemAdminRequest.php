@@ -14,16 +14,18 @@ class SystemAdminRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'avatar'     => 'nullable|string',
-            'admin_name' => ['required', 'string', Rule::unique('system_admins')->ignore($this['id'])],
-            'nickname'   => 'nullable|string',
-            'phone'      => 'nullable|string',
-            'email'      => 'nullable|email',
-            'remark'     => 'nullable|string',
-            'status'     => ['nullable', 'required', new InDict('data_status')],
+            'avatar'            => 'nullable|string',
+            'admin_name'        => ['required', 'string', Rule::unique('system_admins')->ignore($this['id'])],
+            'nickname'          => 'nullable|string',
+            'phone'             => 'nullable|string',
+            'email'             => 'nullable|email',
+            'remark'            => 'nullable|string',
+            'status'            => ['nullable', 'required', new InDict('data_status')],
+            'data_scope_name'   => 'required|string',
+            'extend_data_scope' => 'nullable',
         ];
 
-        if (\request()->route()->getActionMethod() == 'create') {
+        if (request()->route()->getActionMethod() == 'create') {
             $rules['password'] = 'required|string|min:6|max:20';
         } else {
             $rules['password'] = 'nullable|string|min:6|max:20';

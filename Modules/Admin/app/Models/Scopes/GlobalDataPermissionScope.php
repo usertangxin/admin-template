@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Facades\Auth;
+use Modules\Admin\Services\GlobalDataPermissionScopeService;
 
 class GlobalDataPermissionScope implements Scope
 {
@@ -14,8 +15,6 @@ class GlobalDataPermissionScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-
-        // TODO: 实现 apply() 方法.
         if ($model->ignoreGlobalDataPermission) {
             return;
         }
@@ -23,6 +22,8 @@ class GlobalDataPermissionScope implements Scope
             if (Auth::user()->is_root) {
                 return;
             }
+            $service = app(GlobalDataPermissionScopeService::class);
+            $service->get(Auth::user()->data_scope_name)->apply($builder, $model);
         }
     }
 }

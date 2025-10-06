@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Validator as IlluminateValidator;
+use Modules\Admin\Models\Scopes\GlobalDataPermissionScopeAll;
+use Modules\Admin\Models\Scopes\GlobalDataPermissionScopeSelf;
 use Modules\Admin\Models\SystemAdmin;
 use Modules\Admin\Models\SystemConfig;
 use Modules\Admin\Models\SystemConfigGroup;
@@ -16,6 +18,7 @@ use Modules\Admin\Models\SystemDictType;
 use Modules\Admin\Observers\SystemConfigDictObserverObserver;
 use Modules\Admin\Rules\BetweenArr;
 use Modules\Admin\Rules\InDict;
+use Modules\Admin\Services\GlobalDataPermissionScopeService;
 use Modules\Admin\Services\SystemPermissionService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
@@ -32,7 +35,7 @@ class AdminServiceProvider extends ServiceProvider
     /**
      * Boot the application events.
      */
-    public function boot(): void
+    public function boot(GlobalDataPermissionScopeService $globalDataPermissionScopeService): void
     {
         $this->registerCommands();
         $this->registerCommandSchedules();
@@ -41,12 +44,15 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
-        Model::preventSilentlyDiscardingAttributes(\app()->isLocal() || \app()->runningUnitTests());
+        Model::preventSilentlyDiscardingAttributes(app()->isLocal() || app()->runningUnitTests());
 
         SystemConfig::observe(SystemConfigDictObserverObserver::class);
         SystemConfigGroup::observe(SystemConfigDictObserverObserver::class);
         SystemDict::observe(SystemConfigDictObserverObserver::class);
         SystemDictType::observe(SystemConfigDictObserverObserver::class);
+
+        $globalDataPermissionScopeService->add(new GlobalDataPermissionScopeAll);
+        $globalDataPermissionScopeService->add(new GlobalDataPermissionScopeSelf);
 
         Validator::extend('in_dict', function ($attribute, $value, $parameters, IlluminateValidator $validator) {
             $rule = new InDict($parameters[0]);
@@ -94,6 +100,7 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+        $this->app->singleton(GlobalDataPermissionScopeService::class);
     }
 
     /**

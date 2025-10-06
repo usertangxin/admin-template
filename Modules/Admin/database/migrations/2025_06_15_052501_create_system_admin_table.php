@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email', 50)->nullable()->comment('系统管理员邮箱');
             $table->string('avatar')->nullable()->default('/avatar.png')->comment('系统管理员头像');
             $table->string('dashboard', 100)->nullable()->comment('后台首页类型');
-            $table->unsignedInteger('dept_id')->nullable()->index('system_admin_dept_id')->comment('部门ID');
+            $table->string('data_scope_name', 100)->nullable()->comment('边界名称');
             $table->string('status')->nullable()->default('normal')->comment('状态:dict=data_status');
             $table->string('login_ip', 45)->nullable()->comment('最后登陆IP');
             $table->dateTime('logged_at')->nullable()->comment('最后登陆时间');

@@ -21,11 +21,11 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
     use HasRoles;
     use HasUuids;
 
-    public $ignoreGlobalDataPermission = true;
+    public bool $ignoreGlobalDataPermission = true;
 
     protected $table = 'system_admins';
 
-    protected $fillable = ['admin_name', 'password', 'nickname', 'phone', 'email', 'avatar', 'remark', 'status'];
+    protected $fillable = ['admin_name', 'password', 'nickname', 'phone', 'email', 'avatar', 'remark', 'status', 'data_scope_name'];
 
     protected $hidden = [
         'password',

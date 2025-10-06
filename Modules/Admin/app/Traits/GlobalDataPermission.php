@@ -2,14 +2,15 @@
 
 namespace Modules\Admin\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Modules\Admin\Models\Scopes\GlobalDataPermissionScope;
 
 /**
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 trait GlobalDataPermission
 {
-    public $ignoreGlobalDataPermission = false;
+    public bool $ignoreGlobalDataPermission = false;
 
     public static function bootGlobalDataPermission()
     {
