@@ -54,6 +54,7 @@ class CrudGenerateController extends AbstractCrudController
         $id    = request('id');
         $model = $this->getModel()->find($id);
         $service->gen($model);
+
         return $this->success(message: '生成成功，确认迁移文件内容并运行迁移');
     }
 }

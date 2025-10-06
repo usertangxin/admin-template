@@ -89,7 +89,7 @@ class CrudGenerateService
     public function fileContentMap(SystemCrudHistory $crudHistory)
     {
         $class_name  = $crudHistory->gen_class_name;
-        $base_name = class_basename($class_name);
+        $base_name   = class_basename($class_name);
         $module_name = $crudHistory->module_name;
 
         $migration_filename = date('Y_m_d_His_') . 'create_' . $crudHistory->table_name . '_table.php';
