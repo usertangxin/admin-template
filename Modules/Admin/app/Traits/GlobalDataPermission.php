@@ -12,6 +12,16 @@ trait GlobalDataPermission
 {
     public bool $ignoreGlobalDataPermission = false;
 
+    /**
+     * 获取全局数据权限作用域
+     *
+     * @return GlobalDataPermissionScope|null
+     */
+    public function getGlobalDataPermissionScope(): ?GlobalDataPermissionScope
+    {
+        return null;
+    }
+
     public static function bootGlobalDataPermission()
     {
         static::addGlobalScope(app(GlobalDataPermissionScope::class));
