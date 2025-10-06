@@ -38,6 +38,56 @@ class ResponseService
     }
 
     /**
+     * 获取控制器命名空间中间部分
+     *
+     * @return string
+     */
+    public static function getControllerTierStr($class)
+    {
+        $class = is_object($class) ? get_class($class) : $class;
+
+        if (str_starts_with($class, config('modules.namespace'))) {
+            $moduleParts = explode('\\', $class);
+            $moduleName  = $moduleParts[1];
+
+            $controllerBaseNamespace = static::getClassNamespace(module($moduleName, true));
+        } else {
+            $controllerBaseNamespace = 'App\\Http\\Controllers';
+        }
+
+        return Str::of($class)
+            ->replaceFirst($controllerBaseNamespace . '\\', '')
+            ->replaceLast('Controller', '')
+            ->toString();
+    }
+
+    /**
+     * 获取视图命名空间中间部分
+     *
+     * @return string
+     */
+    public static function getViewTierStr($class)
+    {
+        $controllerTierStr = static::getControllerTierStr($class);
+        if (! $controllerTierStr) {
+            return '';
+        }
+        $a = Str::of($controllerTierStr)->explode('\\')->map(fn ($item) => Str::snake($item))->toArray();
+
+        return implode('.', $a);
+    }
+
+    /**
+     * 获取中间部分视图路径
+     *
+     * @return string
+     */
+    public static function getViewTierPath($class)
+    {
+        return Str::of(static::getViewTierStr($class))->replace('.', '/')->toString();
+    }
+
+    /**
      * 基于完整控制器类名获取对应视图前缀
      *
      * @return string
@@ -47,22 +97,16 @@ class ResponseService
         $class = is_object($class) ? get_class($class) : $class;
 
         if (str_starts_with($class, config('modules.namespace'))) {
-            // 从类名中提取模块名称，格式为 Modules\ModuleName\Http\Controllers\...
             $moduleParts = explode('\\', $class);
-            $moduleName  = $moduleParts[1]; // 第二个部分即为模块名称
-
-            $controllerBaseNamespace = static::getClassNamespace(module($moduleName, true));
+            $moduleName  = $moduleParts[1];
 
             $prefix = 'module.' . $moduleName . '.';
         } else {
 
-            $controllerBaseNamespace = 'App\\Http\\Controllers';
-
             $prefix = 'app.';
         }
 
-        $a      = Str::of($class)->replace($controllerBaseNamespace . '\\', '')->explode('\\')->map(fn ($item) => Str::snake($item))->toArray();
-        $prefix = $prefix . implode('.', $a);
+        $prefix = $prefix . static::getViewTierStr($class);
 
         return Str::of($prefix)->replace('_controller', '')->toString();
     }

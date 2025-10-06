@@ -5,6 +5,7 @@ namespace Modules\CrudGenerate\Services;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Modules\Admin\Services\ResponseService;
 use Modules\CrudGenerate\Models\SystemCrudHistory;
 use Nwidart\Modules\Module;
 use Nwidart\Modules\Support\Config\GenerateConfigReader;
@@ -37,14 +38,50 @@ class CrudGenerateService
      *
      * @return string
      */
-    protected function getClassNamespace(Module $module, $class_name, $type)
+    protected function getClassNamespace(Module $module, $class_name, $type, SystemCrudHistory $crudHistory)
     {
-        $path_namespace = $this->path_namespace(rtrim($class_name, class_basename($class_name)));
+        if ($crudHistory->gen_mode == 'module') {
+            $path_namespace = $this->path_namespace(Str::replaceLast(class_basename($class_name), '', $class_name));
 
-        return $this->module_namespace($module->getStudlyName(), $this->getDefaultNamespace($type) . ($path_namespace ? '\\' . $path_namespace : ''));
+            return $this->module_namespace($module->getStudlyName(), $this->getDefaultNamespace($type) . ($path_namespace ? '\\' . $path_namespace : ''));
+        }
+
+        $map = [
+            'model'      => 'App\Models',
+            'request'    => 'App\Http\Requests',
+            'controller' => 'App\Http\Controllers',
+        ];
+
+        $a = Str::replaceLast('/' . class_basename($class_name), '', $class_name);
+        if ($a == $class_name) {
+            return $map[$type];
+        }
+
+        $a = Str::replace('/', '\\', $a);
+
+        return $map[$type] . '\\' . $a;
+
     }
 
-    protected function getDestinationFilePath(Module $module, $type, $file_name)
+    protected function getDestinationFilePath(Module $module, $type, $file_name, SystemCrudHistory $crudHistory)
+    {
+        if ($crudHistory->gen_mode == 'module') {
+            return $this->getDestinationFilePathModule($module, $type, $file_name);
+        }
+
+        $map = [
+            'migration'  => 'database/migrations/',
+            'model'      => 'app/Models/',
+            'request'    => 'app/Http/Requests/',
+            'controller' => 'app/Http/Controllers/',
+            'assets'     => 'resources/',
+        ];
+
+        return $map[$type] . $file_name;
+
+    }
+
+    protected function getDestinationFilePathModule(Module $module, $type, $file_name)
     {
         $path = module_path($module->getStudlyName());
 
@@ -92,42 +129,46 @@ class CrudGenerateService
         $base_name   = class_basename($class_name);
         $module_name = $crudHistory->module_name;
 
+        $controllerClass = $this->getClassNamespace(module($module_name, true), $class_name, 'controller', $crudHistory) . '\\' . class_basename($class_name) . 'Controller';
+
+        $viewTierPath = ResponseService::getViewTierPath($controllerClass);
+
         $migration_filename = date('Y_m_d_His_') . 'create_' . $crudHistory->table_name . '_table.php';
 
         return [
             'migration' => [
                 'file_name' => $migration_filename,
-                'path'      => $this->getDestinationFilePath(module($module_name, true), 'migration', $migration_filename),
+                'path'      => $this->getDestinationFilePath(module($module_name, true), 'migration', $migration_filename, $crudHistory),
                 'content'   => $this->getMigrationContent($crudHistory),
                 'lang'      => 'php',
             ],
             'model' => [
                 'file_name' => $base_name . '.php',
-                'path'      => $this->getDestinationFilePath(module($module_name, true), 'model', $class_name . '.php'),
+                'path'      => $this->getDestinationFilePath(module($module_name, true), 'model', $class_name . '.php', $crudHistory),
                 'content'   => $this->getModelContent($crudHistory),
                 'lang'      => 'php',
             ],
             'request' => [
                 'file_name' => $base_name . 'Request.php',
-                'path'      => $this->getDestinationFilePath(module($module_name, true), 'request', $class_name . 'Request.php'),
+                'path'      => $this->getDestinationFilePath(module($module_name, true), 'request', $class_name . 'Request.php', $crudHistory),
                 'content'   => $this->getRequestContent($crudHistory),
                 'lang'      => 'php',
             ],
             'controller' => [
                 'file_name' => $base_name . 'Controller.php',
-                'path'      => $this->getDestinationFilePath(module($module_name, true), 'controller', $class_name . 'Controller.php'),
+                'path'      => $this->getDestinationFilePath(module($module_name, true), 'controller', $class_name . 'Controller.php', $crudHistory),
                 'content'   => $this->getControllerContent($crudHistory),
                 'lang'      => 'php',
             ],
             'index.vue' => [
                 'file_name' => 'index.vue',
-                'path'      => $this->getDestinationFilePath(module($module_name, true), 'assets', 'js/pages/' . Str::of(class_basename($class_name))->snake()->toString() . '/index.vue'),
+                'path'      => $this->getDestinationFilePath(module($module_name, true), 'assets', 'js/pages/' . $viewTierPath . '/index.vue', $crudHistory),
                 'content'   => $this->getViewIndexContent($crudHistory),
                 'lang'      => 'vue',
             ],
             'save.vue' => [
                 'file_name' => 'save.vue',
-                'path'      => $this->getDestinationFilePath(module($module_name, true), 'assets', 'js/pages/' . Str::of(class_basename($class_name))->snake()->toString() . '/save.vue'),
+                'path'      => $this->getDestinationFilePath(module($module_name, true), 'assets', 'js/pages/' . $viewTierPath . '/save.vue', $crudHistory),
                 'content'   => $this->getViewSaveContent($crudHistory),
                 'lang'      => 'vue',
             ],
@@ -180,7 +221,7 @@ class CrudGenerateService
 
         $use_traits = $fieldControlService->analysisUseTraits($crudHistory);
 
-        $namespace = $crudHistory->gen_mode === 'module' ? $this->getClassNamespace(module($module_name, true), $class_name, 'model') : 'App\Models';
+        $namespace = $this->getClassNamespace(module($module_name, true), $class_name, 'model', $crudHistory);
 
         $fillable           = $fieldControlService->analysisFillable($crudHistory);
         $casts              = $pageViewControlService->analysisCasts($crudHistory);
@@ -216,7 +257,7 @@ class CrudGenerateService
 
         $module_name = $crudHistory->module_name;
 
-        $namespace = $crudHistory->gen_mode === 'module' ? $this->getClassNamespace(module($module_name, true), $class_name, 'request') : 'App\Http\Requests';
+        $namespace = $this->getClassNamespace(module($module_name, true), $class_name, 'request', $crudHistory);
 
         $stub = new Stub('/request.stub', [
             'NAMESPACE' => $namespace,
@@ -241,9 +282,9 @@ class CrudGenerateService
 
         $module_name = $crudHistory->module_name;
 
-        $namespace = $crudHistory->gen_mode === 'module' ? $this->getClassNamespace(module($module_name, true), $class_name, 'controller') : 'App\Http\Controllers';
+        $namespace = $this->getClassNamespace(module($module_name, true), $class_name, 'controller', $crudHistory);
 
-        $model_namespace = $crudHistory->gen_mode === 'module' ? $this->getClassNamespace(module($module_name, true), $class_name, 'model') : 'App\Models';
+        $model_namespace = $this->getClassNamespace(module($module_name, true), $class_name, 'model', $crudHistory);
 
         $stub = new Stub('/controller.stub', [
             'CLASS_NAMESPACE' => $namespace,
