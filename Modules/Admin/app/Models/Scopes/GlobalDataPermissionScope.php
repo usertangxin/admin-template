@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Facades\Auth;
+use Modules\Admin\Interfaces\GlobalDataPermissionScopeInterface;
 use Modules\Admin\Services\GlobalDataPermissionScopeService;
 
 class GlobalDataPermissionScope implements Scope
@@ -24,7 +25,7 @@ class GlobalDataPermissionScope implements Scope
                 return;
             }
 
-            /** @var GlobalDataPermissionScope|null $scope */
+            /** @var GlobalDataPermissionScopeInterface|null $scope */
             $scope = null;
 
             if (method_exists($model, 'getGlobalDataPermissionScope')) {
