@@ -2,10 +2,11 @@
 
 namespace Modules\Admin\Services;
 
+use Illuminate\Contracts\Support\Arrayable;
 use InvalidArgumentException;
 use Modules\Admin\Interfaces\GlobalDataPermissionScopeInterface;
 
-class GlobalDataPermissionScopeService
+class GlobalDataPermissionScopeService implements Arrayable
 {
     /**
      * @var array<string, GlobalDataPermissionScopeInterface>
@@ -33,5 +34,17 @@ class GlobalDataPermissionScopeService
     public function get(string $scope_name)
     {
         return $this->scopes[$scope_name] ?? null;
+    }
+
+    public function toArray()
+    {
+        $a = [];
+        foreach ($this->scopes as $item) {
+            $a[$item->getScopeName()] = [
+                'name'                        => $item->getScopeName(),
+                'extend_data_scope_view_name' => $item->getExtendDataScopeViewName(),
+            ];
+        }
+        return $a;
     }
 }

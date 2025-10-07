@@ -28,4 +28,10 @@ class SystemAdminController extends AbstractCrudController
         $service = app(GlobalDataPermissionScopeService::class);
         $service->get(request()->input('data_scope_name'))->handleSyncExtendDataScope(request()->input('extend_data_scope'));
     }
+
+    #[SystemMenu('所有数据权限')]
+    public function getDataScopes(GlobalDataPermissionScopeService $service)
+    {
+        return $this->success($service->toArray());
+    }
 }

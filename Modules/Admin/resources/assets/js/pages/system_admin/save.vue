@@ -33,16 +33,22 @@
             <a-form-item label="数据权限" field="data_scope_name">
                 <dict-select code="data_scope" v-model="formData.data_scope_name"></dict-select>
             </a-form-item>
+            <template v-if="data_scopes[formData.data_scope_name]?.extend_data_scope_view_name">
+                <a-form-item label="数据权限扩展配置" field="extend_data_scope">
+                    <component :is="data_scopes[formData.data_scope_name].extend_data_scope_view_name" v-model="formData.extend_data_scope"></component>
+                </a-form-item>
+            </template>
         </save-form>
     </div>
 </template>
 
 <script setup>
 import _ from 'lodash';
-import { reactive, ref } from 'vue';
+import {provide, reactive, ref} from 'vue';
 
 const props = defineProps(['data'])
 const roles = ref([]);
+const data_scopes = ref([])
 
 const formData = reactive({
     avatar: '',
@@ -55,7 +61,10 @@ const formData = reactive({
     status: 'normal',
     roles: [],
     data_scope_name: 'all',
+    extend_data_scope: {},
 })
+
+provide('formData', formData)
 
 const rules = {
     admin_name: [
@@ -71,6 +80,10 @@ request.get(route('web.admin.SystemMenu.my-roles')).then(res => {
             value: item.name,
         }
     })
+})
+
+request.get('./data-scopes').then(res=>{
+    data_scopes.value = res.data;
 })
 
 </script>

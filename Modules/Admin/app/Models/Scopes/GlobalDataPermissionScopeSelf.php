@@ -23,7 +23,7 @@ class GlobalDataPermissionScopeSelf implements GlobalDataPermissionScopeInterfac
         return 'self';
     }
 
-    public function getExtendDataScopeViewCodeFragment()
+    public function getExtendDataScopeViewName()
     {
         return null;
     }

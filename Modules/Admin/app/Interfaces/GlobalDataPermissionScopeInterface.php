@@ -14,11 +14,12 @@ interface GlobalDataPermissionScopeInterface extends Scope
     public function getScopeName();
 
     /**
-     * 获取扩展数据作用域视图
+     * 获取扩展数据作用域视图，需要将组件注册为全局组件
+     * 双向绑定传递 extend_data_scope
      *
      * @return mixed
      */
-    public function getExtendDataScopeViewCodeFragment();
+    public function getExtendDataScopeViewName();
 
     /**
      * 同步全局作用域数据

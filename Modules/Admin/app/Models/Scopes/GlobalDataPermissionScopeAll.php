@@ -19,7 +19,7 @@ class GlobalDataPermissionScopeAll implements GlobalDataPermissionScopeInterface
         return 'all';
     }
 
-    public function getExtendDataScopeViewCodeFragment()
+    public function getExtendDataScopeViewName()
     {
         return null;
     }
