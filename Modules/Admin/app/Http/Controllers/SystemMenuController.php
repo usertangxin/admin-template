@@ -11,7 +11,7 @@ use Modules\Admin\Services\SystemPermissionService;
 
 class SystemMenuController extends AbstractController
 {
-    #[SystemMenu('菜单规则', type: SystemMenuType::MENU, parent_code: 'system.permission', icon: 'fas bars')]
+    #[SystemMenu('菜单规则', type: SystemMenuType::MENU, icon: 'fas bars', parent_code: 'system.permission')]
     public function index(SystemPermissionService $systemMenuRegisterService)
     {
         return $this->success([
