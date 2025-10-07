@@ -136,6 +136,8 @@ CODE;
         }
         $content .= <<<'CODE'
 
+$table->uuid('created_by')->nullable()->comment('创建者');
+$table->uuid('updated_by')->nullable()->comment('更新者');
 $table->dateTime('created_at')->nullable()->comment('创建时间');
 $table->dateTime('updated_at')->nullable()->comment('更新时间');
 CODE;

@@ -47,8 +47,8 @@ return new class extends Migration
             }
             $table->string('status', 20)->nullable()->default('normal')->comment('状态:dict=data_status');
             $table->string('remark')->nullable()->comment('备注');
-            $table->string('created_by', 36)->nullable()->comment('创建者');
-            $table->string('updated_by', 36)->nullable()->comment('更新者');
+            $table->uuid('created_by')->nullable()->comment('创建者');
+            $table->uuid('updated_by')->nullable()->comment('更新者');
             $table->softDeletes();
         });
 
