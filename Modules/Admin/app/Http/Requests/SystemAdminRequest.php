@@ -44,7 +44,7 @@ class SystemAdminRequest extends FormRequest
             'email'           => '邮箱',
             'remark'          => '备注',
             'status'          => '状态',
-            'data_scope_name' => '权限范围',
+            'data_scope_name' => '数据权限',
             'password'        => '密码',
         ];
     }
