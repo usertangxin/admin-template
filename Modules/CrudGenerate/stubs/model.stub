@@ -29,5 +29,11 @@ $FILLABLE$
 $CASTS$
     ];
 
+    #[Scope]
+    protected function fast_search(Builder $query, $fast_search)
+    {
+        // TODO: 快速搜索逻辑待定
+    }
+
 $SCOPES$
 }
