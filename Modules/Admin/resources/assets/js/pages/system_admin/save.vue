@@ -30,6 +30,9 @@
             <a-form-item label="角色" field="roles">
                 <a-transfer :title="['未使用', '已使用']" :data="roles" one-way v-model:model-value="formData.roles" />
             </a-form-item>
+            <a-form-item label="数据权限" field="data_scope_name">
+                <dict-select code="data_scope" v-model="formData.data_scope_name"></dict-select>
+            </a-form-item>
         </save-form>
     </div>
 </template>
@@ -51,6 +54,7 @@ const formData = reactive({
     remark: '',
     status: 'normal',
     roles: [],
+    data_scope_name: 'all',
 })
 
 const rules = {
