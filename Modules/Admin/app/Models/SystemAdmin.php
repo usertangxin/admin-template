@@ -25,7 +25,7 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
 
     protected $table = 'system_admins';
 
-    protected $fillable = ['admin_name', 'password', 'nickname', 'phone', 'email', 'avatar', 'remark', 'status', 'data_scope_name'];
+    protected $fillable = ['admin_name', 'password', 'nickname', 'phone', 'email', 'avatar', 'remark', 'status', 'data_scope_name', 'extend_data_scope'];
 
     protected $hidden = [
         'password',
@@ -56,8 +56,9 @@ class SystemAdmin extends AbstractSoftDelModel implements AuthenticatableContrac
     protected function casts()
     {
         return [
-            'backend_setting' => 'json',
-            'is_root'         => 'boolean',
+            'backend_setting'   => 'json',
+            'is_root'           => 'boolean',
+            'extend_data_scope' => 'json',
         ];
     }
 
