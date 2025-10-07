@@ -11,6 +11,8 @@ class SystemMenu extends AbstractModel
 
     protected $table = 'system_menus';
 
+    public bool $ignoreGlobalDataPermission = true;
+
     protected static function booted()
     {
         static::deleting(function ($model) {
