@@ -145,4 +145,20 @@ CODE;
 
         return $content;
     }
+
+    public function analysisRequestAttributes(SystemCrudHistory $crudHistory)
+    {
+        $column_list = $crudHistory->column_list;
+        $content     = '';
+        foreach ($column_list as $column) {
+            if ($column['gen_form'] == 'yes') {
+                if ($content) {
+                    $content .= PHP_EOL;
+                }
+                $content .= "            '{$column['field_name']}' => '{$column['comment']}',";
+            }
+        }
+
+        return $content;
+    }
 }

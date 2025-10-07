@@ -251,6 +251,7 @@ class CrudGenerateService
      */
     public function getRequestContent(SystemCrudHistory $crudHistory)
     {
+        $fieldControlService    = app(FieldControlService::class);
         $pageViewControlService = app(PageViewControlService::class);
 
         $class_name = $crudHistory->gen_class_name;
@@ -260,9 +261,10 @@ class CrudGenerateService
         $namespace = $this->getClassNamespace(module($module_name, true), $class_name, 'request', $crudHistory);
 
         $stub = new Stub('/request.stub', [
-            'NAMESPACE' => $namespace,
-            'CLASS'     => class_basename($class_name) . 'Request',
-            'RULES'     => $pageViewControlService->analysisRequestRules($crudHistory),
+            'NAMESPACE'  => $namespace,
+            'CLASS'      => class_basename($class_name) . 'Request',
+            'RULES'      => $pageViewControlService->analysisRequestRules($crudHistory),
+            'ATTRIBUTES' => $fieldControlService->analysisRequestAttributes($crudHistory),
         ]);
         $stub->setBasePath($this->getStubsBasePath());
 

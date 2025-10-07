@@ -23,7 +23,6 @@ interface GlobalDataPermissionScopeInterface extends Scope
     /**
      * 同步全局作用域数据
      *
-     * @param $data
      * @return mixed
      */
     public function handleSyncExtendDataScope($data);
