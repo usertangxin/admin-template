@@ -45,6 +45,7 @@ class GlobalDataPermissionScopeService implements Arrayable
                 'extend_data_scope_view_name' => $item->getExtendDataScopeViewName(),
             ];
         }
+
         return $a;
     }
 }

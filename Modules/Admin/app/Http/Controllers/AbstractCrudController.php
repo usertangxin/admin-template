@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,11 @@ use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\DataBase\TreeCollection;
 use Modules\Admin\Classes\Utils\FormToken;
 use Modules\Admin\Classes\Utils\ModelUtil;
+use Modules\Admin\Events\CrudAfterCreate;
+use Modules\Admin\Events\CrudAfterSave;
+use Modules\Admin\Events\CrudAfterUpdate;
+use Modules\Admin\Events\CrudBeforeCreate;
+use Modules\Admin\Events\CrudBeforeUpdate;
 use Modules\Admin\Interfaces\TreeCollectionInterface;
 use Modules\Admin\Models\AbstractModel;
 use Modules\Admin\Models\AbstractSoftDelModel;
@@ -32,6 +38,11 @@ abstract class AbstractCrudController extends AbstractController
      * @return Model|AbstractSoftDelModel
      */
     abstract protected function getModel();
+
+    public function getBroadcastOn(ShouldBroadcast $event): array
+    {
+        return [];
+    }
 
     /**
      * 显示字段
@@ -284,10 +295,18 @@ abstract class AbstractCrudController extends AbstractController
         $data = $this->validate();
         DB::beginTransaction();
         try {
+
             $this->beforeCreate($data);
+            CrudBeforeCreate::dispatch($data, $this);
+
             $result = $this->getModel()->create($data);
+
             $this->afterCreate($result);
+            CrudAfterCreate::dispatch($result, $data, $this);
+
             $this->afterSave($result);
+            CrudAfterSave::dispatch($result, $data, $this);
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -349,9 +368,16 @@ abstract class AbstractCrudController extends AbstractController
         DB::beginTransaction();
         try {
             $this->beforeUpdate($model, $data);
+            CrudBeforeUpdate::dispatch($model, $data, $this);
+
             $result = $model->update($data);
+
             $this->afterUpdate($model);
+            CrudAfterUpdate::dispatch($model, $data, $this);
+
             $this->afterSave($model);
+            CrudAfterSave::dispatch($model, $data, $this);
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
