@@ -39,11 +39,6 @@ abstract class AbstractCrudController extends AbstractController
      */
     abstract protected function getModel();
 
-    public function getBroadcastOn(ShouldBroadcast $event): array
-    {
-        return [];
-    }
-
     /**
      * 显示字段
      */

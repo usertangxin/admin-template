@@ -9,7 +9,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Modules\Admin\Http\Controllers\AbstractCrudController;
 
-class CrudAfterUpdate implements ShouldBroadcast
+class CrudAfterUpdate
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -18,11 +18,4 @@ class CrudAfterUpdate implements ShouldBroadcast
      */
     public function __construct(public Model $model, public mixed $data, protected AbstractCrudController $controller) {}
 
-    /**
-     * Get the channels the event should be broadcast on.
-     */
-    public function broadcastOn(): array
-    {
-        return $this->controller->getBroadcastOn($this);
-    }
 }

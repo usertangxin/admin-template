@@ -3,12 +3,11 @@
 namespace Modules\Admin\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Modules\Admin\Http\Controllers\AbstractCrudController;
 
-class CrudBeforeCreate implements ShouldBroadcast
+class CrudBeforeCreate
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -17,11 +16,4 @@ class CrudBeforeCreate implements ShouldBroadcast
      */
     public function __construct(public mixed $data, protected AbstractCrudController $controller) {}
 
-    /**
-     * Get the channels the event should be broadcast on.
-     */
-    public function broadcastOn(): array
-    {
-        return $this->controller->getBroadcastOn($this);
-    }
 }
