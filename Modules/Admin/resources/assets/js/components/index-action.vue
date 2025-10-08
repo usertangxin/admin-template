@@ -156,8 +156,8 @@
                                 </a-tooltip>
                                 <template #content>
                                     <div class="p-1 min-w-[150px]">
-                                        <a-tree :selectable="false" checkable block-node
-                                            v-model:checked-keys="selectedKeys" :data="columns" show-line></a-tree>
+                                        <custom-tree checkable block-node v-model:selected-keys="selectedKeys"
+                                            v-model:checked-keys="selectedKeys" :multiple="true" :data="columns" show-line></custom-tree>
                                     </div>
                                 </template>
                             </a-dropdown>
