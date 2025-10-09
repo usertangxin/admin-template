@@ -19,6 +19,9 @@ createInertiaApp({
         if (prefix == 'module') {
             const modulePages = import.meta.glob('/Modules/**/resources/assets/js/pages/**/!(*components*/**).vue')
             page = await modulePages[`/Modules/${moduleName}/resources/assets/js/pages/${action}.vue`]()
+        } else {
+            const appPages = import.meta.glob('/resources/js/pages/**/!(*components*/**).vue')
+            page = await appPages[`/resources/js/pages/${name}.vue`]()
         }
         if (!page) {
             console.error(prefix, moduleName, action)
@@ -50,9 +53,16 @@ createInertiaApp({
         const pinia = createPinia()
         const i18n = createI18n({})
 
-        const useComms = import.meta.glob('/Modules/**/resources/assets/js/useComm.js', { eager: true })
+        const useModuleComms = import.meta.glob('/Modules/**/resources/assets/js/useComm.js', { eager: true })
 
-        _.forEach(useComms, (item, key) => {
+        _.forEach(useModuleComms, (item, key) => {
+            if (item.default) {
+                app.use(item.default)
+            }
+        })
+
+        const useAppComms = import.meta.glob('/resources/assets/js/useComm.js', { eager: true })
+        _.forEach(useAppComms, (item, key) => {
             if (item.default) {
                 app.use(item.default)
             }
