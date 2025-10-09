@@ -1,11 +1,7 @@
-import './axios'
 import { Boot } from '@wangeditor/editor'
 import selectImage from './components/wang-editor-menu/select-image'
 import selectVideo from './components/wang-editor-menu/select-video'
 import { router } from '@inertiajs/vue3';
-import ArcoVue from '@arco-design/web-vue';
-import ArcoVueIcon from '@arco-design/web-vue/es/icon';
-import '@arco-design/web-vue/dist/arco.css';
 import '../sass/app.scss'
 import { ZiggyVue } from 'ziggy-js';
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -89,8 +85,7 @@ library.add(
 
 const useComm = {
   install(app, options) {
-    app.use(ArcoVue)
-      .use(ArcoVueIcon)
+    app
       .use(ZiggyVue)
       .component('font-awesome-icon', FontAwesomeIcon)
       .component('fas-icon', FasIcon)

@@ -184,9 +184,10 @@ export function globalCursorProgress() {
         `
         document.head.appendChild(cursor)
     }
-    document.getElementsByTagName('iframe').forEach(function(item) {
+    const iframes = document.getElementsByTagName('iframe')
+    _.forEach(iframes, function(item) {
         let cursor = item.contentWindow.document.getElementById('global-cursor')
-        if(!cursor) {
+        if (!cursor) {
             cursor = document.createElement('style')
             cursor.id = 'global-cursor'
             cursor.innerHTML = `
@@ -204,7 +205,8 @@ export function globalCursorDefault() {
     if(el) {
         el.remove()
     }
-    document.getElementsByTagName('iframe').forEach(function(item) {
+    const iframes = document.getElementsByTagName('iframe')
+    _.forEach(iframes, function(item) {
         let cursor = item.contentWindow.document.getElementById('global-cursor')
         if(cursor) {
             cursor.remove()
