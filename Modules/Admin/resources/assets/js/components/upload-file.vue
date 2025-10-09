@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import { config_map } from '../data-share/config';
+import useConfigStore from '../data-share/config';
 import { Message } from '@arco-design/web-vue';
 import Decimal from 'decimal.js';
 import _, { multiply } from 'lodash';
@@ -44,6 +44,7 @@ import axios from 'axios';
 import { useFormItem } from '@arco-design/web-vue';
 
 const { mergedDisabled } = useFormItem();
+const configStore = useConfigStore()
 
 // 定义组件属性
 const props = defineProps({
@@ -98,7 +99,7 @@ const innerFileList = ref([]);
 
 // 计算接受的文件类型
 const comAccept = computed(() => {
-    let accept = props.accept ?? config_map.value['upload_allow_file'].value;
+    let accept = props.accept ?? configStore.config_map['upload_allow_file'].value;
     const exts = accept.replace(/\s/g, '').split(',');
     return _.map(exts, ext => ext.startsWith('.') ? ext : `.${ext}`).join(',');
 });
@@ -112,7 +113,7 @@ const handleBeforeUpload = (file) => {
         return props.onBeforeUpload(file);
     }
 
-    const fileSize = props.fileSize || config_map.value['upload_size'].value;
+    const fileSize = props.fileSize || configStore.config_map['upload_size'].value;
     if (file.size > fileSize) {
         const MB = new Decimal(fileSize).div(1024 * 1024).toFixed(2);
         Message.error(`文件大小不能超过${MB}MB`);

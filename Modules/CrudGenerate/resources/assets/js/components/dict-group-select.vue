@@ -8,10 +8,12 @@
     </a-select>
 </template>
 <script setup>
-import * as dict from '/Modules/Admin/resources/assets/js/data-share/dict'
+import useDictStore from '/Modules/Admin/resources/assets/js/data-share/dict'
 import { defineProps } from 'vue'
 
-const dict_group_list = dict.dict_group_list
+const dictStore = useDictStore()
+
+const dict_group_list = dictStore.dict_group_list
 </script>
 
 <style scoped lang="scss">

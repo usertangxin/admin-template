@@ -5,6 +5,7 @@ import NotFoundPage from '/Modules/Admin/resources/assets/js/pages/404.vue'
 import _ from 'lodash';
 import { globalCursorDefault, globalCursorProgress } from './util';
 import nProgress from 'nprogress';
+import { createPinia } from 'pinia'
 
 createInertiaApp({
   resolve: name => {
@@ -24,7 +25,7 @@ createInertiaApp({
     return page
   },
   setup({ el, App, props, plugin }) {
-    
+
     router.on('start', (event) => {
       console.log(`Starting a visit to ${event.detail.visit.url}`)
       nProgress.start()
@@ -39,6 +40,7 @@ createInertiaApp({
 
     const app = createApp({ render: () => h(App, props) })
       .use(plugin)
+    const pinia = createPinia()
 
     const useComms = import.meta.glob('/Modules/**/resources/assets/js/useComm.js', { eager: true })
 
@@ -47,6 +49,8 @@ createInertiaApp({
         app.use(item.default)
       }
     })
+
+    app.use(pinia)
 
     app.mount(el)
   },

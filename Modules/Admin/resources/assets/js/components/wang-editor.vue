@@ -20,10 +20,12 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { DomEditor } from '@wangeditor/editor'
 import { insertImageNode } from '@wangeditor/basic-modules'
 import defaultToolbarKeys from './wang-editor-menu/default-toolbar-keys'
-import { config_map } from '../data-share/config';
+import useConfigStore from '../data-share/config';
 import { Message } from '@arco-design/web-vue';
 import Decimal from 'decimal.js';
 import _ from 'lodash';
+
+const configStore = useConfigStore()
 
 const mode = 'default'
 // 编辑器实例，必须用 shallowRef
@@ -40,10 +42,10 @@ const handleSelectOk = (selectedKeys) => {
     }
     selectModeMap[selectMode.value].callback(selectedKeys)
 }
-
+console.log(configStore.config_map['upload_allow_image'])
 const selectModeMap = {
     image: {
-        mimeType: reactive(config_map.value['upload_allow_image'].value),
+        mimeType: reactive(configStore.config_map['upload_allow_image'].value),
         callback: function (selectedKeys) {
             request.get(route('web.admin.SystemUploadFile.index'), {
                 params: {
@@ -60,7 +62,7 @@ const selectModeMap = {
         }
     },
     video: {
-        mimeType: reactive(config_map.value['upload_allow_video'].value),
+        mimeType: reactive(configStore.config_map['upload_allow_video'].value),
         callback: function (selectedKeys) {
             request.get(route('web.admin.SystemUploadFile.index'), {
                 params: {
@@ -109,13 +111,13 @@ const editorConfig = {
     placeholder: '请输入内容...',
     MENU_CONF: {
         uploadImage: {
-            allowedFileTypes: _.map(config_map.value['upload_allow_image'].value.split(','), ext => ext.startsWith('.') ? ext : `.${ext}`),
-            maxFileSize: config_map.value['upload_size_image'].value,
+            allowedFileTypes: _.map(configStore.config_map['upload_allow_image'].value.split(','), ext => ext.startsWith('.') ? ext : `.${ext}`),
+            maxFileSize: configStore.config_map['upload_size_image'].value,
 
             // 自定义上传
             async customUpload(file, insertFn) {
 
-                const fileSize = config_map.value['upload_size_image'].value;
+                const fileSize = configStore.config_map['upload_size_image'].value;
                 if (file.size > fileSize) {
                     const MB = new Decimal(fileSize).div(1024 * 1024).toFixed(2);
                     Message.error(`文件大小不能超过${MB}MB`);
@@ -135,12 +137,12 @@ const editorConfig = {
             },
         },
         uploadVideo: {
-            allowedFileTypes: _.map(config_map.value['upload_allow_video'].value.split(','), ext => ext.startsWith('.') ? ext : `.${ext}`),
-            maxFileSize: config_map.value['upload_size_video'].value,
+            allowedFileTypes: _.map(configStore.config_map['upload_allow_video'].value.split(','), ext => ext.startsWith('.') ? ext : `.${ext}`),
+            maxFileSize: configStore.config_map['upload_size_video'].value,
             // 自定义上传
             async customUpload(file, insertFn) {
 
-                const fileSize = config_map.value['upload_size_video'].value;
+                const fileSize = configStore.config_map['upload_size_video'].value;
                 if (file.size > fileSize) {
                     const MB = new Decimal(fileSize).div(1024 * 1024).toFixed(2);
                     Message.error(`文件大小不能超过${MB}MB`);

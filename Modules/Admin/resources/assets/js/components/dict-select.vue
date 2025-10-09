@@ -8,11 +8,13 @@
     </a-select>
 </template>
 <script setup>
-import * as dict from '../data-share/dict'
+import useDictStore from '../data-share/dict'
 import { defineProps } from 'vue'
 import { colorMatch } from '../util'
 
-const dict_group_by_code = dict.dict_group_by_code
+const dictStore = useDictStore()
+
+const dict_group_by_code = dictStore.dict_group_by_code
 const props = defineProps({
     code: {
         type: String,
