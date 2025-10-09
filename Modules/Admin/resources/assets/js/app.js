@@ -6,7 +6,6 @@ import _ from 'lodash';
 import {globalCursorDefault, globalCursorProgress} from './util';
 import nProgress from 'nprogress';
 import {createPinia} from 'pinia'
-import {createI18n} from 'vue-i18n'
 import ArcoVue from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import '@arco-design/web-vue/dist/arco.css';
@@ -51,7 +50,6 @@ createInertiaApp({
             .use(ArcoVue)
             .use(ArcoVueIcon)
         const pinia = createPinia()
-        const i18n = createI18n({})
 
         const useModuleComms = import.meta.glob('/Modules/**/resources/assets/js/useComm.js', { eager: true })
 
@@ -69,7 +67,6 @@ createInertiaApp({
         })
 
         app.use(pinia)
-        app.use(i18n)
         app.mount(el)
     },
 })
