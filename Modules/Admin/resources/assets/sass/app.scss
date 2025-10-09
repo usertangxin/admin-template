@@ -5,8 +5,6 @@ body, html {
 
     --color-bg-2: #fcfcfc;
 
-    background-color: var(--color-neutral-2);
-
     --border-radius-medium: 0 !important;
     --border-radius-small: 0 !important;
 
@@ -31,6 +29,10 @@ body, html {
 
     .w-e-full-screen-container  {
         z-index: 1;
+    }
+
+    &[arco-theme='light'] {
+        background-color: var(--color-neutral-2);
     }
 
     &[arco-theme='dark'] {
