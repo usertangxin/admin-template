@@ -17,7 +17,9 @@ createInertiaApp({
         let page = null
         if (prefix == 'module') {
             const modulePages = import.meta.glob('/Modules/**/resources/assets/js/pages/**/!(*components*/**).vue')
-            page = await modulePages[`/Modules/${moduleName}/resources/assets/js/pages/${action}.vue`]()
+            if(modulePages[`/Modules/${moduleName}/resources/assets/js/pages/${action}.vue`]) {
+                page = await modulePages[`/Modules/${moduleName}/resources/assets/js/pages/${action}.vue`]()
+            }
         } else {
             const appPages = import.meta.glob('/resources/js/pages/**/!(*components*/**).vue')
             page = await appPages[`/resources/js/pages/${name}.vue`]()
