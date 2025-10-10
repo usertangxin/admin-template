@@ -51,8 +51,9 @@ class AdminScript implements AdminScriptInterface
             if (! $input_attr) {
                 $input_attr = ['options' => []];
             }
-            $update_storage_mode_config_select_data = collect($this->update_storage_mode_config_select_data)->map(function($item)  use ($lang) {
-                $item['label'] = trans('file_storage_extend::storage_mode.storage_mode.'.$item['value'], [], $lang);
+            $update_storage_mode_config_select_data = collect($this->update_storage_mode_config_select_data)->map(function ($item) use ($lang) {
+                $item['label'] = trans('file_storage_extend::storage_mode.storage_mode.' . $item['value'], [], $lang);
+
                 return $item;
             })->toArray();
             $b                     = collect($input_attr['options'])->concat($update_storage_mode_config_select_data)->keyBy('value')->values()->all();
