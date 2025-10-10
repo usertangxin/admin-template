@@ -2,27 +2,27 @@
 
 return [
     'site_config' => [
-        'name'   => '站点配置',
+        'name'   => 'Site',
         'remark' => null,
     ],
     'upload_config' => [
-        'name'   => '上传配置',
+        'name'   => 'Upload',
         'remark' => null,
     ],
     'email_config' => [
-        'name'   => '邮件服务',
+        'name'   => 'Email Service',
         'remark' => null,
     ],
     'map' => [
-        'name'   => '地图',
+        'name'   => 'Map',
         'remark' => null,
     ],
     'agreement' => [
-        'name'   => '协议',
+        'name'   => 'Agreement',
         'remark' => null,
     ],
     'wechat_config' => [
-        'name'   => '微信配置',
-        'remark' => '公众号，小程序，微信支付等',
+        'name'   => 'WeChat',
+        'remark' => 'Official Account, Mini Program, WeChat Payment, etc.',
     ],
 ];

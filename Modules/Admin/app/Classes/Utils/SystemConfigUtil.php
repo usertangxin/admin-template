@@ -2,7 +2,7 @@
 
 namespace Modules\Admin\Classes\Utils;
 
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Lang;
 use Modules\Admin\Models\SystemConfig;
 use Modules\Admin\Models\SystemConfigGroup;
 
@@ -21,7 +21,7 @@ class SystemConfigUtil
      *
      * @param mixed $value 配置组数据，可以是单个配置组数组或配置组数组列表。
      */
-    public static function autoResisterGroup(mixed $value)
+    public static function autoResisterGroup(mixed $value, $lang_prefix = '')
     {
         $arr = [];
         if (! is_array($value) || ! isset($value[0])) {
@@ -30,12 +30,25 @@ class SystemConfigUtil
             $arr = $value;
         }
         foreach ($arr as $item) {
-            SystemConfigGroup::whereCode($item['code'])->firstOr(function () use ($item) {
-                SystemConfigGroup::create([
-                    'name'   => $item['name'],
+            SystemConfigGroup::whereCode($item['code'])->firstOr(function () use ($item, $lang_prefix) {
+                $data = [
+                    'name'   => [],
                     'code'   => $item['code'],
-                    'remark' => $item['remark'],
-                ]);
+                    'remark' => [],
+                ];
+                foreach (config('admin.multi_language') as $lang) {
+                    if (Lang::has($lang_prefix . $item['code'] . '.name', $lang)) {
+                        $data['name'][$lang] = __($lang_prefix . $item['code'] . '.name', locale: $lang);
+                    } else {
+                        $data['name'][$lang] = $item['name'];
+                    }
+                    if (Lang::has($lang_prefix . $item['code'] . '.remark', $lang)) {
+                        $data['remark'][$lang] = __($lang_prefix . $item['code'] . '.remark', locale: $lang);
+                    } else {
+                        $data['remark'][$lang] = $item['remark'];
+                    }
+                }
+                SystemConfigGroup::create($data);
             });
         }
     }
@@ -45,7 +58,7 @@ class SystemConfigUtil
      *
      * @param mixed $value 配置数据，可以是单个配置数组或配置数组列表。
      */
-    public static function autoResisterConfig(mixed $value)
+    public static function autoResisterConfig(mixed $value, $lang_prefix = '')
     {
         $arr = [];
         if (! is_array($value) || ! isset($value[0])) {
@@ -54,18 +67,33 @@ class SystemConfigUtil
             $arr = $value;
         }
         foreach ($arr as $item) {
-            SystemConfig::where('key', $item['key'])->firstOr(function () use ($item) {
-                $model                     = new SystemConfig;
-                $model->group              = $item['group'];
-                $model->name               = $item['name'];
-                $model->key                = $item['key'];
-                $model->value              = $item['value'] ?? null;
-                $model->input_type         = $item['input_type'] ?? null;
-                $model->config_select_data = $item['config_select_data'] ?? null;
-                $model->remark             = $item['remark'] ?? null;
-                $model->bind_p_config      = $item['bind_p_config'] ?? null;
-                $model->input_attr         = $item['input_attr'] ?? null;
-                $model->save();
+            SystemConfig::where('key', $item['key'])->firstOr(function () use ($item, $lang_prefix) {
+                $data = [
+                    'group'         => $item['group'],
+                    'key'           => $item['key'],
+                    'input_type'    => $item['input_type'] ?? null,
+                    'bind_p_config' => $item['bind_p_config'] ?? null,
+                    'name'          => [],
+                    'value'         => [],
+                    'remark'        => [],
+                    'input_attr'    => [],
+                ];
+
+                // 需要进行语言翻译的字段列表
+                $translatableFields = [
+                    'name', 'value', 'remark', 'input_attr',
+                ];
+
+                foreach (config('admin.multi_language') as $lang) {
+                    foreach ($translatableFields as $field) {
+                        $translationKey      = $lang_prefix . $item['key'] . '.' . $field;
+                        $data[$field][$lang] = Lang::has($translationKey, $lang)
+                            ? __($translationKey, locale: $lang)
+                            : ($item[$field] ?? null);
+                    }
+                }
+
+                SystemConfig::create($data);
             });
         }
     }
@@ -100,9 +128,15 @@ class SystemConfigUtil
     public static function autoEnableConfig(mixed $value)
     {
         static::autoUpdateConfig($value, function ($model, $item) {
-            $input_attr             = $model->input_attr;
-            $input_attr['disabled'] = false;
-            $model->input_attr      = $input_attr;
+            foreach (config('admin.multi_language') as $lang) {
+                $input_attr = $model->getTranslation('input_attr', $lang);
+                if (! $input_attr) {
+                    $input_attr = [];
+                }
+                $input_attr['disabled'] = false;
+                $model->setTranslation('input_attr', $lang, $input_attr);
+            }
+
             $model->save();
         });
     }
@@ -115,53 +149,16 @@ class SystemConfigUtil
     public static function autoDisableConfig(mixed $value)
     {
         static::autoUpdateConfig($value, function ($model, $item) {
-            $input_attr             = $model->input_attr;
-            $input_attr['disabled'] = true;
-            $model->input_attr      = $input_attr;
+            foreach (config('admin.multi_language') as $lang) {
+                $input_attr = $model->getTranslation('input_attr', $lang);
+                if (! $input_attr) {
+                    $input_attr = [];
+                }
+                $input_attr['disabled'] = true;
+                $model->setTranslation('input_attr', $lang, $input_attr);
+            }
             $model->save();
         });
-    }
-
-    /**
-     * 保存系统配置的选择数据。
-     *
-     * @param string $config_key  配置键名。
-     * @param array  $select_data 要保存的选择数据。
-     */
-    public static function configSelectDataSave($config_key, $select_data)
-    {
-        $a = SystemConfig::where('key', $config_key)->first();
-        if ($a) {
-            $data_config_select_data = $a->config_select_data;
-            $data_config_select_data = array_merge($data_config_select_data, $select_data);
-            $merged                  = Arr::keyBy($data_config_select_data, 'value');
-            foreach ($select_data as $item) {
-                $merged[$item['value']] = $item;
-            }
-            $merged                = array_values($merged);
-            $a->config_select_data = $merged;
-            $a->save();
-        }
-    }
-
-    /**
-     * 移除系统配置的选择数据。
-     *
-     * @param string $config_key  配置键名。
-     * @param array  $select_data 要移除的选择数据。
-     */
-    public static function configSelectDataRemove($config_key, $select_data)
-    {
-        $a = SystemConfig::where('key', $config_key)->first();
-        if ($a) {
-            $data_config_select_data = $a->config_select_data;
-            $excludeValues           = Arr::pluck($select_data, 'value');
-            $filtered                = Arr::where($data_config_select_data, function ($item) use ($excludeValues) {
-                return ! in_array($item['value'], $excludeValues);
-            });
-            $a->config_select_data = $filtered;
-            $a->save();
-        }
     }
 
     /**

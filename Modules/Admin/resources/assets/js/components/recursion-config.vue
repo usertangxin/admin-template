@@ -23,11 +23,7 @@
         <template v-else-if="config.input_type === 'radio'">
             <a-col :span="24">
                 <a-form-item :label="config.name" :field="config.key">
-                    <a-radio-group v-model="config.value" v-bind="config.input_attr || {}">
-                        <template v-for="(item, index) in config.config_select_data" :key="index">
-                            <a-radio v-bind="item">{{ item.label }}</a-radio>
-                        </template>
-                    </a-radio-group>
+                    <a-radio-group v-model="config.value" v-bind="config.input_attr || {}"></a-radio-group>
                     <template #extra>
                         <div v-html="config.remark"></div>
                     </template>
@@ -53,7 +49,7 @@
                 <a-form-item :label="config.name" :field="config.key">
                     <a-tabs v-model="config.value" :default-active-key="config.value" type="card-gutter"
                         v-bind="config.input_attr || {}">
-                        <a-tab-pane v-for="(tab, tab_index) in config.config_select_data" :title="tab.label"
+                        <a-tab-pane v-for="(tab, tab_index) in config.input_attr.options" :title="tab.label"
                             v-bind:key="tab.value" class="px-4">
                             <a-row :gutter="16">
                                 <RecursionConfig :config_list="props.config_list" :p_config="config.key"

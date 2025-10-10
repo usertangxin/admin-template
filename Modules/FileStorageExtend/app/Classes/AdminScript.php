@@ -6,6 +6,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Modules\Admin\Classes\Utils\SystemConfigUtil;
 use Modules\Admin\Classes\Utils\SystemDictUtil;
 use Modules\Admin\Interfaces\AdminScriptInterface;
+use Modules\Admin\Models\SystemConfig;
 use Nwidart\Modules\Module;
 
 class AdminScript implements AdminScriptInterface
@@ -40,9 +41,25 @@ class AdminScript implements AdminScriptInterface
 
     public function enable(Module $module)
     {
-        SystemConfigUtil::autoResisterConfig($this->configs);
+        SystemConfigUtil::autoResisterConfig($this->configs, 'file_storage_extend::storage_mode.');
         SystemConfigUtil::autoEnableConfig($this->configs);
-        SystemConfigUtil::configSelectDataSave('storage_mode', $this->update_storage_mode_config_select_data);
+
+        $storageMode = SystemConfig::where('key', 'storage_mode')->first();
+
+        foreach (config('admin.multi_language') as $lang) {
+            $input_attr = $storageMode->getTranslation('input_attr', $lang);
+            if (! $input_attr) {
+                $input_attr = ['options' => []];
+            }
+            $update_storage_mode_config_select_data = collect($this->update_storage_mode_config_select_data)->map(function($item)  use ($lang) {
+                $item['label'] = trans('file_storage_extend::storage_mode.storage_mode.'.$item['value'], [], $lang);
+                return $item;
+            })->toArray();
+            $b                     = collect($input_attr['options'])->concat($update_storage_mode_config_select_data)->keyBy('value')->values()->all();
+            $input_attr['options'] = $b;
+            $storageMode->setTranslation('input_attr', $lang, $input_attr);
+        }
+        $storageMode->save();
 
         SystemDictUtil::autoRegisterDicts($this->dicts);
         SystemDictUtil::autoEnableDicts($this->dicts);
@@ -50,12 +67,6 @@ class AdminScript implements AdminScriptInterface
 
     public function disable(Module $module)
     {
-        $select_data = \collect($this->update_storage_mode_config_select_data)->map(function ($item) {
-            $item['disabled'] = true;
-
-            return $item;
-        })->toArray();
-        SystemConfigUtil::configSelectDataSave('storage_mode', $select_data);
         SystemConfigUtil::autoDisableConfig($this->configs);
         SystemDictUtil::autoDisableDicts($this->dicts);
     }
@@ -63,7 +74,7 @@ class AdminScript implements AdminScriptInterface
     public function delete(Module $module)
     {
         SystemConfigUtil::autoUnregisterConfig($this->configs);
-        SystemConfigUtil::configSelectDataRemove('storage_mode', $this->update_storage_mode_config_select_data);
+
         SystemDictUtil::autoUnregisterDicts($this->dicts);
     }
 }

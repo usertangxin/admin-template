@@ -3,7 +3,7 @@
 
         <a-row :gutter="20" align="stretch">
             <a-col flex="none">
-                <a-list class=" sticky top-6" :virtualListProps="{
+                <a-list class=" sticky top-6 max-w-[200px]" :virtualListProps="{
                     height: groupHeight,
                 }" :data="config_group_list">
                     <template #header>
@@ -11,8 +11,15 @@
                     </template>
                     <template #item="{ item: group, index: group_index }">
                         <a-list-item :class="{ 'group_active': current_group_index == group_index }">
-                            <a-list-item-meta class=" cursor-pointer" :title="group.name" :description="group.remark"
-                                @click="handleClickGroup(group_index)"></a-list-item-meta>
+                            <a-list-item-meta class=" cursor-pointer"
+                                @click="handleClickGroup(group_index)">
+                                <template #title>
+                                    <div :title="group.name" class="truncate">{{ group.name }}</div>
+                                </template>
+                                <template #description>
+                                    <div :title="group.remark" class="truncate max-w-[150px]">{{ group.remark }}</div>
+                                </template>
+                            </a-list-item-meta>
                             <template #actions>
                                 <div>
                                     <a-space>

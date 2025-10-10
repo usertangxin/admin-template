@@ -3,17 +3,38 @@
 namespace Modules\Admin\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Spatie\Translatable\HasTranslations;
 
 class SystemConfig extends AbstractModel
 {
-    use HasUuids;
+    use HasTranslations, HasUuids;
 
     protected $table = 'system_configs';
 
-    protected $fillable = ['group', 'key', 'value', 'name', 'input_type', 'config_select_data', 'bind_p_config', 'input_attr'];
+    public array $translatable = [
+        'name',
+        'value',
+        'remark',
+        'input_attr',
+    ];
+
+    protected $fillable = ['group', 'key', 'value', 'name', 'remark', 'input_type', 'bind_p_config', 'input_attr'];
 
     protected $casts = [
-        'config_select_data' => 'array',
-        'input_attr'         => 'array',
+        'input_attr' => 'array',
     ];
+
+    public function toArray()
+    {
+        $attributes = $this->attributesToArray();
+
+        $translatable = array_filter($this->getTranslatableAttributes(), function ($key) use ($attributes) {
+            return array_key_exists($key, $attributes);
+        });
+        foreach ($translatable as $field) {
+            $attributes[$field] = $this->getTranslation($field, \App::getLocale());
+        }
+
+        return array_merge($attributes, $this->relationsToArray());
+    }
 }
