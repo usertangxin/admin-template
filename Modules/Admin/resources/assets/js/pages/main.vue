@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div class="absolute top-0 left-0 w-full h-full" v-if="contentMask">
-                    <!-- 
+                    <!--
                     由于 a-popover click 触发方式问题，iframe区域无法穿透事件，故此有了此元素，
                     他在 a-popover 打开时打开，关闭时关闭
                       -->
@@ -406,6 +406,7 @@ watch(() => currOpenMenuCode.value, () => {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        text-align: center;
         gap: 5px;
         // border-bottom: 1px solid var(--color-border-3);
         font-size: 12px;

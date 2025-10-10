@@ -9,12 +9,12 @@
 </template>
 <script setup>
 import useDictStore from '../data-share/dict'
-import { defineProps } from 'vue'
+import {computed, defineProps} from 'vue'
 import { colorMatch } from '../util'
 
 const dictStore = useDictStore()
 
-const dict_group_by_code = dictStore.dict_group_by_code
+const dict_group_by_code = computed(() => dictStore.dict_group_by_code)
 const props = defineProps({
     code: {
         type: String,

@@ -1,6 +1,7 @@
 <template>
     <a-upload v-model:file-list="innerFileList" @before-upload="handleBeforeUpload" @before-remove="handleBeforeRemove"
-        :accept="comAccept" :custom-request="customRequest" :multiple="multiple" :limit="limit" :show-remove-button="showRemoveButton && !mergedDisabled" v-bind="$attrs">
+              :accept="comAccept" :custom-request="customRequest" :multiple="multiple" :limit="limit"
+              :show-remove-button="showRemoveButton && !mergedDisabled" v-bind="$attrs">
         <template v-for="key in Object.keys($slots)" #[key] :key="key">
             <slot :name="key"></slot>
         </template>
@@ -11,7 +12,7 @@
                         class=" left-0 top-0 right-0 bottom-0 m-auto translate-y-[3px] absolute w-[12px] h-[20px] bg-white">
                     </div>
                     <icon icon="fas fa-cloud-arrow-up" class="relative text-[30px]"
-                        style="color: rgb(var(--primary-6));">
+                          style="color: rgb(var(--primary-6));">
                     </icon>
                 </div>
                 <div class=" font-bold mt-3 text-[16px]">点击上传或拖拽文件</div>
@@ -21,7 +22,7 @@
                     </div>
                 </a-tooltip>
                 <a-button class="history-btn" @click.prevent.stop="visibleResourceModel = true" type="primary"
-                    size="mini">
+                          size="mini">
                     <template #icon>
                         <icon icon="fas fa-folder-open" class=" text-[14px] -mb-[1px]"></icon>
                     </template>
@@ -31,20 +32,24 @@
         </template>
     </a-upload>
     <resource-model v-model:visible="visibleResourceModel" :multiple="multiple" :limit="limit - innerFileList.length"
-        :src="route('web.admin.SystemUploadFile.index') + '?&mime_type=' + mimeType" @ok="handleOk"></resource-model>
+                    :src="route('web.admin.SystemUploadFile.index') + '?&mime_type=' + mimeType"
+                    @ok="handleOk"></resource-model>
 </template>
 
 <script setup>
 import useConfigStore from '../data-share/config';
-import { Message } from '@arco-design/web-vue';
+import {Message} from '@arco-design/web-vue';
 import Decimal from 'decimal.js';
-import _, { multiply } from 'lodash';
-import { computed, ref, watch, nextTick, inject, provide } from 'vue';
+import _, {multiply} from 'lodash';
+import {computed, ref, watch, nextTick, inject, provide} from 'vue';
 import axios from 'axios';
-import { useFormItem } from '@arco-design/web-vue';
+import {useFormItem} from '@arco-design/web-vue';
+import {storeToRefs} from "pinia";
 
-const { mergedDisabled } = useFormItem();
+const {mergedDisabled} = useFormItem();
 const configStore = useConfigStore()
+
+const {config_map} = storeToRefs(configStore)
 
 // 定义组件属性
 const props = defineProps({
@@ -99,7 +104,7 @@ const innerFileList = ref([]);
 
 // 计算接受的文件类型
 const comAccept = computed(() => {
-    let accept = props.accept ?? configStore.config_map['upload_allow_file'].value;
+    let accept = props.accept ?? config_map.value['upload_allow_file']?.value ?? '';
     const exts = accept.replace(/\s/g, '').split(',');
     return _.map(exts, ext => ext.startsWith('.') ? ext : `.${ext}`).join(',');
 });
@@ -113,7 +118,7 @@ const handleBeforeUpload = (file) => {
         return props.onBeforeUpload(file);
     }
 
-    const fileSize = props.fileSize || configStore.config_map['upload_size'].value;
+    const fileSize = props.fileSize || config_map.value['upload_size']?.value;
     if (file.size > fileSize) {
         const MB = new Decimal(fileSize).div(1024 * 1024).toFixed(2);
         Message.error(`文件大小不能超过${MB}MB`);
@@ -147,7 +152,7 @@ const handleOk = (selectedKeys) => {
 
 // 自定义上传逻辑
 const customRequest = (option) => {
-    const { onProgress, onError, onSuccess, fileItem } = option;
+    const {onProgress, onError, onSuccess, fileItem} = option;
     const data = new FormData();
 
     data.append('file', fileItem.file);
@@ -185,7 +190,7 @@ const customRequest = (option) => {
             }
 
             // 通知上传组件成功
-            onSuccess({ ...res.data[0], url: fileUrl });
+            onSuccess({...res.data[0], url: fileUrl});
         } else {
             // Message.error(res.message || '上传失败，请重试');
             onError(res.message || '上传失败，请重试');

@@ -9,4 +9,5 @@ return [
         'system_dict_list'         => 'system_dict_list',
         'system_dict_group_list'   => 'system_dict_group_list',
     ],
+    'multi_language' => ['en', 'zh_CN'],
 ];

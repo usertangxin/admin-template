@@ -23,9 +23,19 @@ class SystemMenuManager
             if (! $model) {
                 $model = new SystemMenu;
             }
-            $item                   = (array) $item;
-            $model->code            = $item['code'];
-            $model->name            = $item['name'];
+
+            $item        = (array) $item;
+            $model->code = $item['code'];
+            foreach (config('admin.multi_language') as $lang) {
+                $name = $item['name'];
+                if (! empty($item['name_lang']) && \Lang::has($item['name_lang'], $lang)) {
+                    $name_lang = __($item['name_lang'], locale: $lang);
+                    if ($name_lang) {
+                        $name = $name_lang;
+                    }
+                }
+                $model->setTranslation('name', $lang, $name);
+            }
             $model->icon            = $item['icon'];
             $model->parent_code     = $item['parent_code'];
             $model->type            = $item['type'];
@@ -47,6 +57,8 @@ class SystemMenuManager
         foreach ($routes as $route) {
             if ($controller = $route->getController()) {
                 if ($controller instanceof AbstractController) {
+                    $controller_namespace = get_class($controller);
+
                     $action = $route->getActionName();
                     $ref    = new \ReflectionMethod(Str::of($action)->replace('@', '::')->toString());
                     if (! empty($ref->getAttributes(AttrsSystemMenu::class))) {
@@ -75,6 +87,16 @@ class SystemMenuManager
                             }
                         }
 
+                        $name_lang = $systemMenuAttr->name_lang;
+
+                        if (is_null($name_lang)) {
+                            if (str_starts_with($controller_namespace, config('modules.namespace'))) {
+                                $moduleParts = explode('\\', $controller_namespace);
+                                $moduleName  = Str::snake($moduleParts[1]);
+                                $name_lang   = $moduleName . '::' . 'system_menu.' . Str::snake(class_basename($controller)) . '.' . Str::snake($route->getActionMethod());
+                            }
+                        }
+
                         $arr[] = [
                             'code'            => $route->getName(),
                             'name'            => $name,
@@ -86,6 +108,7 @@ class SystemMenuManager
                             'is_hidden'       => $systemMenuAttr->is_hidden,
                             'allow_all'       => $systemMenuAttr->allow_all,
                             'allow_admin'     => $systemMenuAttr->allow_admin,
+                            'name_lang'       => $name_lang,
                         ];
                     }
                 }

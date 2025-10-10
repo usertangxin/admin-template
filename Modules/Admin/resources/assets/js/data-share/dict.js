@@ -9,27 +9,10 @@ const useDictStore = defineStore('dict', () => {
 
     const System_Dict_Group_Hash = computed(() => page?.props?.system_dict_group_hash)
 
-    const dict_list = ref(JSON.parse(window.localStorage.getItem('dict_list') ?? '[]'))
-    const dict_group_list = ref(JSON.parse(window.localStorage.getItem('dict_group_list') ?? '[]'))
-
-    watch([System_Dict_Hash, System_Dict_Group_Hash], () => {
-        if (
-            System_Dict_Hash.value != window.localStorage.getItem('system_dict_hash')
-            || System_Dict_Group_Hash.value != window.localStorage.getItem('system_dict_group_hash')
-        ) {
-
-            request.get('/web/admin/SystemDict/index').then(res => {
-                if (res.code === 0) {
-                    dict_list.value = res.data.list
-                    dict_group_list.value = res.data.group_list
-                    window.localStorage.setItem('dict_list', JSON.stringify(res.data.list))
-                    window.localStorage.setItem('dict_group_list', JSON.stringify(res.data.group_list))
-                    window.localStorage.setItem('system_dict_hash', System_Dict_Hash.value)
-                    window.localStorage.setItem('system_dict_group_hash', System_Dict_Group_Hash.value)
-                }
-            })
-        }
-    })
+    const dict_list = ref([])
+    dict_list.value = JSON.parse(window.localStorage.getItem('dict_list') ?? '[]')
+    const dict_group_list = ref([])
+    dict_group_list.value = JSON.parse(window.localStorage.getItem('dict_group_list') ?? '[]')
 
     const dict_group_map = computed(() => {
         const map = {}
@@ -57,6 +40,24 @@ const useDictStore = defineStore('dict', () => {
         })
         return map
     })
+
+    watch([System_Dict_Hash, System_Dict_Group_Hash], () => {
+        if (
+            System_Dict_Hash.value != window.localStorage.getItem('system_dict_hash')
+            || System_Dict_Group_Hash.value != window.localStorage.getItem('system_dict_group_hash')
+        ) {
+            request.get('/web/admin/SystemDict/index').then(res => {
+                if (res.code === 0) {
+                    dict_list.value = res.data.list
+                    dict_group_list.value = res.data.group_list
+                    window.localStorage.setItem('dict_list', JSON.stringify(res.data.list))
+                    window.localStorage.setItem('dict_group_list', JSON.stringify(res.data.group_list))
+                    window.localStorage.setItem('system_dict_hash', System_Dict_Hash.value)
+                    window.localStorage.setItem('system_dict_group_hash', System_Dict_Group_Hash.value)
+                }
+            })
+        }
+    }, {immediate: true})
 
     return {
         dict_list,

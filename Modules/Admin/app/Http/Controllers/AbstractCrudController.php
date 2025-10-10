@@ -2,7 +2,6 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Database\Eloquent\Model;
@@ -240,7 +239,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @return Responsable|SymfonyResponse
      */
-    #[SystemMenu('详情')]
+    #[SystemMenu('详情', name_lang: 'admin::system_menu.abstract_crud_controller.read')]
     public function read()
     {
 
@@ -276,7 +275,7 @@ abstract class AbstractCrudController extends AbstractController
     /**
      * 创建
      */
-    #[SystemMenu('创建')]
+    #[SystemMenu('创建', name_lang: 'admin::system_menu.abstract_crud_controller.create')]
     public function create(FormToken $formToken)
     {
         Inertia::share('__page_create__', true);
@@ -338,7 +337,7 @@ abstract class AbstractCrudController extends AbstractController
      * @throws BindingResolutionException
      * @throws InvalidArgumentException|Throwable
      */
-    #[SystemMenu('编辑')]
+    #[SystemMenu('编辑', name_lang: 'admin::system_menu.abstract_crud_controller.update')]
     public function update(FormToken $formToken)
     {
         Inertia::share('__page_update__', true);
@@ -405,7 +404,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @throws BindingResolutionException
      */
-    #[SystemMenu('切换状态')]
+    #[SystemMenu('切换状态', name_lang: 'admin::system_menu.abstract_crud_controller.change_status')]
     public function changeStatus()
     {
 
@@ -434,7 +433,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @throws Throwable
      */
-    #[SystemMenu('删除')]
+    #[SystemMenu('删除', name_lang: 'admin::system_menu.abstract_crud_controller.destroy')]
     public function destroy()
     {
         $ids = request('ids');
@@ -470,7 +469,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @throws BindingResolutionException
      */
-    #[SystemMenu('回收站')]
+    #[SystemMenu('回收站', name_lang: 'admin::system_menu.abstract_crud_controller.recycle')]
     public function recycle()
     {
         $listType = request('__list_type__', 'list');
@@ -518,7 +517,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @throws BindingResolutionException|Throwable
      */
-    #[SystemMenu('恢复')]
+    #[SystemMenu('恢复', name_lang: 'admin::system_menu.abstract_crud_controller.recovery')]
     public function recovery()
     {
         $ids = request('ids');
@@ -554,7 +553,7 @@ abstract class AbstractCrudController extends AbstractController
      *
      * @throws BindingResolutionException|Throwable
      */
-    #[SystemMenu('永久删除')]
+    #[SystemMenu('永久删除', name_lang: 'admin::system_menu.abstract_crud_controller.real_destroy')]
     public function realDestroy()
     {
         $ids = request('ids');

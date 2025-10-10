@@ -4,14 +4,17 @@ namespace Modules\Admin\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Spatie\Permission\PermissionRegistrar;
+use Spatie\Translatable\HasTranslations;
 
 class SystemMenu extends AbstractModel
 {
-    use HasUuids;
+    use HasTranslations, HasUuids;
 
     protected $table = 'system_menus';
 
     public bool $ignoreGlobalDataPermission = true;
+
+    public array $translatable = ['name'];
 
     protected static function booted()
     {
@@ -31,5 +34,19 @@ class SystemMenu extends AbstractModel
             'allow_all'       => 'boolean',
             'allow_admin'     => 'boolean',
         ];
+    }
+
+    public function toArray()
+    {
+        $attributes = $this->attributesToArray();
+
+        $translatable = array_filter($this->getTranslatableAttributes(), function ($key) use ($attributes) {
+            return array_key_exists($key, $attributes);
+        });
+        foreach ($translatable as $field) {
+            $attributes[$field] = $this->getTranslation($field, \App::getLocale());
+        }
+
+        return array_merge($attributes, $this->relationsToArray());
     }
 }

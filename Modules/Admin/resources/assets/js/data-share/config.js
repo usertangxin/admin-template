@@ -13,25 +13,6 @@ const useConfigStore = defineStore('config', () => {
     const config_list = ref(JSON.parse(window.localStorage.getItem('config_list') ?? '[]'))
     const config_group_list = ref(JSON.parse(window.localStorage.getItem('config_group_list') ?? '[]'))
 
-    watch([System_Config_Hash, System_Config_Group_Hash], () => {
-        if (
-            System_Config_Hash.value != window.localStorage.getItem('system_config_hash')
-            || System_Config_Group_Hash.value != window.localStorage.getItem('system_config_group_hash')
-        ) {
-
-            request.get('/web/admin/SystemConfig/index').then(res => {
-                if (res.code === 0) {
-                    config_list.value = res.data.config_list
-                    config_group_list.value = res.data.config_group_list
-                    window.localStorage.setItem('config_list', JSON.stringify(config_list.value))
-                    window.localStorage.setItem('config_group_list', JSON.stringify(config_group_list.value))
-                    window.localStorage.setItem('system_config_hash', System_Config_Hash.value)
-                    window.localStorage.setItem('system_config_group_hash', System_Config_Group_Hash.value)
-                }
-            })
-        }
-    })
-
     const config_group_map = computed(() => {
         const map = {}
         config_group_list.value.forEach(item => {
@@ -58,6 +39,24 @@ const useConfigStore = defineStore('config', () => {
         })
         return map
     })
+
+    watch([System_Config_Hash, System_Config_Group_Hash], () => {
+        if (
+            System_Config_Hash.value != window.localStorage.getItem('system_config_hash')
+            || System_Config_Group_Hash.value != window.localStorage.getItem('system_config_group_hash')
+        ) {
+            request.get('/web/admin/SystemConfig/index').then(res => {
+                if (res.code === 0) {
+                    config_list.value = res.data.config_list
+                    config_group_list.value = res.data.config_group_list
+                    window.localStorage.setItem('config_list', JSON.stringify(config_list.value))
+                    window.localStorage.setItem('config_group_list', JSON.stringify(config_group_list.value))
+                    window.localStorage.setItem('system_config_hash', System_Config_Hash.value)
+                    window.localStorage.setItem('system_config_group_hash', System_Config_Group_Hash.value)
+                }
+            })
+        }
+    }, {immediate: true})
 
     return {
         config_list,

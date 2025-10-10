@@ -42,10 +42,10 @@ const handleSelectOk = (selectedKeys) => {
     }
     selectModeMap[selectMode.value].callback(selectedKeys)
 }
-console.log(configStore.config_map['upload_allow_image'])
+console.log(configStore.config_map)
 const selectModeMap = {
     image: {
-        mimeType: reactive(configStore.config_map['upload_allow_image'].value),
+        mimeType: reactive(configStore.config_map['upload_allow_image']?.value),
         callback: function (selectedKeys) {
             request.get(route('web.admin.SystemUploadFile.index'), {
                 params: {
@@ -62,7 +62,7 @@ const selectModeMap = {
         }
     },
     video: {
-        mimeType: reactive(configStore.config_map['upload_allow_video'].value),
+        mimeType: reactive(configStore.config_map['upload_allow_video']?.value),
         callback: function (selectedKeys) {
             request.get(route('web.admin.SystemUploadFile.index'), {
                 params: {
@@ -111,13 +111,13 @@ const editorConfig = {
     placeholder: '请输入内容...',
     MENU_CONF: {
         uploadImage: {
-            allowedFileTypes: _.map(configStore.config_map['upload_allow_image'].value.split(','), ext => ext.startsWith('.') ? ext : `.${ext}`),
-            maxFileSize: configStore.config_map['upload_size_image'].value,
+            allowedFileTypes: _.map(configStore.config_map['upload_allow_image']?.value.split(','), ext => ext.startsWith('.') ? ext : `.${ext}`),
+            maxFileSize: configStore.config_map['upload_size_image']?.value,
 
             // 自定义上传
             async customUpload(file, insertFn) {
 
-                const fileSize = configStore.config_map['upload_size_image'].value;
+                const fileSize = configStore.config_map['upload_size_image']?.value;
                 if (file.size > fileSize) {
                     const MB = new Decimal(fileSize).div(1024 * 1024).toFixed(2);
                     Message.error(`文件大小不能超过${MB}MB`);
@@ -137,12 +137,12 @@ const editorConfig = {
             },
         },
         uploadVideo: {
-            allowedFileTypes: _.map(configStore.config_map['upload_allow_video'].value.split(','), ext => ext.startsWith('.') ? ext : `.${ext}`),
-            maxFileSize: configStore.config_map['upload_size_video'].value,
+            allowedFileTypes: _.map(configStore.config_map['upload_allow_video']?.value.split(','), ext => ext.startsWith('.') ? ext : `.${ext}`),
+            maxFileSize: configStore.config_map['upload_size_video']?.value,
             // 自定义上传
             async customUpload(file, insertFn) {
 
-                const fileSize = configStore.config_map['upload_size_video'].value;
+                const fileSize = configStore.config_map['upload_size_video']?.value;
                 if (file.size > fileSize) {
                     const MB = new Decimal(fileSize).div(1024 * 1024).toFixed(2);
                     Message.error(`文件大小不能超过${MB}MB`);

@@ -7,13 +7,15 @@
 
 import useConfigStore from '../data-share/config';
 import _ from 'lodash';
+import {storeToRefs} from "pinia";
 
 const props = defineProps({
     accept: {
         type: String,
         default: () => {
             const configStore = useConfigStore()
-            return configStore.config_map['upload_allow_image'].value;
+            const {config_map} = storeToRefs(configStore)
+            return config_map.value['upload_allow_image']?.value;
         }
     },
     uploadMode: {
@@ -24,7 +26,8 @@ const props = defineProps({
         type: Number,
         default: () => {
             const configStore = useConfigStore()
-            return configStore.config_map['upload_size_image'].value
+            const {config_map} = storeToRefs(configStore)
+            return config_map.value['upload_size_image']?.value
         },
     },
 })

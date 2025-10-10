@@ -13,8 +13,8 @@
                                 {{ merge[item.value]?.label || item.label }}
                             </div>
                             <div v-if="merge[item.value]?.remark || item.remark"
-                                v-html="merge[item.value]?.remark || item.remark"
-                                class="leading-4 mt-2 opacity-70">
+                                 v-html="merge[item.value]?.remark || item.remark"
+                                 class="leading-4 mt-2 opacity-70">
                             </div>
                         </div>
                     </a-space>
@@ -25,11 +25,11 @@
 </template>
 <script setup>
 import useDictStore from '../data-share/dict'
-import { defineProps } from 'vue'
-import { colorMatch } from '../util'
+import {computed, defineProps, reactive} from 'vue'
+import {colorMatch} from '../util'
 
 const dictStore = useDictStore()
-const dict_group_by_code = dictStore.dict_group_by_code
+const dict_group_by_code = computed(() => dictStore.dict_group_by_code)
 const props = defineProps({
     code: {
         type: String,
@@ -85,24 +85,26 @@ const props = defineProps({
 // arco-radio-disabled
 
 .custom-radio-card {
-  &:not(.arco-radio-disabled &):hover,
-  &-checked {
-    border-color: rgb(var(--primary-6));
-    .custom-radio-card-title {
-      color: rgb(var(--primary-6));
-    }
-  }
+    &:not(.arco-radio-disabled &):hover,
+    &-checked {
+        border-color: rgb(var(--primary-6));
 
-  &-checked {
-    background-color: var(--color-primary-light-1);
-    .custom-radio-card-mask-dot {
-      background-color: rgb(var(--primary-6));
+        .custom-radio-card-title {
+            color: rgb(var(--primary-6));
+        }
     }
-  }
 
-  &:not(.arco-radio-disabled &):hover .custom-radio-card-mask,
-  &-checked .custom-radio-card-mask {
-    border-color: rgb(var(--primary-6));
-  }
+    &-checked {
+        background-color: var(--color-primary-light-1);
+
+        .custom-radio-card-mask-dot {
+            background-color: rgb(var(--primary-6));
+        }
+    }
+
+    &:not(.arco-radio-disabled &):hover .custom-radio-card-mask,
+    &-checked .custom-radio-card-mask {
+        border-color: rgb(var(--primary-6));
+    }
 }
 </style>

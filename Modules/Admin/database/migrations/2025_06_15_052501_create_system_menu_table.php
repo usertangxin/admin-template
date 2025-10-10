@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('system_menus', function (Blueprint $table) {
             $table->comment('菜单信息表');
             $table->uuid('id')->primary()->comment('主键');
-            $table->string('name', 50)->nullable()->comment('菜单名称');
+            $table->json('name')->nullable()->comment('菜单名称');
             $table->string('url', 50)->nullable()->comment('菜单URL');
             $table->string('code', 100)->unique('system_menus_code_unique')->comment('菜单标识代码');
             $table->string('parent_code', 100)->nullable()->comment('父菜单标识代码');

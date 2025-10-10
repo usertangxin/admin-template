@@ -16,7 +16,7 @@ class SystemDictController extends AbstractController
         return new SystemDict;
     }
 
-    #[SystemMenu('字典查看', type: SystemMenuType::MENU, parent_code: 'system.basic', icon: 'fas book')]
+    #[SystemMenu('字典查看', type: SystemMenuType::MENU, icon: 'fas book', parent_code: 'system.basic')]
     public function index(SystemDictService $systemDictService)
     {
         $data      = $systemDictService->getList();
