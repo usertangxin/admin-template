@@ -18,12 +18,12 @@ return new class extends Migration
             $table->json('name')->comment('配置名称');
             $table->string('key', 100)->unique('system_configs_key_unique')->comment('配置键名');
             $table->string('input_type')->comment('输入类型');
-            $table->json('value')->nullable()->comment('配置值');
+            $table->longText('value')->nullable()->comment('配置值');
             $table->json('remark')->nullable()->comment('备注');
             $table->string('bind_p_config')->nullable()->comment('绑定父配置');
             $table->json('input_attr')->nullable()->comment('输入属性');
-            $table->datetime('created_at')->comment('创建时间');
-            $table->datetime('updated_at')->comment('更新时间');
+            $table->dateTime('created_at')->comment('创建时间');
+            $table->dateTime('updated_at')->comment('更新时间');
         });
     }
 

@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('color', 10)->nullable()->comment('颜色');
             $table->string('remark')->nullable()->comment('备注');
             $table->string('status')->default('normal')->comment('状态:dict=data_status');
-            $table->datetime('created_at')->comment('创建时间');
-            $table->datetime('updated_at')->comment('更新时间');
+            $table->dateTime('created_at')->comment('创建时间');
+            $table->dateTime('updated_at')->comment('更新时间');
         });
     }
 

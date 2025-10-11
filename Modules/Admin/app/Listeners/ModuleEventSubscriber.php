@@ -68,7 +68,7 @@ class ModuleEventSubscriber
 
     protected function getAdminScriptClass($module_name)
     {
-        $namespace     = $this->module_namespace($module_name);
+        $namespace     = $this->module_namespace($module_name, '');
         $install_class = $namespace . '\\Classes\\AdminScript';
         if (! class_exists($install_class)) {
             return null;

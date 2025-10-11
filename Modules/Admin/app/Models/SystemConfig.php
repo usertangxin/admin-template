@@ -3,6 +3,7 @@
 namespace Modules\Admin\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Support\Facades\App;
 use Spatie\Translatable\HasTranslations;
 
 class SystemConfig extends AbstractModel
@@ -13,7 +14,6 @@ class SystemConfig extends AbstractModel
 
     public array $translatable = [
         'name',
-        'value',
         'remark',
         'input_attr',
     ];
@@ -32,7 +32,7 @@ class SystemConfig extends AbstractModel
             return array_key_exists($key, $attributes);
         });
         foreach ($translatable as $field) {
-            $attributes[$field] = $this->getTranslation($field, \App::getLocale());
+            $attributes[$field] = $this->getTranslation($field, App::getLocale());
         }
 
         return array_merge($attributes, $this->relationsToArray());

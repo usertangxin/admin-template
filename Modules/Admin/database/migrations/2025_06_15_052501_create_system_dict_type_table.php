@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('name', 50)->nullable()->comment('字典名称');
             $table->string('code', 100)->nullable()->comment('字典标示');
             $table->string('remark')->nullable()->comment('备注');
-            $table->datetime('created_at')->comment('创建时间');
-            $table->datetime('updated_at')->comment('更新时间');
+            $table->dateTime('created_at')->comment('创建时间');
+            $table->dateTime('updated_at')->comment('更新时间');
         });
     }
 

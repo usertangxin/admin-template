@@ -73,15 +73,15 @@ class SystemConfigUtil
                     'key'           => $item['key'],
                     'input_type'    => $item['input_type'] ?? null,
                     'bind_p_config' => $item['bind_p_config'] ?? null,
+                    'value'         => $item['value'] ?? null,
                     'name'          => [],
-                    'value'         => [],
                     'remark'        => [],
                     'input_attr'    => [],
                 ];
 
                 // 需要进行语言翻译的字段列表
                 $translatableFields = [
-                    'name', 'value', 'remark', 'input_attr',
+                    'name', 'remark', 'input_attr',
                 ];
 
                 foreach (config('admin.multi_language') as $lang) {
