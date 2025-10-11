@@ -55,14 +55,11 @@ return [
         'input_attr' => null,
     ],
     'CharSet' => [
-        'value' => 'UTF-8',
         'name'  => 'Character Set',
-
         'remark'     => '',
         'input_attr' => null,
     ],
     'SMTPDebug' => [
-        'value'      => '0',
         'name'       => 'Debug Mode',
         'remark'     => '',
         'input_attr' => [
