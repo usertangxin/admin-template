@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use Illuminate\Support\Facades\Cookie;
 use Modules\Admin\Classes\Attrs\SystemMenu;
 use Modules\Admin\Classes\Utils\SystemMenuType;
 use Modules\Admin\Models\AbstractModel;
@@ -26,6 +27,27 @@ class SystemConfigController extends AbstractController
             'config_list'       => $data,
             'config_group_list' => $systemConfigGroup,
         ]);
+    }
+
+    #[SystemMenu('获取多语言配置')]
+    public function getMultiLanguage()
+    {
+        return $this->success([
+            'language_list' => config('admin.multi_language'),
+        ]);
+    }
+
+    #[SystemMenu('切换语言')]
+    public function postChangeLanguage()
+    {
+        $language = \request()->post('language');
+        if (! in_array($language, config('admin.multi_language'))) {
+            return $this->fail('语言不支持');
+        }
+
+        Cookie::queue('language', $language);
+
+        return $this->success(message: '切换成功');
     }
 
     #[SystemMenu('修改系统配置')]

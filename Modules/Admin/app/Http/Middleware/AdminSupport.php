@@ -16,6 +16,12 @@ class AdminSupport
      */
     public function handle(Request $request, Closure $next)
     {
+
+        $language = $request->cookie('language');
+        if ($language && in_array($language, config('admin.multi_language'))) {
+            app()->setLocale($language);
+        }
+
         Context::add('__is_admin_background__', true);
 
         if (\request()->route()->getController() instanceof LoginController) {
