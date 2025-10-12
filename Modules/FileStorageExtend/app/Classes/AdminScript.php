@@ -51,7 +51,7 @@ class AdminScript implements AdminScriptInterface
                 foreach ($storage_mode_config_select_data as $item) {
                     if (isset($item['label'][$lang])) {
                         $currentInputAttr[$lang]['options'][] = [
-                            'label' => $item['label'][$lang],
+                            'label' => $item['label'][$lang] ?? $item['value']['zh_CN'],
                             'value' => $item['value']
                         ];
                     }
