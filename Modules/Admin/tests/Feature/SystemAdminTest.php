@@ -20,6 +20,7 @@ class SystemAdminTest extends AbstractAuthTestCase
             // 测试为空时候不更新密码
             'password' => '',
             'status'   => 'normal',
+            'data_scope_name' => 'all',
         ]);
         $admin->refresh();
         $response->assertJson(['code' => 0]);
@@ -36,7 +37,7 @@ class SystemAdminTest extends AbstractAuthTestCase
         $response = $this->postJson('/web/admin/SystemAdmin/update', array_merge(
             Auth::user()->toArray(),
             // 谁都不能更改根管理的状态
-            ['status' => 'disabled']
+            ['status' => 'disabled', 'data_scope_name' => 'all']
         ));
         $response->assertJson(['code' => 500]);
 
@@ -59,6 +60,7 @@ class SystemAdminTest extends AbstractAuthTestCase
             'status'     => 'normal',
             // 测试不能创建根管理
             'is_root' => true,
+            'data_scope_name' => 'all',
         ]);
         $response->assertJson(['code' => 0]);
         $new_admin = SystemAdmin::where('admin_name', 'new admin')->first();
