@@ -4,7 +4,7 @@ return [
     [
         'name'   => [
             'zh_CN' => '站点配置',
-            'en' => 'Site Configuration',
+            'en' => 'Site',
         ],
         'code'   => 'site_config',
         'remark' => null,
@@ -12,7 +12,7 @@ return [
     [
         'name'   => [
             'zh_CN' => '上传配置',
-            'en' => 'Upload Configuration',
+            'en' => 'Upload',
         ],
         'code'   => 'upload_config',
         'remark' => null,
@@ -44,7 +44,7 @@ return [
     [
         'name'   => [
             'zh_CN' => '微信配置',
-            'en' => 'Wechat Configuration',
+            'en' => 'Wechat',
         ],
         'code'   => 'wechat_config',
         'remark' => [
