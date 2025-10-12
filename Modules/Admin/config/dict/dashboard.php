@@ -2,15 +2,27 @@
 
 return [
     [
-        'label'  => '统计页面',
+        'label'  => [
+            'zh_CN' => '统计页面',
+            'en'    => 'Statistics Page',
+        ],
         'value'  => 'statistics',
         'code'   => 'dashboard',
-        'remark' => '管理员用',
+        'remark' => [
+            'zh_CN' => '管理员用',
+            'en'    => 'Administrator Use',
+        ],
     ],
     [
-        'label'  => '工作台',
+        'label'  => [
+            'zh_CN' => '工作台',
+            'en'    => 'Workbench',
+        ],
         'value'  => 'work',
         'code'   => 'dashboard',
-        'remark' => '员工使用',
+        'remark' => [
+            'zh_CN' => '员工使用',
+            'en'    => 'Employee Use',
+        ],
     ],
 ];

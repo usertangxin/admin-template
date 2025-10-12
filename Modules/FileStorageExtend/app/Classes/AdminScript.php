@@ -13,13 +13,6 @@ class AdminScript implements AdminScriptInterface
 {
     protected $configs = [];
 
-    protected $update_storage_mode_config_select_data = [
-        ['label' => '阿里云OSS', 'value' => 'oss'],
-        ['label' => '七牛云',    'value' => 'qiniu'],
-        ['label' => '腾讯云COS', 'value' => 'cos'],
-        ['label' => '亚马逊S3',  'value' => 's3'],
-    ];
-
     protected $dicts = [];
 
     /**
@@ -46,20 +39,29 @@ class AdminScript implements AdminScriptInterface
 
         $storageMode = SystemConfig::where('key', 'storage_mode')->first();
 
-        foreach (config('admin.multi_language') as $lang) {
-            $input_attr = $storageMode->getTranslation('input_attr', $lang);
-            if (! $input_attr) {
-                $input_attr = ['options' => []];
-            }
-            $update_storage_mode_config_select_data = collect($this->update_storage_mode_config_select_data)->map(function ($item) use ($lang) {
-                $item['label'] = trans('file_storage_extend::storage_mode.storage_mode.' . $item['value'], [], $lang);
+        $storage_mode_config_select_data = config('file_storage_extend.storage_mode_config_select_data');
 
-                return $item;
-            })->toArray();
-            $b                     = collect($input_attr['options'])->concat($update_storage_mode_config_select_data)->keyBy('value')->values()->all();
-            $input_attr['options'] = $b;
-            $storageMode->setTranslation('input_attr', $lang, $input_attr);
+        $currentInputAttr = $storageMode->getTranslations('input_attr');
+
+        // 合并 input_attr
+        // 为每种语言合并云存储选项
+        foreach (config('admin.multi_language') as $lang) {
+            if (isset($currentInputAttr[$lang]['options'])) {
+                // 将云存储选项转换为所需格式并添加到现有选项中
+                foreach ($storage_mode_config_select_data as $item) {
+                    if (isset($item['label'][$lang])) {
+                        $currentInputAttr[$lang]['options'][] = [
+                            'label' => $item['label'][$lang],
+                            'value' => $item['value']
+                        ];
+                    }
+                }
+            }
         }
+        
+        // 更新数据库中的input_attr
+        $storageMode->setTranslations('input_attr', $currentInputAttr);
+
         $storageMode->save();
 
         SystemDictUtil::autoRegisterDicts($this->dicts);

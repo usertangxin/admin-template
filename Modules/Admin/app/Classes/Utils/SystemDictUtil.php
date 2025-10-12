@@ -10,7 +10,7 @@ class SystemDictUtil
 {
     private function __construct() {}
 
-    public static function autoRegisterTypes($value, $lang_prefix = '')
+    public static function autoRegisterTypes($value)
     {
         $arr = [];
         if (! is_array($value) || ! isset($value[0])) {
@@ -19,30 +19,18 @@ class SystemDictUtil
             $arr = $value;
         }
         foreach ($arr as $item) {
-            SystemDictType::whereCode($item['code'])->firstOr(function () use ($item, $lang_prefix) {
+            SystemDictType::whereCode($item['code'])->firstOr(function () use ($item) {
                 $data = [
-                    'name'   => [],
+                    'name'   => $item['name'],
                     'code'   => $item['code'],
-                    'remark' => [],
+                    'remark' => $item['remark'],
                 ];
-                foreach (config('admin.multi_language') as $lang) {
-                    if (Lang::has($lang_prefix . $item['code'] . '.name', $lang)) {
-                        $data['name'][$lang] = __($lang_prefix . $item['code'] . '.name', locale: $lang);
-                    } else {
-                        $data['name'][$lang] = $item['name'];
-                    }
-                    if (Lang::has($lang_prefix . $item['code'] . '.remark', $lang)) {
-                        $data['remark'][$lang] = __($lang_prefix . $item['code'] . '.remark', locale: $lang);
-                    } else {
-                        $data['remark'][$lang] = $item['remark'];
-                    }
-                }
                 SystemDictType::create($data);
             });
         }
     }
 
-    public static function autoRegisterDicts($value, $lang_prefix = '')
+    public static function autoRegisterDicts($value)
     {
         $arr = [];
         if (! is_array($value) || ! isset($value[0])) {
@@ -52,13 +40,14 @@ class SystemDictUtil
         }
         foreach ($arr as $item) {
             SystemDict::whereCode($item['code'])->whereValue($item['value'])->firstOr(function () use ($item) {
-                $model         = new SystemDict;
-                $model->label  = $item['label'];
-                $model->value  = $item['value'];
-                $model->code   = $item['code'];
-                $model->color  = $item['color'] ?? null;
-                $model->remark = $item['remark'] ?? null;
-                $model->save();
+                $data = [
+                    'label' => $item['label'],
+                    'remark' => $item['remark'],
+                    'color'  => $item['color'] ?? null,
+                    'value'  => $item['value'],
+                    'code'   => $item['code'],
+                ];
+                SystemDict::create($data);
             });
         }
     }

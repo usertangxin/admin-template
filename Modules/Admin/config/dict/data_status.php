@@ -2,14 +2,20 @@
 
 return [
     [
-        'label'  => '正常',
+        'label'  => [
+            'zh_CN' => '正常',
+            'en'    => 'Normal',
+        ],
         'value'  => 'normal',
         'code'   => 'data_status',
         'color'  => 'green',
         'remark' => '',
     ],
     [
-        'label'  => '停用',
+        'label'  => [
+            'zh_CN' => '停用',
+            'en'    => 'Disabled',
+        ],
         'value'  => 'disabled',
         'code'   => 'data_status',
         'color'  => 'gray',

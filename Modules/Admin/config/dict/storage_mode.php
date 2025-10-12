@@ -2,13 +2,19 @@
 
 return [
     [
-        'label'  => '本地私有',
+        'label'  => [
+            'zh_CN' => '本地私有',
+            'en'    => 'Private',
+        ],
         'value'  => 'private',
         'code'   => 'storage_mode',
         'remark' => '',
     ],
     [
-        'label'  => '本地公开',
+        'label'  => [
+            'zh_CN' => '本地公开',
+            'en'    => 'Public',
+        ],
         'value'  => 'public',
         'code'   => 'storage_mode',
         'remark' => '',

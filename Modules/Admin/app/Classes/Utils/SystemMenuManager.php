@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Classes\Utils;
 
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Modules\Admin\Classes\Attrs\SystemMenu as AttrsSystemMenu;
@@ -28,7 +29,7 @@ class SystemMenuManager
             $model->code = $item['code'];
             foreach (config('admin.multi_language') as $lang) {
                 $name = $item['name'];
-                if (! empty($item['name_lang']) && \Lang::has($item['name_lang'], $lang)) {
+                if (! empty($item['name_lang']) && Lang::has($item['name_lang'], $lang)) {
                     $name_lang = __($item['name_lang'], locale: $lang);
                     if ($name_lang) {
                         $name = $name_lang;

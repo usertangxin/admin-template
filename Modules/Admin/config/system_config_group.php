@@ -2,33 +2,54 @@
 
 return [
     [
-        'name'   => '站点配置',
+        'name'   => [
+            'zh_CN' => '站点配置',
+            'en' => 'Site Configuration',
+        ],
         'code'   => 'site_config',
         'remark' => null,
     ],
     [
-        'name'   => '上传配置',
+        'name'   => [
+            'zh_CN' => '上传配置',
+            'en' => 'Upload Configuration',
+        ],
         'code'   => 'upload_config',
         'remark' => null,
     ],
     [
-        'name'   => '邮件服务',
+        'name'   => [
+            'zh_CN' => '邮件服务',
+            'en' => 'Email Service',
+        ],
         'code'   => 'email_config',
         'remark' => null,
     ],
     [
-        'name'   => '地图',
+        'name'   => [
+            'zh_CN' => '地图',
+            'en' => 'Map',
+        ],
         'code'   => 'map',
         'remark' => '',
     ],
     [
-        'name'   => '协议',
+        'name'   => [
+            'zh_CN' => '协议',
+            'en' => 'Agreement',
+        ],
         'code'   => 'agreement',
         'remark' => '',
     ],
     [
-        'name'   => '微信配置',
+        'name'   => [
+            'zh_CN' => '微信配置',
+            'en' => 'Wechat Configuration',
+        ],
         'code'   => 'wechat_config',
-        'remark' => '公众号，小程序，微信支付等',
+        'remark' => [
+            'zh_CN' => '公众号，小程序，微信支付等',
+            'en' => 'Official Account, Mini Program, Wechat Payment, etc.',
+        ],
     ],
 ];

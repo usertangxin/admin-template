@@ -21,7 +21,7 @@ class SystemConfigUtil
      *
      * @param mixed $value 配置组数据，可以是单个配置组数组或配置组数组列表。
      */
-    public static function autoResisterGroup(mixed $value, $lang_prefix = '')
+    public static function autoResisterGroup(mixed $value)
     {
         $arr = [];
         if (! is_array($value) || ! isset($value[0])) {
@@ -30,24 +30,12 @@ class SystemConfigUtil
             $arr = $value;
         }
         foreach ($arr as $item) {
-            SystemConfigGroup::whereCode($item['code'])->firstOr(function () use ($item, $lang_prefix) {
+            SystemConfigGroup::whereCode($item['code'])->firstOr(function () use ($item) {
                 $data = [
-                    'name'   => [],
+                    'name'   => $item['name'],
                     'code'   => $item['code'],
-                    'remark' => [],
+                    'remark' => $item['remark'],
                 ];
-                foreach (config('admin.multi_language') as $lang) {
-                    if (Lang::has($lang_prefix . $item['code'] . '.name', $lang)) {
-                        $data['name'][$lang] = __($lang_prefix . $item['code'] . '.name', locale: $lang);
-                    } else {
-                        $data['name'][$lang] = $item['name'];
-                    }
-                    if (Lang::has($lang_prefix . $item['code'] . '.remark', $lang)) {
-                        $data['remark'][$lang] = __($lang_prefix . $item['code'] . '.remark', locale: $lang);
-                    } else {
-                        $data['remark'][$lang] = $item['remark'];
-                    }
-                }
                 SystemConfigGroup::create($data);
             });
         }
@@ -58,7 +46,7 @@ class SystemConfigUtil
      *
      * @param mixed $value 配置数据，可以是单个配置数组或配置数组列表。
      */
-    public static function autoResisterConfig(mixed $value, $lang_prefix = '')
+    public static function autoResisterConfig(mixed $value)
     {
         $arr = [];
         if (! is_array($value) || ! isset($value[0])) {
@@ -67,31 +55,17 @@ class SystemConfigUtil
             $arr = $value;
         }
         foreach ($arr as $item) {
-            SystemConfig::where('key', $item['key'])->firstOr(function () use ($item, $lang_prefix) {
+            SystemConfig::where('key', $item['key'])->firstOr(function () use ($item) {
                 $data = [
                     'group'         => $item['group'],
                     'key'           => $item['key'],
                     'input_type'    => $item['input_type'] ?? null,
                     'bind_p_config' => $item['bind_p_config'] ?? null,
                     'value'         => $item['value'] ?? null,
-                    'name'          => [],
-                    'remark'        => [],
-                    'input_attr'    => [],
+                    'name'          => $item['name'],
+                    'remark'        => $item['remark'] ?? null,
+                    'input_attr'    => $item['input_attr'] ?? [],
                 ];
-
-                // 需要进行语言翻译的字段列表
-                $translatableFields = [
-                    'name', 'remark', 'input_attr',
-                ];
-
-                foreach (config('admin.multi_language') as $lang) {
-                    foreach ($translatableFields as $field) {
-                        $translationKey      = $lang_prefix . $item['key'] . '.' . $field;
-                        $data[$field][$lang] = Lang::has($translationKey, $lang)
-                            ? __($translationKey, locale: $lang)
-                            : ($item[$field] ?? null);
-                    }
-                }
 
                 SystemConfig::create($data);
             });

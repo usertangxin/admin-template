@@ -18,7 +18,7 @@ class AdminScript implements AdminScriptInterface
 
         $dict_groups = config('admin.system_dict_type');
 
-        SystemDictUtil::autoRegisterTypes($dict_groups, 'admin::system_dict_type.');
+        SystemDictUtil::autoRegisterTypes($dict_groups);
 
         foreach ($dict_groups as $dict_group) {
             SystemDictUtil::autoRegisterDicts(config('admin.dict.' . $dict_group['code']));

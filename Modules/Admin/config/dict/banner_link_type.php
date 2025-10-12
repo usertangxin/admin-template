@@ -2,13 +2,19 @@
 
 return [
     [
-        'label'  => '外链',
+        'label'  => [
+            'zh_CN' => '外链',
+            'en'    => 'External Link',
+        ],
         'value'  => 'link',
         'code'   => 'banner_link_type',
         'remark' => '',
     ],
     [
-        'label'  => '不跳转',
+        'label'  => [
+            'zh_CN' => '不跳转',
+            'en'    => 'No Jump',
+        ],
         'value'  => 'none',
         'code'   => 'banner_link_type',
         'remark' => '',
