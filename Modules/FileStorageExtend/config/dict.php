@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '阿里云OSS',
             'en'    => 'Aliyun OSS',
         ],
@@ -11,7 +11,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '七牛云',
             'en'    => 'Qiniu Cloud',
         ],
@@ -20,7 +20,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '腾讯云COS',
             'en'    => 'Tencent Cloud COS',
         ],
@@ -29,7 +29,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '亚马逊S3',
             'en'    => 'Amazon S3',
         ],

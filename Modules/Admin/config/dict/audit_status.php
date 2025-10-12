@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '通过',
             'en'    => 'Pass',
         ],
@@ -12,7 +12,7 @@ return [
         'color'  => 'green',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '待审核',
             'en'    => 'Pending Review',
         ],
@@ -22,7 +22,7 @@ return [
         'color'  => 'orange',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '驳回',
             'en'    => 'Reject',
         ],

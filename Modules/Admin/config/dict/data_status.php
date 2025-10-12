@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '正常',
             'en'    => 'Normal',
         ],
@@ -12,7 +12,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '停用',
             'en'    => 'Disabled',
         ],

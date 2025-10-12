@@ -9,15 +9,15 @@ return [
     |--------------------------------------------------------------------------
     */
     [
-        'group'         => 'upload_config',
-        'key'           => 'cos_status',
-        'value'         => 'disabled',
-        'name'          => [
+        'group' => 'upload_config',
+        'key'   => 'cos_status',
+        'value' => 'disabled',
+        'name'  => [
             'zh_CN' => '腾讯云状态',
             'en'    => 'Tencent Cloud Status',
         ],
-        'input_type'    => SystemConfigInputType::DICT_RADIO,
-        'remark'        => [
+        'input_type' => SystemConfigInputType::DICT_RADIO,
+        'remark'     => [
             'zh_CN' => '腾讯云状态',
             'en'    => 'Tencent Cloud Status',
         ],
@@ -54,15 +54,15 @@ return [
         ],
     ],
     [
-        'group'         => 'upload_config',
-        'key'           => 'cos_secretId',
-        'value'         => '',
-        'name'          => [
+        'group' => 'upload_config',
+        'key'   => 'cos_secretId',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '腾讯Id',
             'en'    => 'Tencent Cloud Id',
         ],
-        'input_type'    => SystemConfigInputType::INPUT,
-        'remark'        => [
+        'input_type' => SystemConfigInputType::INPUT,
+        'remark'     => [
             'zh_CN' => '腾讯云存储secretId',
             'en'    => 'Tencent Cloud Storage secretId',
         ],
@@ -70,15 +70,15 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'         => 'upload_config',
-        'key'           => 'cos_secretKey',
-        'value'         => '',
-        'name'          => [
+        'group' => 'upload_config',
+        'key'   => 'cos_secretKey',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '腾讯key',
             'en'    => 'Tencent Cloud Storage secretKey',
         ],
-        'input_type'    => SystemConfigInputType::INPUT,
-        'remark'        => [
+        'input_type' => SystemConfigInputType::INPUT,
+        'remark'     => [
             'zh_CN' => '腾讯云secretKey',
             'en'    => 'Tencent Cloud Storage secretKey',
         ],
@@ -86,15 +86,15 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'         => 'upload_config',
-        'key'           => 'cos_bucket',
-        'value'         => '',
-        'name'          => [
+        'group' => 'upload_config',
+        'key'   => 'cos_bucket',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '腾讯bucket',
             'en'    => 'Tencent Cloud Storage bucket',
         ],
-        'input_type'    => SystemConfigInputType::INPUT,
-        'remark'        => [
+        'input_type' => SystemConfigInputType::INPUT,
+        'remark'     => [
             'zh_CN' => '腾讯云存储bucket',
             'en'    => 'Tencent Cloud Storage bucket',
         ],
@@ -102,15 +102,15 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'         => 'upload_config',
-        'key'           => 'cos_dirname',
-        'value'         => '',
-        'name'          => [
+        'group' => 'upload_config',
+        'key'   => 'cos_dirname',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '腾讯dirname',
             'en'    => 'Tencent Cloud Storage dirname',
         ],
-        'input_type'    => SystemConfigInputType::INPUT,
-        'remark'        => [
+        'input_type' => SystemConfigInputType::INPUT,
+        'remark'     => [
             'zh_CN' => '腾讯云存储dirname',
             'en'    => 'Tencent Cloud Storage dirname',
         ],
@@ -118,15 +118,15 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'         => 'upload_config',
-        'key'           => 'cos_domain',
-        'value'         => '',
-        'name'          => [
+        'group' => 'upload_config',
+        'key'   => 'cos_domain',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '腾讯domain',
             'en'    => 'Tencent Cloud Storage domain',
         ],
-        'input_type'    => SystemConfigInputType::INPUT,
-        'remark'        => [
+        'input_type' => SystemConfigInputType::INPUT,
+        'remark'     => [
             'zh_CN' => '腾讯云存储domain',
             'en'    => 'Tencent Cloud Storage domain',
         ],
@@ -134,15 +134,15 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'         => 'upload_config',
-        'key'           => 'cos_region',
-        'value'         => '',
-        'name'          => [
+        'group' => 'upload_config',
+        'key'   => 'cos_region',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '腾讯region',
             'en'    => 'Tencent Cloud Storage region',
         ],
-        'input_type'    => SystemConfigInputType::INPUT,
-        'remark'        => [
+        'input_type' => SystemConfigInputType::INPUT,
+        'remark'     => [
             'zh_CN' => '腾讯云存储region',
             'en'    => 'Tencent Cloud Storage region',
         ],

@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '是',
             'en'    => 'Yes',
         ],
@@ -12,7 +12,7 @@ return [
         'color'  => 'green',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '否',
             'en'    => 'No',
         ],

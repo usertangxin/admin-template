@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '用户名-密码',
             'en'    => 'Username-Password',
         ],
@@ -11,7 +11,7 @@ return [
         'remark' => null,
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '邮箱-密码',
             'en'    => 'Email-Password',
         ],
@@ -20,7 +20,7 @@ return [
         'remark' => null,
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '手机号-密码',
             'en'    => 'Phone-Password',
         ],
@@ -29,7 +29,7 @@ return [
         'remark' => null,
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '微信小程序手机号授权登录',
             'en'    => 'Wechat Mini Program Phone Authorization Login',
         ],
@@ -38,7 +38,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '微信公众号',
             'en'    => 'Wechat Official Account',
         ],
@@ -47,7 +47,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '手机号验证码',
             'en'    => 'Phone SMS Code',
         ],

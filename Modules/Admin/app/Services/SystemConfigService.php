@@ -63,14 +63,17 @@ class SystemConfigService
 
     /**
      * 清除配置组缓存
-     * @param mixed $locale 
-     * @return void 
-     * @throws BindingResolutionException 
+     *
+     * @param  mixed $locale
+     * @return void
+     *
+     * @throws BindingResolutionException
      */
     public function clearGroupCache($locale = null)
     {
         if ($locale) {
             Cache::forget(config('admin.cache_name_map.system_config_group_list') . $locale);
+
             return;
         }
         $multi_language = config('admin.multi_language');
@@ -86,6 +89,7 @@ class SystemConfigService
     {
         if ($locale) {
             Cache::forget(config('admin.cache_name_map.system_config_list') . $locale);
+
             return;
         }
         $multi_language = config('admin.multi_language');

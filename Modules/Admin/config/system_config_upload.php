@@ -321,10 +321,10 @@ return [
         ],
     ],
     [
-        'group'      => 'upload_config',
-        'key'        => 'public_domain',
-        'value'      => 'http://127.0.0.1:8000',
-        'name'       => [
+        'group' => 'upload_config',
+        'key'   => 'public_domain',
+        'value' => 'http://127.0.0.1:8000',
+        'name'  => [
             'zh_CN' => '本地存储域名',
             'en'    => 'Public Storage Domain',
         ],

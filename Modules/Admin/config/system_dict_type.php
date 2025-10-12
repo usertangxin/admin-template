@@ -2,7 +2,7 @@
 
 return [
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '存储模式',
             'en'    => 'Storage Mode',
         ],
@@ -13,7 +13,7 @@ return [
         ],
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '上传模式',
             'en'    => 'Upload Mode',
         ],
@@ -24,7 +24,7 @@ return [
         ],
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '数据状态',
             'en'    => 'Data Status',
         ],
@@ -35,7 +35,7 @@ return [
         ],
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '成功失败',
             'en'    => 'Success or Fail',
         ],
@@ -43,7 +43,7 @@ return [
         'remark' => '',
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '后台首页',
             'en'    => 'Dashboard',
         ],
@@ -51,7 +51,7 @@ return [
         'remark' => null,
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '性别',
             'en'    => 'Sex',
         ],
@@ -59,7 +59,7 @@ return [
         'remark' => null,
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '消息类型',
             'en'    => 'Admin Message Type',
         ],
@@ -67,7 +67,7 @@ return [
         'remark' => null,
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '菜单类型',
             'en'    => 'Menu Type',
         ],
@@ -75,7 +75,7 @@ return [
         'remark' => '',
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '是否',
             'en'    => 'Yes or No',
         ],
@@ -83,7 +83,7 @@ return [
         'remark' => '',
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '数据权限',
             'en'    => 'Data Scope',
         ],
@@ -91,7 +91,7 @@ return [
         'remark' => '',
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '民族',
             'en'    => 'Nation',
         ],
@@ -99,7 +99,7 @@ return [
         'remark' => '',
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '轮播图连接类型',
             'en'    => 'Banner Link Type',
         ],
@@ -107,7 +107,7 @@ return [
         'remark' => '',
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '轮播图位置',
             'en'    => 'Banner Position',
         ],
@@ -115,7 +115,7 @@ return [
         'remark' => '',
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '用户登录方式',
             'en'    => 'Front User Login Type',
         ],
@@ -123,7 +123,7 @@ return [
         'remark' => null,
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '审核状态',
             'en'    => 'Audit Status',
         ],
@@ -131,7 +131,7 @@ return [
         'remark' => '',
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '用户消息类型',
             'en'    => 'User Message Type',
         ],
@@ -139,7 +139,7 @@ return [
         'remark' => '',
     ],
     [
-        'name'   => [
+        'name' => [
             'zh_CN' => '需不需要',
             'en'    => 'Need or No',
         ],

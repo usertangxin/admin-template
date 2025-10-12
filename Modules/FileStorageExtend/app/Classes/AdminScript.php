@@ -52,13 +52,13 @@ class AdminScript implements AdminScriptInterface
                     if (isset($item['label'][$lang])) {
                         $currentInputAttr[$lang]['options'][] = [
                             'label' => $item['label'][$lang] ?? $item['value']['zh_CN'],
-                            'value' => $item['value']
+                            'value' => $item['value'],
                         ];
                     }
                 }
             }
         }
-        
+
         // 更新数据库中的input_attr
         $storageMode->setTranslations('input_attr', $currentInputAttr);
 

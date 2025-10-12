@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '通知',
             'en'    => 'Notice',
         ],
@@ -11,7 +11,7 @@ return [
         'remark' => null,
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '公告',
             'en'    => 'Announcement',
         ],
@@ -20,7 +20,7 @@ return [
         'remark' => null,
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '待办',
             'en'    => 'Todo',
         ],
@@ -29,7 +29,7 @@ return [
         'remark' => null,
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '抄送我的',
             'en'    => 'Carbon Copy Mine',
         ],
@@ -38,7 +38,7 @@ return [
         'remark' => null,
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '私信',
             'en'    => 'Private Message',
         ],

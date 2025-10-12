@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '文件',
             'en'    => 'File',
         ],
@@ -11,7 +11,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '图片',
             'en'    => 'Image',
         ],
@@ -20,7 +20,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '视频',
             'en'    => 'Video',
         ],
@@ -29,7 +29,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '音频',
             'en'    => 'Audio',
         ],
@@ -38,7 +38,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '文稿',
             'en'    => 'Document',
         ],

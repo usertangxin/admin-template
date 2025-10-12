@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '男',
             'en'    => 'Man',
         ],
@@ -12,7 +12,7 @@ return [
         'color'  => 'blue',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '女',
             'en'    => 'Woman',
         ],
@@ -22,7 +22,7 @@ return [
         'color'  => 'green',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '未知',
             'en'    => 'Unknown',
         ],

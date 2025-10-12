@@ -2,7 +2,6 @@
 
 namespace Modules\Admin\Classes\Utils;
 
-use Illuminate\Support\Facades\Lang;
 use Modules\Admin\Models\SystemConfig;
 use Modules\Admin\Models\SystemConfigGroup;
 

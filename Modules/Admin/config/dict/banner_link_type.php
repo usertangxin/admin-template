@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '外链',
             'en'    => 'External Link',
         ],
@@ -11,7 +11,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '不跳转',
             'en'    => 'No Jump',
         ],

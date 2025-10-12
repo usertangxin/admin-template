@@ -9,15 +9,15 @@ return [
     |--------------------------------------------------------------------------
     */
     [
-        'group'         => 'upload_config',
-        'key'           => 's3_status',
-        'value'         => 'disabled',
-        'name'          => [
+        'group' => 'upload_config',
+        'key'   => 's3_status',
+        'value' => 'disabled',
+        'name'  => [
             'zh_CN' => 's3状态',
             'en'    => 'S3 status',
         ],
-        'input_type'    => SystemConfigInputType::DICT_RADIO,
-        'remark'        => [
+        'input_type' => SystemConfigInputType::DICT_RADIO,
+        'remark'     => [
             'zh_CN' => 's3状态',
             'en'    => 'S3 status',
         ],

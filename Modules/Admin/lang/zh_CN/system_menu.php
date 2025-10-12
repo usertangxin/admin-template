@@ -34,9 +34,9 @@ return [
         'change_status' => '模块启用/禁用',
     ],
     'system_config_controller' => [
-        'index'     => '系统配置',
-        'post_save' => '修改系统配置',
-        'get_multi_language' => '获取多语言配置',
+        'index'                => '系统配置',
+        'post_save'            => '修改系统配置',
+        'get_multi_language'   => '获取多语言配置',
         'post_change_language' => '切换语言',
     ],
     'system_dict_controller' => [

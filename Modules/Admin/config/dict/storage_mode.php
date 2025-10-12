@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '本地私有',
             'en'    => 'Private',
         ],
@@ -11,7 +11,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '本地公开',
             'en'    => 'Public',
         ],

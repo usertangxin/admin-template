@@ -18,8 +18,8 @@ class SystemAdminTest extends AbstractAuthTestCase
             'admin_name' => $admin->admin_name,
             'nickname'   => 'new nickname',
             // 测试为空时候不更新密码
-            'password' => '',
-            'status'   => 'normal',
+            'password'        => '',
+            'status'          => 'normal',
             'data_scope_name' => 'all',
         ]);
         $admin->refresh();
@@ -59,7 +59,7 @@ class SystemAdminTest extends AbstractAuthTestCase
             'password'   => '123456',
             'status'     => 'normal',
             // 测试不能创建根管理
-            'is_root' => true,
+            'is_root'         => true,
             'data_scope_name' => 'all',
         ]);
         $response->assertJson(['code' => 0]);

@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '成功',
             'en'    => 'Success',
         ],
@@ -12,7 +12,7 @@ return [
         'color'  => 'green',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '失败',
             'en'    => 'Fail',
         ],

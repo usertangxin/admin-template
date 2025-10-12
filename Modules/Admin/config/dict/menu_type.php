@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '菜单组',
             'en'    => 'Menu Group',
         ],
@@ -12,7 +12,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '菜单',
             'en'    => 'Menu',
         ],
@@ -22,7 +22,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '操作',
             'en'    => 'Operation',
         ],
@@ -32,7 +32,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '外链',
             'en'    => 'External Link',
         ],
@@ -42,7 +42,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => 'iFrame',
             'en'    => 'iFrame',
         ],

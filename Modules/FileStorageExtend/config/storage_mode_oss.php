@@ -9,15 +9,15 @@ return [
     |--------------------------------------------------------------------------
     */
     [
-        'group'         => 'upload_config',
-        'key'           => 'oss_status',
-        'value'         => 'disabled',
-        'name'          => [
+        'group' => 'upload_config',
+        'key'   => 'oss_status',
+        'value' => 'disabled',
+        'name'  => [
             'zh_CN' => '阿里云状态',
             'en'    => 'Aliyun OSS Status',
         ],
-        'input_type'    => SystemConfigInputType::DICT_RADIO,
-        'remark'        => [
+        'input_type' => SystemConfigInputType::DICT_RADIO,
+        'remark'     => [
             'zh_CN' => '阿里云状态',
             'en'    => 'Aliyun OSS Status',
         ],
@@ -54,10 +54,10 @@ return [
         ],
     ],
     [
-        'group'      => 'upload_config',
-        'key'        => 'oss_accessKeyId',
-        'value'      => '',
-        'name'       => [
+        'group' => 'upload_config',
+        'key'   => 'oss_accessKeyId',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '阿里Id',
             'en'    => 'Aliyun OSS accessKeyId',
         ],
@@ -68,16 +68,16 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'      => 'upload_config',
-        'key'        => 'oss_accessKeySecret',
-        'value'      => '',
-        'name'       => [
+        'group' => 'upload_config',
+        'key'   => 'oss_accessKeySecret',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '阿里Secret',
             'en'    => 'Aliyun OSS accessKeySecret',
         ],
         'input_type' => SystemConfigInputType::INPUT,
 
-        'remark'        => [
+        'remark' => [
             'zh_CN' => '阿里云存储accessKeySecret',
             'en'    => 'Aliyun OSS accessKeySecret',
         ],
@@ -85,16 +85,16 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'      => 'upload_config',
-        'key'        => 'oss_bucket',
-        'value'      => '',
-        'name'       => [
+        'group' => 'upload_config',
+        'key'   => 'oss_bucket',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '阿里bucket',
             'en'    => 'Aliyun OSS bucket',
         ],
         'input_type' => SystemConfigInputType::INPUT,
 
-        'remark'        => [
+        'remark' => [
             'zh_CN' => '阿里云存储bucket',
             'en'    => 'Aliyun OSS bucket',
         ],
@@ -102,16 +102,16 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'      => 'upload_config',
-        'key'        => 'oss_dirname',
-        'value'      => '',
-        'name'       => [
+        'group' => 'upload_config',
+        'key'   => 'oss_dirname',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '阿里dirname',
             'en'    => 'Aliyun OSS dirname',
         ],
         'input_type' => SystemConfigInputType::INPUT,
 
-        'remark'        => [
+        'remark' => [
             'zh_CN' => '阿里云存储dirname',
             'en'    => 'Aliyun OSS dirname',
         ],
@@ -119,16 +119,16 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'      => 'upload_config',
-        'key'        => 'oss_domain',
-        'value'      => '',
-        'name'       => [
+        'group' => 'upload_config',
+        'key'   => 'oss_domain',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '阿里domain',
             'en'    => 'Aliyun OSS domain',
         ],
         'input_type' => SystemConfigInputType::INPUT,
 
-        'remark'        => [
+        'remark' => [
             'zh_CN' => '阿里云存储domain',
             'en'    => 'Aliyun OSS domain',
         ],
@@ -136,16 +136,16 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'      => 'upload_config',
-        'key'        => 'oss_endpoint',
-        'value'      => '',
-        'name'       => [
+        'group' => 'upload_config',
+        'key'   => 'oss_endpoint',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '阿里endpoint',
             'en'    => 'Aliyun OSS endpoint',
         ],
         'input_type' => SystemConfigInputType::INPUT,
 
-        'remark'        => [
+        'remark' => [
             'zh_CN' => '阿里云存储endpoint',
             'en'    => 'Aliyun OSS endpoint',
         ],

@@ -54,14 +54,17 @@ class SystemDictService
 
     /**
      * 清除字典组缓存
-     * @param mixed $locale 
-     * @return void 
-     * @throws BindingResolutionException 
+     *
+     * @param  mixed $locale
+     * @return void
+     *
+     * @throws BindingResolutionException
      */
     public function clearGroupCache($locale = null)
     {
         if ($locale) {
             Cache::forget(config('admin.cache_name_map.system_dict_group_list') . $locale);
+
             return;
         }
         $multi_language = config('admin.multi_language');
@@ -72,14 +75,17 @@ class SystemDictService
 
     /**
      * 清除字典列表缓存
-     * @param mixed $locale 
-     * @return void 
-     * @throws BindingResolutionException 
+     *
+     * @param  mixed $locale
+     * @return void
+     *
+     * @throws BindingResolutionException
      */
     public function clearListCache($locale = null)
     {
         if ($locale) {
             Cache::forget(config('admin.cache_name_map.system_dict_list') . $locale);
+
             return;
         }
         $multi_language = config('admin.multi_language');
@@ -100,8 +106,6 @@ class SystemDictService
 
     /**
      * 根据字典组编码获取字典集合
-     *
-     * @return Collection
      */
     public function getListByCode(mixed $code, $locale = null): Collection
     {
@@ -110,8 +114,6 @@ class SystemDictService
 
     /**
      * 获取字典列表哈希值
-     *
-     * @return string
      */
     public function getListHash($locale = null): string
     {
@@ -120,8 +122,6 @@ class SystemDictService
 
     /**
      * 获取字典组哈希值
-     *
-     * @return string
      */
     public function getGroupsHash($locale = null): string
     {

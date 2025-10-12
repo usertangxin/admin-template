@@ -2,7 +2,6 @@
 
 namespace Modules\Admin\Classes\Utils;
 
-use Illuminate\Support\Facades\Lang;
 use Modules\Admin\Models\SystemDict;
 use Modules\Admin\Models\SystemDictType;
 
@@ -41,7 +40,7 @@ class SystemDictUtil
         foreach ($arr as $item) {
             SystemDict::whereCode($item['code'])->whereValue($item['value'])->firstOr(function () use ($item) {
                 $data = [
-                    'label' => $item['label'],
+                    'label'  => $item['label'],
                     'remark' => $item['remark'],
                     'color'  => $item['color'] ?? null,
                     'value'  => $item['value'],

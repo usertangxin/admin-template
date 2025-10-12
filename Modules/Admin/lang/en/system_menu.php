@@ -34,9 +34,9 @@ return [
         'change_status' => 'Module Enable/Disable',
     ],
     'system_config_controller' => [
-        'index'     => 'System Configuration',
-        'post_save' => 'Modify System Configuration',
-        'get_multi_language' => 'Get Multi-language Configuration',
+        'index'                => 'System Configuration',
+        'post_save'            => 'Modify System Configuration',
+        'get_multi_language'   => 'Get Multi-language Configuration',
         'post_change_language' => 'Change Language',
     ],
     'system_dict_controller' => [

@@ -9,15 +9,15 @@ return [
     |--------------------------------------------------------------------------
     */
     [
-        'group'         => 'upload_config',
-        'key'           => 'qiniu_status',
-        'value'         => 'disabled',
-        'name'          => [
+        'group' => 'upload_config',
+        'key'   => 'qiniu_status',
+        'value' => 'disabled',
+        'name'  => [
             'zh_CN' => '七牛云状态',
             'en'    => 'Qiniu Cloud status',
         ],
-        'input_type'    => SystemConfigInputType::DICT_RADIO,
-        'remark'        => [
+        'input_type' => SystemConfigInputType::DICT_RADIO,
+        'remark'     => [
             'zh_CN' => '七牛云状态',
             'en'    => 'Qiniu Cloud status',
         ],
@@ -54,16 +54,16 @@ return [
         ],
     ],
     [
-        'group'      => 'upload_config',
-        'key'        => 'qiniu_accessKey',
-        'value'      => '',
-        'name'       => [
+        'group' => 'upload_config',
+        'key'   => 'qiniu_accessKey',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '七牛key',
             'en'    => 'Qiniu accessKey',
         ],
         'input_type' => SystemConfigInputType::INPUT,
 
-        'remark'        => [
+        'remark' => [
             'zh_CN' => '七牛云存储secretId',
             'en'    => 'Qiniu Cloud secretId',
         ],
@@ -71,16 +71,16 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'      => 'upload_config',
-        'key'        => 'qiniu_secretKey',
-        'value'      => '',
-        'name'       => [
+        'group' => 'upload_config',
+        'key'   => 'qiniu_secretKey',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '七牛secret',
             'en'    => 'Qiniu secretKey',
         ],
         'input_type' => SystemConfigInputType::INPUT,
 
-        'remark'        => [
+        'remark' => [
             'zh_CN' => '七牛云存储secretKey',
             'en'    => 'Qiniu Cloud secretKey',
         ],
@@ -88,16 +88,16 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'      => 'upload_config',
-        'key'        => 'qiniu_bucket',
-        'value'      => '',
-        'name'       => [
+        'group' => 'upload_config',
+        'key'   => 'qiniu_bucket',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '七牛bucket',
             'en'    => 'Qiniu bucket',
         ],
         'input_type' => SystemConfigInputType::INPUT,
 
-        'remark'        => [
+        'remark' => [
             'zh_CN' => '七牛云存储bucket',
             'en'    => 'Qiniu Cloud bucket',
         ],
@@ -105,16 +105,16 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'      => 'upload_config',
-        'key'        => 'qiniu_dirname',
-        'value'      => '',
-        'name'       => [
+        'group' => 'upload_config',
+        'key'   => 'qiniu_dirname',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '七牛dirname',
             'en'    => 'Qiniu dirname',
         ],
         'input_type' => SystemConfigInputType::INPUT,
 
-        'remark'        => [
+        'remark' => [
             'zh_CN' => '七牛云存储dirname',
             'en'    => 'Qiniu Cloud dirname',
         ],
@@ -122,16 +122,16 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group'      => 'upload_config',
-        'key'        => 'qiniu_domain',
-        'value'      => '',
-        'name'       => [
+        'group' => 'upload_config',
+        'key'   => 'qiniu_domain',
+        'value' => '',
+        'name'  => [
             'zh_CN' => '七牛domain',
             'en'    => 'Qiniu domain',
         ],
         'input_type' => SystemConfigInputType::INPUT,
 
-        'remark'        => [
+        'remark' => [
             'zh_CN' => '七牛云存储domain',
             'en'    => 'Qiniu Cloud domain',
         ],

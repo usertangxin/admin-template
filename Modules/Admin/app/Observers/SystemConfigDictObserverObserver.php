@@ -16,10 +16,10 @@ class SystemConfigDictObserverObserver
     {
         $config_cache_name_map = config('admin.cache_name_map');
         $cacheMap              = [
-            SystemConfig::class      => fn() => app(SystemConfigService::class)->clearListCache($model->getLocale()),
-            SystemConfigGroup::class => fn() => app(SystemConfigService::class)->clearGroupCache($model->getLocale()),
-            SystemDict::class        => fn() => app(SystemDictService::class)->clearListCache($model->getLocale()),
-            SystemDictType::class    => fn() => app(SystemDictService::class)->clearGroupCache($model->getLocale()),
+            SystemConfig::class      => fn () => app(SystemConfigService::class)->clearListCache($model->getLocale()),
+            SystemConfigGroup::class => fn () => app(SystemConfigService::class)->clearGroupCache($model->getLocale()),
+            SystemDict::class        => fn () => app(SystemDictService::class)->clearListCache($model->getLocale()),
+            SystemDictType::class    => fn () => app(SystemDictService::class)->clearGroupCache($model->getLocale()),
         ];
 
         $cacheMap[get_class($model)]();

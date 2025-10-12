@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '统计页面',
             'en'    => 'Statistics Page',
         ],
@@ -14,7 +14,7 @@ return [
         ],
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '工作台',
             'en'    => 'Workbench',
         ],

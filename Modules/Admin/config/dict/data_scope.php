@@ -2,7 +2,7 @@
 
 return [
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '全部数据权限',
             'en'    => 'All Data Permission',
         ],
@@ -11,7 +11,7 @@ return [
         'remark' => '',
     ],
     [
-        'label'  => [
+        'label' => [
             'zh_CN' => '本人数据权限',
             'en'    => 'Self Data Permission',
         ],
