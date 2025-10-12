@@ -2,8 +2,8 @@
 
 namespace Modules\Admin\Classes;
 
-use Artisan;
 use Exception;
+use Illuminate\Support\Facades\Artisan;
 use Modules\Admin\Classes\Utils\SystemDictUtil;
 use Modules\Admin\Interfaces\AdminScriptInterface;
 use Nwidart\Modules\Module;
@@ -18,7 +18,7 @@ class AdminScript implements AdminScriptInterface
 
         $dict_groups = config('admin.system_dict_type');
 
-        SystemDictUtil::autoRegisterTypes($dict_groups);
+        SystemDictUtil::autoRegisterTypes($dict_groups, 'admin::system_dict_type.');
 
         foreach ($dict_groups as $dict_group) {
             SystemDictUtil::autoRegisterDicts(config('admin.dict.' . $dict_group['code']));

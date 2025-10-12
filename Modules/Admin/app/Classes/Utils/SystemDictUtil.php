@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Classes\Utils;
 
+use Illuminate\Support\Facades\Lang;
 use Modules\Admin\Models\SystemDict;
 use Modules\Admin\Models\SystemDictType;
 
@@ -9,7 +10,7 @@ class SystemDictUtil
 {
     private function __construct() {}
 
-    public static function autoRegisterTypes($value)
+    public static function autoRegisterTypes($value, $lang_prefix = '')
     {
         $arr = [];
         if (! is_array($value) || ! isset($value[0])) {
@@ -18,17 +19,30 @@ class SystemDictUtil
             $arr = $value;
         }
         foreach ($arr as $item) {
-            SystemDictType::whereCode($item['code'])->firstOr(function () use ($item) {
-                $model         = new SystemDictType;
-                $model->name   = $item['name'];
-                $model->code   = $item['code'];
-                $model->remark = $item['remark'];
-                $model->save();
+            SystemDictType::whereCode($item['code'])->firstOr(function () use ($item, $lang_prefix) {
+                $data = [
+                    'name'   => [],
+                    'code'   => $item['code'],
+                    'remark' => [],
+                ];
+                foreach (config('admin.multi_language') as $lang) {
+                    if (Lang::has($lang_prefix . $item['code'] . '.name', $lang)) {
+                        $data['name'][$lang] = __($lang_prefix . $item['code'] . '.name', locale: $lang);
+                    } else {
+                        $data['name'][$lang] = $item['name'];
+                    }
+                    if (Lang::has($lang_prefix . $item['code'] . '.remark', $lang)) {
+                        $data['remark'][$lang] = __($lang_prefix . $item['code'] . '.remark', locale: $lang);
+                    } else {
+                        $data['remark'][$lang] = $item['remark'];
+                    }
+                }
+                SystemDictType::create($data);
             });
         }
     }
 
-    public static function autoRegisterDicts($value)
+    public static function autoRegisterDicts($value, $lang_prefix = '')
     {
         $arr = [];
         if (! is_array($value) || ! isset($value[0])) {
