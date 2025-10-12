@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Services;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Modules\Admin\Models\SystemDict;
@@ -28,9 +29,10 @@ class SystemDictService
     /**
      * 获取字典组
      */
-    public function getGroups(): Collection
+    public function getGroups($locale = null): Collection
     {
-        $this->group ??= collect(Cache::remember(config('admin.cache_name_map.system_dict_group_list'), 60 * 60 * 24, function () {
+        $locale ??= app()->getLocale();
+        $this->group ??= collect(Cache::remember(config('admin.cache_name_map.system_dict_group_list') . $locale, 60 * 60 * 24, function () {
             return SystemDictType::all();
         }));
 
@@ -40,9 +42,10 @@ class SystemDictService
     /**
      * 获取字典列表
      */
-    public function getList(): Collection
+    public function getList($locale = null): Collection
     {
-        $this->list ??= collect(Cache::remember(config('admin.cache_name_map.system_dict_list'), 60 * 60 * 24, function () {
+        $locale ??= app()->getLocale();
+        $this->list ??= collect(Cache::remember(config('admin.cache_name_map.system_dict_list') . $locale, 60 * 60 * 24, function () {
             return SystemDict::all();
         }));
 
@@ -50,13 +53,49 @@ class SystemDictService
     }
 
     /**
+     * 清除字典组缓存
+     * @param mixed $locale 
+     * @return void 
+     * @throws BindingResolutionException 
+     */
+    public function clearGroupCache($locale = null)
+    {
+        if ($locale) {
+            Cache::forget(config('admin.cache_name_map.system_dict_group_list') . $locale);
+            return;
+        }
+        $multi_language = config('admin.multi_language');
+        foreach ($multi_language as $item) {
+            Cache::forget(config('admin.cache_name_map.system_dict_group_list') . $item);
+        }
+    }
+
+    /**
+     * 清除字典列表缓存
+     * @param mixed $locale 
+     * @return void 
+     * @throws BindingResolutionException 
+     */
+    public function clearListCache($locale = null)
+    {
+        if ($locale) {
+            Cache::forget(config('admin.cache_name_map.system_dict_list') . $locale);
+            return;
+        }
+        $multi_language = config('admin.multi_language');
+        foreach ($multi_language as $item) {
+            Cache::forget(config('admin.cache_name_map.system_dict_list') . $item);
+        }
+    }
+
+    /**
      * 根据字典组编码获取字典值集合
      *
      * @return Collection<string|int, mixed>
      */
-    public function getValuesByCode(mixed $code)
+    public function getValuesByCode(mixed $code, $locale = null): Collection
     {
-        return $this->getList()->where('code', $code)->pluck('value');
+        return $this->getList($locale)->where('code', $code)->pluck('value');
     }
 
     /**
@@ -64,9 +103,9 @@ class SystemDictService
      *
      * @return Collection
      */
-    public function getListByCode(mixed $code)
+    public function getListByCode(mixed $code, $locale = null): Collection
     {
-        return $this->getList()->where('code', $code);
+        return $this->getList($locale)->where('code', $code);
     }
 
     /**
@@ -74,9 +113,9 @@ class SystemDictService
      *
      * @return string
      */
-    public function getListHash()
+    public function getListHash($locale = null): string
     {
-        return \sha1($this->getList()->toJson());
+        return \sha1($this->getList($locale)->toJson());
     }
 
     /**
@@ -84,8 +123,8 @@ class SystemDictService
      *
      * @return string
      */
-    public function getGroupsHash()
+    public function getGroupsHash($locale = null): string
     {
-        return \sha1($this->getGroups()->toJson());
+        return \sha1($this->getGroups($locale)->toJson());
     }
 }

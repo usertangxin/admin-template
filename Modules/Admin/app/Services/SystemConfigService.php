@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Services;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Modules\Admin\Models\SystemConfig;
@@ -25,12 +26,13 @@ class SystemConfigService
     /**
      * 获取配置组
      */
-    public function getGroups(): Collection
+    public function getGroups($locale = null): Collection
     {
         if (\app()->runningInConsole() && str_contains(implode(' ', $_SERVER['argv']), 'migrate')) {
             return collect([]);
         }
-        $this->config_group ??= collect(Cache::remember(config('admin.cache_name_map.system_config_group_list'), 60 * 60 * 24, function () {
+        $locale ??= app()->getLocale();
+        $this->config_group ??= collect(Cache::remember(config('admin.cache_name_map.system_config_group_list') . $locale, 60 * 60 * 24, function () {
             return SystemConfigGroup::all();
         }));
 
@@ -49,9 +51,10 @@ class SystemConfigService
     /**
      * 获取配置列表
      */
-    public function getList(): Collection
+    public function getList($locale = null): Collection
     {
-        $this->config_list ??= collect(Cache::remember(config('admin.cache_name_map.system_config_list'), 60 * 60 * 24, function () {
+        $locale ??= app()->getLocale();
+        $this->config_list ??= collect(Cache::remember(config('admin.cache_name_map.system_config_list') . $locale, 60 * 60 * 24, function () {
             return SystemConfig::all();
         }));
 
@@ -59,13 +62,46 @@ class SystemConfigService
     }
 
     /**
+     * 清除配置组缓存
+     * @param mixed $locale 
+     * @return void 
+     * @throws BindingResolutionException 
+     */
+    public function clearGroupCache($locale = null)
+    {
+        if ($locale) {
+            Cache::forget(config('admin.cache_name_map.system_config_group_list') . $locale);
+            return;
+        }
+        $multi_language = config('admin.multi_language');
+        foreach ($multi_language as $item) {
+            Cache::forget(config('admin.cache_name_map.system_config_group_list') . $item);
+        }
+    }
+
+    /**
+     * 清除配置列表缓存
+     */
+    public function clearListCache($locale = null)
+    {
+        if ($locale) {
+            Cache::forget(config('admin.cache_name_map.system_config_list') . $locale);
+            return;
+        }
+        $multi_language = config('admin.multi_language');
+        foreach ($multi_language as $item) {
+            Cache::forget(config('admin.cache_name_map.system_config_list') . $item);
+        }
+    }
+
+    /**
      * 获取配置值
      *
      * @return mixed
      */
-    public function getValueByKey(string $key)
+    public function getValueByKey(string $key, $locale = null)
     {
-        return $this->getList()->firstWhere('key', $key)['value'] ?? null;
+        return $this->getList($locale)->firstWhere('key', $key)['value'] ?? null;
     }
 
     /**
@@ -73,18 +109,18 @@ class SystemConfigService
      *
      * @return mixed
      */
-    public function getConfigByKey(string $key)
+    public function getConfigByKey(string $key, $locale = null)
     {
-        return $this->getList()->firstWhere('key', $key);
+        return $this->getList($locale)->firstWhere('key', $key);
     }
 
-    public function getListHash()
+    public function getListHash($locale = null)
     {
-        return \sha1($this->getList()->toJson());
+        return sha1($this->getList($locale)->toJson());
     }
 
-    public function getGroupsHash()
+    public function getGroupsHash($locale = null)
     {
-        return \sha1($this->getGroups()->toJson());
+        return sha1($this->getGroups($locale)->toJson());
     }
 }

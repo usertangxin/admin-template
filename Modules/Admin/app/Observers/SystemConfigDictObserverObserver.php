@@ -7,6 +7,8 @@ use Modules\Admin\Models\SystemConfig;
 use Modules\Admin\Models\SystemConfigGroup;
 use Modules\Admin\Models\SystemDict;
 use Modules\Admin\Models\SystemDictType;
+use Modules\Admin\Services\SystemConfigService;
+use Modules\Admin\Services\SystemDictService;
 
 class SystemConfigDictObserverObserver
 {
@@ -14,15 +16,15 @@ class SystemConfigDictObserverObserver
     {
         $config_cache_name_map = config('admin.cache_name_map');
         $cacheMap              = [
-            SystemConfig::class      => $config_cache_name_map['system_config_list'],
-            SystemConfigGroup::class => $config_cache_name_map['system_config_group_list'],
-            SystemDict::class        => $config_cache_name_map['system_dict_list'],
-            SystemDictType::class    => $config_cache_name_map['system_dict_group_list'],
+            SystemConfig::class      => fn() => app(SystemConfigService::class)->clearListCache($model->getLocale()),
+            SystemConfigGroup::class => fn() => app(SystemConfigService::class)->clearGroupCache($model->getLocale()),
+            SystemDict::class        => fn() => app(SystemDictService::class)->clearListCache($model->getLocale()),
+            SystemDictType::class    => fn() => app(SystemDictService::class)->clearGroupCache($model->getLocale()),
         ];
 
-        $cacheKey = $cacheMap[get_class($model)];
-        Cache::forget($cacheKey);
-        Cache::forget($config_cache_name_map['system_config_dict_hash']);
+        $cacheMap[get_class($model)]();
+
+        Cache::forget($config_cache_name_map['system_config_dict_hash'] . $model->getLocale());
     }
 
     public function created($model): void

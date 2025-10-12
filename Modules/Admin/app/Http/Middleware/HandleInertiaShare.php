@@ -20,7 +20,7 @@ class HandleInertiaShare
      */
     public function handle(Request $request, Closure $next)
     {
-        $data = Cache::remember('system_config_dict_hash', 60 * 60 * 24, function () {
+        $data = Cache::remember(config('admin.cache_name_map.system_config_dict_hash') . app()->getLocale(), 60 * 60 * 24, function () {
             return [
                 'system_dict_hash'         => SystemDictService::getInstance()->getListHash(),
                 'system_dict_group_hash'   => SystemDictService::getInstance()->getGroupsHash(),
