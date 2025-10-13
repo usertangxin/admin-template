@@ -7,7 +7,7 @@
                     height: groupHeight,
                 }" :data="config_group_list">
                     <template #header>
-                        配组组
+                        {{ $t('systemConfig.configGroup') }}
                     </template>
                     <template #item="{ item: group, index: group_index }">
                         <a-list-item :class="{ 'group_active': current_group_index == group_index }">
@@ -32,13 +32,13 @@
                 </a-list>
             </a-col>
             <a-col flex="1">
-                <a-card :title="'配置项（ 「 ' + config_group_list[current_group_index].name + ' 」相关 ）'">
+                <a-card :title=" $t('systemConfig.configItem') + '（ '+ $t('systemConfig.configItemAbout', { group: config_group_list[current_group_index].name}) +' ）'">
                     <a-form :model="current_group_config_list" @submit="handleSubmit">
                         <a-row :gutter="16">
                             <recursion-config :config_list="current_group_config_list"></recursion-config>
                         </a-row>
                         <a-form-item>
-                            <a-button type="primary" html-type="submit">保存</a-button>
+                            <a-button type="primary" html-type="submit">{{ $t('global.save') }}</a-button>
                         </a-form-item>
                     </a-form>
                 </a-card>

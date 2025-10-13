@@ -6,7 +6,7 @@
                     height: groupHeight,
                 }" :data="group_list">
                     <template #header>
-                        字典组
+                        {{ $t('systemDict.configGroup') }}
                     </template>
                     <template #item="{ item: group, index: group_index }">
                         <a-list-item :class="{ 'group_active': current_group_index == group_index }">
@@ -32,7 +32,7 @@
             </a-col>
             <a-col flex="1">
                 <a-card
-                    :title="'字典项（ 「 ' + group_list[current_group_index].name + ' 」相关 ）' + group_list[current_group_index].code">
+                    :title=" $t('systemDict.configItem') + '（ ' + $t('systemDict.configItemAbout', { group: group_list[current_group_index].name }) + ' ）' + group_list[current_group_index].code">
                     <index-table :data="current_group_list" :pagination="pagination" :row-selection="false"
                         @page-change="pagination.current = $event">
                         <template #color="{ record }">
@@ -54,6 +54,7 @@ import { computed, reactive, ref } from 'vue';
 import { Message } from '@arco-design/web-vue';
 import { colorMatch } from '../../util';
 import { provideIndexShareStore } from '../../IndexShare';
+import { __ } from '../../i18n';
 
 const props = defineProps(['data'])
 const list = computed(function () {
@@ -67,11 +68,11 @@ const groupHeight = ref(0)
 
 const store = provideIndexShareStore({
     columns: [
-        { title: '标签', dataIndex: 'label' },
-        { title: '值', dataIndex: 'value' },
-        { title: '颜色', dataIndex: 'color' },
-        { title: '状态', dataIndex: 'status', type: 'dict_tag', dict: 'data_status' },
-        { title: '备注', dataIndex: 'remark' },
+        { title: __('systemDict.label'), dataIndex: 'label' },
+        { title: __('systemDict.value'), dataIndex: 'value' },
+        { title: __('systemDict.color'), dataIndex: 'color' },
+        { title: __('systemDict.status'), dataIndex: 'status', type: 'dict_tag', dict: 'data_status' },
+        { title: __('systemDict.remark'), dataIndex: 'remark' },
     ],
     innerFetchListData: false,
 })

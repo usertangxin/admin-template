@@ -6,48 +6,56 @@
                     <a-anchor :key="formData.column_list.length" line-less :change-hash="false" :smooth="true"
                         :boundary="95" @change="handleAnchorChange">
                         <a-anchor-link href="#table-design">
-                            表格设计
+                            {{ $t('crudGenerate.tableDesign') }}
                             <template #sublist>
-                                <a-anchor-link href="#table-design-base">基础信息</a-anchor-link>
+                                <a-anchor-link href="#table-design-base">
+                                    {{ $t('crudGenerate.baseInfo') }}
+                                </a-anchor-link>
                                 <draggable :list="formData.column_list" item-key="field_name">
                                     <template #item="{ element, index }">
                                         <a-anchor-link :href="`#table-design-column-${index}`">
                                             <span class="move cursor-ns-resize">
                                                 <icon-drag-dot-vertical />
                                             </span>
-                                            {{ element.comment || element.field_name || `字段${index + 1}` }}
+                                            {{ element.comment || element.field_name || $t(`crudGenerate.field`) + (index + 1) }}
                                         </a-anchor-link>
                                     </template>
                                 </draggable>
-                                <a-anchor-link href="#table-design-add-column">添加字段</a-anchor-link>
+                                <a-anchor-link href="#table-design-add-column">
+                                    {{ $t('crudGenerate.addColumn') }}
+                                </a-anchor-link>
                             </template>
                         </a-anchor-link>
-                        <a-anchor-link href="#menu-design">菜单设计</a-anchor-link>
+                        <a-anchor-link href="#menu-design">
+                            {{ $t('crudGenerate.menuDesign') }}
+                        </a-anchor-link>
                     </a-anchor>
                 </a-scrollbar>
             </div>
             <div class="ml-[162px]">
                 <div id="table-design"></div>
-                <a-card title="表格设计">
-                    <a-divider orientation="left" id="table-design-base">基础信息</a-divider>
+                <a-card :title="$t('crudGenerate.tableDesign')">
+                    <a-divider orientation="left" id="table-design-base">
+                        {{ $t('crudGenerate.baseInfo') }}
+                    </a-divider>
                     <a-row :gutter="24">
                         <form-col>
-                            <a-form-item label="数据表名" field="table_name">
-                                <a-input v-model="formData.table_name" placeholder="请输入数据表名"></a-input>
+                            <a-form-item :label="$t('crudGenerate.table_name')" field="table_name">
+                                <a-input v-model="formData.table_name" :placeholder="$t('crudGenerate.table_name_placeholder')"></a-input>
                             </a-form-item>
                         </form-col>
                         <form-col>
-                            <a-form-item label="数据表注释" field="table_comment">
-                                <a-input v-model="formData.table_comment" placeholder="请输入数据表注释"></a-input>
+                            <a-form-item :label="$t('crudGenerate.table_comment')" field="table_comment">
+                                <a-input v-model="formData.table_comment" :placeholder="$t('crudGenerate.table_comment_placeholder')"></a-input>
                             </a-form-item>
                         </form-col>
                         <form-col>
-                            <a-form-item label="主键" field="primary_key">
-                                <a-input v-model="formData.primary_key" placeholder="请输入主键"></a-input>
+                            <a-form-item :label="$t('crudGenerate.primary_key')" field="primary_key">
+                                <a-input v-model="formData.primary_key" :placeholder="$t('crudGenerate.primary_key_placeholder')"></a-input>
                             </a-form-item>
                         </form-col>
                         <form-col>
-                            <a-form-item label="是否软删" field="soft_delete">
+                            <a-form-item :label="$t('crudGenerate.soft_delete')" field="soft_delete">
                                 <dict-radio v-model="formData.soft_delete" code="yes_or_no"></dict-radio>
                             </a-form-item>
                         </form-col>
@@ -57,41 +65,43 @@
                         <div class="text-right">
                             <a-link @click="addColumn(index)">
                                 <icon-arrow-left class="mr-1" />
-                                在此处插入字段
+                                {{ $t('crudGenerate.addColumnToThe') }}
                             </a-link>
                         </div>
                         <a-divider orientation="left" :id="`table-design-column-${index}`">
-                            {{ item.comment || item.field_name || `字段${index + 1}` }}
+                            {{ item.comment || item.field_name || $t(`crudGenerate.field`) + (index + 1) }}
                         </a-divider>
                         <a-row :gutter="24">
                             <form-col>
-                                <a-form-item label="字段名" field="field_name">
-                                    <a-input v-model="item.field_name" placeholder="请输入字段名"></a-input>
+                                <a-form-item :label="$t('crudGenerate.field')" field="field_name">
+                                    <a-input v-model="item.field_name" :placeholder="$t('crudGenerate.field_placeholder')"></a-input>
                                 </a-form-item>
                             </form-col>
                             <form-col>
-                                <a-form-item label="注释" field="comment">
-                                    <a-input v-model="item.comment" placeholder="请输入注释"></a-input>
+                                <a-form-item :label="$t('crudGenerate.comment')" field="comment">
+                                    <a-input v-model="item.comment" :placeholder="$t('crudGenerate.comment_placeholder')"></a-input>
                                 </a-form-item>
                             </form-col>
                             <form-col>
-                                <a-form-item label="默认值" field="default_value">
-                                    <a-input v-model="item.default_value" placeholder="请输入默认值"></a-input>
+                                <a-form-item :label="$t('crudGenerate.default_value')" field="default_value">
+                                    <a-input v-model="item.default_value" :placeholder="$t('crudGenerate.default_value_placeholder')"></a-input>
                                 </a-form-item>
                             </form-col>
-                            <form-col>
-                                <a-form-item label="字段控件" field="field_control">
+                            <a-col :span="24">
+                                <a-form-item :label="$t('crudGenerate.field_control')" field="field_control">
                                     <a-input-group class="flex-1">
-                                        <a-select v-model="item.field_control" placeholder="请选择字段控件" allow-search>
+                                        <a-select v-model="item.field_control" :placeholder="$t('crudGenerate.field_control_placeholder')" allow-search>
                                             <a-option v-for="item in fieldControls" :value="item.name"
                                                 :label="item.label" />
                                         </a-select>
 
                                         <a-button v-if="fieldControls[item.field_control]?.specialParams.length > 0"
                                             type="primary" status="normal"
-                                            @click="item.field_control_special_params_drawer_visible = true">配置</a-button>
+                                            @click="item.field_control_special_params_drawer_visible = true">
+                                            {{ $t('crudGenerate.specialParams') }}
+                                        </a-button>
 
-                                        <a-drawer title="字段控件特殊参数配置"
+                                        <a-drawer :title="$t('crudGenerate.specialParams')"
                                             v-model:visible="item.field_control_special_params_drawer_visible"
                                             width="500px" :footer="false">
                                             <div class="mt-5">
@@ -122,24 +132,26 @@
 
                                     </a-input-group>
                                 </a-form-item>
-                            </form-col>
-                            <form-col>
-                                <a-form-item label="页面控件" field="page_view_control">
+                            </a-col>
+                            <a-col :span="24">
+                                <a-form-item :label="$t('crudGenerate.page_view_control')" field="page_view_control">
                                     <a-input-group class="flex-1">
-                                        <a-select v-model="item.page_view_control" placeholder="请选择页面控件" allow-search>
+                                        <a-select v-model="item.page_view_control" :placeholder="$t('crudGenerate.page_view_control_placeholder')" allow-search>
                                             <a-option v-for="item in pageViewControls" :value="item.name"
                                                 :label="item.label" />
                                         </a-select>
                                         <a-button v-if="item.page_view_control"
                                             type="primary" status="normal"
-                                            @click="item.page_view_control_special_params_drawer_visible = true">配置</a-button>
+                                            @click="item.page_view_control_special_params_drawer_visible = true">
+                                            {{ $t('crudGenerate.specialParams') }}
+                                        </a-button>
 
                                         <a-drawer v-model:visible="item.page_view_control_special_params_drawer_visible"
                                             width="500px" :footer="false">
                                             <div class="mt-5">
                                                 <template
                                                     v-if="pageViewControls[item.page_view_control]?.specialParams.length > 0">
-                                                    <a-divider>页面参数配置</a-divider>
+                                                    <a-divider :title="$t('crudGenerate.specialParams')" />
                                                     <a-form :model="item.page_view_control_special_params"
                                                         :auto-label-width="true" class="min-w-[270px]">
                                                         <template
@@ -165,7 +177,7 @@
                                                 </template>
                                                 <template
                                                     v-if="pageViewControls[item.page_view_control]?.queryParams.length > 0">
-                                                    <a-divider>查询参数配置</a-divider>
+                                                    <a-divider :title="$t('crudGenerate.queryParams')" />
                                                     <a-form :model="item.page_view_control_query_params"
                                                         :auto-label-width="true" class="min-w-[270px]">
                                                         <template
@@ -193,82 +205,82 @@
                                         </a-drawer>
                                     </a-input-group>
                                 </a-form-item>
-                            </form-col>
+                            </a-col>
                             <form-col>
-                                <a-form-item label="是否可空" field="nullable">
+                                <a-form-item :label="$t('crudGenerate.nullable')" field="nullable">
                                     <dict-radio v-model="item.nullable" code="yes_or_no"></dict-radio>
                                 </a-form-item>
                             </form-col>
                             <form-col>
-                                <a-form-item label="生成到表单" field="gen_form">
+                                <a-form-item :label="$t('crudGenerate.genForm')" field="gen_form">
                                     <dict-radio v-model="item.gen_form" code="yes_or_no"></dict-radio>
                                 </a-form-item>
                             </form-col>
                             <form-col>
-                                <a-form-item label="生成到列表" field="gen_index">
+                                <a-form-item :label="$t('crudGenerate.genIndex')" field="gen_index">
                                     <dict-radio v-model="item.gen_index" code="yes_or_no"></dict-radio>
                                 </a-form-item>
                             </form-col>
                             <form-col>
-                                <a-form-item label="生成到查询" field="gen_query">
+                                <a-form-item :label="$t('crudGenerate.genQuery')" field="gen_query">
                                     <dict-radio v-model="item.gen_query" code="yes_or_no"></dict-radio>
                                 </a-form-item>
                             </form-col>
                             <form-col>
-                                <a-form-item label="参与排序" field="gen_sort">
+                                <a-form-item :label="$t('crudGenerate.genSort')" field="gen_sort">
                                     <dict-radio v-model="item.gen_sort" code="yes_or_no"></dict-radio>
                                 </a-form-item>
                             </form-col>
                             <form-col>
-                                <a-popconfirm content="确定要删除吗？" @ok="removeColumn(index, item)">
-                                    <a-button type="primary" status="danger">删除</a-button>
+                                <a-popconfirm :content="$t('crudGenerate.confirmDelete')" @ok="removeColumn(index, item)">
+                                    <a-button type="primary" status="danger">{{ $t('global.delete') }}</a-button>
                                 </a-popconfirm>
                             </form-col>
                         </a-row>
                     </template>
 
                     <div id="table-design-add-column">
-                        <a-button @click="addColumn(formData.column_list.length)" type="primary">添加字段</a-button>
+                        <a-button @click="addColumn(formData.column_list.length)" type="primary">{{ $t('crudGenerate.addColumn') }}</a-button>
                     </div>
                 </a-card>
 
                 <div id="menu-design" class="mt-3"></div>
-                <a-card title="菜单设计">
+                <a-card :title="$t('crudGenerate.menuDesign')">
                     <a-row :gutter="24">
                         <form-col>
-                            <a-form-item label="上级菜单" field="parent_menu_code">
-                                <a-cascader :options="menus" v-model="formData.parent_menu_code" placeholder="请选择上级菜单"
+                            <a-form-item :label="$t('crudGenerate.parentMenu')" field="parent_menu_code">
+                                <a-cascader :options="menus" v-model="formData.parent_menu_code" :placeholder="$t('crudGenerate.placeholderParentMenu')"
                                     check-strictly allow-search allow-clear></a-cascader>
                             </a-form-item>
                         </form-col>
                         <form-col>
-                            <a-form-item label="菜单名称" field="menu_name">
-                                <a-input v-model="formData.menu_name" placeholder="请输入菜单名称"></a-input>
+                            <a-form-item :label="$t('crudGenerate.menuName')" field="menu_name">
+                                <a-input v-model="formData.menu_name" :placeholder="$t('crudGenerate.placeholderMenuName')"></a-input>
                             </a-form-item>
                         </form-col>
                         <form-col>
-                            <a-form-item label="菜单图标" field="menu_icon">
-                                <a-input v-model="formData.menu_icon" placeholder="请输入菜单图标"></a-input>
+                            <a-form-item :label="$t('crudGenerate.menuIcon')" field="menu_icon">
+                                <a-input v-model="formData.menu_icon" :placeholder="$t('crudGenerate.placeholderMenuIcon')"></a-input>
                             </a-form-item>
                         </form-col>
                         <form-col>
-                            <a-form-item label="生成方式" field="gen_mode">
+                            <a-form-item :label="$t('crudGenerate.genMode')" field="gen_mode">
                                 <a-radio-group v-model="formData.gen_mode">
-                                    <a-radio value="app">app</a-radio>
-                                    <a-radio value="module">module</a-radio>
+                                    <a-radio value="app">{{ $t('crudGenerate.app') }}</a-radio>
+                                    <a-radio value="module">{{ $t('crudGenerate.module') }}</a-radio>
                                 </a-radio-group>
                             </a-form-item>
                         </form-col>
                         <form-col v-if="formData.gen_mode == 'module'">
-                            <a-form-item label="模块" field="module_name">
-                                <a-select v-model="formData.module_name" placeholder="请选择模块">
+                            <a-form-item :label="$t('crudGenerate.module')" field="module_name">
+                                <a-select v-model="formData.module_name" :placeholder="$t('crudGenerate.placeholderModule')">
                                     <a-option v-for="item of modules" :value="item.name" :label="item.name" />
                                 </a-select>
                             </a-form-item>
                         </form-col>
                         <form-col>
-                            <a-form-item label="类名" field="gen_class_name">
-                                <a-input v-model="formData.gen_class_name" placeholder="请输入类名"></a-input>
+                            <a-form-item :label="$t('crudGenerate.className')" field="gen_class_name">
+                                <a-input v-model="formData.gen_class_name" :placeholder="$t('crudGenerate.placeholderClassName')"></a-input>
                             </a-form-item>
                         </form-col>
                     </a-row>

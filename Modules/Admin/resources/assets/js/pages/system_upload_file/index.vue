@@ -87,6 +87,7 @@ import { ref } from 'vue';
 import { Message } from '@arco-design/web-vue';
 import moment from 'moment';
 import { provideIndexShareStore } from '../../IndexShare'
+import { __ } from '../../i18n';
 
 const currentRecord = ref(null);
 const showTemporaryUrlModal = ref(false);
@@ -96,18 +97,18 @@ const temporaryUrl = ref('');
 
 const store = provideIndexShareStore({
     columns: [
-        { title: '预览', dataIndex: 'preview', width: 85, },
-        { title: '存储模式', dataIndex: 'storage_mode', width: 135, type: 'dict_tag', dict: 'storage_mode', },
-        { title: '上传模式', dataIndex: 'upload_mode', width: 135, type: 'dict_tag', dict: 'upload_mode', },
-        { title: '原文件名', dataIndex: 'origin_name', ellipsis: true, width: 150, tooltip: true, },
-        { title: '文件名', dataIndex: 'object_name', show: false, },
-        { title: '文件hash', dataIndex: 'hash', show: false, },
-        { title: '附件类型', dataIndex: 'mime_type', show: false, },
-        { title: '存储目录', dataIndex: 'storage_path', ellipsis: true, width: 150, tooltip: true, },
-        { title: '后缀', dataIndex: 'suffix', width: 80, },
-        { title: '大小（字节）', dataIndex: 'size_byte', },
-        { title: 'url地址', dataIndex: 'url', type: 'link', ellipsis: true, width: 150, },
-        { title: '备注', dataIndex: 'remark', },
+        { title: __('systemUploadFile.preview'), dataIndex: 'preview', width: 85, },
+        { title: __('systemUploadFile.storageMode'), dataIndex: 'storage_mode', width: 135, type: 'dict_tag', dict: 'storage_mode', },
+        { title: __('systemUploadFile.uploadMode'), dataIndex: 'upload_mode', width: 135, type: 'dict_tag', dict: 'upload_mode', },
+        { title: __('systemUploadFile.originName'), dataIndex: 'origin_name', ellipsis: true, width: 150, tooltip: true, },
+        { title: __('systemUploadFile.objectName'), dataIndex: 'object_name', show: false, },
+        { title: __('systemUploadFile.hash'), dataIndex: 'hash', show: false, },
+        { title: __('systemUploadFile.mimeType'), dataIndex: 'mime_type', show: false, },
+        { title: __('systemUploadFile.storagePath'), dataIndex: 'storage_path', ellipsis: true, width: 150, tooltip: true, },
+        { title: __('systemUploadFile.suffix'), dataIndex: 'suffix', width: 80, },
+        { title: __('systemUploadFile.sizeByte'), dataIndex: 'size_byte', },
+        { title: __('systemUploadFile.url'), dataIndex: 'url', type: 'link', ellipsis: true, width: 150, },
+        { title: __('systemUploadFile.remark'), dataIndex: 'remark', },
     ],
     searchQuery: {
         storage_mode: '',

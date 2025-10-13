@@ -36,7 +36,7 @@ export async function loadLocaleMessages(i18n, locale) {
 
   let moduleMessages = {}
   for (const path in messages) {
-    if (path.includes(locale)) {
+    if (path.includes(locale + '.json')) {
       const moduleMessage = await messages[path]()
       moduleMessages = { ...moduleMessages, ...moduleMessage.default }
     }

@@ -34,7 +34,9 @@
         "createdAt": "创建时间",
         "updatedAt": "更新时间",
         "createdBy": "创建人",
-        "updatedBy": "更新人"
+        "updatedBy": "更新人",
+        "save": "保存",
+        "delete": "删除"
     },
     "main": {
         "tipClearBrowserCache": "确定要清理吗？这会导致未保存的数据丢失"
@@ -76,7 +78,7 @@
     "uploadFile": {
         "clickUploadOrDragFile": "点击上传或拖拽文件",
         "historyAttachments": "历史附件",
-        "fileSizeExceedsLimit": "文件大小不能超过{{ limit }}MB",
+        "fileSizeExceedsLimit": "文件大小不能超过{limit}MB",
         "uploadSuccessButNoURL": "上传成功但未返回URL",
         "uploadFailedPleaseRetry": "上传失败，请重试",
         "uploadCancelled": "上传已取消"
@@ -115,5 +117,42 @@
         "remarkPlaceholder": "请输入备注",
         "unusedRoles": "未使用角色",
         "usedRoles": "已使用角色"
+    },
+    "systemConfig": {
+        "configGroup": "配置组",
+        "configItem": "配置项",
+        "configItemAbout": "「 {group} 」相关"
+    },
+    "systemDict": {
+        "configGroup": "字典组",
+        "configItem": "字典项",
+        "configItemAbout": "「 {group} 」相关",
+        "label": "标签",
+        "value": "值",
+        "color": "颜色",
+        "status": "状态",
+        "remark": "备注"
+    },
+    "systemUploadFile": {
+        "preview": "预览",
+        "storageMode": "存储模式",
+        "uploadMode": "上传模式",
+        "originName": "原文件名",
+        "objectName": "文件名",
+        "hash": "文件hash",
+        "mime_type": "附件类型",
+        "storagePath": "存储目录",
+        "suffix": "后缀",
+        "sizeByte": "大小（字节）",
+        "url": "url地址",
+        "remark": "备注"
+    },
+    "moduleManager": {
+        "enable": "启用",
+        "disable": "禁用",
+        "confirmDestroy": "确认删除该模块吗？",
+        "name": "模块名称",
+        "description": "模块描述",
+        "status": "模块状态"
     }
 }

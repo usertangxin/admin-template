@@ -34,7 +34,9 @@
         "createdAt": "Created At",
         "updatedAt": "Updated At",
         "createdBy": "Created By",
-        "updatedBy": "Updated By"
+        "updatedBy": "Updated By",
+        "save": "Save",
+        "delete": "Delete"
     },
     "main": {
         "tipClearBrowserCache": "Are you sure you want to clear the browser cache? This will cause unsaved data to be lost."
@@ -76,7 +78,7 @@
     "uploadFile": {
         "clickUploadOrDragFile": "Click to upload or drag file",
         "historyAttachments": "History Attachments",
-        "fileSizeExceedsLimit": "File size exceeds limit of {{ limit }}MB",
+        "fileSizeExceedsLimit": "File size exceeds limit of {limit}MB",
         "uploadSuccessButNoURL": "Upload success but no URL returned",
         "uploadFailedPleaseRetry": "Upload failed, please try again",
         "uploadCancelled": "Upload cancelled"
@@ -115,5 +117,42 @@
         "remarkPlaceholder": "Please input remark",
         "unusedRoles": "Unused Roles",
         "usedRoles": "Used Roles"
+    },
+    "systemConfig": {
+        "configGroup": "Config Group",
+        "configItem": "Config Item",
+        "configItemAbout": "about「 {group} 」"
+    },
+    "systemDict": {
+        "configGroup": "Dict Group",
+        "configItem": "Dict Item",
+        "configItemAbout": "about「 {group} 」",
+        "label": "Label",
+        "value": "Value",
+        "color": "Color",
+        "status": "Status",
+        "remark": "Remark"
+    },
+    "systemUploadFile": {
+        "preview": "Preview",
+        "storageMode": "Storage Mode",
+        "uploadMode": "Upload Mode",
+        "originName": "Origin Name",
+        "objectName": "Object Name",
+        "hash": "Hash",
+        "mime_type": "Mime Type",
+        "storagePath": "Storage Path",
+        "suffix": "Suffix",
+        "sizeByte": "Size (Byte)",
+        "url": "URL",
+        "remark": "Remark"
+    },
+    "moduleManager": {
+        "enable": "Enable",
+        "disable": "Disable",
+        "confirmDestroy": "Are you sure you want to delete this module?",
+        "name": "Module Name",
+        "description": "Module Description",
+        "status": "Module Status"
     }
 }

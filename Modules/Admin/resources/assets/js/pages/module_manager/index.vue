@@ -8,11 +8,11 @@
             <template #action-column="scoped">
                 <a-space>
                     <a-button @click="handleEnable(scoped.record)" size="medium" type="primary"
-                        status="success">启用</a-button>
+                        status="success">{{ $t('moduleManager.enable') }}</a-button>
                     <a-button @click="handleDisable(scoped.record)" size="medium" type="primary"
-                        status="warning">禁用</a-button>
-                    <a-popconfirm content="确认删除该模块吗？" @ok="handleDestroy(scoped.record)">
-                        <a-button size="medium" type="primary" status="danger">删除</a-button>
+                        status="warning">{{ $t('moduleManager.disable') }}</a-button>
+                    <a-popconfirm :content="$t('moduleManager.confirmDestroy')" @ok="handleDestroy(scoped.record)">
+                        <a-button size="medium" type="primary" status="danger">{{ $t('global.destroy') }}</a-button>
                     </a-popconfirm>
                 </a-space>
             </template>
@@ -22,14 +22,15 @@
 
 <script setup>
 import { provideIndexShareStore } from '../../IndexShare';
+import { __ } from '../../i18n';
 
 const props = defineProps(['data'])
 
 const store = provideIndexShareStore({
     columns: [
-        { title: '模块名称', dataIndex: 'name', width: 200 },
-        { title: '模块描述', dataIndex: 'description', },
-        { title: '模块状态', dataIndex: 'status', width: 100, type: 'switch', checkedText: '已启用', uncheckedText: '已禁用' },
+        { title: __('moduleManager.name'), dataIndex: 'name', width: 200 },
+        { title: __('moduleManager.description'), dataIndex: 'description', },
+        { title: __('moduleManager.status'), dataIndex: 'status', width: 100, type: 'switch', checkedText: __('moduleManager.enable'), uncheckedText: __('moduleManager.disable') },
     ],
 })
 
