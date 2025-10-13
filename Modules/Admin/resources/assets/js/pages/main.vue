@@ -43,9 +43,9 @@
                                             </IconClose>
                                         </div>
                                         <template #content>
-                                            <a-doption @click="handleClickRefresh(item, index)">刷新</a-doption>
-                                            <a-doption @click="handleClickCloseOtherTab(item, index)">关闭其他</a-doption>
-                                            <a-doption @click="handleClickCloseAllTab(item, index)">关闭全部</a-doption>
+                                            <a-doption @click="handleClickRefresh(item, index)">{{ $t('global.refresh') }}</a-doption>
+                                            <a-doption @click="handleClickCloseOtherTab(item, index)">{{ $t('global.closeOther') }}</a-doption>
+                                            <a-doption @click="handleClickCloseAllTab(item, index)">{{ $t('global.closeAll') }}</a-doption>
                                         </template>
                                     </a-dropdown>
                                 </template>
@@ -66,13 +66,13 @@
                             <span>{{ data.auth.nickname }}</span>
                         </a-space>
                         <template #content>
-                            <a-dgroup title="个人">
-                                <a-doption>个人中心</a-doption>
-                                <a-doption @click="logout">退出登录</a-doption>
+                            <a-dgroup :title="$t('global.user')">
+                                <a-doption>{{ $t('global.userCenter') }}</a-doption>
+                                <a-doption @click="logout">{{ $t('global.logout') }}</a-doption>
                             </a-dgroup>
-                            <a-dgroup title="缓存">
-                                <a-doption @click="clearSystemCache">清理系统缓存</a-doption>
-                                <a-doption @click="clearBrowserCache">清理浏览器缓存</a-doption>
+                            <a-dgroup :title="$t('global.cache')">
+                                <a-doption @click="clearSystemCache">{{ $t('global.clearSystemCache') }}</a-doption>
+                                <a-doption @click="clearBrowserCache">{{ $t('global.clearBrowserCache') }}</a-doption>
                             </a-dgroup>
                         </template>
                     </a-dropdown>
@@ -105,6 +105,9 @@ import nProgress from 'nprogress';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { globalCursorProgress, globalCursorDefault } from '../util.js'
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const NProgressContainerId = 'nprogress-container' + uuidv4()
 
@@ -281,8 +284,8 @@ const clearSystemCache = async () => {
 
 const clearBrowserCache = () => {
     Modal.info({
-        title: '提示',
-        content: '确定要清理吗？这会导致未保存的数据丢失',
+        title: t('global.tip'),
+        content: t('main.tipClearBrowserCache'),
         closable: true,
         hideCancel: false,
         onCancel: () => { },

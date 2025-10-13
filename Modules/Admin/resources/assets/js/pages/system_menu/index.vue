@@ -3,9 +3,9 @@
         <index-action>
             <template #left>
                 <a-button type="primary" @click="handleExpandAll">
-                    {{ isExpandAll ? '收起全部' : '展开全部' }}
+                    {{ isExpandAll ? $t('global.foldAll') : $t('global.unfoldAll') }}
                 </a-button>
-                <a-button type="primary" status="success" @click="handleRefreshCache">刷新菜单缓存</a-button>
+                <a-button type="primary" status="success" @click="handleRefreshCache">{{ $t('systemMenu.refresh') }}</a-button>
             </template>
             <template #search-input>
                 <block/>
@@ -23,9 +23,10 @@
 import { ref, computed } from 'vue';
 import { provideIndexShareStore } from '../../IndexShare';
 import { router } from '@inertiajs/vue3';
+import { __ } from '/Modules/Admin/resources/assets/js/i18n'
+
 const props = defineProps(['data'])
 const tree = computed(() => props.data.tree)
-// const list = computed(() => props.data.list)
 
 const tableRef = ref(null);
 
@@ -34,13 +35,13 @@ const expandedKeys = ref([]);
 
 const store = provideIndexShareStore({
     columns: [
-        { title: '菜单名称', dataIndex: 'name' },
-        { title: '菜单URL', dataIndex: 'url' },
-        { title: '菜单类型', dataIndex: 'type', type: 'dict_tag', dict: 'menu_type' },
-        { title: '菜单图标', dataIndex: 'icon', type: 'icon' },
-        { title: '菜单编码', dataIndex: 'code', show: false },
-        // { title: '是否隐藏', dataIndex: 'is_hidden', show: false, type: 'switch' },
-        { title: '备注', dataIndex: 'remark' },
+        { title: __('systemMenu.name'), dataIndex: 'name' },
+        { title: __('systemMenu.url'), dataIndex: 'url' },
+        { title: __('systemMenu.type'), dataIndex: 'type', type: 'dict_tag', dict: 'menu_type' },
+        { title: __('systemMenu.icon'), dataIndex: 'icon', type: 'icon' },
+        { title: __('systemMenu.code'), dataIndex: 'code', show: false },
+        // { title: __('systemMenu.isHidden'), dataIndex: 'is_hidden', show: false, type: 'switch' },
+        { title: __('systemMenu.remark'), dataIndex: 'remark' },
     ],
     actionColumn: null,
 })

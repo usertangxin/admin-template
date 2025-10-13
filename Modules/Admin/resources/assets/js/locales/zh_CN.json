@@ -1,0 +1,119 @@
+{
+    "global": {
+        "user": "用户",
+        "userCenter": "用户中心",
+        "logout": "退出登录",
+        "cache": "缓存",
+        "clearSystemCache": "清理系统缓存",
+        "clearBrowserCache": "清理浏览器缓存",
+        "refresh": "刷新",
+        "closeOther": "关闭其他",
+        "closeAll": "关闭全部",
+        "tip": "提示",
+        "unfoldAll": "展开所有",
+        "foldAll": "折叠所有",
+        "selectAll": "全部选中",
+        "cancelSelect": "取消选中",
+        "search": "搜索",
+        "reset": "重置",
+        "submit": "提交",
+        "confirm": "确认",
+        "cancel": "取消",
+        "prev": "上一页",
+        "next": "下一页",
+        "recycle": "回收站",
+        "fullscreen": "全屏",
+        "create": "创建",
+        "destroy": "删除",
+        "recovery": "恢复",
+        "realDestroy": "永久删除",
+        "action": "操作",
+        "goUpdate": "去编辑",
+        "detail": "详情",
+        "select": "选择",
+        "createdAt": "创建时间",
+        "updatedAt": "更新时间",
+        "createdBy": "创建人",
+        "updatedBy": "更新人"
+    },
+    "main": {
+        "tipClearBrowserCache": "确定要清理吗？这会导致未保存的数据丢失"
+    },
+    "login": {
+        "inputUsername": "请输入用户名",
+        "inputPassword": "请输入密码",
+        "login": "登录",
+        "rememberMe": "记住我"
+    },
+    "systemMenu": {
+        "refresh": "刷新菜单缓存",
+        "name": "菜单名称",
+        "url": "菜单URL",
+        "type": "菜单类型",
+        "icon": "菜单图标",
+        "code": "菜单编码",
+        "isHidden": "是否隐藏",
+        "remark": "备注"
+    },
+    "indexAction": {
+        "confirmDestroy": "确认删除选中项吗？",
+        "confirmRecovery": "确认恢复选中项吗？",
+        "confirmRealDestroy": "确认永久删除选中项吗？",
+        "fastSearch": "请输入内容并回车",
+        "allSearchBtn": "更多搜索选项",
+        "columnsTooltip": "控制显示列"
+    },
+    "formAction": {
+        "destroyConfirm": "确定要删除吗？",
+        "recoveryConfirm": "确定要恢复吗？",
+        "realDestroyConfirm": "确定要永久删除吗？"
+    },
+    "indexTable": {
+        "destroyConfirm": "确定要删除吗？",
+        "recoveryConfirm": "确定要恢复吗？",
+        "realDestroyConfirm": "确定要永久删除吗？"
+    },
+    "uploadFile": {
+        "clickUploadOrDragFile": "点击上传或拖拽文件",
+        "historyAttachments": "历史附件",
+        "fileSizeExceedsLimit": "文件大小不能超过{{ limit }}MB",
+        "uploadSuccessButNoURL": "上传成功但未返回URL",
+        "uploadFailedPleaseRetry": "上传失败，请重试",
+        "uploadCancelled": "上传已取消"
+    },
+    "resourceModel": {
+        "select": "选择"
+    },
+    "systemRole": {
+        "name": "角色名称",
+        "remark": "备注",
+        "status": "状态",
+        "permissions": "菜单权限",
+        "inputRoleName": "请输入角色名称",
+        "inputRemark": "请输入备注"
+    },
+    "systemAdmin": {
+        "avatar": "头像",
+        "adminName": "管理员账号",
+        "nickname": "昵称",
+        "phone": "手机号",
+        "email": "电子邮箱",
+        "status": "状态",
+        "remark": "备注",
+        "password": "密码",
+        "loginIp": "最后登陆IP",
+        "loggedAt": "最后登陆时间",
+        "roles": "角色",
+        "dataScope": "数据权限",
+        "extendDataScope": "数据权限扩展配置",
+        "adminNamePlaceholder": "请输入账号",
+        "adminNameMinLength": "账号长度不能小于3个字符",
+        "passwordPlaceholder": "不修改请留空",
+        "nicknamePlaceholder": "请输入昵称",
+        "phonePlaceholder": "请输入手机号",
+        "emailPlaceholder": "请输入电子邮箱",
+        "remarkPlaceholder": "请输入备注",
+        "unusedRoles": "未使用角色",
+        "usedRoles": "已使用角色"
+    }
+}

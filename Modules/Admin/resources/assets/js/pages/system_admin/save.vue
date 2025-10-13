@@ -1,40 +1,38 @@
 <template>
     <div class="m-3 p-3 page-content">
         <save-form :model="formData" :rules="rules">
-            <a-form-item label="头像" field="avatar">
+            <a-form-item :label="$t('systemAdmin.avatar')" field="avatar">
                 <upload-image :limit="1" :multiple="false" v-model="formData.avatar"></upload-image>
             </a-form-item>
-            <a-form-item label="账号" field="admin_name">
-                <a-input v-model="formData.admin_name" placeholder="请输入账号"></a-input>
+            <a-form-item :label="$t('systemAdmin.adminName')" field="admin_name">
+                <a-input v-model="formData.admin_name" :placeholder="$t('systemAdmin.adminNamePlaceholder')"></a-input>
             </a-form-item>
-            <a-form-item label="密码" field="password">
-                <a-input-password v-model="formData.password" placeholder="不修改请留空"></a-input-password>
+            <a-form-item :label="$t('systemAdmin.password')" field="password">
+                <a-input-password v-model="formData.password" :placeholder="$t('systemAdmin.passwordPlaceholder')"></a-input-password>
             </a-form-item>
-            <a-form-item label="昵称" field="nickname">
-                <a-input v-model="formData.nickname" placeholder="请输入昵称"></a-input>
+            <a-form-item :label="$t('systemAdmin.nickname')" field="nickname">
+                <a-input v-model="formData.nickname" :placeholder="$t('systemAdmin.nicknamePlaceholder')"></a-input>
             </a-form-item>
-            <a-form-item label="手机号" field="phone">
-                <a-input v-model="formData.phone" placeholder="请输入手机号"></a-input>
+            <a-form-item :label="$t('systemAdmin.phone')" field="phone">
+                <a-input v-model="formData.phone" :placeholder="$t('systemAdmin.phonePlaceholder')"></a-input>
             </a-form-item>
-            <a-form-item label="电子邮箱" field="email">
-                <a-input v-model="formData.email" placeholder="请输入电子邮箱"></a-input>
+            <a-form-item :label="$t('systemAdmin.email')" field="email">
+                <a-input v-model="formData.email" :placeholder="$t('systemAdmin.emailPlaceholder')"></a-input>
             </a-form-item>
-            <a-form-item label="备注" field="remark">
-                <a-textarea v-model="formData.remark" placeholder="请输入备注"></a-textarea>
+            <a-form-item :label="$t('systemAdmin.remark')" field="remark">
+                <a-textarea v-model="formData.remark" :placeholder="$t('systemAdmin.remarkPlaceholder')"></a-textarea>
             </a-form-item>
-            <a-form-item label="状态" field="status">
-                <dict-radio code="data_status" type="info"
-                    :merge="{ normal: { remark: '管理员正常登录' }, disabled: { remark: '管理员不允许登录' } }"
-                    v-model="formData.status"></dict-radio>
+            <a-form-item :label="$t('systemAdmin.status')" field="status">
+                <dict-radio code="data_status" v-model="formData.status"></dict-radio>
             </a-form-item>
-            <a-form-item label="角色" field="roles">
-                <a-transfer :title="['未使用', '已使用']" :data="roles" one-way v-model:model-value="formData.roles" />
+            <a-form-item :label="$t('systemAdmin.roles')" field="roles">
+                <a-transfer :title="[$t('systemAdmin.unusedRoles'), $t('systemAdmin.usedRoles')]" :data="roles" one-way v-model:model-value="formData.roles" />
             </a-form-item>
-            <a-form-item label="数据权限" field="data_scope_name">
+            <a-form-item :label="$t('systemAdmin.dataScope')" field="data_scope_name">
                 <dict-select code="data_scope" v-model="formData.data_scope_name"></dict-select>
             </a-form-item>
             <template v-if="data_scopes[formData.data_scope_name]?.extend_data_scope_view_name">
-                <a-form-item label="数据权限扩展配置" field="extend_data_scope">
+                <a-form-item :label="$t('systemAdmin.extendDataScope')" field="extend_data_scope">
                     <component :is="data_scopes[formData.data_scope_name].extend_data_scope_view_name" v-model="formData.extend_data_scope"></component>
                 </a-form-item>
             </template>
@@ -45,6 +43,7 @@
 <script setup>
 import _ from 'lodash';
 import {provide, reactive, ref} from 'vue';
+import { t } from '/Modules/Admin/resources/assets/js/i18n'
 
 const props = defineProps(['data'])
 const roles = ref([]);
@@ -68,8 +67,8 @@ provide('formData', formData)
 
 const rules = {
     admin_name: [
-        { required: true, message: '请输入账号' },
-        { minLength: 3, message: '账号长度不能小于3个字符' },
+        { required: true, message: t('systemAdmin.adminNamePlaceholder') },
+        { minLength: 3, message: t('systemAdmin.adminNameMinLength') },
     ],
 }
 

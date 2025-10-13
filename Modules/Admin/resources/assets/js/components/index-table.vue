@@ -12,41 +12,41 @@
                         <slot name="action-read" v-bind="scope">
                             <a-button v-if="!$slots['action-read']" size="medium" type="primary"
                                 @click="handleDetail(scope.record)">
-                                详情
-                            </a-button>
+                                    {{ $t('global.detail') }}
+                                </a-button>
                         </slot>
                         <template v-if="page.props.__page_index__">
                             <slot name="action-update" v-bind="scope">
                                 <a-button v-if="!$slots['action-update']" size="medium" type="primary" status="warning"
                                     @click="handleUpdate(scope.record)">
-                                    编辑
+                                    {{ $t('global.goUpdate') }}
                                 </a-button>
                             </slot>
                             <slot name="action-destroy" v-bind="scope">
-                                <a-popconfirm v-if="!$slots['action-destroy']" content="确定删除吗？"
+                                <a-popconfirm v-if="!$slots['action-destroy']" :content="$t('indexTable.destroyConfirm')"
                                     @ok="handleDestroy(scope.record)">
                                     <a-button size="medium" status="danger">
-                                        删除
+                                        {{ $t('global.destroy') }}
                                     </a-button>
                                 </a-popconfirm>
                             </slot>
                         </template>
                         <template v-if="page.props.__page_recycle__">
                             <slot name="action-real-destroy" v-bind="scope">
-                                <a-popconfirm v-if="!$slots['action-real-destroy']" content="确定永久删除吗？"
+                                <a-popconfirm v-if="!$slots['action-real-destroy']" :content="$t('indexTable.realDestroyConfirm')"
                                     @ok="handleRealDestroy(scope.record)">
                                     <a-button size="medium" status="danger">
-                                        永久删除
+                                        {{ $t('global.realDestroy') }}
                                     </a-button>
                                 </a-popconfirm>
                             </slot>
                         </template>
                         <template v-if="page.props.__page_recycle__">
                             <slot name="action-recovery" v-bind="scope">
-                                <a-popconfirm v-if="!$slots['action-recovery']" content="确定恢复吗？"
+                                <a-popconfirm v-if="!$slots['action-recovery']" :content="$t('indexTable.recoveryConfirm')"
                                     @ok="handleRecovery(scope.record)">
                                     <a-button size="medium" status="success">
-                                        恢复
+                                        {{ $t('global.recovery') }}
                                     </a-button>
                                 </a-popconfirm>
                             </slot>

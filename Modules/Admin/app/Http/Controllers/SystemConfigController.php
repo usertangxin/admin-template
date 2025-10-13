@@ -40,12 +40,12 @@ class SystemConfigController extends AbstractController
     #[SystemMenu('切换语言')]
     public function postChangeLanguage()
     {
-        $language = \request()->post('language');
-        if (! in_array($language, config('admin.multi_language'))) {
+        $locale = \request()->post('locale');
+        if (! in_array($locale, config('admin.multi_language'))) {
             return $this->fail('语言不支持');
         }
 
-        Cookie::queue('language', $language);
+        Cookie::queue('locale', $locale);
 
         return $this->success(message: '切换成功');
     }

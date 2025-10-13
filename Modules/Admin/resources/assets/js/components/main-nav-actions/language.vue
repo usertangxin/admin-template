@@ -21,9 +21,9 @@ request.get('/web/admin/SystemConfig/multi-language').then(res => {
     languageList.value = res.data.language_list
 })
 
-const changeLanguage = (language) => {
+const changeLanguage = (locale) => {
     request.post('/web/admin/SystemConfig/change-language', {
-        language,
+        locale,
     }).then(res => {
         if (res.code === 0) {
             window.location.reload()

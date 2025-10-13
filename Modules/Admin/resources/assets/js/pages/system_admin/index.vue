@@ -30,20 +30,21 @@
 
 <script setup>
 import { provideIndexShareStore } from '../../IndexShare'
+import { __ } from '/Modules/Admin/resources/assets/js/i18n'
 
 const store = provideIndexShareStore({
     columns: [
         { title: 'ID', dataIndex: 'id', show: false, },
-        { title: '头像', dataIndex: 'avatar', type: 'image', },
-        { title: '管理员账号', dataIndex: 'admin_name', },
-        { title: '昵称', dataIndex: 'nickname', },
-        { title: '手机号', dataIndex: 'phone' },
-        { title: '电子邮箱', dataIndex: 'email' },
-        { title: '状态', dataIndex: 'status', type: 'dict_tag', dict: 'data_status' },
-        { title: '备注', dataIndex: 'remark', },
-        { title: '创建时间', dataIndex: 'created_at', show: false, },
-        { title: '最后登陆IP', dataIndex: 'login_ip', show: false, },
-        { title: '最后登陆时间', dataIndex: 'logged_at', show: false, },
+        { title: __('systemAdmin.avatar'), dataIndex: 'avatar', type: 'image', },
+        { title: __('systemAdmin.adminName'), dataIndex: 'admin_name', },
+        { title: __('systemAdmin.nickname'), dataIndex: 'nickname', },
+        { title: __('systemAdmin.phone'), dataIndex: 'phone' },
+        { title: __('systemAdmin.email'), dataIndex: 'email' },
+        { title: __('systemAdmin.status'), dataIndex: 'status', type: 'dict_tag', dict: 'data_status' },
+        { title: __('systemAdmin.remark'), dataIndex: 'remark', },
+        { title: __('global.createdAt'), dataIndex: 'created_at', show: false, },
+        { title: __('systemAdmin.loginIp'), dataIndex: 'login_ip', show: false, },
+        { title: __('systemAdmin.loggedAt'), dataIndex: 'logged_at', show: false, },
     ],
 })
 

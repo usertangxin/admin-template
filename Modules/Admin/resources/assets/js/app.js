@@ -1,15 +1,17 @@
-import {createApp, h} from 'vue'
-import {createInertiaApp, router} from '@inertiajs/vue3'
+import { createApp, h } from 'vue'
+import { createInertiaApp, router } from '@inertiajs/vue3'
 import Size from '/Modules/Admin/resources/assets/js//layouts/size.vue';
 import NotFoundPage from '/Modules/Admin/resources/assets/js/pages/404.vue'
 import _ from 'lodash';
-import {globalCursorDefault, globalCursorProgress} from './util';
+import { globalCursorDefault, globalCursorProgress } from './util';
 import nProgress from 'nprogress';
-import {createPinia} from 'pinia'
+import { createPinia } from 'pinia'
 import ArcoVue from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import '@arco-design/web-vue/dist/arco.css';
 import './axios'
+import { createI18n } from 'vue-i18n'
+import { loadLocaleMessages, setI18nLanguage } from './i18n'
 
 createInertiaApp({
     resolve: async name => {
@@ -17,7 +19,7 @@ createInertiaApp({
         let page = null
         if (prefix == 'module') {
             const modulePages = import.meta.glob('/Modules/**/resources/assets/js/pages/**/!(*components*/**).vue')
-            if(modulePages[`/Modules/${moduleName}/resources/assets/js/pages/${action}.vue`]) {
+            if (modulePages[`/Modules/${moduleName}/resources/assets/js/pages/${action}.vue`]) {
                 page = await modulePages[`/Modules/${moduleName}/resources/assets/js/pages/${action}.vue`]()
             }
         } else {
@@ -33,7 +35,7 @@ createInertiaApp({
         }
         return page
     },
-    setup: ({el, App, props, plugin}) => {
+    setup: ({ el, App, props, plugin }) => {
 
         router.on('start', (event) => {
             console.log(`Starting a visit to ${event.detail.visit.url}`)
@@ -46,8 +48,15 @@ createInertiaApp({
             globalCursorDefault()
         })
 
+        const i18n = createI18n({
+            legacy: false,
+        })
 
-        const app = createApp({render: () => h(App, props)})
+        loadLocaleMessages(i18n, props.initialPage.props.locale).then(()=>{
+            setI18nLanguage(i18n, props.initialPage.props.locale)
+        })
+
+        const app = createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ArcoVue)
             .use(ArcoVueIcon)
@@ -69,6 +78,7 @@ createInertiaApp({
         })
 
         app.use(pinia)
+        app.use(i18n)
         app.mount(el)
     },
 })

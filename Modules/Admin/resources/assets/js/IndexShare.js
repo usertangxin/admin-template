@@ -2,6 +2,8 @@ import { computed, reactive, ref, provide, inject, watch } from 'vue'
 import { usePage, router, useRemember } from '@inertiajs/vue3'
 import _ from 'lodash'
 import qs from 'qs'
+import { __ } from '/Modules/Admin/resources/assets/js/i18n'
+
 
 const page = usePage()
 
@@ -18,7 +20,7 @@ export function useIndexShareStore() {
     const columns = useRemember([], 'indexShareColumns' + window.location.href.split('?')[0])
     /** 操作列 */
     const actionColumn = ref({
-        title: '操作',
+        title: __('global.action'),
         // width: 120,
         fixed: 'right',
         slotName: 'action-column',

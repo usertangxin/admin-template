@@ -7,7 +7,7 @@
                     <slot name="left-before"></slot>
                     <slot name="left">
                         <template v-if="!page.props.__page_index__">
-                            <a-tooltip mini content="上一页">
+                            <a-tooltip mini :content="$t('global.prev')">
                                 <a-button @click="toIndex">
                                     <template #icon>
                                         <icon icon="fas arrow-left-long"></icon>
@@ -17,7 +17,7 @@
                         </template>
                         <slot name="refresh-before"></slot>
                         <slot name="refresh">
-                            <a-tooltip mini content="刷新">
+                            <a-tooltip mini :content="$t('global.refresh')">
                                 <a-button status="normal" @click="refreshList">
                                     <template #icon>
                                         <icon icon="a refresh"></icon>
@@ -28,7 +28,7 @@
                         <slot name="refresh-after"></slot>
                         <slot name="fullscreen-before"></slot>
                         <slot name="fullscreen">
-                            <a-tooltip mini content="全屏">
+                            <a-tooltip mini :content="$t('global.fullscreen')">
                                 <a-button status="normal" @click="changeFullScreen">
                                     <template #icon>
                                         <icon icon="a fullscreen"></icon>
@@ -42,14 +42,14 @@
                             <slot name="reset-before"></slot>
                             <slot name="reset">
                                 <a-button type="secondary" @click="handleReset">
-                                    重置
+                                    {{ $t('global.reset') }}
                                 </a-button>
                             </slot>
                             <slot name="reset-after"></slot>
                             <slot name="submit-before"></slot>
                             <slot name="submit">
                                 <a-button type="primary" @click="handleSubmit">
-                                    提交
+                                    {{ $t('global.submit') }}
                                 </a-button>
                             </slot>
                             <slot name="submit-after"></slot>
@@ -59,15 +59,15 @@
                                 <slot name="update-before"></slot>
                                 <slot name="update">
                                     <a-button type="primary" status="warning" @click="handleGoUpdate">
-                                        去编辑
+                                        {{ $t('global.goUpdate') }}
                                     </a-button>
                                 </slot>
                                 <slot name="update-after"></slot>
                                 <slot name="destroy-before"></slot>
                                 <slot name="destroy">
-                                    <a-popconfirm content="确定要删除吗？" @ok="handleDestroy">
+                                    <a-popconfirm :content="$t('formAction.destroyConfirm')" @ok="handleDestroy">
                                         <a-button type="primary" status="danger">
-                                            删除
+                                            {{ $t('global.destroy') }}
                                         </a-button>
                                     </a-popconfirm>
                                 </slot>
@@ -76,18 +76,18 @@
                             <template v-else>
                                 <slot name="restore-before"></slot>
                                 <slot name="restore">
-                                    <a-popconfirm content="确定要恢复吗？" @ok="handleRecovery">
+                                    <a-popconfirm :content="$t('formAction.recoveryConfirm')" @ok="handleRecovery">
                                         <a-button type="primary" status="success">
-                                            恢复
+                                            {{ $t('global.recovery') }}
                                         </a-button>
                                     </a-popconfirm>
                                 </slot>
                                 <slot name="restore-after"></slot>
                                 <slot name="real-destroy-before"></slot>
                                 <slot name="real-destroy">
-                                    <a-popconfirm content="确定要永久删除吗？" @ok="handleRealDestroy">
+                                    <a-popconfirm :content="$t('formAction.realDestroyConfirm')" @ok="handleRealDestroy">
                                         <a-button type="primary" status="danger">
-                                            永久删除
+                                            {{ $t('global.realDestroy') }}
                                         </a-button>
                                     </a-popconfirm>
                                 </slot>
@@ -154,6 +154,16 @@ const handleDestroy = () => {
 
 const handleRecovery = () => {
     request.post('./recovery', { ids: page.props.data.id, }).then(() => {
+        history.back()
+    })
+}
+
+const handleRealDestroy = () => {
+    request.delete('./real-destroy', {
+        data: {
+            ids: page.props.data.id,
+        }
+    }).then(() => {
         history.back()
     })
 }

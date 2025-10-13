@@ -1,23 +1,23 @@
 <template>
     <div class="m-3 p-3 page-content">
         <save-form :model="formData" :rules="rules">
-            <a-form-item label="角色名称" field="name">
-                <a-input v-model="formData.name" placeholder="请输入角色名称"></a-input>
+            <a-form-item :label="$t('systemRole.name')" field="name">
+                <a-input v-model="formData.name" :placeholder="$t('systemRole.inputRoleName')"></a-input>
             </a-form-item>
-            <a-form-item label="备注" field="remark">
-                <a-textarea v-model="formData.remark" placeholder="请输入备注"></a-textarea>
+            <a-form-item :label="$t('systemRole.remark')" field="remark">
+                <a-textarea v-model="formData.remark" :placeholder="$t('systemRole.inputRemark')"></a-textarea>
             </a-form-item>
-            <a-form-item label="状态" field="status">
+            <a-form-item :label="$t('systemRole.status')" field="status">
                 <dict-radio code="data_status" v-model="formData.status"></dict-radio>
             </a-form-item>
-            <a-form-item label="菜单权限" field="permissions">
+            <a-form-item :label="$t('systemRole.permissions')" field="permissions">
                 <div>
                     <a-button-group>
                         <div class="arco-btn arco-btn-secondary arco-btn-shape-square arco-btn-size-large arco-btn-status-normal"
-                            @click="handleToggleExpanded">{{ expandedKeys.length ? '收起全部' : '展开全部' }}
+                            @click="handleToggleExpanded">{{ expandedKeys.length ? $t('global.foldAll') : $t('global.unfoldAll') }}
                         </div>
                         <a-button @click="handleToggleChecked">
-                            {{ formData.permissions.length ? '取消选中' : '全部选中' }}
+                            {{ formData.permissions.length ? $t('global.cancelSelect') : $t('global.selectAll') }}
                         </a-button>
                     </a-button-group>
                     <custom-tree ref="permissionTreeRef" v-model:checked-keys="formData.permissions"
@@ -34,6 +34,7 @@
 import _ from 'lodash';
 import { reactive, ref, watch } from 'vue';
 import { recursiveFilter, recursiveForEach, recursiveMap } from '../../util';
+import { t } from '/Modules/Admin/resources/assets/js/i18n'
 
 const props = defineProps(['data'])
 const permissionTree = ref([]);
@@ -51,7 +52,7 @@ const formData = reactive({
 
 const rules = {
     name: [
-        { required: true, message: '请输入角色名称' },
+        { required: true, message: t('systemRole.inputRoleName'), },
     ],
 }
 

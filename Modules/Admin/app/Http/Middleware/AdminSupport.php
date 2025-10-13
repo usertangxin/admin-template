@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Context;
+use Inertia\Inertia;
 use Modules\Admin\Http\Controllers\LoginController;
 use Modules\Admin\Models\SystemAdmin;
 
@@ -17,12 +18,14 @@ class AdminSupport
     public function handle(Request $request, Closure $next)
     {
 
-        $language = $request->cookie('language');
-        if ($language && in_array($language, config('admin.multi_language'))) {
-            app()->setLocale($language);
+        $locale = $request->cookie('locale');
+        if ($locale && in_array($locale, config('admin.multi_language'))) {
+            app()->setLocale($locale);
         }
 
         Context::add('__is_admin_background__', true);
+
+        Inertia::share('locale', app()->getLocale());
 
         if (\request()->route()->getController() instanceof LoginController) {
             return $next($request);

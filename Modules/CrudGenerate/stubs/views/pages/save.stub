@@ -8,6 +8,7 @@ $FORM_HTML$
 
 <script setup>
 import { reactive, ref } from 'vue';
+import { t } from '/Modules/Admin/resources/assets/js/i18n'
 
 const formData = reactive($FORM_DATA_JS$)
 

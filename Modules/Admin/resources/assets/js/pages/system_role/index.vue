@@ -15,13 +15,14 @@
 
 <script setup>
 import { provideIndexShareStore } from '../../IndexShare'
+import { __ } from '/Modules/Admin/resources/assets/js/i18n'
 
 const store = provideIndexShareStore({
     columns: [
         { title: 'ID', dataIndex: 'id', show: false, },
-        { title: '角色名称', dataIndex: 'name', },
-        { title: '状态', dataIndex: 'status', type: 'dict_tag', dict: 'data_status' },
-        { title: '备注', dataIndex: 'remark', },
+        { title: __('systemRole.name'), dataIndex: 'name', },
+        { title: __('systemRole.status'), dataIndex: 'status', type: 'dict_tag', dict: 'data_status' },
+        { title: __('systemRole.remark'), dataIndex: 'remark', },
     ],
     searchQuery: {
         name: '',

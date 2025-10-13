@@ -15,7 +15,7 @@
                           style="color: rgb(var(--primary-6));">
                     </icon>
                 </div>
-                <div class=" font-bold mt-3 text-[16px]">点击上传或拖拽文件</div>
+                <div class=" font-bold mt-3 text-[16px]">{{ $t('uploadFile.clickUploadOrDragFile') }}</div>
                 <a-tooltip :content="comAccept + ''">
                     <div class=" text-[12px] w-[100px] py-1 pb-3 truncate" style="color: var(--color-text-3);">
                         {{ comAccept }}
@@ -26,7 +26,7 @@
                     <template #icon>
                         <icon icon="fas fa-folder-open" class=" text-[14px] -mb-[1px]"></icon>
                     </template>
-                    历史附件
+                    {{ $t('uploadFile.historyAttachments') }}
                 </a-button>
             </div>
         </template>
@@ -45,6 +45,7 @@ import {computed, ref, watch, nextTick, inject, provide} from 'vue';
 import axios from 'axios';
 import {useFormItem} from '@arco-design/web-vue';
 import {storeToRefs} from "pinia";
+import { t } from '/Modules/Admin/resources/assets/js/i18n'
 
 const {mergedDisabled} = useFormItem();
 const configStore = useConfigStore()
@@ -121,7 +122,7 @@ const handleBeforeUpload = (file) => {
     const fileSize = props.fileSize || config_map.value['upload_size']?.value;
     if (file.size > fileSize) {
         const MB = new Decimal(fileSize).div(1024 * 1024).toFixed(2);
-        Message.error(`文件大小不能超过${MB}MB`);
+        Message.error(t('uploadFile.fileSizeExceedsLimit', { limit: MB }));
         return false;
     }
 
@@ -178,7 +179,7 @@ const customRequest = (option) => {
         if (res.code == 0) {
             const fileUrl = res.data[0].url;
             if (!fileUrl) {
-                throw new Error('上传成功但未返回URL');
+                throw new Error(t('uploadFile.uploadSuccessButNoURL'));
             }
 
             if (props.multiple) {
@@ -193,23 +194,23 @@ const customRequest = (option) => {
             onSuccess({...res.data[0], url: fileUrl});
         } else {
             // Message.error(res.message || '上传失败，请重试');
-            onError(res.message || '上传失败，请重试');
+            onError(res.message || t('uploadFile.uploadFailedPleaseRetry'));
         }
     }).catch(err => {
         console.error('上传失败:', err);
         // Message.error(err.message || '上传失败，请重试');
-        onError(err);
+        onError(err.message || t('uploadFile.uploadFailedPleaseRetry'));
     });
     return {
         abort() {
-            source.cancel('上传被取消')
+            source.cancel(t('uploadFile.uploadCancelled'))
         }
     }
 };
 
 const handleBeforeRemove = (item) => {
     if (!Number.isInteger(item.uid)) {
-        item.cancelSource && item.cancelSource.cancel('上传被取消')
+        item.cancelSource && item.cancelSource.cancel(t('uploadFile.uploadCancelled'))
         return true
     }
     if (props.multiple) {

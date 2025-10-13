@@ -1,0 +1,119 @@
+{
+    "global": {
+        "user": "User",
+        "userCenter": "User Center",
+        "logout": "Logout",
+        "cache": "Cache",
+        "clearSystemCache": "Clear System Cache",
+        "clearBrowserCache": "Clear Browser Cache",
+        "refresh": "Refresh",
+        "closeOther": "Close Other",
+        "closeAll": "Close All",
+        "tip": "Tip",
+        "unfoldAll": "Unfold All",
+        "foldAll": "Fold All",
+        "selectAll": "Select All",
+        "cancelSelect": "Cancel Select",
+        "search": "Search",
+        "reset": "Reset",
+        "submit": "Submit",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "prev": "Previous",
+        "next": "Next",
+        "recycle": "Recycle Bin",
+        "fullscreen": "Fullscreen",
+        "create": "Create",
+        "destroy": "Destroy",
+        "recovery": "Recovery",
+        "realDestroy": "Real Destroy",
+        "action": "Action",
+        "goUpdate": "Go Update",
+        "detail": "Detail",
+        "select": "Select",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "createdBy": "Created By",
+        "updatedBy": "Updated By"
+    },
+    "main": {
+        "tipClearBrowserCache": "Are you sure you want to clear the browser cache? This will cause unsaved data to be lost."
+    },
+    "login": {
+        "inputUsername": "Please enter your username",
+        "inputPassword": "Please enter your password",
+        "login": "Login",
+        "rememberMe": "Remember me"
+    },
+    "systemMenu": {
+        "refresh": "Refresh Menu Cache",
+        "name": "Menu Name",
+        "url": "Menu URL",
+        "type": "Menu Type",
+        "icon": "Menu Icon",
+        "code": "Menu Code",
+        "isHidden": "Is Hidden",
+        "remark": "Remark"
+    },
+    "indexAction": {
+        "confirmDestroy": "Are you sure you want to delete the selected items?",
+        "confirmRecovery": "Are you sure you want to recovery the selected items?",
+        "confirmRealDestroy": "Are you sure you want to real destroy the selected items?",
+        "fastSearch": "Please input content and press enter",
+        "allSearchBtn": "More Search Options",
+        "columnsTooltip": "Control Display Columns"
+    },
+    "formAction": {
+        "destroyConfirm": "Are you sure you want to delete this item?",
+        "recoveryConfirm": "Are you sure you want to recovery this item?",
+        "realDestroyConfirm": "Are you sure you want to real destroy this item?"
+    },
+    "indexTable": {
+        "destroyConfirm": "Are you sure you want to delete this item?",
+        "recoveryConfirm": "Are you sure you want to recovery this item?",
+        "realDestroyConfirm": "Are you sure you want to real destroy this item?"
+    },
+    "uploadFile": {
+        "clickUploadOrDragFile": "Click to upload or drag file",
+        "historyAttachments": "History Attachments",
+        "fileSizeExceedsLimit": "File size exceeds limit of {{ limit }}MB",
+        "uploadSuccessButNoURL": "Upload success but no URL returned",
+        "uploadFailedPleaseRetry": "Upload failed, please try again",
+        "uploadCancelled": "Upload cancelled"
+    },
+    "resourceModel": {
+        "select": "Select"
+    },
+    "systemRole": {
+        "name": "Role Name",
+        "remark": "Remark",
+        "status": "Status",
+        "permissions": "Menu Permissions",
+        "inputRoleName": "Please input role name",
+        "inputRemark": "Please input remark"
+    },
+    "systemAdmin": {
+        "avatar": "Avatar",
+        "adminName": "Admin Name",
+        "nickname": "Nick Name",
+        "phone": "Phone",
+        "email": "Email",
+        "status": "Status",
+        "remark": "Remark",
+        "password": "Password",
+        "loginIp": "Login IP",
+        "loggedAt": "Logged At",
+        "roles": "Roles",
+        "dataScope": "Data Scope",
+        "extendDataScope": "Extend Data Scope",
+        "adminNamePlaceholder": "Please input admin name",
+        "adminNameMinLength": "Admin name length must be at least 3 characters",
+        "passwordPlaceholder": "Leave blank if not modified",
+        "nicknamePlaceholder": "Please input nickname",
+        "phonePlaceholder": "Please input phone number",
+        "emailPlaceholder": "Please input email",
+        "remarkPlaceholder": "Please input remark",
+        "unusedRoles": "Unused Roles",
+        "usedRoles": "Used Roles"
+    }
+}

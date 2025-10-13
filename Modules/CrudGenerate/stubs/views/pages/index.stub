@@ -11,6 +11,7 @@ $SEARCH_HTML$
 
 <script setup>
 import { provideIndexShareStore } from '/Modules/Admin/resources/assets/js/IndexShare'
+import { __ } from '/Modules/Admin/resources/assets/js/i18n'
 
 const store = provideIndexShareStore({
     columns: [
