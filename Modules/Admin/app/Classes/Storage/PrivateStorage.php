@@ -3,6 +3,7 @@
 namespace Modules\Admin\Classes\Storage;
 
 use DateTime;
+use Exception;
 use Illuminate\Filesystem\LocalFilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
@@ -30,7 +31,7 @@ class PrivateStorage implements UploadFileStorageInterface
 
     public function __construct()
     {
-        \config([
+        config([
             'filesystems.disks.admin-private' => $this->getConfig(),
         ]);
         Storage::disk('admin-private')->buildTemporaryUrlsUsing(
@@ -61,7 +62,7 @@ class PrivateStorage implements UploadFileStorageInterface
 
         $public_status = $systemConfigService->getValueByKey('private_status');
         if ($public_status != 'normal') {
-            throw new \Exception('私有存储未启用');
+            throw new Exception(__('admin::system_upload_file.upload_private_status'));
         }
 
         $disk = $this->getDisk();

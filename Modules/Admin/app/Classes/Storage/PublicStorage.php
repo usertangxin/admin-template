@@ -3,6 +3,7 @@
 namespace Modules\Admin\Classes\Storage;
 
 use DateTime;
+use Exception;
 use Illuminate\Filesystem\LocalFilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -34,10 +35,10 @@ class PublicStorage implements UploadFileStorageInterface
 
     public function __construct()
     {
-        \config([
+        config([
             'filesystems.disks.admin-public' => $this->getConfig(),
-            'filesystems.links'              => \array_merge(
-                \config('filesystems.links'),
+            'filesystems.links'              => array_merge(
+                config('filesystems.links'),
                 [
                     public_path('storage-admin') => storage_path('app/admin-public'),
                 ]
@@ -61,7 +62,7 @@ class PublicStorage implements UploadFileStorageInterface
 
         $public_status = $systemConfigService->getValueByKey('public_status');
         if ($public_status != 'normal') {
-            throw new \Exception('本地存储未启用');
+            throw new Exception(__('admin::system_upload_file.upload_public_status'));
         }
 
         $disk = $this->getDisk();
@@ -110,7 +111,7 @@ class PublicStorage implements UploadFileStorageInterface
 
     public function temporaryUrl($path, DateTime $expiration, $options = []): string
     {
-        throw new \Exception('该存储可直接访问，无需生成');
+        throw new \Exception(__('admin::system_upload_file.public_temporary_tip'));
     }
 
     public function __call($name, $arguments)

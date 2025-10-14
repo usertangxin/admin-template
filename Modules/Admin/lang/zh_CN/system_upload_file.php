@@ -13,4 +13,7 @@ return [
     'upload_size_image'   => '图片大小超出限制：',
     'upload_allow_video'  => '视频类型只允许：',
     'upload_size_video'   => '视频大小超出限制：',
+    'upload_private_status' => '私有存储未启用',
+    'upload_public_status' => '公开存储未启用',
+    'public_temporary_tip' => '该存储可直接访问，无需生成',
 ];

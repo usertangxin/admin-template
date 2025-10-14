@@ -58,7 +58,7 @@ class UploadFileTest extends AbstractAuthTestCase
             'file'        => UploadedFile::fake()->create('test.md', 1),
             'upload_mode' => 'document',
         ]);
-        $this->assertTrue(\str_contains($response->json('message'), '本地存储未启用'));
+        $this->assertTrue(\str_contains($response->json('message'), __('admin::system_upload_file.upload_public_status')));
     }
 
     public function test_temporary_url_public()
@@ -70,7 +70,7 @@ class UploadFileTest extends AbstractAuthTestCase
         $hash     = $response->json('data.0.hash');
         $id       = SystemUploadFile::whereHash($hash)->first()->id;
         $response = $this->getJson('/web/admin/SystemUploadFile/temporary-url?id=' . $id . '&expiration=1');
-        $this->assertTrue(\str_contains($response->json('message'), '该存储可直接访问，无需生成'));
+        $this->assertTrue(\str_contains($response->json('message'), __('admin::system_upload_file.public_temporary_tip')));
     }
 
     public function test_temporary_url_private()
