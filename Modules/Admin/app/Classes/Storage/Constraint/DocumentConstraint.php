@@ -23,10 +23,10 @@ class DocumentConstraint implements UploadFileConstraintInterface
         foreach ($files as $file) {
             $ext = $file->getClientOriginalExtension();
             if (! in_array($ext, $allow)) {
-                throw new \Exception('文档类型只允许：' . $allow_str);
+                throw new \Exception(__('admin::system_upload_file.upload_allow_document') . '：' . $allow_str);
             }
             if ($file->getSize() > $size) {
-                throw new \Exception('文档大小超出限制：' . $size);
+                throw new \Exception(__('admin::system_upload_file.upload_size_document') . '：' . $size);
             }
         }
 

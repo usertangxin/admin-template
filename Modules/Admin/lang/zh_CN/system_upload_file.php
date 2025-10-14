@@ -3,4 +3,14 @@
 return [
     'upload_success'      => '上传成功',
     'gen_symlink_success' => '生成成功，公开文件现在可以正常访问了',
+    'upload_allow_audio'  => '音频类型只允许：',
+    'upload_size_audio'   => '音频大小超出限制：',
+    'upload_allow_document'  => '文档类型只允许：',
+    'upload_size_document'   => '文档大小超出限制：',
+    'upload_allow_file'  => '文件类型只允许：',
+    'upload_size_file'   => '文件大小超出限制：',
+    'upload_allow_image'  => '图片类型只允许：',
+    'upload_size_image'   => '图片大小超出限制：',
+    'upload_allow_video'  => '视频类型只允许：',
+    'upload_size_video'   => '视频大小超出限制：',
 ];
