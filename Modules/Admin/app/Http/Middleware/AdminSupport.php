@@ -39,7 +39,7 @@ class AdminSupport
         $user = Auth::user();
 
         if (! $user->can($request->route()->getName())) {
-            throw new \Illuminate\Auth\Access\AuthorizationException('您没有权限访问');
+            throw new \Illuminate\Auth\Access\AuthorizationException(__('admin::auth.no_permission'));
         }
 
         return $next($request);

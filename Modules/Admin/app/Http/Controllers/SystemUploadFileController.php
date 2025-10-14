@@ -47,7 +47,7 @@ class SystemUploadFileController extends AbstractCrudController
         $arr = $fileStorageService->upload();
 
         // \dd($arr);
-        return $this->success($arr, __('admin::system_upload_file.upload_success'));    
+        return $this->success($arr, __('admin::system_upload_file.upload_success'));
     }
 
     #[SystemMenu('音频上传')]
@@ -59,7 +59,7 @@ class SystemUploadFileController extends AbstractCrudController
         $arr = $fileStorageService->upload();
 
         // \dd($arr);
-        return $this->success($arr, __('admin::system_upload_file.upload_success'));    
+        return $this->success($arr, __('admin::system_upload_file.upload_success'));
     }
 
     #[SystemMenu('文稿上传')]

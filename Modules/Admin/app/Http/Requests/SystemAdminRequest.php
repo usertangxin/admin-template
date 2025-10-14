@@ -37,15 +37,15 @@ class SystemAdminRequest extends FormRequest
     public function attributes()
     {
         return [
-            'avatar'          => '头像',
-            'admin_name'      => '管理员账号',
-            'nickname'        => '昵称',
-            'phone'           => '手机号',
-            'email'           => '邮箱',
-            'remark'          => '备注',
-            'status'          => '状态',
-            'data_scope_name' => '数据权限',
-            'password'        => '密码',
+            'avatar'          => __('admin::system_admin.avatar'),
+            'admin_name'      => __('admin::system_admin.admin_name'),
+            'nickname'        => __('admin::system_admin.nickname'),
+            'phone'           => __('admin::system_admin.phone'),
+            'email'           => __('admin::system_admin.email'),
+            'remark'          => __('admin::system_admin.remark'),
+            'status'          => __('admin::system_admin.status'),
+            'data_scope_name' => __('admin::system_admin.data_scope_name'),
+            'password'        => __('admin::system_admin.password'),
         ];
     }
 
