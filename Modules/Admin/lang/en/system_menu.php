@@ -52,4 +52,5 @@ return [
         'get_temporary_url'    => 'Get Temporary URL',
         'post_gen_symlink'     => 'Generate Public Storage Symlink',
     ],
+    'refresh_cache_success' => 'Refresh menu cache success',
 ];

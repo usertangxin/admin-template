@@ -23,7 +23,7 @@ class SystemUploadFileController extends AbstractCrudController
         $arr = $fileStorageService->upload();
 
         // \dd($arr);
-        return $this->success($arr, '上传成功');
+        return $this->success($arr, __('admin::system_upload_file.upload_success'));
     }
 
     #[SystemMenu('图片上传')]
@@ -35,7 +35,7 @@ class SystemUploadFileController extends AbstractCrudController
         $arr = $fileStorageService->upload();
 
         // \dd($arr);
-        return $this->success($arr, '上传成功');
+        return $this->success($arr, __('admin::system_upload_file.upload_success'));
     }
 
     #[SystemMenu('视频上传')]
@@ -47,7 +47,7 @@ class SystemUploadFileController extends AbstractCrudController
         $arr = $fileStorageService->upload();
 
         // \dd($arr);
-        return $this->success($arr, '上传成功');
+        return $this->success($arr, __('admin::system_upload_file.upload_success'));    
     }
 
     #[SystemMenu('音频上传')]
@@ -59,7 +59,7 @@ class SystemUploadFileController extends AbstractCrudController
         $arr = $fileStorageService->upload();
 
         // \dd($arr);
-        return $this->success($arr, '上传成功');
+        return $this->success($arr, __('admin::system_upload_file.upload_success'));    
     }
 
     #[SystemMenu('文稿上传')]
@@ -71,7 +71,7 @@ class SystemUploadFileController extends AbstractCrudController
         $arr = $fileStorageService->upload();
 
         // \dd($arr);
-        return $this->success($arr, '上传成功');
+        return $this->success($arr, __('admin::system_upload_file.upload_success'));
     }
 
     #[SystemMenu('获取临时链接')]
@@ -89,6 +89,6 @@ class SystemUploadFileController extends AbstractCrudController
     {
         Artisan::call('storage:link');
 
-        return $this->success(message: '生成成功，公开文件现在可以正常访问了');
+        return $this->success(message: __('admin::system_upload_file.gen_symlink_success'));
     }
 }

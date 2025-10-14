@@ -29,10 +29,10 @@ class LoginController extends AbstractController
         $credentials['status'] = 'normal';
         $remember              = $request->input('remember', false);
         if (Auth::attempt($credentials, $remember)) {
-            return $this->success(message: '登录成功');
+            return $this->success(message: __('admin::login.login_success'));
         }
 
-        return $this->fail('用户名或密码错误');
+        return $this->fail(__('admin::login.username_or_password_error'));
     }
 
     /**

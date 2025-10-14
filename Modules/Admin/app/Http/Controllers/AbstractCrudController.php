@@ -29,8 +29,6 @@ use Modules\Admin\Services\SystemDictService;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Throwable;
 
-use function request;
-
 abstract class AbstractCrudController extends AbstractController
 {
     /**
@@ -257,7 +255,7 @@ abstract class AbstractCrudController extends AbstractController
         }
         $data = $query->find($id);
         if (! $data) {
-            return $this->fail('数据不存在', 404, view: '404');
+            return $this->fail(__('admin::abstract_crud.data_not_found'), 404, view: '404');
         }
         if (! empty($visible = $this->getMakeVisibleFields())) {
             $data = $data->makeVisible($visible);
@@ -311,7 +309,7 @@ abstract class AbstractCrudController extends AbstractController
             $result = new $resourceCollection($result);
         }
 
-        return $this->success($result, message: '创建成功', view: $this->getViewPrefix() . '/save');
+        return $this->success($result, message: __('admin::abstract_crud.create_success'), view: $this->getViewPrefix() . '/save');
     }
 
     /**
@@ -357,7 +355,7 @@ abstract class AbstractCrudController extends AbstractController
         $data  = $this->validate();
         $model = $this->getModel()->find($id);
         if (! $model) {
-            return $this->fail('数据不存在', 404, view: '404');
+            return $this->fail(__('admin::abstract_crud.data_not_found'), 404, view: '404');
         }
         DB::beginTransaction();
         try {
@@ -378,13 +376,13 @@ abstract class AbstractCrudController extends AbstractController
             throw $e;
         }
         if (! $result) {
-            return $this->fail('更新失败', view: $this->getViewPrefix() . '/save');
+            return $this->fail(__('admin::abstract_crud.update_failed'), view: $this->getViewPrefix() . '/save');
         }
         if (! empty($resourceCollection = $this->getResource())) {
             $model = new $resourceCollection($model);
         }
 
-        return $this->success($model, message: '编辑成功', view: $this->getViewPrefix() . '/save');
+        return $this->success($model, message: __('admin::abstract_crud.update_success'), view: $this->getViewPrefix() . '/save');
     }
 
     /**
@@ -416,14 +414,14 @@ abstract class AbstractCrudController extends AbstractController
         $status                 = $this->validate()[$field];
         $model                  = $this->getModel()->find($id);
         if (! $model) {
-            return $this->fail('数据不存在', 404, view: '404');
+            return $this->fail(__('admin::abstract_crud.data_not_found'), 404, view: '404');
         }
         $model->$field = $status;
         if (! $model->save()) {
-            return $this->fail('切换状态失败');
+            return $this->fail(__('admin::abstract_crud.change_status_failed'));
         }
 
-        return $this->success([], message: '切换状态成功');
+        return $this->success([], message: __('admin::abstract_crud.change_status_success'));
     }
 
     /**
@@ -445,7 +443,7 @@ abstract class AbstractCrudController extends AbstractController
 
         $result = $this->getModel()->whereIn($this->getModel()->getKeyName(), $ids)->get();
         if (! $result || count($result) == 0) {
-            return $this->fail('数据不存在', 404, view: '404');
+            return $this->fail(__('admin::abstract_crud.data_not_found'), 404, view: '404');
         }
         DB::beginTransaction();
         try {
@@ -459,7 +457,7 @@ abstract class AbstractCrudController extends AbstractController
             throw $e;
         }
 
-        return $this->success(message: '删除成功');
+        return $this->success(message: __('admin::abstract_crud.destroy_success'));
     }
 
     /**
@@ -529,7 +527,7 @@ abstract class AbstractCrudController extends AbstractController
 
         $result = $this->getModel()->onlyTrashed()->whereIn($this->getModel()->getKeyName(), $ids)->get();
         if (! $result || count($result) == 0) {
-            return $this->fail('数据不存在', 404, view: '404');
+            return $this->fail(__('admin::abstract_crud.data_not_found'), 404, view: '404');
         }
         DB::beginTransaction();
         try {
@@ -543,7 +541,7 @@ abstract class AbstractCrudController extends AbstractController
             throw $e;
         }
 
-        return $this->success([], message: '恢复成功');
+        return $this->success([], message: __('admin::abstract_crud.recovery_success'));
     }
 
     /**
@@ -565,7 +563,7 @@ abstract class AbstractCrudController extends AbstractController
 
         $result = $this->getModel()->withTrashed()->whereIn($this->getModel()->getKeyName(), $ids)->get();
         if (! $result || count($result) == 0) {
-            return $this->fail('数据不存在', 404, view: '404');
+            return $this->fail(__('admin::abstract_crud.data_not_found'), 404, view: '404');
         }
         DB::beginTransaction();
         try {
@@ -576,9 +574,9 @@ abstract class AbstractCrudController extends AbstractController
         } catch (Throwable $e) {
             DB::rollBack();
 
-            return $this->fail('永久删除失败：' . $e->getMessage());
+            return $this->fail(__('admin::abstract_crud.real_destroy_failed') . '：' . $e->getMessage());
         }
 
-        return $this->success(message: '永久删除成功');
+        return $this->success(message: __('admin::abstract_crud.destroy_success'));
     }
 }

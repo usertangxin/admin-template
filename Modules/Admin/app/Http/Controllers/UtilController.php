@@ -21,6 +21,6 @@ class UtilController extends AbstractController
     {
         Cache::clear();
 
-        return ResponseService::success(message: '清理系统缓存成功');
+        return ResponseService::success(message: __('admin::util.clear_system_cache_success'));
     }
 }

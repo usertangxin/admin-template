@@ -42,12 +42,12 @@ class SystemConfigController extends AbstractController
     {
         $locale = \request()->post('locale');
         if (! in_array($locale, config('admin.multi_language'))) {
-            return $this->fail('语言不支持');
+            return $this->fail(__('admin::system_config.language_not_support'));
         }
 
         Cookie::queue('locale', $locale);
 
-        return $this->success(message: '切换成功');
+        return $this->success(message: __('admin::system_config.change_language_success'));
     }
 
     #[SystemMenu('修改系统配置')]
@@ -60,6 +60,6 @@ class SystemConfigController extends AbstractController
 
         $systemConfigService->refresh();
 
-        return $this->success(message: '保存成功');
+        return $this->success(message: __('admin::system_config.save_success'));
     }
 }

@@ -4,6 +4,7 @@
         "generateCode": "Generate Code",
         "confirmGenerate": "Are you sure you want to generate code? This will delete previously generated files.",
         "table_name": "Table Name",
+        "comment": "Comment",
         "table_comment": "Table Comment",
         "module_name": "Module Name",
         "gen_mode": "Generation Mode",

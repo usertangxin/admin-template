@@ -4,6 +4,7 @@
         "generateCode": "生成代码",
         "confirmGenerate": "确定要生成吗？这会导致之前生成的文件被删除",
         "table_name": "表名",
+        "comment": "注释",
         "table_comment": "表注释",
         "module_name": "模块名",
         "gen_mode": "生成方式",

@@ -40,7 +40,7 @@ class ModuleManagerController extends AbstractController
             }
         }
 
-        return $this->success(message: '模块状态变更成功');
+        return $this->success(message: __('admin::module_manager.change_status_success'));
     }
 
     #[SystemMenu('模块删除')]
@@ -49,6 +49,6 @@ class ModuleManagerController extends AbstractController
         $module = Module::find($request->input('name'));
         $module?->delete();
 
-        return $this->success(message: '模块删除成功');
+        return $this->success(message: __('admin::module_manager.destroy_success'));
     }
 }

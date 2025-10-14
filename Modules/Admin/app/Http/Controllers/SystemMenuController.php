@@ -45,6 +45,6 @@ class SystemMenuController extends AbstractController
         ModelsSystemMenu::where('is_auto_collect', true)->whereNotIn('code', $new_collect_codes)->delete();
         $systemMenuRegisterService->refresh();
 
-        return $this->success(message: '刷新菜单缓存成功');
+        return $this->success(message: __('admin::system_menu.refresh_cache_success'));
     }
 }

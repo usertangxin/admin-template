@@ -52,4 +52,5 @@ return [
         'get_temporary_url'    => '获取临时链接',
         'post_gen_symlink'     => '生成公开存储软链',
     ],
+    'refresh_cache_success' => '刷新菜单缓存成功',
 ];
