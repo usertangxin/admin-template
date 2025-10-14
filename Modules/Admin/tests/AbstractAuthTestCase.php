@@ -4,7 +4,6 @@ namespace Modules\Admin\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
-use Modules\Admin\Classes\Utils\FormToken;
 use Modules\Admin\Models\SystemAdmin;
 use Nwidart\Modules\Facades\Module;
 use Tests\TestCase;
@@ -18,10 +17,6 @@ class AbstractAuthTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        $mockFormToken = Mockery::mock(FormToken::class);
-        $mockFormToken->shouldReceive('checkToken')->andReturn();
-        $this->app->instance(FormToken::class, $mockFormToken);
 
         $all_enable_modules = Module::allEnabled();
         foreach ($all_enable_modules as $module) {

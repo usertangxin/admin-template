@@ -18,10 +18,10 @@
 </template>
 
 <script setup>
-import { Message } from '@arco-design/web-vue';
+import { Message } from '@arco-design/web-vue'
 import { ref, computed, watch } from 'vue'
-import { usePage } from '@inertiajs/vue3';
-import _ from 'lodash';
+import { usePage } from '@inertiajs/vue3'
+import _ from 'lodash'
 
 const page = usePage();
 const formData = defineModel('model')
@@ -41,32 +41,21 @@ watch(() => page.props.data, (newVal, oldVal) => {
     immediate: true,
 })
 
-function refreshFormToken() {
-    request.get(route('web.admin.Util.form-token')).then(res => {
-        if (res.code === 0) {
-            formData.value.__form_token__ = res.data.token;
-        }
-    })
-}
-
-if (!page.props.__page_read__) {
-    refreshFormToken()
-}
-
-const handleSubmit = () => {
+const handleSubmit = (calls) => {
+    calls.wait()
     formRef.value.validate((errors) => {
         if (errors) {
             _.each(errors, (item, key) => {
                 Message.error(item.message);
             })
+            calls.done()
             return
         }
         const url = props['submit-url'] ?? ''
         request.post(url, formData.value).then(res => {
+            calls.done()
             if (res.code === 0) {
                 window.history.back()
-            } else {
-                refreshFormToken()
             }
         })
     })

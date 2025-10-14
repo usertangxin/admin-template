@@ -48,7 +48,7 @@
                             <slot name="reset-after"></slot>
                             <slot name="submit-before"></slot>
                             <slot name="submit">
-                                <a-button type="primary" @click="handleSubmit">
+                                <a-button type="primary" :loading="submitLoading" @click="handleSubmit">
                                     {{ $t('global.submit') }}
                                 </a-button>
                             </slot>
@@ -113,10 +113,13 @@
 import { router, usePage } from '@inertiajs/vue3';
 import { changeFullScreen } from '../util'
 import { property } from 'lodash';
+import { ref } from 'vue';
 
 const emits = defineEmits(['submit', 'reset'])
 
 const page = usePage();
+
+const submitLoading = ref(false)
 
 const refreshList = () => {
     router.reload()
@@ -131,7 +134,14 @@ const toIndex = () => {
 }
 
 const handleSubmit = () => {
-    emits('submit')
+    emits('submit', {
+        wait() {
+            submitLoading.value = true
+        },
+        done() {
+            submitLoading.value = false
+        }
+    })
 }
 
 const handleReset = () => {
