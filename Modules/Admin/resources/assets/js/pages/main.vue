@@ -60,7 +60,7 @@
                     </template>
                     <a-dropdown trigger="click" @popup-visible-change="onPopupVisibleChange">
                         <a-space class="cursor-pointer">
-                            <a-avatar shape="square">
+                            <a-avatar shape="square" :imageUrl="data.auth.avatar">
                                 <IconUser />
                             </a-avatar>
                             <span>{{ data.auth.nickname }}</span>

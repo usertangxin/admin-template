@@ -151,7 +151,7 @@
                                             <div class="mt-5">
                                                 <template
                                                     v-if="pageViewControls[item.page_view_control]?.specialParams.length > 0">
-                                                    <a-divider :title="$t('crudGenerate.specialParams')" />
+                                                    <a-divider>{{ $t('crudGenerate.specialParams') }}</a-divider>
                                                     <a-form :model="item.page_view_control_special_params"
                                                         :auto-label-width="true" class="min-w-[270px]">
                                                         <template
@@ -177,7 +177,7 @@
                                                 </template>
                                                 <template
                                                     v-if="pageViewControls[item.page_view_control]?.queryParams.length > 0">
-                                                    <a-divider :title="$t('crudGenerate.queryParams')" />
+                                                    <a-divider>{{ $t('crudGenerate.queryParams') }}</a-divider>
                                                     <a-form :model="item.page_view_control_query_params"
                                                         :auto-label-width="true" class="min-w-[270px]">
                                                         <template

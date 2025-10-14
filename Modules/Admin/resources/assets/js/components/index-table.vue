@@ -12,8 +12,8 @@
                         <slot name="action-read" v-bind="scope">
                             <a-button v-if="!$slots['action-read']" size="medium" type="primary"
                                 @click="handleDetail(scope.record)">
-                                    {{ $t('global.detail') }}
-                                </a-button>
+                                {{ $t('global.detail') }}
+                            </a-button>
                         </slot>
                         <template v-if="page.props.__page_index__">
                             <slot name="action-update" v-bind="scope">
