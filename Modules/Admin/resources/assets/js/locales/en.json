@@ -36,7 +36,10 @@
         "createdBy": "Created By",
         "updatedBy": "Updated By",
         "save": "Save",
-        "delete": "Delete"
+        "delete": "Delete",
+        "close": "Close",
+        "minValue": "Minimum Value",
+        "maxValue": "Maximum Value"
     },
     "main": {
         "tipClearBrowserCache": "Are you sure you want to clear the browser cache? This will cause unsaved data to be lost."
@@ -140,12 +143,25 @@
         "originName": "Origin Name",
         "objectName": "Object Name",
         "hash": "Hash",
-        "mime_type": "Mime Type",
+        "mimeType": "Mime Type",
         "storagePath": "Storage Path",
         "suffix": "Suffix",
         "sizeByte": "Size (Byte)",
         "url": "URL",
-        "remark": "Remark"
+        "remark": "Remark",
+        "placeholderStorageMode": "Please select storage mode",
+        "placeholderUploadMode": "Please select upload mode",
+        "placeholderOriginName": "Please input origin name",
+        "placeholderObjectName": "Please input object name",
+        "placeholderMimeType": "Please input mime type",
+        "placeholderSuffix": "Please input suffix",
+        "uploadTime": "Upload Time",
+        "getTemporaryUrl": "Get Temporary URL",
+        "placeholderTemporaryUrlExpireValue": "Please input expire value",
+        "minute": "Minute",
+        "hour": "Hour",
+        "day": "Day",
+        "copy": "Copy"
     },
     "moduleManager": {
         "enable": "Enable",

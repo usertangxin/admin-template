@@ -3,7 +3,7 @@
         <index-action>
             <template #search>
                 <search-col>
-                    <a-form-item label="角色名称" field="name">
+                    <a-form-item :label="$t('systemRole.name')" field="name">
                         <a-input v-model="store.searchQuery.name"></a-input>
                     </a-form-item>
                 </search-col>

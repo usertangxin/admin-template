@@ -36,7 +36,10 @@
         "createdBy": "创建人",
         "updatedBy": "更新人",
         "save": "保存",
-        "delete": "删除"
+        "delete": "删除",
+        "close": "关闭",
+        "minValue": "最小值",
+        "maxValue": "最大值"
     },
     "main": {
         "tipClearBrowserCache": "确定要清理吗？这会导致未保存的数据丢失"
@@ -140,12 +143,25 @@
         "originName": "原文件名",
         "objectName": "文件名",
         "hash": "文件hash",
-        "mime_type": "附件类型",
+        "mimeType": "附件类型",
         "storagePath": "存储目录",
         "suffix": "后缀",
         "sizeByte": "大小（字节）",
         "url": "url地址",
-        "remark": "备注"
+        "remark": "备注",
+        "placeholderStorageMode": "请选择存储模式",
+        "placeholderUploadMode": "请选择上传模式",
+        "placeholderOriginName": "请输入原文件名",
+        "placeholderObjectName": "请输入文件名",
+        "placeholderMimeType": "请输入附件类型",
+        "placeholderSuffix": "请输入后缀",
+        "uploadTime": "上传时间",
+        "getTemporaryUrl": "获取临时链接",
+        "placeholderTemporaryUrlExpireValue": "请输入有效期",
+        "minute": "分钟",
+        "hour": "小时",
+        "day": "天",
+        "copy": "复制"
     },
     "moduleManager": {
         "enable": "启用",

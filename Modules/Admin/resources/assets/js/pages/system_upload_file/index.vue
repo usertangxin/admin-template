@@ -3,44 +3,48 @@
         <index-action>
             <template #search>
                 <search-col>
-                    <a-form-item label="存储模式" field="storage_mode">
+                    <a-form-item :label="$t('systemUploadFile.storageMode')" field="storage_mode">
                         <dict-select v-model="store.searchQuery.storage_mode" code="storage_mode"
-                            placeholder="请选择存储模式"></dict-select>
+                            :placeholder="$t('systemUploadFile.placeholderStorageMode')"></dict-select>
                     </a-form-item>
                 </search-col>
                 <search-col>
-                    <a-form-item label="上传方式" field="upload_mode">
+                    <a-form-item :label="$t('systemUploadFile.uploadMode')" field="upload_mode">
                         <dict-select v-model="store.searchQuery.upload_mode" code="upload_mode"
-                            placeholder="请选择上传方式"></dict-select>
+                            :placeholder="$t('systemUploadFile.placeholderUploadMode')"></dict-select>
                     </a-form-item>
                 </search-col>
                 <search-col>
-                    <a-form-item label="原文件名" field="origin_name">
-                        <a-input v-model="store.searchQuery.origin_name" placeholder="请输入原始文件名"></a-input>
+                    <a-form-item :label="$t('systemUploadFile.originName')" field="origin_name">
+                        <a-input v-model="store.searchQuery.origin_name"
+                            :placeholder="$t('systemUploadFile.placeholderOriginName')"></a-input>
                     </a-form-item>
                 </search-col>
                 <search-col>
-                    <a-form-item label="文件名" field="object_name">
-                        <a-input v-model="store.searchQuery.object_name" placeholder="请输入文件名"></a-input>
+                    <a-form-item :label="$t('systemUploadFile.objectName')" field="object_name">
+                        <a-input v-model="store.searchQuery.object_name"
+                            :placeholder="$t('systemUploadFile.placeholderObjectName')"></a-input>
                     </a-form-item>
                 </search-col>
                 <search-col>
-                    <a-form-item label="附件类型" field="mime_type">
-                        <a-input v-model="store.searchQuery.mime_type" placeholder="请输入附件类型"></a-input>
+                    <a-form-item :label="$t('systemUploadFile.mimeType')" field="mime_type">
+                        <a-input v-model="store.searchQuery.mime_type"
+                            :placeholder="$t('systemUploadFile.placeholderMimeType')"></a-input>
                     </a-form-item>
                 </search-col>
                 <search-col>
-                    <a-form-item label="后缀" field="suffix">
-                        <a-input v-model="store.searchQuery.suffix" placeholder="请输入后缀"></a-input>
+                    <a-form-item :label="$t('systemUploadFile.suffix')" field="suffix">
+                        <a-input v-model="store.searchQuery.suffix"
+                            :placeholder="$t('systemUploadFile.placeholderSuffix')"></a-input>
                     </a-form-item>
                 </search-col>
                 <search-col>
-                    <a-form-item label="文件大小" field="size_byte">
+                    <a-form-item :label="$t('systemUploadFile.sizeByte')" field="size_byte">
                         <input-range v-model="store.searchQuery.size_byte"></input-range>
                     </a-form-item>
                 </search-col>
                 <search-col>
-                    <a-form-item label="上传时间" field="created_at">
+                    <a-form-item :label="$t('systemUploadFile.uploadTime')" field="created_at">
                         <a-range-picker v-model="store.searchQuery.created_at"
                             value-format="YYYY-MM-DD"></a-range-picker>
                     </a-form-item>
@@ -57,25 +61,32 @@
                 </a-image>
             </template>
             <template #action-read="{ record }">
-                <a-button type="primary" size="small" @click="handleGetTemporaryUrl(record)">获取临时链接</a-button>
+                <a-button type="primary" size="small" @click="handleGetTemporaryUrl(record)">
+                    {{ $t('systemUploadFile.getTemporaryUrl') }}
+                </a-button>
             </template>
             <template #action-update></template>
         </index-table>
 
-        <a-modal title="获取临时链接" v-model:visible="showTemporaryUrlModal" width="400px" :hide-cancel="true"
-            :closable="false" ok-text="关闭" @close="temporaryUrl = ''">
+        <a-modal :title="$t('systemUploadFile.getTemporaryUrl')" v-model:visible="showTemporaryUrlModal" width="400px" :hide-cancel="true"
+            :closable="false" :ok-text="$t('global.close')" @close="temporaryUrl = ''">
             <a-input-group>
-                <a-input-number v-model="temporaryUrlExpireValue" :min="1" placeholder="请输入时长"></a-input-number>
+                <a-input-number v-model="temporaryUrlExpireValue" :min="1"
+                    :placeholder="$t('systemUploadFile.placeholderTemporaryUrlExpireValue')"></a-input-number>
                 <a-select v-model="temporaryUrlExpire">
-                    <a-option value="minute">分钟</a-option>
-                    <a-option value="hour">小时</a-option>
-                    <a-option value="day">天</a-option>
+                    <a-option value="minute">{{ $t('systemUploadFile.minute') }}</a-option>
+                    <a-option value="hour">{{ $t('systemUploadFile.hour') }}</a-option>
+                    <a-option value="day">{{ $t('systemUploadFile.day') }}</a-option>
                 </a-select>
-                <a-button type="primary" @click="handleGetTemporaryUrl()">获取</a-button>
+                <a-button type="primary" @click="handleGetTemporaryUrl()">
+                    {{ $t('systemUploadFile.getTemporaryUrl') }}
+                </a-button>
             </a-input-group>
             <div v-if="temporaryUrl" class=" max-w-[100%] mt-3 flex flex-col items-center">
                 <a-link class="break-all" :href="temporaryUrl" target="_blank">{{ temporaryUrl }}</a-link>
-                <a-button class="text-red-500 w-[100px]" @click="handleCopyTemporaryUrl()">复制</a-button>
+                <a-button class="text-red-500 w-[100px]" @click="handleCopyTemporaryUrl()">
+                    {{ $t('systemUploadFile.copy') }}
+                </a-button>
             </div>
         </a-modal>
 
