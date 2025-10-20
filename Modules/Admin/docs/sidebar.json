@@ -1,0 +1,17 @@
+{
+    "text": "Admin",
+    "items": [
+        {
+            "text": "模块介绍",
+            "link": "Modules/Admin/index"
+        },
+        {
+            "text": "Admin Script",
+            "link": "Modules/Admin/admin-script"
+        },
+        {
+            "text": "菜单注册",
+            "link": "Modules/Admin/menu-register"
+        }
+    ]
+}

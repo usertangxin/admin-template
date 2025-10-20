@@ -8,8 +8,6 @@ use Modules\Admin\Classes\Utils\SystemDictUtil;
 use Modules\Admin\Interfaces\AdminScriptInterface;
 use Nwidart\Modules\Module;
 
-use function config;
-
 class AdminScript implements AdminScriptInterface
 {
     public function enable(Module $module)
