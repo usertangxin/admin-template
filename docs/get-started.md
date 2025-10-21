@@ -5,6 +5,14 @@ title: "Get Started"
 # Get Started
 做完以下步骤后，初始账号为 `super admin`，密码为 `123456`。
 
+## 开发环境依赖
+- PHP 8.2 或更高版本
+- 必要的 PHP 扩展：pdo, pdo_sqlite, sqlite3
+- Node.js 环境 20.x 或更高版本
+- npm 包管理器 10.x 或更高版本
+- 数据库（支持 SQLite、MySQL 等）版本请关注 [Laravel 12 文档](https://laravel.com/docs/12.x/database)
+
+## 开始安装
 ### Step 1: 安装 Composer 依赖
 ```bash
 composer install

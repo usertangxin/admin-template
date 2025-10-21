@@ -10,8 +10,16 @@
             "link": "/Modules/Admin/admin-script"
         },
         {
-            "text": "菜单注册",
+            "text": "菜单",
             "link": "/Modules/Admin/menu-register"
+        },
+        {
+            "text": "配置",
+            "link": "/Modules/Admin/config-register"
+        },
+        {
+            "text": "字典",
+            "link": "/Modules/Admin/dict-register"
         }
     ]
 }

@@ -19,10 +19,10 @@ import { data as featuresData } from "./.vitepress/features.data.js"
 </script>
 
 <div class="custom-feature">
-    <div class="custom-feature-item" v-for="feature in featuresData" :key="feature.title">
+    <a class="custom-feature-item" v-for="feature in featuresData" :key="feature.title" :href="'/Modules/' + feature.title + '/'">
         <h3 class="custom-feature-title">{{ feature.title }}</h3>
         <p class="custom-feature-details">{{ feature.details }}</p>
-    </div>
+    </a>
 </div>
 
 <style>

@@ -25,5 +25,11 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/usertangxin/admin-template' }
     ],
+  },
+  vite: {
+    configFile: false,
+    server: {
+      port: 5172,
+    }
   }
 })
