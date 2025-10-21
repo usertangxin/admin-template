@@ -14,6 +14,10 @@
             "link": "/Modules/Admin/menu-register"
         },
         {
+            "text": "数据权限",
+            "link": "/Modules/Admin/data-scope"
+        },
+        {
             "text": "配置",
             "link": "/Modules/Admin/config-register"
         },
