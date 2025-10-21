@@ -1,5 +1,5 @@
 import { createApp, h } from 'vue'
-import { createInertiaApp, router } from '@inertiajs/vue3'
+import { createInertiaApp, router, usePage } from '@inertiajs/vue3'
 import Size from '/Modules/Admin/resources/assets/js//layouts/size.vue';
 import NotFoundPage from '/Modules/Admin/resources/assets/js/pages/404.vue'
 import _ from 'lodash';
@@ -14,6 +14,13 @@ import { createI18n } from 'vue-i18n'
 import { loadLocaleMessages, setI18nLanguage } from './i18n'
 
 createInertiaApp({
+    title: title => {
+        const page = usePage();
+        if(!title) {
+            return page.props['page-title'].value
+        }
+        return `${title} - ${page.props['page-title'].value}`
+    },
     resolve: async name => {
         const [prefix, moduleName, action] = name.split('.')
         let page = null

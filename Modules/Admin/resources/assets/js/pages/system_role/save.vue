@@ -34,7 +34,7 @@
 import _ from 'lodash';
 import { reactive, ref, watch } from 'vue';
 import { recursiveFilter, recursiveForEach, recursiveMap } from '../../util';
-import { t } from '/Modules/Admin/resources/assets/js/i18n'
+import { t, __ } from '/Modules/Admin/resources/assets/js/i18n'
 
 const props = defineProps(['data'])
 const permissionTree = ref([]);
@@ -52,7 +52,7 @@ const formData = reactive({
 
 const rules = {
     name: [
-        { required: true, message: t('systemRole.inputRoleName'), },
+        { required: true, message: __('systemRole.inputRoleName'), },
     ],
 }
 

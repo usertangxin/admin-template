@@ -43,7 +43,7 @@
 <script setup>
 import _ from 'lodash';
 import {provide, reactive, ref} from 'vue';
-import { t } from '/Modules/Admin/resources/assets/js/i18n'
+import { t, __ } from '/Modules/Admin/resources/assets/js/i18n'
 
 const props = defineProps(['data'])
 const roles = ref([]);
@@ -67,8 +67,8 @@ provide('formData', formData)
 
 const rules = {
     admin_name: [
-        { required: true, message: t('systemAdmin.adminNamePlaceholder') },
-        { minLength: 3, message: t('systemAdmin.adminNameMinLength') },
+        { required: true, message: __('systemAdmin.adminNamePlaceholder') },
+        { minLength: 3, message: __('systemAdmin.adminNameMinLength') },
     ],
 }
 

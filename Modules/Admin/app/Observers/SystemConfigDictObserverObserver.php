@@ -16,15 +16,18 @@ class SystemConfigDictObserverObserver
     {
         $config_cache_name_map = config('admin.cache_name_map');
         $cacheMap              = [
-            SystemConfig::class      => fn () => app(SystemConfigService::class)->clearListCache($model->getLocale()),
-            SystemConfigGroup::class => fn () => app(SystemConfigService::class)->clearGroupCache($model->getLocale()),
-            SystemDict::class        => fn () => app(SystemDictService::class)->clearListCache($model->getLocale()),
-            SystemDictType::class    => fn () => app(SystemDictService::class)->clearGroupCache($model->getLocale()),
+            SystemConfig::class      => fn() => app(SystemConfigService::class)->clearListCache(),
+            SystemConfigGroup::class => fn() => app(SystemConfigService::class)->clearGroupCache(),
+            SystemDict::class        => fn() => app(SystemDictService::class)->clearListCache(),
+            SystemDictType::class    => fn() => app(SystemDictService::class)->clearGroupCache(),
         ];
 
         $cacheMap[get_class($model)]();
-
-        Cache::forget($config_cache_name_map['system_config_dict_hash'] . $model->getLocale());
+        
+        $multi_language = config('admin.multi_language');
+        foreach ($multi_language as $item) {
+            Cache::forget($config_cache_name_map['system_config_dict_hash'] . $item);
+        }
     }
 
     public function created($model): void
