@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
-import { loadSidebarConfigs, createDocsSymlinks } from './util.js'
+import { loadSidebarConfigs, copyDocs } from './util.js'
 
-createDocsSymlinks()
+copyDocs()
 const sidebarConfigs = loadSidebarConfigs()
 
 export default defineConfig({

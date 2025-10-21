@@ -12,17 +12,17 @@ const appPath = path.resolve(__dirname, '../../')
 export function loadSidebarConfigs() {
   const sidebarConfigs = []
   const modulesDir = path.resolve(appPath, 'Modules')
-  
+
   try {
     // 读取Modules目录下的所有文件夹
     const packages = fs.readdirSync(modulesDir, { withFileTypes: true })
       .filter(dir => dir.isDirectory())
       .map(dir => dir.name)
-    
+
     // 遍历每个包，查找并读取sidebar.json文件
     for (const pkg of packages) {
       const sidebarPath = path.resolve(modulesDir, pkg, 'docs', 'sidebar.json')
-      
+
       // 检查文件是否存在
       if (fs.existsSync(sidebarPath)) {
         try {
@@ -37,7 +37,7 @@ export function loadSidebarConfigs() {
   } catch (error) {
     console.error('Error loading sidebar configs:', error)
   }
-  
+
   return sidebarConfigs
 }
 
@@ -45,17 +45,17 @@ export function loadSidebarConfigs() {
 export function loadFeatures() {
   const features = []
   const modulesDir = path.resolve(appPath, 'Modules')
-  
+
   try {
     // 读取Modules目录下的所有文件夹
     const packages = fs.readdirSync(modulesDir, { withFileTypes: true })
       .filter(dir => dir.isDirectory())
       .map(dir => dir.name)
-    
+
     // 遍历每个包，查找并读取feature.json文件
     for (const pkg of packages) {
-      const featurePath = path.resolve(modulesDir, pkg,  'module.json')
-      
+      const featurePath = path.resolve(modulesDir, pkg, 'module.json')
+
       // 检查文件是否存在
       if (fs.existsSync(featurePath)) {
         try {
@@ -73,11 +73,11 @@ export function loadFeatures() {
   } catch (error) {
     console.error('Error loading features:', error)
   }
-  
+
   return features
 }
 
-export function createDocsSymlinks() {
+export function copyDocs() {
   const modulesDir = path.resolve(appPath, 'Modules')
 
   if (!fs.existsSync(modulesDir)) return;
@@ -93,7 +93,7 @@ export function createDocsSymlinks() {
   for (const module of modules) {
     const modulePath = path.join(modulesDir, module);
     const stat = fs.statSync(modulePath);
-    
+
     if (stat.isDirectory()) {
       const docsPath = path.join(modulePath, 'docs');
       if (fs.existsSync(docsPath)) {
@@ -103,8 +103,9 @@ export function createDocsSymlinks() {
           try {
             // const existingStat = fs.lstatSync(targetPath);
             // if (existingStat.isSymbolicLink()) {
-              fs.unlinkSync(targetPath);
+            // fs.unlinkSync(targetPath);
             // }
+            fs.rmSync(targetPath, { recursive: true });
           } catch (err) {
             console.error(`删除 ${targetPath} 时出错:`, err);
             continue;
@@ -113,7 +114,7 @@ export function createDocsSymlinks() {
         try {
           // 创建软链
           // fs.symlinkSync(path.relative(path.dirname(targetPath), docsPath), targetPath, 'junction');
-          fse.copySync(path.resolve(__dirname,path.relative(path.dirname(targetPath), docsPath)), targetPath)
+          fse.copySync(path.resolve(__dirname, path.relative(path.dirname(targetPath), docsPath)), targetPath)
         } catch (err) {
           console.error(`为 ${docsPath} 创建软链到 ${targetPath} 时出错:`, err);
         }
