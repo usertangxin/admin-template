@@ -1,5 +1,6 @@
 import path from 'path'
 import fs from 'fs'
+import fse from 'fs-extra'
 import { fileURLToPath } from 'url'
 
 // 获取当前文件的目录路径
@@ -76,7 +77,6 @@ export function loadFeatures() {
   return features
 }
 
-// 遍历 modulesDir 目录并将子目录中的 docs 目录创建软链到 docs/Modules 中
 export function createDocsSymlinks() {
   const modulesDir = path.resolve(appPath, 'Modules')
 
@@ -101,10 +101,10 @@ export function createDocsSymlinks() {
         // 检查软链是否已存在，若存在则先删除
         if (fs.existsSync(targetPath)) {
           try {
-            const existingStat = fs.lstatSync(targetPath);
-            if (existingStat.isSymbolicLink()) {
+            // const existingStat = fs.lstatSync(targetPath);
+            // if (existingStat.isSymbolicLink()) {
               fs.unlinkSync(targetPath);
-            }
+            // }
           } catch (err) {
             console.error(`删除 ${targetPath} 时出错:`, err);
             continue;
@@ -112,7 +112,8 @@ export function createDocsSymlinks() {
         }
         try {
           // 创建软链
-          fs.symlinkSync(path.relative(path.dirname(targetPath), docsPath), targetPath, 'junction');
+          // fs.symlinkSync(path.relative(path.dirname(targetPath), docsPath), targetPath, 'junction');
+          fse.copySync(path.resolve(__dirname,path.relative(path.dirname(targetPath), docsPath)), targetPath)
         } catch (err) {
           console.error(`为 ${docsPath} 创建软链到 ${targetPath} 时出错:`, err);
         }
