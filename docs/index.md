@@ -4,6 +4,9 @@ layout: home
 hero:
   name: "Laravel Admin Doc"
   tagline: 基于 Laravel 12 开发的一套后台管理系统
+  image:
+    src: /logo.png
+    alt: Laravel Admin Doc
 
   actions:
     - theme: brand
@@ -37,6 +40,7 @@ import { data as featuresData } from "./.vitepress/features.data.js"
     border-radius: 8px;
     background-color: var(--vp-c-bg-soft);
     cursor: pointer;
+    text-decoration: none !important; 
 }
 
 .custom-feature .custom-feature-title {
