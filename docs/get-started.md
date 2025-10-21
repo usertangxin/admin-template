@@ -3,6 +3,8 @@ title: "Get Started"
 ---
 
 # Get Started
+做完以下步骤后，初始账号为 `super admin`，密码为 `123456`。
+
 ### Step 1: 安装 Composer 依赖
 ```bash
 composer install
