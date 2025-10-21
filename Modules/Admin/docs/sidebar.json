@@ -20,6 +20,23 @@
         {
             "text": "字典",
             "link": "/Modules/Admin/dict-register"
+        },
+        {
+            "text": "国际化",
+            "link": "/Modules/Admin/lang"
+        },
+        {
+            "text": "前端",
+            "items": [
+                {
+                    "text": "useComm.js",
+                    "link": "/Modules/Admin/use-comm"
+                },
+                {
+                    "text": "页面命名规范",
+                    "link": "/Modules/Admin/page-naming"
+                }
+            ]
         }
     ]
 }

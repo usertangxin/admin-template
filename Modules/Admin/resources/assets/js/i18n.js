@@ -42,6 +42,15 @@ export async function loadLocaleMessages(i18n, locale) {
     }
   }
 
+  const appMessages = import.meta.glob(`/resources/js/locales/*.json`)
+  
+  for (const path in appMessages) {
+    if (path.includes(locale + '.json')) {
+      const appMessage = await appMessages[path]()
+      moduleMessages = { ...moduleMessages, ...appMessage.default }
+    }
+  }
+
   // console.log(locale, moduleMessages)
 
   i18n.global.setLocaleMessage(locale, moduleMessages)
