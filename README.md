@@ -74,6 +74,11 @@ php artisan module:enable
 composer run dev
 ```
 
+### 查看离线文档
+```bash
+npm run docs:dev
+```
+
 ## 许可证
 本项目采用 [MIT 许可证](https://opensource.org/licenses/MIT)。
 
