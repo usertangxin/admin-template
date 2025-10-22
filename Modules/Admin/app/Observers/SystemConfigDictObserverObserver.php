@@ -16,14 +16,14 @@ class SystemConfigDictObserverObserver
     {
         $config_cache_name_map = config('admin.cache_name_map');
         $cacheMap              = [
-            SystemConfig::class      => fn() => app(SystemConfigService::class)->clearListCache(),
-            SystemConfigGroup::class => fn() => app(SystemConfigService::class)->clearGroupCache(),
-            SystemDict::class        => fn() => app(SystemDictService::class)->clearListCache(),
-            SystemDictType::class    => fn() => app(SystemDictService::class)->clearGroupCache(),
+            SystemConfig::class      => fn () => app(SystemConfigService::class)->clearListCache(),
+            SystemConfigGroup::class => fn () => app(SystemConfigService::class)->clearGroupCache(),
+            SystemDict::class        => fn () => app(SystemDictService::class)->clearListCache(),
+            SystemDictType::class    => fn () => app(SystemDictService::class)->clearGroupCache(),
         ];
 
         $cacheMap[get_class($model)]();
-        
+
         $multi_language = config('admin.multi_language');
         foreach ($multi_language as $item) {
             Cache::forget($config_cache_name_map['system_config_dict_hash'] . $item);

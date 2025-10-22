@@ -15,8 +15,7 @@ class HandleInertiaRequests extends AppHandleInertiaRequests
     public function handle(Request $request, Closure $next)
     {
         Inertia::share('page-title', SystemConfigService::getInstance()->getConfigByKey('site_name'));
-        
+
         return parent::handle($request, $next);
     }
-
 }

@@ -95,14 +95,14 @@ class CrudTest extends AbstractAuthTestCase
     public function test_create(): void
     {
 
-        $response  = $this->postJson('/web/admin/CrudTest/create', [
-            'name'           => 'asdf',
+        $response = $this->postJson('/web/admin/CrudTest/create', [
+            'name' => 'asdf',
         ]);
         $response->assertJson(['code' => 0]);
 
         // 测试重复名称
         $response = $this->postJson('/web/admin/CrudTest/create', [
-            'name'           => 'asdf',
+            'name' => 'asdf',
         ]);
         $response->assertJson(['code' => 422]);
     }

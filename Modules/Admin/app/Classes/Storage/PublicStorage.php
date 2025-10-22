@@ -111,7 +111,7 @@ class PublicStorage implements UploadFileStorageInterface
 
     public function temporaryUrl($path, DateTime $expiration, $options = []): string
     {
-        throw new \Exception(__('admin::system_upload_file.public_temporary_tip'));
+        throw new Exception(__('admin::system_upload_file.public_temporary_tip'));
     }
 
     public function __call($name, $arguments)

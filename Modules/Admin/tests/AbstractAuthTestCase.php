@@ -3,7 +3,6 @@
 namespace Modules\Admin\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Mockery;
 use Modules\Admin\Models\SystemAdmin;
 use Nwidart\Modules\Facades\Module;
 use Tests\TestCase;
