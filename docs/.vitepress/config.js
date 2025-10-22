@@ -7,6 +7,8 @@ const sidebarConfigs = loadSidebarConfigs()
 export default defineConfig({
   title: "Laravel Admin Doc",
   themeConfig: {
+    outline: 'deep',
+    outlineTitle: '目录',
     nav: [
       { text: 'Home', link: '/' },
     ],
