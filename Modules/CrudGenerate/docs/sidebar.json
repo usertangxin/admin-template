@@ -1,0 +1,17 @@
+{
+    "text": "CrudGenerate",
+    "items": [
+        {
+            "text": "模块介绍",
+            "link": "/Modules/CrudGenerate/"
+        },
+        {
+            "text": "字段控件",
+            "link": "/Modules/CrudGenerate/field-control"
+        },
+        {
+            "text": "页面视图控件",
+            "link": "/Modules/CrudGenerate/page-view-control"
+        }
+    ]
+}

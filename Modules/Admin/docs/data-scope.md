@@ -28,7 +28,7 @@ public bool $ignoreGlobalDataPermission = true;
 
 ## 注册全局数据权限
 
-全局数据权限被管理员选择
+全局数据权限被管理员选择，你可以根据业务需求扩展数据权限
 
 ```php
 <?php
