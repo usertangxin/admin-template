@@ -28,6 +28,9 @@ import { data as featuresData } from "./.vitepress/features.data.js"
     </a>
 </div>
 
+### 加入我们的 QQ 群
+<img src="/qq-group-code.jpg" alt="qq-group-code" style="width: 200px;">
+
 <style>
 .custom-feature {
     display: grid;
