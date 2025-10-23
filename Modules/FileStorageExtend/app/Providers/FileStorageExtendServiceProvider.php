@@ -11,7 +11,10 @@ use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Filesystem;
 use Modules\Admin\Services\FileStorageService;
 use Modules\FileStorageExtend\Classes\Storage\OSSStorage;
+use Modules\FileStorageExtend\Classes\Storage\QiniuStorage;
 use Nwidart\Modules\Traits\PathNamespace;
+use Overtrue\Flysystem\Cos\CosAdapter;
+use Overtrue\Flysystem\Qiniu\QiniuAdapter;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
@@ -35,6 +38,17 @@ class FileStorageExtendServiceProvider extends ServiceProvider
         // $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
+        $this->extendOss();
+        $this->extendQiniu();
+
+        app()->booted(function () {
+            app(FileStorageService::class)->registerFileStorage($this->app->make(OSSStorage::class));
+            app(FileStorageService::class)->registerFileStorage($this->app->make(QiniuStorage::class));
+        });
+    }
+
+    private function extendOss()
+    {
         Storage::extend('oss', function (Application $app, array $config) {
             $prefix = $config['prefix'] ?? ''; // 前缀，非必填
             $accessKeyId = $config['accessKeyId'] ?? '';
@@ -50,9 +64,59 @@ class FileStorageExtendServiceProvider extends ServiceProvider
                 $config
             );
         });
+    }
 
-        app()->booted(function(){
-            app(FileStorageService::class)->registerFileStorage($this->app->make(OSSStorage::class));
+    private function extendQiniu()
+    {
+        Storage::extend('qiniu', function (Application $app, array $config) {
+            $accessKey = $config['accessKey'] ?? '';
+            $secretKey = $config['secretKey'] ?? '';
+            $bucket = $config['bucket'] ?? '';
+            $domain = $config['domain'] ?? ''; // or with protocol: https://xxxx.bkt.clouddn.com
+
+            $adapter = new QiniuAdapter($accessKey, $secretKey, $bucket, $domain);
+
+            return new FilesystemAdapter(
+                new Filesystem($adapter, $config),
+                $adapter,
+                $config
+            );
+        });
+    }
+
+    private function extendCos()
+    {
+        Storage::extend('cos', function (Application $app, array $config) {
+            $a = [
+                // 必填，app_id、secret_id、secret_key 
+                // 可在个人秘钥管理页查看：https://console.cloud.tencent.com/capi
+                'app_id' => $config['app_id'] ?? '',
+                'secret_id' => $config['secret_id'] ?? '',
+                'secret_key' => $config['secret_key'] ?? '',
+
+                'region' => $config['region'] ?? '',
+                'bucket' => $config['bucket'] ?? '',
+
+                // 可选，如果 bucket 为私有访问请打开此项
+                'signed_url' => $config['signed_url'] ?? false,
+
+                // 可选，是否使用 https，默认 false
+                'use_https' => $config['use_https'] ?? true,
+
+                // 可选，自定义域名
+                'domain' => $config['domain'] ?? '',
+
+                // 可选，使用 CDN 域名时指定生成的 URL host
+                'cdn' => $config['cdn'] ?? '',
+            ];
+
+            $adapter = new CosAdapter($a);
+
+            return new FilesystemAdapter(
+                new Filesystem($adapter, $config),
+                $adapter,
+                $config
+            );
         });
     }
 

@@ -4,6 +4,7 @@ namespace Modules\FileStorageExtend\Classes\Storage;
 
 use DateTime;
 use Exception;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Filesystem\LocalFilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
@@ -11,36 +12,37 @@ use Illuminate\Support\Str;
 use Modules\Admin\Interfaces\UploadFileStorageInterface;
 use Modules\Admin\Models\SystemUploadFile;
 use Modules\Admin\Services\SystemConfigService;
+use Overtrue\Flysystem\Qiniu\QiniuAdapter;
 
-class OSSStorage implements UploadFileStorageInterface
+class CosStorage implements UploadFileStorageInterface
 {
     protected function getConfig(): array
     {
         $systemConfigService = SystemConfigService::getInstance();
         try {
-            $prefix = $systemConfigService->getValueByKey('upload_oss_dirname');
-            $accessKeyId = $systemConfigService->getValueByKey('upload_oss_accessKeyId');
-            $accessKeySecret = $systemConfigService->getValueByKey('upload_oss_accessKeySecret');
-            $endpoint = $systemConfigService->getValueByKey('upload_oss_endpoint');
-            $bucket = $systemConfigService->getValueByKey('upload_oss_bucket');
-            $isCName = $systemConfigService->getValueByKey('upload_oss_domain');
+            $app_id = $systemConfigService->getValueByKey('upload_cos_appId');
+            $secret_id = $systemConfigService->getValueByKey('upload_cos_secretId');
+            $secret_key = $systemConfigService->getValueByKey('upload_cos_secretKey');
+            $region = $systemConfigService->getValueByKey('upload_cos_region');
+            $bucket = $systemConfigService->getValueByKey('upload_cos_bucket');
+            $domain = $systemConfigService->getValueByKey('upload_cos_domain');
         } catch (\Throwable $e) {
-            $prefix = '';
-            $accessKeyId = '';
-            $accessKeySecret = '';
-            $endpoint = '';
+            $app_id = '';
+            $secret_id = '';
+            $secret_key = '';
+            $region = '';
             $bucket = '';
-            $isCName = false;
+            $domain = '';
         }
 
         return [
-            'driver' => 'oss',
-            'prefix' => $prefix,
-            'accessKeyId' => $accessKeyId,
-            'accessKeySecret' => $accessKeySecret,
-            'endpoint' => $endpoint,
+            'driver' => 'qiniu',
+            'app_id' => $app_id,
+            'secret_id' => $secret_id,
+            'secret_key' => $secret_key,
+            'region' => $region,
             'bucket' => $bucket,
-            'isCName' => $isCName,
+            'domain' => $domain,
             'throw'  => true,
         ];
     }
@@ -48,27 +50,27 @@ class OSSStorage implements UploadFileStorageInterface
     public function __construct()
     {
         config([
-            'filesystems.disks.admin-oss' => $this->getConfig(),
+            'filesystems.disks.admin-qiniu' => $this->getConfig(),
         ]);
     }
 
     public function storage_mode(): string
     {
-        return 'upload_oss';
+        return 'upload_qiniu';
     }
 
     protected function getDisk(): FilesystemAdapter
     {
-        return Storage::disk('admin-oss');
+        return Storage::disk('admin-qiniu');
     }
 
     public function storage($files, $upload_mode, $path = ''): array 
     {
         $systemConfigService = SystemConfigService::getInstance();
 
-        $oss_status = $systemConfigService->getValueByKey('upload_oss_status');
-        if ($oss_status != 'normal') {
-            throw new Exception(__('file_storage_extend::system_upload_file.upload_oss_status'));
+        $qiniu_status = $systemConfigService->getValueByKey('upload_qiniu_status');
+        if ($qiniu_status != 'normal') {
+            throw new Exception(__('file_storage_extend::system_upload_file.upload_qiniu_status'));
         }
 
         $disk = $this->getDisk();

@@ -55,11 +55,27 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'upload_cos_secretId',
+        'key'   => 'upload_cos_appId',
         'value' => '',
         'name'  => [
             'zh_CN' => '腾讯Id',
             'en'    => 'Tencent Cloud Id',
+        ],
+        'input_type' => SystemConfigInputType::INPUT,
+        'remark'     => [
+            'zh_CN' => '腾讯云存储appId',
+            'en'    => 'Tencent Cloud Storage appId',
+        ],
+        'bind_p_config' => 'storage_mode',
+        'input_attr'    => null,
+    ],
+    [
+        'group' => 'upload_config',
+        'key'   => 'upload_cos_secretId',
+        'value' => '',
+        'name'  => [
+            'zh_CN' => '腾讯SecretId',
+            'en'    => 'Tencent Cloud Storage secretId',
         ],
         'input_type' => SystemConfigInputType::INPUT,
         'remark'     => [
@@ -97,22 +113,6 @@ return [
         'remark'     => [
             'zh_CN' => '腾讯云存储bucket',
             'en'    => 'Tencent Cloud Storage bucket',
-        ],
-        'bind_p_config' => 'storage_mode',
-        'input_attr'    => null,
-    ],
-    [
-        'group' => 'upload_config',
-        'key'   => 'upload_cos_dirname',
-        'value' => '',
-        'name'  => [
-            'zh_CN' => '腾讯dirname',
-            'en'    => 'Tencent Cloud Storage dirname',
-        ],
-        'input_type' => SystemConfigInputType::INPUT,
-        'remark'     => [
-            'zh_CN' => '腾讯云存储dirname',
-            'en'    => 'Tencent Cloud Storage dirname',
         ],
         'bind_p_config' => 'storage_mode',
         'input_attr'    => null,
