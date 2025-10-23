@@ -28,7 +28,7 @@ class UploadFileTest extends AbstractAuthTestCase
             'file' => UploadedFile::fake()->image('test.jpg'),
         ]);
         $response->assertJson(['code' => 0]);
-        $this->assertTrue(Storage::disk('public')->delete($response->json('data.0.storage_path')));
+        $this->assertTrue(Storage::disk('admin-public')->delete($response->json('data.0.storage_path')));
 
         $response = $this->postJson('/web/admin/SystemUploadFile/upload', [
             'file'        => UploadedFile::fake()->image('test.png'),
@@ -47,7 +47,7 @@ class UploadFileTest extends AbstractAuthTestCase
         $this->postJson('/web/admin/SystemConfig/save', [
             'data' => [
                 [
-                    'key'   => 'public_status',
+                    'key'   => 'upload_public_status',
                     'value' => 'disabled',
                 ],
             ],
@@ -78,7 +78,7 @@ class UploadFileTest extends AbstractAuthTestCase
         $response = $this->postJson('/web/admin/SystemUploadFile/upload', [
             'file'         => UploadedFile::fake()->create('test.md', 1),
             'upload_mode'  => 'document',
-            'storage_mode' => 'private',
+            'storage_mode' => 'upload_private',
         ]);
         $hash     = $response->json('data.0.hash');
         $id       = SystemUploadFile::whereHash($hash)->first()->id;

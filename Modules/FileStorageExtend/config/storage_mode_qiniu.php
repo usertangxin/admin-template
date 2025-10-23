@@ -10,7 +10,7 @@ return [
     */
     [
         'group' => 'upload_config',
-        'key'   => 'qiniu_status',
+        'key'   => 'upload_qiniu_status',
         'value' => 'disabled',
         'name'  => [
             'zh_CN' => '七牛云状态',
@@ -55,7 +55,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'qiniu_accessKey',
+        'key'   => 'upload_qiniu_accessKey',
         'value' => '',
         'name'  => [
             'zh_CN' => '七牛key',
@@ -72,7 +72,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'qiniu_secretKey',
+        'key'   => 'upload_qiniu_secretKey',
         'value' => '',
         'name'  => [
             'zh_CN' => '七牛secret',
@@ -89,7 +89,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'qiniu_bucket',
+        'key'   => 'upload_qiniu_bucket',
         'value' => '',
         'name'  => [
             'zh_CN' => '七牛bucket',
@@ -106,7 +106,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'qiniu_dirname',
+        'key'   => 'upload_qiniu_dirname',
         'value' => '',
         'name'  => [
             'zh_CN' => '七牛dirname',
@@ -123,7 +123,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'qiniu_domain',
+        'key'   => 'upload_qiniu_domain',
         'value' => '',
         'name'  => [
             'zh_CN' => '七牛domain',

@@ -203,7 +203,7 @@ return [
     [
         'group' => 'upload_config',
         'key'   => 'storage_mode',
-        'value' => 'public',
+        'value' => 'upload_public',
         'name'  => [
             'zh_CN' => '默认存储',
             'en'    => 'Default Storage',
@@ -213,10 +213,10 @@ return [
         'bind_p_config' => '',
         'input_attr'    => [
             'zh_CN' => [
-                'options' => [['label' => '本地私有', 'value' => 'private'], ['label' => '本地公开', 'value' => 'public']],
+                'options' => [['label' => '本地私有', 'value' => 'upload_private'], ['label' => '本地公开', 'value' => 'upload_public']],
             ],
             'en' => [
-                'options' => [['label' => 'Private', 'value' => 'private'], ['label' => 'Public', 'value' => 'public']],
+                'options' => [['label' => 'Private', 'value' => 'upload_private'], ['label' => 'Public', 'value' => 'upload_public']],
             ],
         ],
     ],
@@ -227,7 +227,7 @@ return [
     */
     [
         'group' => 'upload_config',
-        'key'   => 'private_status',
+        'key'   => 'upload_private_status',
         'value' => 'normal',
         'name'  => [
             'zh_CN' => '本地私有状态',
@@ -277,7 +277,7 @@ return [
     */
     [
         'group' => 'upload_config',
-        'key'   => 'public_status',
+        'key'   => 'upload_public_status',
         'value' => 'normal',
         'name'  => [
             'zh_CN' => '本地存储状态',
@@ -322,7 +322,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'public_domain',
+        'key'   => 'upload_public_domain',
         'value' => 'http://127.0.0.1:8000',
         'name'  => [
             'zh_CN' => '本地存储域名',

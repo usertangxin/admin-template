@@ -10,7 +10,7 @@ return [
     */
     [
         'group' => 'upload_config',
-        'key'   => 'oss_status',
+        'key'   => 'upload_oss_status',
         'value' => 'disabled',
         'name'  => [
             'zh_CN' => '阿里云状态',
@@ -55,7 +55,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'oss_accessKeyId',
+        'key'   => 'upload_oss_accessKeyId',
         'value' => '',
         'name'  => [
             'zh_CN' => '阿里Id',
@@ -69,7 +69,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'oss_accessKeySecret',
+        'key'   => 'upload_oss_accessKeySecret',
         'value' => '',
         'name'  => [
             'zh_CN' => '阿里Secret',
@@ -86,7 +86,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'oss_bucket',
+        'key'   => 'upload_oss_bucket',
         'value' => '',
         'name'  => [
             'zh_CN' => '阿里bucket',
@@ -103,7 +103,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'oss_dirname',
+        'key'   => 'upload_oss_dirname',
         'value' => '',
         'name'  => [
             'zh_CN' => '阿里dirname',
@@ -120,7 +120,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'oss_domain',
+        'key'   => 'upload_oss_domain',
         'value' => '',
         'name'  => [
             'zh_CN' => '阿里domain',
@@ -137,7 +137,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'oss_endpoint',
+        'key'   => 'upload_oss_endpoint',
         'value' => '',
         'name'  => [
             'zh_CN' => '阿里endpoint',

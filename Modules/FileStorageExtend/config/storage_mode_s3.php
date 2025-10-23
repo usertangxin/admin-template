@@ -10,7 +10,7 @@ return [
     */
     [
         'group' => 'upload_config',
-        'key'   => 's3_status',
+        'key'   => 'upload_s3_status',
         'value' => 'disabled',
         'name'  => [
             'zh_CN' => 's3状态',
@@ -55,7 +55,7 @@ return [
     ],
     [
         'group'      => 'upload_config',
-        'key'        => 's3_key',
+        'key'        => 'upload_s3_key',
         'value'      => '',
         'name'       => 'key',
         'input_type' => SystemConfigInputType::INPUT,
@@ -66,7 +66,7 @@ return [
     ],
     [
         'group'      => 'upload_config',
-        'key'        => 's3_secret',
+        'key'        => 'upload_s3_secret',
         'value'      => '',
         'name'       => 'secret',
         'input_type' => SystemConfigInputType::INPUT,
@@ -77,7 +77,7 @@ return [
     ],
     [
         'group'      => 'upload_config',
-        'key'        => 's3_bucket',
+        'key'        => 'upload_s3_bucket',
         'value'      => '',
         'name'       => 'bucket',
         'input_type' => SystemConfigInputType::INPUT,
@@ -88,7 +88,7 @@ return [
     ],
     [
         'group'      => 'upload_config',
-        'key'        => 's3_dirname',
+        'key'        => 'upload_s3_dirname',
         'value'      => '',
         'name'       => 'dirname',
         'input_type' => SystemConfigInputType::INPUT,
@@ -99,7 +99,7 @@ return [
     ],
     [
         'group'      => 'upload_config',
-        'key'        => 's3_domain',
+        'key'        => 'upload_s3_domain',
         'value'      => '',
         'name'       => 'domain',
         'input_type' => SystemConfigInputType::INPUT,
@@ -110,7 +110,7 @@ return [
     ],
     [
         'group'      => 'upload_config',
-        'key'        => 's3_region',
+        'key'        => 'upload_s3_region',
         'value'      => '',
         'name'       => 'region',
         'input_type' => SystemConfigInputType::INPUT,
@@ -121,7 +121,7 @@ return [
     ],
     [
         'group'      => 'upload_config',
-        'key'        => 's3_version',
+        'key'        => 'upload_s3_version',
         'value'      => '',
         'name'       => 'version',
         'input_type' => SystemConfigInputType::INPUT,
@@ -132,7 +132,7 @@ return [
     ],
     [
         'group'      => 'upload_config',
-        'key'        => 's3_use_path_style_endpoint',
+        'key'        => 'upload_s3_use_path_style_endpoint',
         'value'      => '',
         'name'       => 'path_style_endpoint',
         'input_type' => SystemConfigInputType::INPUT,
@@ -143,7 +143,7 @@ return [
     ],
     [
         'group'      => 'upload_config',
-        'key'        => 's3_endpoint',
+        'key'        => 'upload_s3_endpoint',
         'value'      => '',
         'name'       => 'endpoint',
         'input_type' => SystemConfigInputType::INPUT,
@@ -154,7 +154,7 @@ return [
     ],
     [
         'group'      => 'upload_config',
-        'key'        => 's3_acl',
+        'key'        => 'upload_s3_acl',
         'value'      => '',
         'name'       => 'acl',
         'input_type' => SystemConfigInputType::INPUT,

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Admin\Classes\Storage;
+namespace Modules\FileStorageExtend\Classes\Storage;
 
 use DateTime;
 use Exception;
@@ -11,58 +11,64 @@ use Modules\Admin\Interfaces\UploadFileStorageInterface;
 use Modules\Admin\Models\SystemUploadFile;
 use Modules\Admin\Services\SystemConfigService;
 
-class PublicStorage implements UploadFileStorageInterface
+class OSSStorage implements UploadFileStorageInterface
 {
     protected function getConfig(): array
     {
         $systemConfigService = SystemConfigService::getInstance();
         try {
-            $domain = $systemConfigService->getValueByKey('upload_public_domain');
+            $prefix = $systemConfigService->getValueByKey('upload_oss_dirname');
+            $accessKeyId = $systemConfigService->getValueByKey('upload_oss_accessKeyId');
+            $accessKeySecret = $systemConfigService->getValueByKey('upload_oss_accessKeySecret');
+            $endpoint = $systemConfigService->getValueByKey('upload_oss_endpoint');
+            $bucket = $systemConfigService->getValueByKey('upload_oss_bucket');
+            $isCName = $systemConfigService->getValueByKey('upload_oss_domain');
         } catch (\Throwable $e) {
-            $domain = '';
+            $prefix = '';
+            $accessKeyId = '';
+            $accessKeySecret = '';
+            $endpoint = '';
+            $bucket = '';
+            $isCName = false;
         }
 
         return [
-            'driver'     => 'local',
-            'root'       => storage_path('app/admin-public'),
-            'url'        => $domain . '/storage-admin',
-            'visibility' => 'public',
-            'serve'      => false,
-            'throw'      => true,
-            'report'     => false,
+            'driver' => 'oss',
+            'prefix' => $prefix,
+            'accessKeyId' => $accessKeyId,
+            'accessKeySecret' => $accessKeySecret,
+            'endpoint' => $endpoint,
+            'bucket' => $bucket,
+            'isCName' => $isCName,
+            'serve'  => true,
+            'throw'  => true,
         ];
     }
 
     public function __construct()
     {
         config([
-            'filesystems.disks.admin-public' => $this->getConfig(),
-            'filesystems.links'              => array_merge(
-                config('filesystems.links'),
-                [
-                    public_path('storage-admin') => storage_path('app/admin-public'),
-                ]
-            ),
+            'filesystems.disks.admin-oss' => $this->getConfig(),
         ]);
     }
 
     public function storage_mode(): string
     {
-        return 'upload_public';
+        return 'oss';
     }
 
     protected function getDisk(): LocalFilesystemAdapter
     {
-        return Storage::build($this->getConfig());
+        return Storage::disk('admin-oss');
     }
 
-    public function storage($files, $upload_mode, $path = ''): array
+    public function storage($files, $upload_mode, $path = ''): array 
     {
         $systemConfigService = SystemConfigService::getInstance();
 
-        $public_status = $systemConfigService->getValueByKey('upload_public_status');
-        if ($public_status != 'normal') {
-            throw new Exception(__('admin::system_upload_file.upload_public_status'));
+        $oss_status = $systemConfigService->getValueByKey('upload_oss_status');
+        if ($oss_status != 'normal') {
+            throw new Exception(__('file_storage_extend::system_upload_file.upload_oss_status'));
         }
 
         $disk = $this->getDisk();
@@ -93,7 +99,7 @@ class PublicStorage implements UploadFileStorageInterface
                     'suffix'        => $file->extension(),
                     'origin_suffix' => Str::of($file->getClientOriginalExtension())->lower()->toString(),
                     'size_byte'     => $file->getSize(),
-                    'url'           => $disk->url($path),
+                    'url'           => $path,
                     'remark'        => request('remark'),
                 ];
                 SystemUploadFile::create($data);
@@ -102,6 +108,7 @@ class PublicStorage implements UploadFileStorageInterface
         }
 
         return $arr;
+
     }
 
     public function delete($paths): bool
@@ -109,9 +116,8 @@ class PublicStorage implements UploadFileStorageInterface
         return $this->getDisk()->delete($paths);
     }
 
-    public function temporaryUrl($path, DateTime $expiration, $options = []): string
-    {
-        throw new Exception(__('admin::system_upload_file.public_temporary_tip'));
+    public function temporaryUrl($path, DateTime $expiration, $options = []): string {
+        return $this->getDisk()->temporaryUrl($path, $expiration, $options);
     }
 
     public function __call($name, $arguments)

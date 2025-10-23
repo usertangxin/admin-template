@@ -16,9 +16,6 @@ class PrivateStorage implements UploadFileStorageInterface
 {
     protected function getConfig(): array
     {
-        // $systemConfigService = SystemConfigService::getInstance();
-        // $domain              = $systemConfigService->getValueByKey('public_domain');
-
         return [
             'driver' => 'local',
             'root'   => storage_path('app/admin-private'),
@@ -48,7 +45,7 @@ class PrivateStorage implements UploadFileStorageInterface
 
     public function storage_mode(): string
     {
-        return 'private';
+        return 'upload_private';
     }
 
     protected function getDisk(): LocalFilesystemAdapter
@@ -60,8 +57,8 @@ class PrivateStorage implements UploadFileStorageInterface
     {
         $systemConfigService = SystemConfigService::getInstance();
 
-        $public_status = $systemConfigService->getValueByKey('private_status');
-        if ($public_status != 'normal') {
+        $private_status = $systemConfigService->getValueByKey('upload_private_status');
+        if ($private_status != 'normal') {
             throw new Exception(__('admin::system_upload_file.upload_private_status'));
         }
 

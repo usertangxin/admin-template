@@ -134,8 +134,8 @@ return [
         ],
         'bind_p_config' => 'wechat_group',
         'input_attr'    => [
-            'zh_CN' => ['storage-mode' => 'private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => '微信支付私钥，请勿泄露'],
-            'en'    => ['storage-mode' => 'private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => 'WeChat Payment Private Key, Do Not Leak'],
+            'zh_CN' => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => '微信支付私钥，请勿泄露'],
+            'en'    => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => 'WeChat Payment Private Key, Do Not Leak'],
         ],
     ],
     [
@@ -154,8 +154,8 @@ return [
         ],
         'bind_p_config' => 'wechat_group',
         'input_attr'    => [
-            'zh_CN' => ['storage-mode' => 'private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => '微信支付公钥，请勿泄露'],
-            'en'    => ['storage-mode' => 'private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => 'WeChat Payment Public Key, Do Not Leak'],
+            'zh_CN' => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => '微信支付公钥，请勿泄露'],
+            'en'    => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => 'WeChat Payment Public Key, Do Not Leak'],
         ],
     ],
 ];

@@ -15,6 +15,11 @@
             }
         }
     },
+    "require": {
+        "overtrue/flysystem-cos": "~5.2.0",
+        "overtrue/flysystem-qiniu": "~3.2.6",
+        "iidestiny/flysystem-oss": "~4.8.1"
+    },
     "autoload": {
         "psr-4": {
             "Modules\\FileStorageExtend\\": "app/",

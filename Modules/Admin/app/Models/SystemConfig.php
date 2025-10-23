@@ -29,7 +29,10 @@ class SystemConfig extends AbstractModel
     protected function value(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => Purifier::clean($value),
+            set: fn ($value) => Purifier::clean($value, [
+                'AutoFormat.AutoParagraph' => false,
+                'AutoFormat.Linkify' => false,
+            ]),
         );
     }
 

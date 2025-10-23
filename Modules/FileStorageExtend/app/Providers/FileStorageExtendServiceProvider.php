@@ -2,10 +2,15 @@
 
 namespace Modules\FileStorageExtend\Providers;
 
+use Iidestiny\Flysystem\Oss\OssAdapter;
+use Illuminate\Filesystem\FilesystemAdapter;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
-use Modules\Admin\Services\SystemConfigService;
-use Modules\Admin\Services\SystemDictService;
+use League\Flysystem\Filesystem;
+use Modules\Admin\Services\FileStorageService;
+use Modules\FileStorageExtend\Classes\Storage\OSSStorage;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -21,7 +26,7 @@ class FileStorageExtendServiceProvider extends ServiceProvider
     /**
      * Boot the application events.
      */
-    public function boot(SystemDictService $systemDictService, SystemConfigService $systemConfigService): void
+    public function boot(): void
     {
         $this->registerCommands();
         $this->registerCommandSchedules();
@@ -30,7 +35,25 @@ class FileStorageExtendServiceProvider extends ServiceProvider
         // $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
-        // $systemDictService->registerList(config($this->nameSnake . '.dict'));
+        Storage::extend('oss', function (Application $app, array $config) {
+            $prefix = $config['prefix'] ?? ''; // 前缀，非必填
+            $accessKeyId = $config['accessKeyId'] ?? '';
+            $accessKeySecret = $config['accessKeySecret'] ?? '';
+            $endpoint = $config['endpoint'] ?? ''; // ssl：https://iidestiny.com
+            $bucket = $config['bucket'] ?? '';
+            $isCName = $config['isCName'] ?? false; // 如果 isCname 为 false，endpoint 应配置 oss 提供的域名如：`oss-cn-beijing.aliyuncs.com`，cname 或 cdn 请自行到阿里 oss 后台配置并绑定 bucket
+            $adapter = new OssAdapter($accessKeyId, $accessKeySecret, $endpoint, $bucket, $isCName, $prefix);
+
+            return new FilesystemAdapter(
+                new Filesystem($adapter, $config),
+                $adapter,
+                $config
+            );
+        });
+
+        app()->booted(function(){
+            app(FileStorageService::class)->registerFileStorage($this->app->make(OSSStorage::class));
+        });
     }
 
     /**

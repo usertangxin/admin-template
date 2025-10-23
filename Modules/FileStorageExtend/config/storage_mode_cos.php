@@ -10,7 +10,7 @@ return [
     */
     [
         'group' => 'upload_config',
-        'key'   => 'cos_status',
+        'key'   => 'upload_cos_status',
         'value' => 'disabled',
         'name'  => [
             'zh_CN' => '腾讯云状态',
@@ -55,7 +55,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'cos_secretId',
+        'key'   => 'upload_cos_secretId',
         'value' => '',
         'name'  => [
             'zh_CN' => '腾讯Id',
@@ -71,7 +71,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'cos_secretKey',
+        'key'   => 'upload_cos_secretKey',
         'value' => '',
         'name'  => [
             'zh_CN' => '腾讯key',
@@ -87,7 +87,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'cos_bucket',
+        'key'   => 'upload_cos_bucket',
         'value' => '',
         'name'  => [
             'zh_CN' => '腾讯bucket',
@@ -103,7 +103,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'cos_dirname',
+        'key'   => 'upload_cos_dirname',
         'value' => '',
         'name'  => [
             'zh_CN' => '腾讯dirname',
@@ -119,7 +119,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'cos_domain',
+        'key'   => 'upload_cos_domain',
         'value' => '',
         'name'  => [
             'zh_CN' => '腾讯domain',
@@ -135,7 +135,7 @@ return [
     ],
     [
         'group' => 'upload_config',
-        'key'   => 'cos_region',
+        'key'   => 'upload_cos_region',
         'value' => '',
         'name'  => [
             'zh_CN' => '腾讯region',

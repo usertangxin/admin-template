@@ -46,7 +46,7 @@ SystemConfigUtil::autoResisterConfig([
             'zh_CN' => '本地私有',
             'en'    => 'Private',
         ],
-        'value'  => 'private', // 不能被国际化
+        'value'  => 'upload_private', // 不能被国际化
         'code'   => 'storage_mode', // 不能被国际化
         'remark' => '',
     ],

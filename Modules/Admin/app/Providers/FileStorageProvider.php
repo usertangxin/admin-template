@@ -33,9 +33,9 @@ class FileStorageProvider extends ServiceProvider
         $fileStorageService->registerFileConstraint($this->app->make(VideoConstraint::class));
         $fileStorageService->registerFileConstraint($this->app->make(AudioConstraint::class));
 
-        app()->booted(function () use ($fileStorageService) {
-            $fileStorageService->registerFileStorage($this->app->make(PublicStorage::class));
-            $fileStorageService->registerFileStorage($this->app->make(PrivateStorage::class));
+        app()->booted(function() {
+            app(FileStorageService::class)->registerFileStorage($this->app->make(PublicStorage::class));
+            app(FileStorageService::class)->registerFileStorage($this->app->make(PrivateStorage::class));
         });
     }
 
