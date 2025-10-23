@@ -1,6 +1,6 @@
 <template>
     <a-modal v-model:visible="visible" body-class="resource-model-body" :fullscreen="true" :title="title"
-        v-bind="$attrs" @ok="handleOk" :ok-text="t('resourceModel.select')" :cancel-text="t('global.cancel')">
+        v-bind="$attrs" @ok="handleOk" :ok-text="$t('resourceModel.select')" :cancel-text="$t('global.cancel')">
         <!-- 此处如果不跟随 visible 就会导致导航 back 出现问题 -->
         <iframe v-if="visible" ref="iframeRef" :src="comSrc" @load="endNProgress" style="width: 100%; height: 100%;"></iframe>
     </a-modal>
@@ -11,7 +11,7 @@ import { computed, ref, watch } from 'vue';
 import qs from 'qs'
 import nProgress from 'nprogress';
 import { globalCursorProgress, globalCursorDefault } from '../util.js'
-import { t } from '../i18n'
+import { t, __ } from '../i18n'
 
 const visible = defineModel('visible', {
     type: Boolean,
@@ -30,7 +30,7 @@ watch(() => visible.value, (newVal) => {
 const props = defineProps({
     title: {
         type: String,
-        default: () => t('resourceModel.select')
+        default: () => __('resourceModel.select')
     },
     src: {
         type: String,
