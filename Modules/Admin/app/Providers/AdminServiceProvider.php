@@ -2,7 +2,11 @@
 
 namespace Modules\Admin\Providers;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
@@ -18,11 +22,15 @@ use Modules\Admin\Models\SystemDictType;
 use Modules\Admin\Observers\SystemConfigDictObserverObserver;
 use Modules\Admin\Rules\BetweenArr;
 use Modules\Admin\Rules\InDict;
+use Modules\Admin\Services\AdminSupportService;
 use Modules\Admin\Services\GlobalDataPermissionScopeService;
+use Modules\Admin\Services\ResponseService;
 use Modules\Admin\Services\SystemPermissionService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use Throwable;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -100,7 +108,9 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+        $this->app->singleton(AdminSupportService::class);
         $this->app->singleton(GlobalDataPermissionScopeService::class);
+        $this->withExceptions();
     }
 
     /**
@@ -169,6 +179,38 @@ class AdminServiceProvider extends ServiceProvider
                 }
             }
         }
+    }
+
+    private function withExceptions(): void
+    {
+        app()->resolving(\Illuminate\Foundation\Exceptions\Handler::class, function ($handler) {
+            $exceptions = new Exceptions($handler);
+            $exceptions->render(function (\Illuminate\Validation\ValidationException $exception, Request $request) {
+                if (app(AdminSupportService::class)->isAdminBackground()) {
+                    $messages = implode('', Arr::flatten($exception->errors()));
+
+                    return ResponseService::fail($messages, $exception->status, 'module.Admin.500', $exception->errors());
+                }
+            });
+
+            $exceptions->render(function (NotFoundResourceException $exception, Request $request) {
+                if (app(AdminSupportService::class)->isAdminBackground()) {
+                    return ResponseService::fail($exception->getMessage(), 404, null, []);
+                }
+            });
+
+            $exceptions->render(function (AuthenticationException $exception, Request $request) {
+                if (app(AdminSupportService::class)->isAdminBackground()) {
+                    return redirect()->route('web.admin.login.view');
+                }
+            });
+
+            $exceptions->render(function (Throwable $exception, Request $request) {
+                if (app(AdminSupportService::class)->isAdminBackground()) {
+                    return ResponseService::fail($exception->getMessage(), 500, 'module.Admin.500', app()->isLocal() ? ['trace' => $exception->getTrace()] : []);
+                }
+            });
+        });
     }
 
     /**
