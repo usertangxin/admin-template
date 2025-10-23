@@ -5,7 +5,6 @@ namespace Modules\FileStorageExtend\Classes\Storage;
 use DateTime;
 use Exception;
 use Illuminate\Filesystem\FilesystemAdapter;
-use Illuminate\Filesystem\LocalFilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Modules\Admin\Interfaces\UploadFileStorageInterface;
@@ -18,30 +17,30 @@ class OSSStorage implements UploadFileStorageInterface
     {
         $systemConfigService = SystemConfigService::getInstance();
         try {
-            $prefix = $systemConfigService->getValueByKey('upload_oss_dirname');
-            $accessKeyId = $systemConfigService->getValueByKey('upload_oss_accessKeyId');
+            $prefix          = $systemConfigService->getValueByKey('upload_oss_dirname');
+            $accessKeyId     = $systemConfigService->getValueByKey('upload_oss_accessKeyId');
             $accessKeySecret = $systemConfigService->getValueByKey('upload_oss_accessKeySecret');
-            $endpoint = $systemConfigService->getValueByKey('upload_oss_endpoint');
-            $bucket = $systemConfigService->getValueByKey('upload_oss_bucket');
-            $isCName = $systemConfigService->getValueByKey('upload_oss_domain');
+            $endpoint        = $systemConfigService->getValueByKey('upload_oss_endpoint');
+            $bucket          = $systemConfigService->getValueByKey('upload_oss_bucket');
+            $isCName         = $systemConfigService->getValueByKey('upload_oss_domain');
         } catch (\Throwable $e) {
-            $prefix = '';
-            $accessKeyId = '';
+            $prefix          = '';
+            $accessKeyId     = '';
             $accessKeySecret = '';
-            $endpoint = '';
-            $bucket = '';
-            $isCName = false;
+            $endpoint        = '';
+            $bucket          = '';
+            $isCName         = false;
         }
 
         return [
-            'driver' => 'oss',
-            'prefix' => $prefix,
-            'accessKeyId' => $accessKeyId,
+            'driver'          => 'oss',
+            'prefix'          => $prefix,
+            'accessKeyId'     => $accessKeyId,
             'accessKeySecret' => $accessKeySecret,
-            'endpoint' => $endpoint,
-            'bucket' => $bucket,
-            'isCName' => $isCName,
-            'throw'  => true,
+            'endpoint'        => $endpoint,
+            'bucket'          => $bucket,
+            'isCName'         => $isCName,
+            'throw'           => true,
         ];
     }
 
@@ -62,7 +61,7 @@ class OSSStorage implements UploadFileStorageInterface
         return Storage::disk('admin-oss');
     }
 
-    public function storage($files, $upload_mode, $path = ''): array 
+    public function storage($files, $upload_mode, $path = ''): array
     {
         $systemConfigService = SystemConfigService::getInstance();
 
@@ -116,7 +115,8 @@ class OSSStorage implements UploadFileStorageInterface
         return $this->getDisk()->delete($paths);
     }
 
-    public function temporaryUrl($path, DateTime $expiration, $options = []): string {
+    public function temporaryUrl($path, DateTime $expiration, $options = []): string
+    {
         return $this->getDisk()->temporaryUrl($path, $expiration, $options);
     }
 

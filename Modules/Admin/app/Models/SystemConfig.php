@@ -31,7 +31,7 @@ class SystemConfig extends AbstractModel
         return Attribute::make(
             set: fn ($value) => Purifier::clean($value, [
                 'AutoFormat.AutoParagraph' => false,
-                'AutoFormat.Linkify' => false,
+                'AutoFormat.Linkify'       => false,
             ]),
         );
     }

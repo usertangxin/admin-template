@@ -50,13 +50,13 @@ class FileStorageExtendServiceProvider extends ServiceProvider
     private function extendOss()
     {
         Storage::extend('oss', function (Application $app, array $config) {
-            $prefix = $config['prefix'] ?? ''; // 前缀，非必填
-            $accessKeyId = $config['accessKeyId'] ?? '';
+            $prefix          = $config['prefix'] ?? ''; // 前缀，非必填
+            $accessKeyId     = $config['accessKeyId'] ?? '';
             $accessKeySecret = $config['accessKeySecret'] ?? '';
-            $endpoint = $config['endpoint'] ?? ''; // ssl：https://iidestiny.com
-            $bucket = $config['bucket'] ?? '';
-            $isCName = $config['isCName'] ?? false; // 如果 isCname 为 false，endpoint 应配置 oss 提供的域名如：`oss-cn-beijing.aliyuncs.com`，cname 或 cdn 请自行到阿里 oss 后台配置并绑定 bucket
-            $adapter = new OssAdapter($accessKeyId, $accessKeySecret, $endpoint, $bucket, $isCName, $prefix);
+            $endpoint        = $config['endpoint'] ?? ''; // ssl：https://iidestiny.com
+            $bucket          = $config['bucket'] ?? '';
+            $isCName         = $config['isCName'] ?? false; // 如果 isCname 为 false，endpoint 应配置 oss 提供的域名如：`oss-cn-beijing.aliyuncs.com`，cname 或 cdn 请自行到阿里 oss 后台配置并绑定 bucket
+            $adapter         = new OssAdapter($accessKeyId, $accessKeySecret, $endpoint, $bucket, $isCName, $prefix);
 
             return new FilesystemAdapter(
                 new Filesystem($adapter, $config),
@@ -71,8 +71,8 @@ class FileStorageExtendServiceProvider extends ServiceProvider
         Storage::extend('qiniu', function (Application $app, array $config) {
             $accessKey = $config['accessKey'] ?? '';
             $secretKey = $config['secretKey'] ?? '';
-            $bucket = $config['bucket'] ?? '';
-            $domain = $config['domain'] ?? ''; // or with protocol: https://xxxx.bkt.clouddn.com
+            $bucket    = $config['bucket'] ?? '';
+            $domain    = $config['domain'] ?? ''; // or with protocol: https://xxxx.bkt.clouddn.com
 
             $adapter = new QiniuAdapter($accessKey, $secretKey, $bucket, $domain);
 
@@ -88,10 +88,10 @@ class FileStorageExtendServiceProvider extends ServiceProvider
     {
         Storage::extend('cos', function (Application $app, array $config) {
             $a = [
-                // 必填，app_id、secret_id、secret_key 
+                // 必填，app_id、secret_id、secret_key
                 // 可在个人秘钥管理页查看：https://console.cloud.tencent.com/capi
-                'app_id' => $config['app_id'] ?? '',
-                'secret_id' => $config['secret_id'] ?? '',
+                'app_id'     => $config['app_id'] ?? '',
+                'secret_id'  => $config['secret_id'] ?? '',
                 'secret_key' => $config['secret_key'] ?? '',
 
                 'region' => $config['region'] ?? '',

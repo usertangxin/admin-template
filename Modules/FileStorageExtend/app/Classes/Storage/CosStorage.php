@@ -4,15 +4,12 @@ namespace Modules\FileStorageExtend\Classes\Storage;
 
 use DateTime;
 use Exception;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
-use Illuminate\Filesystem\LocalFilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Modules\Admin\Interfaces\UploadFileStorageInterface;
 use Modules\Admin\Models\SystemUploadFile;
 use Modules\Admin\Services\SystemConfigService;
-use Overtrue\Flysystem\Qiniu\QiniuAdapter;
 
 class CosStorage implements UploadFileStorageInterface
 {
@@ -20,30 +17,30 @@ class CosStorage implements UploadFileStorageInterface
     {
         $systemConfigService = SystemConfigService::getInstance();
         try {
-            $app_id = $systemConfigService->getValueByKey('upload_cos_appId');
-            $secret_id = $systemConfigService->getValueByKey('upload_cos_secretId');
+            $app_id     = $systemConfigService->getValueByKey('upload_cos_appId');
+            $secret_id  = $systemConfigService->getValueByKey('upload_cos_secretId');
             $secret_key = $systemConfigService->getValueByKey('upload_cos_secretKey');
-            $region = $systemConfigService->getValueByKey('upload_cos_region');
-            $bucket = $systemConfigService->getValueByKey('upload_cos_bucket');
-            $domain = $systemConfigService->getValueByKey('upload_cos_domain');
+            $region     = $systemConfigService->getValueByKey('upload_cos_region');
+            $bucket     = $systemConfigService->getValueByKey('upload_cos_bucket');
+            $domain     = $systemConfigService->getValueByKey('upload_cos_domain');
         } catch (\Throwable $e) {
-            $app_id = '';
-            $secret_id = '';
+            $app_id     = '';
+            $secret_id  = '';
             $secret_key = '';
-            $region = '';
-            $bucket = '';
-            $domain = '';
+            $region     = '';
+            $bucket     = '';
+            $domain     = '';
         }
 
         return [
-            'driver' => 'qiniu',
-            'app_id' => $app_id,
-            'secret_id' => $secret_id,
+            'driver'     => 'qiniu',
+            'app_id'     => $app_id,
+            'secret_id'  => $secret_id,
             'secret_key' => $secret_key,
-            'region' => $region,
-            'bucket' => $bucket,
-            'domain' => $domain,
-            'throw'  => true,
+            'region'     => $region,
+            'bucket'     => $bucket,
+            'domain'     => $domain,
+            'throw'      => true,
         ];
     }
 
@@ -64,7 +61,7 @@ class CosStorage implements UploadFileStorageInterface
         return Storage::disk('admin-qiniu');
     }
 
-    public function storage($files, $upload_mode, $path = ''): array 
+    public function storage($files, $upload_mode, $path = ''): array
     {
         $systemConfigService = SystemConfigService::getInstance();
 
@@ -118,7 +115,8 @@ class CosStorage implements UploadFileStorageInterface
         return $this->getDisk()->delete($paths);
     }
 
-    public function temporaryUrl($path, DateTime $expiration, $options = []): string {
+    public function temporaryUrl($path, DateTime $expiration, $options = []): string
+    {
         return $this->getDisk()->temporaryUrl($path, $expiration, $options);
     }
 

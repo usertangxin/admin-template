@@ -4,15 +4,12 @@ namespace Modules\FileStorageExtend\Classes\Storage;
 
 use DateTime;
 use Exception;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
-use Illuminate\Filesystem\LocalFilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Modules\Admin\Interfaces\UploadFileStorageInterface;
 use Modules\Admin\Models\SystemUploadFile;
 use Modules\Admin\Services\SystemConfigService;
-use Overtrue\Flysystem\Qiniu\QiniuAdapter;
 
 class QiniuStorage implements UploadFileStorageInterface
 {
@@ -22,22 +19,22 @@ class QiniuStorage implements UploadFileStorageInterface
         try {
             $accessKey = $systemConfigService->getValueByKey('upload_qiniu_accessKey');
             $secretKey = $systemConfigService->getValueByKey('upload_qiniu_secretKey');
-            $bucket = $systemConfigService->getValueByKey('upload_qiniu_bucket');
-            $domain = $systemConfigService->getValueByKey('upload_qiniu_domain');
+            $bucket    = $systemConfigService->getValueByKey('upload_qiniu_bucket');
+            $domain    = $systemConfigService->getValueByKey('upload_qiniu_domain');
         } catch (\Throwable $e) {
             $accessKey = '';
             $secretKey = '';
-            $bucket = '';
-            $domain = '';
+            $bucket    = '';
+            $domain    = '';
         }
 
         return [
-            'driver' => 'qiniu',
+            'driver'    => 'qiniu',
             'accessKey' => $accessKey,
             'secretKey' => $secretKey,
-            'bucket' => $bucket,
-            'domain' => $domain,
-            'throw'  => true,
+            'bucket'    => $bucket,
+            'domain'    => $domain,
+            'throw'     => true,
         ];
     }
 
@@ -58,7 +55,7 @@ class QiniuStorage implements UploadFileStorageInterface
         return Storage::disk('admin-qiniu');
     }
 
-    public function storage($files, $upload_mode, $path = ''): array 
+    public function storage($files, $upload_mode, $path = ''): array
     {
         $systemConfigService = SystemConfigService::getInstance();
 
@@ -112,7 +109,8 @@ class QiniuStorage implements UploadFileStorageInterface
         return $this->getDisk()->delete($paths);
     }
 
-    public function temporaryUrl($path, DateTime $expiration, $options = []): string {
+    public function temporaryUrl($path, DateTime $expiration, $options = []): string
+    {
         return $this->getDisk()->temporaryUrl($path, $expiration, $options);
     }
 
