@@ -3,7 +3,7 @@
         <div class="h-[100vh] side">
             <div class="logo">
                 <img class="logo-img" src="../../images/logo.png" alt="">
-                <span v-if="subMenus.length">Laravel后台管理模板</span>
+                <span v-if="subMenus.length">{{ props['pageTitle'].value }}</span>
             </div>
             <div class="flex">
                 <div class="menu-main" :style="[subMenus.length ? '' : 'border-right:none']">
@@ -111,7 +111,7 @@ const { t } = useI18n();
 
 const NProgressContainerId = 'nprogress-container' + uuidv4()
 
-const props = defineProps(['data'])
+const props = defineProps(['data', 'page-title'])
 
 const showNProgress = ref(false)
 let  nProgressObj = null;
