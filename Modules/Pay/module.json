@@ -1,0 +1,11 @@
+{
+    "name": "Pay",
+    "alias": "pay",
+    "description": "支付模块，包括 支付宝，微信支付。",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Pay\\Providers\\PayServiceProvider"
+    ],
+    "files": []
+}

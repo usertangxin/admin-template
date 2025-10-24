@@ -1,0 +1,11 @@
+{
+    "name": "Message",
+    "alias": "message",
+    "description": "消息模块",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Message\\Providers\\MessageServiceProvider"
+    ],
+    "files": []
+}

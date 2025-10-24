@@ -1,0 +1,11 @@
+{
+    "name": "Wechat",
+    "alias": "wechat",
+    "description": "微信模块。包括 公众号，小程序。",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Wechat\\Providers\\WechatServiceProvider"
+    ],
+    "files": []
+}

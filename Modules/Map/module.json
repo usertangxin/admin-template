@@ -1,7 +1,7 @@
 {
     "name": "Map",
     "alias": "map",
-    "description": "",
+    "description": "地图模块，提供 高德，腾讯 地图相关功能",
     "keywords": [],
     "priority": 0,
     "providers": [

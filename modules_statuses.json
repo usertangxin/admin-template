@@ -3,5 +3,9 @@
     "User": true,
     "FileStorageExtend": true,
     "CrudGenerate": true,
-    "Map": true
+    "Map": true,
+    "Wechat": true,
+    "Sms": true,
+    "Pay": true,
+    "Message": true
 }
