@@ -15,3 +15,4 @@ title: FileStorageExtend
 | 阿里云 | [iidestiny/flysystem-oss](https://packagist.org/packages/iidestiny/flysystem-oss) |
 | 七牛云 | [overtrue/flysystem-qiniu](https://packagist.org/packages/overtrue/flysystem-qiniu) |
 | 腾讯云 | [overtrue/flysystem-cos](https://packagist.org/packages/overtrue/flysystem-cos) |
+| 亚马逊 | [league/flysystem-aws-s3-v3](https://packagist.org/packages/league/flysystem-aws-s3-v3) |

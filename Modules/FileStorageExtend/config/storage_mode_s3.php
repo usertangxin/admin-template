@@ -88,20 +88,9 @@ return [
     ],
     [
         'group'      => 'upload_config',
-        'key'        => 'upload_s3_dirname',
+        'key'        => 'upload_s3_url',
         'value'      => '',
-        'name'       => 'dirname',
-        'input_type' => SystemConfigInputType::INPUT,
-
-        'remark'        => '',
-        'bind_p_config' => 'storage_mode',
-        'input_attr'    => null,
-    ],
-    [
-        'group'      => 'upload_config',
-        'key'        => 'upload_s3_domain',
-        'value'      => '',
-        'name'       => 'domain',
+        'name'       => 'url',
         'input_type' => SystemConfigInputType::INPUT,
 
         'remark'        => '',
@@ -113,17 +102,6 @@ return [
         'key'        => 'upload_s3_region',
         'value'      => '',
         'name'       => 'region',
-        'input_type' => SystemConfigInputType::INPUT,
-
-        'remark'        => '',
-        'bind_p_config' => 'storage_mode',
-        'input_attr'    => null,
-    ],
-    [
-        'group'      => 'upload_config',
-        'key'        => 'upload_s3_version',
-        'value'      => '',
-        'name'       => 'version',
         'input_type' => SystemConfigInputType::INPUT,
 
         'remark'        => '',
@@ -146,17 +124,6 @@ return [
         'key'        => 'upload_s3_endpoint',
         'value'      => '',
         'name'       => 'endpoint',
-        'input_type' => SystemConfigInputType::INPUT,
-
-        'remark'        => '',
-        'bind_p_config' => 'storage_mode',
-        'input_attr'    => null,
-    ],
-    [
-        'group'      => 'upload_config',
-        'key'        => 'upload_s3_acl',
-        'value'      => '',
-        'name'       => 'acl',
         'input_type' => SystemConfigInputType::INPUT,
 
         'remark'        => '',

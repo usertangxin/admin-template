@@ -18,7 +18,8 @@
     "require": {
         "overtrue/flysystem-cos": "~5.2.0",
         "overtrue/flysystem-qiniu": "~3.2.6",
-        "iidestiny/flysystem-oss": "~4.8.1"
+        "iidestiny/flysystem-oss": "~4.8.1",
+        "league/flysystem-aws-s3-v3": "~3.30.1"
     },
     "autoload": {
         "psr-4": {
