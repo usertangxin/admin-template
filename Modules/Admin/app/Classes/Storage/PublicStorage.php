@@ -62,7 +62,7 @@ class PublicStorage implements UploadFileStorageInterface
 
         $public_status = $systemConfigService->getValueByKey('upload_public_status');
         if ($public_status != 'normal') {
-            throw new Exception(__('admin::system_upload_file.upload_public_status'));
+            throw new Exception(__('admin::system_upload_file.upload_status_disabled'));
         }
 
         $disk = $this->getDisk();

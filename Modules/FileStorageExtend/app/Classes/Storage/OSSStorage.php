@@ -67,7 +67,7 @@ class OSSStorage implements UploadFileStorageInterface
 
         $oss_status = $systemConfigService->getValueByKey('upload_oss_status');
         if ($oss_status != 'normal') {
-            throw new Exception(__('file_storage_extend::system_upload_file.upload_oss_status'));
+            throw new Exception(__('admin::system_upload_file.upload_status_disabled'));
         }
 
         $disk = $this->getDisk();

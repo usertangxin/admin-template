@@ -17,33 +17,33 @@ class S3Storage implements UploadFileStorageInterface
     {
         $systemConfigService = SystemConfigService::getInstance();
         try {
-            $key = $systemConfigService->getValueByKey('upload_s3_key');
-            $secret = $systemConfigService->getValueByKey('upload_s3_secret');
-            $region = $systemConfigService->getValueByKey('upload_s3_region');
-            $bucket = $systemConfigService->getValueByKey('upload_s3_bucket');
-            $url = $systemConfigService->getValueByKey('upload_s3_url');
-            $endpoint = $systemConfigService->getValueByKey('upload_s3_endpoint');
+            $key                     = $systemConfigService->getValueByKey('upload_s3_key');
+            $secret                  = $systemConfigService->getValueByKey('upload_s3_secret');
+            $region                  = $systemConfigService->getValueByKey('upload_s3_region');
+            $bucket                  = $systemConfigService->getValueByKey('upload_s3_bucket');
+            $url                     = $systemConfigService->getValueByKey('upload_s3_url');
+            $endpoint                = $systemConfigService->getValueByKey('upload_s3_endpoint');
             $use_path_style_endpoint = $systemConfigService->getValueByKey('upload_s3_use_path_style_endpoint');
         } catch (\Throwable $e) {
-            $key = '';
-            $secret = '';
-            $region = '';
-            $bucket = '';
-            $url = '';
-            $endpoint = '';
+            $key                     = '';
+            $secret                  = '';
+            $region                  = '';
+            $bucket                  = '';
+            $url                     = '';
+            $endpoint                = '';
             $use_path_style_endpoint = '';
         }
 
         return [
-            'driver'     => 's3',
-            'key'        => $key,
-            'secret'     => $secret,
-            'region'     => $region,
-            'bucket'     => $bucket,
-            'url'        => $url,
-            'endpoint'   => $endpoint,
+            'driver'                  => 's3',
+            'key'                     => $key,
+            'secret'                  => $secret,
+            'region'                  => $region,
+            'bucket'                  => $bucket,
+            'url'                     => $url,
+            'endpoint'                => $endpoint,
             'use_path_style_endpoint' => $use_path_style_endpoint,
-            'throw'      => true,
+            'throw'                   => true,
         ];
     }
 
@@ -70,7 +70,7 @@ class S3Storage implements UploadFileStorageInterface
 
         $s3_status = $systemConfigService->getValueByKey('upload_s3_status');
         if ($s3_status != 'normal') {
-            throw new Exception(__('file_storage_extend::system_upload_file.upload_s3_status'));
+            throw new Exception(__('admin::system_upload_file.upload_status_disabled'));
         }
 
         $disk = $this->getDisk();

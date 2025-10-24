@@ -59,7 +59,7 @@ class PrivateStorage implements UploadFileStorageInterface
 
         $private_status = $systemConfigService->getValueByKey('upload_private_status');
         if ($private_status != 'normal') {
-            throw new Exception(__('admin::system_upload_file.upload_private_status'));
+            throw new Exception(__('admin::system_upload_file.upload_status_disabled'));
         }
 
         $disk = $this->getDisk();

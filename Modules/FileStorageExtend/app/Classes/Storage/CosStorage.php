@@ -67,7 +67,7 @@ class CosStorage implements UploadFileStorageInterface
 
         $qiniu_status = $systemConfigService->getValueByKey('upload_qiniu_status');
         if ($qiniu_status != 'normal') {
-            throw new Exception(__('file_storage_extend::system_upload_file.upload_qiniu_status'));
+            throw new Exception(__('admin::system_upload_file.upload_status_disabled'));
         }
 
         $disk = $this->getDisk();
