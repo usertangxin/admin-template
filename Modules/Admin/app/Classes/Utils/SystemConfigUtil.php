@@ -151,4 +151,24 @@ class SystemConfigUtil
             SystemConfig::where('key', is_string($item) ? $item : $item['key'])->delete();
         }
     }
+
+    /**
+     * 自动注销系统配置组。
+     *
+     * @param mixed $value 配置组数据，可以是单个配置组数组或配置组数组列表。
+     */
+    public static function autoUnregisterGroup(mixed $value)
+    {
+        $arr = [];
+        if (! is_array($value) || ! isset($value[0])) {
+            $arr[] = $value;
+        } else {
+            $arr = $value;
+        }
+        foreach ($arr as $item) {
+            SystemConfig::whereGroup(is_string($item) ? $item : $item['code'])->firstOr(function () use ($item) {
+                SystemConfigGroup::whereCode(is_string($item) ? $item : $item['code'])->delete();
+            });
+        }
+    }
 }

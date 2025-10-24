@@ -2,5 +2,6 @@
     "Admin": true,
     "User": true,
     "FileStorageExtend": true,
-    "CrudGenerate": true
+    "CrudGenerate": true,
+    "Map": true
 }

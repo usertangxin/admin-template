@@ -19,14 +19,12 @@ class SystemConfigSeeder extends Seeder
 
         $system_config_agreement = config('admin.system_config_agreement');
         $system_config_email     = config('admin.system_config_email');
-        $system_config_map       = config('admin.system_config_map');
         $system_config_site      = config('admin.system_config_site');
         $system_config_upload    = config('admin.system_config_upload');
         $system_config_wechat    = config('admin.system_config_wechat');
 
         SystemConfigUtil::autoResisterConfig($system_config_agreement);
         SystemConfigUtil::autoResisterConfig($system_config_email);
-        SystemConfigUtil::autoResisterConfig($system_config_map);
         SystemConfigUtil::autoResisterConfig($system_config_site);
         SystemConfigUtil::autoResisterConfig($system_config_upload);
         SystemConfigUtil::autoResisterConfig($system_config_wechat);

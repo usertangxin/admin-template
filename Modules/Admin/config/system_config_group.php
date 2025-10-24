@@ -27,14 +27,6 @@ return [
     ],
     [
         'name' => [
-            'zh_CN' => '地图',
-            'en'    => 'Map',
-        ],
-        'code'   => 'map',
-        'remark' => '',
-    ],
-    [
-        'name' => [
             'zh_CN' => '协议',
             'en'    => 'Agreement',
         ],
