@@ -37,6 +37,10 @@ import { ref } from 'vue'
 import LoginBg from '../components/login-bg.vue'
 import { __ } from '../i18n'
 
+if (window.top && window.top !== window.self) {
+    window.top.location.href = window.location.href;
+}
+
 const formRef = ref()
 const form = ref({
     admin_name: '',
@@ -49,12 +53,12 @@ const rules = {
     password: [{ required: true, message: __('login.inputPassword') }],
 }
 
-const handleSubmit = ({values, errors}) => {
-    if(errors) {
+const handleSubmit = ({ values, errors }) => {
+    if (errors) {
         return
     }
-    request.post('', values).then(res=>{
-        if(res.code === 0) {
+    request.post('', values).then(res => {
+        if (res.code === 0) {
             window.location.href = route('web.admin.index');
         }
     })
