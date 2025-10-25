@@ -33,15 +33,4 @@ return [
         'code'   => 'agreement',
         'remark' => '',
     ],
-    [
-        'name' => [
-            'zh_CN' => '微信配置',
-            'en'    => 'Wechat',
-        ],
-        'code'   => 'wechat_config',
-        'remark' => [
-            'zh_CN' => '公众号，小程序，微信支付等',
-            'en'    => 'Official Account, Mini Program, Wechat Payment, etc.',
-        ],
-    ],
 ];

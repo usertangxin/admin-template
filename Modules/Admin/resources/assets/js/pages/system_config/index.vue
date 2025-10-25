@@ -35,7 +35,7 @@
                 <a-card :title=" $t('systemConfig.configItem') + '（ '+ $t('systemConfig.configItemAbout', { group: config_group_list[current_group_index].name}) +' ）'">
                     <a-form :model="current_group_config_list" @submit="handleSubmit">
                         <a-row :gutter="16">
-                            <recursion-config :config_list="current_group_config_list"></recursion-config>
+                            <recursion-config :key="current_group_index" :config_list="current_group_config_list"></recursion-config>
                         </a-row>
                         <a-form-item>
                             <a-button type="primary" html-type="submit">{{ $t('global.save') }}</a-button>
