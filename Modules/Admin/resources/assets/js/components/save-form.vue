@@ -66,10 +66,10 @@ const handleSubmit = (calls) => {
 <style scoped lang="scss">
 :deep(.disabled-form) {
 
-    [disabled],
+    *[disabled],
     .arco-select-view-disabled {
         color: var(--color-text-1);
-        -webkit-text-fill-color: var(--color-text-1);
+        -webkit-text-fill-color: var(--color-text-1) !important;
         cursor: not-allowed;
 
         &::placeholder {
