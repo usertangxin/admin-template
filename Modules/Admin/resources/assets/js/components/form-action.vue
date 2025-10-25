@@ -85,7 +85,8 @@
                                 <slot name="restore-after"></slot>
                                 <slot name="real-destroy-before"></slot>
                                 <slot name="real-destroy">
-                                    <a-popconfirm :content="$t('formAction.realDestroyConfirm')" @ok="handleRealDestroy">
+                                    <a-popconfirm :content="$t('formAction.realDestroyConfirm')"
+                                        @ok="handleRealDestroy">
                                         <a-button type="primary" status="danger">
                                             {{ $t('global.realDestroy') }}
                                         </a-button>
@@ -149,7 +150,7 @@ const handleReset = () => {
 }
 
 const handleGoUpdate = () => {
-    router.visit('./update?id=' + page.props.data.id)
+    router.visit('./update?id=' + page.props.data.id, { replace: true })
 }
 
 const handleDestroy = () => {
