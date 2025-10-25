@@ -1,6 +1,10 @@
 {
   "private": true,
   "type": "module",
-  "dependencies": {},
+  "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
+    "tlbs-map-vue": "^1.2.1",
+    "vue-jsonp": "^2.1.0"
+  },
   "devDependencies": {}
 }
