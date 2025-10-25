@@ -13,7 +13,7 @@ use Modules\Admin\Services\SystemConfigService;
 #[SystemMenu('地图')]
 class IndexController extends AbstractController
 {
-    #[SystemMenu('腾讯地图配置', allow_admin: true)]
+    #[SystemMenu('腾讯地图配置', allow_admin: true, is_hidden: true,)]
     public function getTencentConfig(SystemConfigService $systemConfigService)
     {
         $config = $systemConfigService->getConfigByKey('map_tencent_key');
@@ -23,7 +23,7 @@ class IndexController extends AbstractController
         ]);
     }
 
-    #[SystemMenu('高德地图配置', allow_admin: true)]
+    #[SystemMenu('高德地图配置', allow_admin: true, is_hidden: true,)]
     public function getAmapConfig(SystemConfigService $systemConfigService)
     {
         $config = $systemConfigService->getConfigByKey('map_amap_key');
@@ -36,7 +36,7 @@ class IndexController extends AbstractController
     /**
      * 高德地图服务代理（转发请求到高德API）
      */
-    #[SystemMenu('高德地图服务代理', allow_admin: true)]
+    #[SystemMenu('高德地图服务代理', allow_admin: true, is_hidden: true,)]
     public function amapServiceProxy(Request $request, SystemConfigService $systemConfigService)
     {
         // 获取高德JSAPI安全密钥
