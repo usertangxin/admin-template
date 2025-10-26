@@ -7,6 +7,9 @@
             "email": "n.widart@gmail.com"
         }
     ],
+    "require": {
+        "yansongda/laravel-pay": "~3.7.0"
+    },
     "extra": {
         "laravel": {
             "providers": [],

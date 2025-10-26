@@ -26,8 +26,7 @@
         "phpdocumentor/reflection-docblock": "^5.6",
         "spatie/laravel-permission": "^6.21",
         "spatie/laravel-translatable": "^6.11",
-        "tightenco/ziggy": "^2.5",
-        "yansongda/laravel-pay": "~3.7.0"
+        "tightenco/ziggy": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.5",
