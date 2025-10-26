@@ -1,0 +1,13 @@
+{
+    "map": {
+        "select": "请选择地址",
+        "selectButton": "选择",
+        "modalTitle": "选择地址",
+        "addressTip": "为提升解析准确率，地址中请至少包含城市名称，否则将视为参数错误，同时地址请尽量完整、具体（包括省市区乡镇/街道门牌及详细地点信息）",
+        "searchPlaceholder": "输入地址搜索",
+        "longitude": "经度",
+        "latitude": "纬度",
+        "inputAddressError": "请输入地址",
+        "addressNotFoundError": "未搜索到地址，请尽量详细描述地址"
+    }
+}

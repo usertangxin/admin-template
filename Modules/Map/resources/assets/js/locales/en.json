@@ -1,0 +1,13 @@
+{
+    "map": {
+        "select": "Select Address",
+        "selectButton": "Select",
+        "modalTitle": "Select Address",
+        "addressTip": "To improve parsing accuracy, the address should at least contain the city name, otherwise it will be considered a parameter error. At the same time, the address should be as complete and specific as possible (including province, city, district, town/street, house number and detailed location information)",
+        "searchPlaceholder": "Enter address to search",
+        "longitude": "Longitude",
+        "latitude": "Latitude",
+        "inputAddressError": "Please enter address",
+        "addressNotFoundError": "Address not found, please describe the address in more detail"
+    }
+}
