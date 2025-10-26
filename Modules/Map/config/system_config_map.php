@@ -16,10 +16,16 @@ return [
         'bind_p_config' => '',
         'input_attr'    => [
             'zh_CN' => [
-                'options' => [['label' => '高德地图', 'value' => 'map_amap'], ['label' => '腾讯地图', 'value' => 'map_tencent']],
+                'options' => [
+                    ['label' => '高德地图', 'value' => 'map_amap'],
+                    ['label' => '腾讯地图', 'value' => 'map_tencent'],
+                ],
             ],
             'en' => [
-                'options' => [['label' => 'Amap', 'value' => 'map_amap'], ['label' => 'Tencent', 'value' => 'map_tencent']],
+                'options' => [
+                    ['label' => 'Amap', 'value' => 'map_amap'],
+                    ['label' => 'Tencent', 'value' => 'map_tencent'],
+                ],
             ],
         ],
     ],
