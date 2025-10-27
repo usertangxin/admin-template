@@ -6,7 +6,7 @@ return [
     [
         'group' => 'map',
         'key'   => 'map_current',
-        'value' => 'amap',
+        'value' => 'map_amap',
         'name'  => [
             'zh_CN' => '当前地图',
             'en'    => 'Current Map',
