@@ -7,6 +7,9 @@
             "email": "n.widart@gmail.com"
         }
     ],
+    "require": {
+        "overtrue/laravel-wechat": "~7.4.0"
+    },
     "extra": {
         "laravel": {
             "providers": [],
