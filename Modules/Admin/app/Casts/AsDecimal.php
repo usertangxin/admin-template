@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class AsDecimal implements CastsAttributes
 {
-
     public function __construct(
         public int $precision = 2,
-    ) {
-    }
+    ) {}
 
     /**
      * Cast the given value.

@@ -2,7 +2,7 @@
     <template v-for="(config, config_index) in current_config_list()" :key="config_index">
         <template v-if="config.input_type === 'textarea'">
             <a-col :span="24">
-                <a-form-item :label="config.name" :field="config.key">
+                <a-form-item :label="config.name" :field="config.key" v-bind="config.item_attr || {}">
                     <a-textarea v-model="config.value" v-bind="config.input_attr || {}"></a-textarea>
                     <template #extra>
                         <div v-html="config.remark"></div>
@@ -12,7 +12,7 @@
         </template>
         <template v-else-if="config.input_type === 'input'">
             <a-col :span="24">
-                <a-form-item :label="config.name" :field="config.key">
+                <a-form-item :label="config.name" :field="config.key" v-bind="config.item_attr || {}">
                     <a-input v-model="config.value" v-bind="config.input_attr || {}"></a-input>
                     <template #extra>
                         <div v-html="config.remark"></div>
@@ -22,7 +22,7 @@
         </template>
         <template v-else-if="config.input_type === 'radio'">
             <a-col :span="24">
-                <a-form-item :label="config.name" :field="config.key">
+                <a-form-item :label="config.name" :field="config.key" v-bind="config.item_attr || {}">
                     <a-radio-group v-model="config.value" v-bind="config.input_attr || {}"></a-radio-group>
                     <template #extra>
                         <div v-html="config.remark"></div>
@@ -34,7 +34,7 @@
         </template>
         <template v-else-if="config.input_type === 'dictRadio'">
             <a-col :span="24">
-                <a-form-item :label="config.name" :field="config.key">
+                <a-form-item :label="config.name" :field="config.key" v-bind="config.item_attr || {}">
                     <dict-radio v-model="config.value" v-bind="config.input_attr || {}"></dict-radio>
                     <template #extra>
                         <div v-html="config.remark"></div>
@@ -46,7 +46,7 @@
         </template>
         <template v-else-if="config.input_type == 'tabs'">
             <a-col :span="24">
-                <a-form-item :label="config.name" :field="config.key">
+                <a-form-item :label="config.name" :field="config.key" v-bind="config.item_attr || {}">
                     <a-tabs v-model="config.value" :default-active-key="config.value" type="card-gutter"
                         v-bind="config.input_attr || {}">
                         <a-tab-pane v-for="(tab, tab_index) in config.input_attr.options" :title="tab.label"
@@ -65,7 +65,7 @@
         </template>
         <template v-else-if="config.input_type === 'wangEditor'">
             <a-col :span="24">
-                <a-form-item :label="config.name" :field="config.key">
+                <a-form-item :label="config.name" :field="config.key" v-bind="config.item_attr || {}">
                     <WangEditor v-model="config.value" v-bind="config.input_attr || {}"></WangEditor>
                     <template #extra>
                         <div v-html="config.remark"></div>
@@ -80,7 +80,7 @@
         </template>
         <template v-else-if="config.input_type === 'uploadFile'">
             <a-col :span="24">
-                <a-form-item :label="config.name" :field="config.key">
+                <a-form-item :label="config.name" :field="config.key" v-bind="config.item_attr || {}">
                     <upload-file v-model="config.value" v-bind="config.input_attr || {}"></upload-file>
                     <template #extra>
                         <div v-html="config.remark"></div>
@@ -90,7 +90,7 @@
         </template>
         <template v-else>
             <a-col :span="24">
-                <a-form-item :label="config.name" :field="config.key">
+                <a-form-item :label="config.name" :field="config.key" v-bind="config.item_attr || {}">
                     <component :is="config.input_type" v-model="config.value" v-bind="config.input_attr || {}"></component>
                     <template #extra>
                         <div v-html="config.remark"></div>

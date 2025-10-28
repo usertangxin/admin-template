@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('value_cast')->nullable()->comment('值转换器');
             $table->json('remark')->nullable()->comment('备注');
             $table->string('bind_p_config')->nullable()->comment('绑定父配置');
-            $table->json('input_attr')->nullable()->comment('输入属性');
+            $table->json('item_attr')->nullable()->comment('表单项属性');
+            $table->json('input_attr')->nullable()->comment('输入框属性');
             $table->dateTime('created_at')->comment('创建时间');
             $table->dateTime('updated_at')->comment('更新时间');
         });

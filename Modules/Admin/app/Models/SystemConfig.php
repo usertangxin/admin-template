@@ -17,14 +17,16 @@ class SystemConfig extends AbstractModel
         'name',
         'remark',
         'input_attr',
+        'item_attr',
     ];
 
-    protected $fillable = ['group', 'key', 'value', 'value_cast', 'name', 'remark', 'input_type', 'bind_p_config', 'input_attr'];
+    protected $fillable = ['group', 'key', 'value', 'value_cast', 'name', 'remark', 'input_type', 'bind_p_config', 'item_attr', 'input_attr'];
 
     protected function casts()
     {
         return [
             'input_attr' => 'array',
+            'item_attr'  => 'array',
             'value'      => AsConfigValueProxy::class,
         ];
     }

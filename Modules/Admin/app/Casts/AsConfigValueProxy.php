@@ -14,7 +14,7 @@ class AsConfigValueProxy implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        $cast = $attributes['value_cast'] ?? '';
+        $cast       = $attributes['value_cast'] ?? '';
         $parseClass = $this->parseCasterClass($cast);
         if (class_exists($parseClass)
             && (is_subclass_of($parseClass, CastsAttributes::class))
@@ -32,7 +32,7 @@ class AsConfigValueProxy implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        $cast = $attributes['value_cast'] ?? '';
+        $cast       = $attributes['value_cast'] ?? '';
         $parseClass = $this->parseCasterClass($cast);
         if (class_exists($parseClass)
             && (is_subclass_of($parseClass, CastsAttributes::class) || is_subclass_of($parseClass, CastsInboundAttributes::class))
@@ -48,7 +48,7 @@ class AsConfigValueProxy implements CastsAttributes
     /**
      * Resolve the custom caster class for a given key.
      *
-     * @param  string  $key
+     * @param  string $key
      * @return mixed
      */
     protected function resolveCasterClass($castType)
@@ -58,7 +58,7 @@ class AsConfigValueProxy implements CastsAttributes
         if (is_string($castType) && str_contains($castType, ':')) {
             $segments = explode(':', $castType, 2);
 
-            $castType = $segments[0];
+            $castType  = $segments[0];
             $arguments = explode(',', $segments[1]);
         }
 
@@ -76,7 +76,7 @@ class AsConfigValueProxy implements CastsAttributes
     /**
      * Parse the given caster class, removing any arguments.
      *
-     * @param  string  $class
+     * @param  string $class
      * @return string
      */
     protected function parseCasterClass($class)

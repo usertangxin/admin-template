@@ -6,6 +6,7 @@
         "no_unneeded_import_alias": true,
         "no_unused_imports": true,
         "phpdoc_align": true,
+        "short_scalar_cast": false,
         "no_trailing_comma_in_singleline": true,
         "binary_operator_spaces": {
             "operators": {
