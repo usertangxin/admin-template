@@ -65,6 +65,7 @@ class SystemConfigUtil
                     'name'          => $item['name'],
                     'remark'        => $item['remark'] ?? null,
                     'input_attr'    => $item['input_attr'] ?? [],
+                    'item_attr'     => $item['item_attr'] ?? [],
                 ];
 
                 SystemConfig::create($data);
