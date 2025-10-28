@@ -1,5 +1,6 @@
 <?php
 
+use Modules\Admin\Casts\AsInteger;
 use Modules\Admin\Classes\Utils\SystemConfigInputType;
 use Yansongda\Pay\Pay;
 
@@ -141,10 +142,11 @@ return [
         'input_attr'    => null,
     ],
     [
-        'group' => 'pay_config',
-        'key'   => 'pay_wechat_mode',
-        'value' => Pay::MODE_NORMAL,
-        'name'  => [
+        'group'      => 'pay_config',
+        'key'        => 'pay_wechat_mode',
+        'value'      => Pay::MODE_NORMAL,
+        'value_cast' => AsInteger::class,
+        'name'       => [
             'zh_CN' => '运行模式',
             'en'    => 'Running Mode',
         ],
@@ -155,14 +157,14 @@ return [
         'input_attr'    => [
             'zh_CN' => [
                 'options' => [
-                    ['label' => '正常模式', 'value' => Pay::MODE_NORMAL . ''],
-                    ['label' => '服务商模式', 'value' => Pay::MODE_SERVICE . ''],
+                    ['label' => '正常模式', 'value' => Pay::MODE_NORMAL],
+                    ['label' => '服务商模式', 'value' => Pay::MODE_SERVICE],
                 ],
             ],
             'en' => [
                 'options' => [
-                    ['label' => 'Normal Mode', 'value' => Pay::MODE_NORMAL . ''],
-                    ['label' => 'Service Mode', 'value' => Pay::MODE_SERVICE . ''],
+                    ['label' => 'Normal Mode', 'value' => Pay::MODE_NORMAL],
+                    ['label' => 'Service Mode', 'value' => Pay::MODE_SERVICE],
                 ],
             ],
         ],
@@ -223,7 +225,6 @@ return [
         'bind_p_config' => 'pay_group',
         'input_attr'    => null,
     ],
-
 
     [
         'group' => 'pay_config',
@@ -320,10 +321,11 @@ return [
         ],
     ],
     [
-        'group' => 'pay_config',
-        'key'   => 'pay_alipay_mode',
-        'value' => Pay::MODE_NORMAL,
-        'name'  => [
+        'group'      => 'pay_config',
+        'key'        => 'pay_alipay_mode',
+        'value'      => Pay::MODE_NORMAL,
+        'value_cast' => AsInteger::class,
+        'name'       => [
             'zh_CN' => '运行模式',
             'en'    => 'Running Mode',
         ],
@@ -334,16 +336,16 @@ return [
         'input_attr'    => [
             'zh_CN' => [
                 'options' => [
-                    ['label' => '正常模式', 'value' => Pay::MODE_NORMAL . ''],
-                    ['label' => '沙箱模式', 'value' => Pay::MODE_SANDBOX . ''],
-                    ['label' => '服务商模式', 'value' => Pay::MODE_SERVICE . ''],
+                    ['label' => '正常模式', 'value' => Pay::MODE_NORMAL],
+                    ['label' => '沙箱模式', 'value' => Pay::MODE_SANDBOX],
+                    ['label' => '服务商模式', 'value' => Pay::MODE_SERVICE],
                 ],
             ],
             'en' => [
                 'options' => [
-                    ['label' => 'Normal Mode', 'value' => Pay::MODE_NORMAL . ''],
-                    ['label' => 'Sandbox Mode', 'value' => Pay::MODE_SANDBOX . ''],
-                    ['label' => 'Service Mode', 'value' => Pay::MODE_SERVICE . ''],
+                    ['label' => 'Normal Mode', 'value' => Pay::MODE_NORMAL],
+                    ['label' => 'Sandbox Mode', 'value' => Pay::MODE_SANDBOX],
+                    ['label' => 'Service Mode', 'value' => Pay::MODE_SERVICE],
                 ],
             ],
         ],

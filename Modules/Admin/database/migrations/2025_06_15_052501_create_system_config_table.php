@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('key', 100)->unique('system_configs_key_unique')->comment('配置键名');
             $table->string('input_type')->comment('输入类型');
             $table->longText('value')->nullable()->comment('配置值');
+            $table->string('value_cast')->nullable()->comment('值转换器');
             $table->json('remark')->nullable()->comment('备注');
             $table->string('bind_p_config')->nullable()->comment('绑定父配置');
             $table->json('input_attr')->nullable()->comment('输入属性');

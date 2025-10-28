@@ -2,10 +2,9 @@
 
 namespace Modules\Admin\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Support\Facades\App;
-use Mews\Purifier\Facades\Purifier;
+use Modules\Admin\Casts\AsConfigValueProxy;
 use Spatie\Translatable\HasTranslations;
 
 class SystemConfig extends AbstractModel
@@ -20,20 +19,14 @@ class SystemConfig extends AbstractModel
         'input_attr',
     ];
 
-    protected $fillable = ['group', 'key', 'value', 'name', 'remark', 'input_type', 'bind_p_config', 'input_attr'];
+    protected $fillable = ['group', 'key', 'value', 'value_cast', 'name', 'remark', 'input_type', 'bind_p_config', 'input_attr'];
 
-    protected $casts = [
-        'input_attr' => 'array',
-    ];
-
-    protected function value(): Attribute
+    protected function casts()
     {
-        return Attribute::make(
-            set: fn ($value) => Purifier::clean($value, [
-                'AutoFormat.AutoParagraph' => false,
-                'AutoFormat.Linkify'       => false,
-            ]),
-        );
+        return [
+            'input_attr' => 'array',
+            'value'      => AsConfigValueProxy::class,
+        ];
     }
 
     public function toArray()

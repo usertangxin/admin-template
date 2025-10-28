@@ -61,6 +61,7 @@ class SystemConfigUtil
                     'input_type'    => $item['input_type'] ?? null,
                     'bind_p_config' => $item['bind_p_config'] ?? null,
                     'value'         => $item['value'] ?? null,
+                    'value_cast'    => $item['value_cast'] ?? null,
                     'name'          => $item['name'],
                     'remark'        => $item['remark'] ?? null,
                     'input_attr'    => $item['input_attr'] ?? [],
