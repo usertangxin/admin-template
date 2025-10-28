@@ -3899,6 +3899,60 @@
             "time": "2023-11-08T09:30:43+00:00"
         },
         {
+            "name": "overtrue/easy-sms",
+            "version": "3.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/easy-sms.git",
+                "reference": "110d3a5fe43af7d3fe80c06b1a0cbf955648a922"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/easy-sms/zipball/110d3a5fe43af7d3fe80c06b1a0cbf955648a922",
+                "reference": "110d3a5fe43af7d3fe80c06b1a0cbf955648a922",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.2 || ^7.0",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.54",
+                "jetbrains/phpstorm-attributes": "^1.0",
+                "mockery/mockery": "^1.4.2",
+                "phpunit/phpunit": "^9.5.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\EasySms\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "i@overtrue.me"
+                }
+            ],
+            "description": "The easiest way to send short message.",
+            "support": {
+                "issues": "https://github.com/overtrue/easy-sms/issues",
+                "source": "https://github.com/overtrue/easy-sms/tree/3.2.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/overtrue",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-07-17T07:07:58+00:00"
+        },
+        {
             "name": "overtrue/flysystem-cos",
             "version": "5.2.0",
             "source": {
@@ -4014,6 +4068,70 @@
                 }
             ],
             "time": "2025-09-01T00:12:48+00:00"
+        },
+        {
+            "name": "overtrue/laravel-easy-sms",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/laravel-easy-sms.git",
+                "reference": "2bd434c5f035c5f4a1d239d661172487ca398cf2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/laravel-easy-sms/zipball/2bd434c5f035c5f4a1d239d661172487ca398cf2",
+                "reference": "2bd434c5f035c5f4a1d239d661172487ca398cf2",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^10.0|^11.0|^12.0",
+                "overtrue/easy-sms": "^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "mockery/mockery": "^1.2",
+                "orchestra/testbench": "^7.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "hooks": {
+                    "pre-push": [
+                        "composer test",
+                        "composer check-style"
+                    ],
+                    "pre-commit": [
+                        "composer test",
+                        "composer check-style"
+                    ]
+                },
+                "laravel": {
+                    "providers": [
+                        "\\Overtrue\\LaravelEasySms\\EasySmsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\LaravelEasySms\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "overtrue/easy-sms service provider for Laravel.",
+            "support": {
+                "issues": "https://github.com/overtrue/laravel-easy-sms/issues",
+                "source": "https://github.com/overtrue/laravel-easy-sms/tree/3.0.0"
+            },
+            "time": "2025-07-28T08:28:09+00:00"
         },
         {
             "name": "overtrue/laravel-wechat",
