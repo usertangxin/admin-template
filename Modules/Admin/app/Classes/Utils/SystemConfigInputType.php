@@ -18,6 +18,8 @@ class SystemConfigInputType
 
     const DICT_RADIO = 'dictRadio';
 
+    const SWITCH = 'a-switch';
+
     const WANG_EDITOR = 'wangEditor';
 
     const UPLOAD_FILE = 'uploadFile';

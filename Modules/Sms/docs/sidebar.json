@@ -1,0 +1,13 @@
+{
+    "text": "Sms",
+    "items": [
+        {
+            "text": "模块介绍",
+            "link": "/Modules/Sms/"
+        },
+        {
+            "text": "支持更多短信平台",
+            "link": "/Modules/Sms/support_more"
+        }
+    ]
+}

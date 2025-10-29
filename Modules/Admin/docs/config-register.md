@@ -39,6 +39,13 @@ SystemConfigUtil::autoResisterGroup([
 
 ## 注册配置项
 
+::: tip
+bind_p_config 绑定父配置项，父组件为一些切换组件时可以控制子配置项的显示<br>
+规则是：当前配置项前缀为父配置项的值<br>
+例如：key值为 `wechat_mini_app_id` ,
+当父配置项值为 `wechat_mini` 时，当前配置项才会显示
+:::
+
 ```php
 <?php
 
@@ -75,9 +82,9 @@ SystemConfigUtil::autoResisterConfig([
         ],
     ],
     [
-        // bind_p_config 绑定父配置项，父组件为一些切换组件时可以控制子组件的显示
-        // 规则是：当前组件前缀为父组件的值，例如：wechat_mini_app_id
-        // 当父组件值为wechat_mini时，当前组件才会显示
+        // bind_p_config 绑定父配置项，父组件为一些切换组件时可以控制子配置项的显示
+        // 规则是：当前配置项前缀为父配置项的值，例如：wechat_mini_app_id
+        // 当父配置项值为wechat_mini时，当前配置项才会显示
         'group' => 'wechat_config',
         'key'   => 'wechat_mini_app_id',
         'value' => '',
