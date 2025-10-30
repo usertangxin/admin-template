@@ -33,7 +33,7 @@ return new class extends Migration
             $table->unsignedInteger('vip')->default(0)->comment('会员等级');
             $table->string('last_login_ip')->nullable()->comment('最后登录IP');
             $table->string('last_login_type')->nullable()->comment('最后登录方式');
-            $table->boolean('status')->nullable()->default(true)->comment('状态:dict=data_status');
+            $table->string('status')->nullable()->default('normal')->comment('状态:dict=data_status');
             $table->dateTime('created_at')->nullable()->comment('创建时间');
             $table->dateTime('updated_at')->nullable()->comment('更新时间');
             $table->dateTime('deleted_at')->nullable()->comment('删除时间');

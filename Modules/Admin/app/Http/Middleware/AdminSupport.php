@@ -4,6 +4,7 @@ namespace Modules\Admin\Http\Middleware;
 
 use App\Http\Middleware\HandleInertiaRequests as AppHandleInertiaRequests;
 use Closure;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -59,17 +60,19 @@ class AdminSupport extends AppHandleInertiaRequests
             return parent::handle($request, $next);
         }
 
-        if (! Auth::check() || Auth::user()->status !== 'normal' || ! (Auth::user() instanceof SystemAdmin)) {
-            return \redirect()->route('web.admin.logout');
+        $guard = Auth::guard('admin');
+
+        if (! $guard->check() || $guard->user()->status !== 'normal' || ! ($guard->user() instanceof SystemAdmin)) {
+            return redirect()->route('web.admin.logout');
         }
 
         $this->inertiaProtectedShare();
 
-        /** @var \Modules\Admin\Model\SystemAdmin $user */
-        $user = Auth::user();
+        /** @var SystemAdmin $user */
+        $user = $guard->user();
 
         if (! $user->can($request->route()->getName())) {
-            throw new \Illuminate\Auth\Access\AuthorizationException(__('admin::auth.no_permission'));
+            throw new AuthorizationException(__('admin::auth.no_permission'));
         }
 
         return parent::handle($request, $next);

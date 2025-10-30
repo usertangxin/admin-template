@@ -28,7 +28,7 @@ class LoginController extends AbstractController
         ]);
         $credentials['status'] = 'normal';
         $remember              = $request->input('remember', false);
-        if (Auth::attempt($credentials, $remember)) {
+        if (Auth::guard('admin')->attempt($credentials, $remember)) {
             return $this->success(message: __('admin::login.login_success'));
         }
 

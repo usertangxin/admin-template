@@ -20,7 +20,7 @@ class GlobalDataPermissionScope implements Scope
         if ($model->ignoreGlobalDataPermission) {
             return;
         }
-        if (Auth::user()) {
+        if (Auth::guard('admin')->user()) {
             if (Auth::user()->is_root) {
                 return;
             }

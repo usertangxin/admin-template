@@ -10,7 +10,7 @@
             @submit="handleSubmit" :model="model" v-bind="$attrs">
             <slot></slot>
             <slot name="default-submit">
-                <button v-if="!disabled && !$slots['default-submit']" type="submit" hidden></button>
+                <button v-if="!$slots['default-submit']" type="submit" hidden></button>
             </slot>
         </a-form>
     </div>
@@ -35,25 +35,29 @@ const disabled = computed(() => {
 
 watch(() => page.props.data, (newVal, oldVal) => {
     page.props.data && _.each(page.props.data, (item, key) => {
-        formData.value[key] = item;
+        // 如果你需要 null 值也被复制，那么需要在外部手动干预
+        // 此处处理大部分场景，编辑时null值会走验证器，此处过滤此种情况
+        if(item !== null) {
+            formData.value[key] = item;
+        }
     })
 }, {
     immediate: true,
 })
 
 const handleSubmit = (calls) => {
-    calls.wait()
+    calls.wait && calls.wait()
     formRef.value.validate((errors) => {
         if (errors) {
             _.each(errors, (item, key) => {
                 Message.error(item.message);
             })
-            calls.done()
+            calls.done && calls.done()
             return
         }
         const url = props['submit-url'] ?? ''
         request.post(url, formData.value).then(res => {
-            calls.done()
+            calls.done && calls.done()
             if (res.code === 0) {
                 window.history.back()
             }
