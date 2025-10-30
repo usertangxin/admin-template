@@ -182,10 +182,7 @@ class CrudGenerateServiceProvider extends ServiceProvider
      */
     protected function merge_config_from(string $path, string $key): void
     {
-        $existing      = config($key, []);
-        $module_config = require $path;
-
-        config([$key => array_replace_recursive($module_config, $existing)]);
+        $this->replaceConfigRecursivelyFrom($path, $key);
     }
 
     /**
