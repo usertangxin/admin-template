@@ -36,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes(): void
     {
-        Route::middleware('api')->prefix('api/' . Str::kebab($this->name))->name('api.' . Str::kebab($this->name) . '.')->group(module_path($this->name, '/routes/web.php'));
+        Route::middleware('web')->prefix('web/' . Str::kebab($this->name))->name('web.' . Str::kebab($this->name) . '.')->group(module_path($this->name, '/routes/web.php'));
     }
 
     /**

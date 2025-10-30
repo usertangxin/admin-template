@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Admin\Classes\Utils\RouteUtil;
+use Modules\Admin\Http\Middleware\AdminSupport;
 use Modules\User\Http\Controllers\UserController;
 
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::resource('users', UserController::class)->names('user');
-// });
+Route::middleware([AdminSupport::class])->group(function () {
+    RouteUtil::fastRoute(UserController::class);
+});

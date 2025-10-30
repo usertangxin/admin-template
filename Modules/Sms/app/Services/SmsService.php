@@ -43,9 +43,4 @@ class SmsService
     {
         return $this->easySms->{$name}(...$arguments);
     }
-
-    public function __callStatic($name, $arguments)
-    {
-        return (new static)->{$name}(...$arguments);
-    }
 }

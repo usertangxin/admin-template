@@ -2,6 +2,15 @@
 
 namespace Modules\User\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Modules\Admin\Classes\Attrs\SystemMenu;
+use Modules\Admin\Http\Controllers\AbstractCrudController;
+use Modules\User\Models\User;
 
-class UserController extends Controller {}
+#[SystemMenu('用户管理', icon: 'fas fa-users')]
+class UserController extends AbstractCrudController
+{
+    protected function getModel()
+    {
+        return new User;
+    }
+}
