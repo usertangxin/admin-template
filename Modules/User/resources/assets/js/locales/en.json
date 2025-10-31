@@ -29,7 +29,7 @@
         "reset_password": "Reset Password",
         "password": "Password",
         "confirm_password": "Confirm Password",
-        
+
         "alipayInfo": "Alipay Information",
         "usernamePlaceholder": "Please enter username",
         "passwordPlaceholder": "Please enter password",
@@ -38,7 +38,7 @@
         "emailPlaceholder": "Please enter email address",
         "alipayNamePlaceholder": "Please enter Alipay name",
         "alipayAccountPlaceholder": "Please enter Alipay account",
-        
+
         "usernameRequired": "Please enter username",
         "usernameMinLength": "Username must be at least 3 characters",
         "usernameMaxLength": "Username cannot exceed 20 characters",
@@ -65,5 +65,29 @@
         "addUserVipLevel": "Add VIP Level",
         "editUserVipLevel": "Edit VIP Level",
         "userVipLevelInfo": "VIP Level Information"
+    },
+    "user_yongjin_log": {
+        "id": "ID",
+        "user_id": "User Account",
+        "yongjin": "Commission Change",
+        "before": "Before",
+        "after": "After",
+        "memo": "Memo",
+        "created_at": "Created At",
+        "created_by": "Created By",
+        "user": "User",
+
+        "userIdPlaceholder": "Please select user account",
+        "yongjinPlaceholder": "Please enter commission change",
+        "beforePlaceholder": "Please enter before amount",
+        "afterPlaceholder": "Please enter after amount",
+        "memoPlaceholder": "Please enter memo",
+        "createdByPlaceholder": "Please enter creator",
+
+        "user_id_required": "User ID is required",
+        "yongjin_required": "Commission change is required",
+        "before_required": "Before amount is required",
+        "after_required": "After amount is required",
+        "memo_required": "Memo is required"
     }
 }

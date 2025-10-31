@@ -13,6 +13,7 @@
         "ext-pdo": "*",
         "ext-pdo_sqlite": "*",
         "ext-sqlite3": "*",
+        "ext-bcmath": "*",
         "composer/semver": "^3.4",
         "dedoc/scramble": "^0.12.23",
         "inertiajs/inertia-laravel": "^2.0",

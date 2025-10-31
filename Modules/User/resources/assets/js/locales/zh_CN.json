@@ -29,7 +29,7 @@
         "reset_password": "重置密码",
         "password": "密码",
         "confirm_password": "确认密码",
-        
+
         "alipayInfo": "支付宝信息",
         "usernamePlaceholder": "请输入用户名",
         "passwordPlaceholder": "请输入密码",
@@ -38,7 +38,7 @@
         "emailPlaceholder": "请输入邮箱地址",
         "alipayNamePlaceholder": "请输入支付宝姓名",
         "alipayAccountPlaceholder": "请输入支付宝账号",
-        
+
         "usernameRequired": "请输入用户名",
         "usernameMinLength": "用户名至少3个字符",
         "usernameMaxLength": "用户名不能超过20个字符",
@@ -65,5 +65,29 @@
         "addUserVipLevel": "添加VIP等级",
         "editUserVipLevel": "编辑VIP等级",
         "userVipLevelInfo": "VIP等级信息"
+    },
+    "user_yongjin_log": {
+        "id": "编号",
+        "user_id": "用户账号",
+        "yongjin": "变更金额",
+        "before": "变更前",
+        "after": "变更后",
+        "memo": "备注",
+        "created_at": "创建时间",
+        "created_by": "创建者",
+        "user": "用户",
+
+        "userIdPlaceholder": "请选择用户账号",
+        "yongjinPlaceholder": "请输入变更金额",
+        "beforePlaceholder": "请输入变更前金额",
+        "afterPlaceholder": "请输入变更后金额",
+        "memoPlaceholder": "请输入备注",
+        "createdByPlaceholder": "请输入创建者",
+
+        "user_id_required": "用户编号不能为空",
+        "yongjin_required": "变更金额不能为空",
+        "before_required": "变更前金额不能为空",
+        "after_required": "变更后金额不能为空",
+        "memo_required": "备注不能为空"
     }
 }

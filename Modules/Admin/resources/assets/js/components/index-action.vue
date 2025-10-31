@@ -6,7 +6,7 @@
                 <a-col flex="none">
                     <a-space>
                         <a-button type="primary" html-type="submit">{{ $t('global.search') }}</a-button>
-                        <a-button @click="searchForm.resetFields()">{{ $t('global.reset') }}</a-button>
+                        <a-button @click="() => {searchForm.resetFields();handleSearchSubmit()}">{{ $t('global.reset') }}</a-button>
                     </a-space>
                 </a-col>
             </a-row>
@@ -273,7 +273,7 @@ const handleRecovery = () => {
     })
 }
 
-const handleSearchSubmit = (e) => {
+const handleSearchSubmit = () => {
     refreshList()
 }
 

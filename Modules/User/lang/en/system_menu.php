@@ -8,4 +8,7 @@ return [
     'user_vip_level_controller' => [
         'index' => 'Level List',
     ],
+    'user_yongjin_log_controller' => [
+        'index' => 'Yongjin Log',
+    ],
 ];

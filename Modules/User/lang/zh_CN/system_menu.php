@@ -8,4 +8,7 @@ return [
     'user_vip_level_controller' => [
         'index' => '用户等级',
     ],
+    'user_yongjin_log_controller' => [
+        'index' => '佣金记录',
+    ],
 ];

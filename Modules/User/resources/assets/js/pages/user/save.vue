@@ -31,6 +31,9 @@
                 <remote-select v-model="formData.vip" url="/web/user/UserVipLevel/index" labelField="name" valueField="level"/>
             </a-form-item>
             <template v-if="!page.props.__page_create__">
+                <a-form-item :label="$t('user.yongjin')" field="yongjin">
+                    <a-input readonly v-model="formData.yongjin" style="width: 100%"/>
+                </a-form-item>
                 <a-form-item :label="$t('user.money')" field="money">
                     <a-input readonly v-model="formData.money" style="width: 100%"/>
                 </a-form-item>
