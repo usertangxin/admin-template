@@ -1,6 +1,8 @@
 <template>
     <div class="m-3 p-3 page-content">
         <save-form :model="formData" :rules="rules">
+            <template #update></template>
+            <template #destroy></template>
             <a-form-item :label="$t('user_yongjin_log.user_id')" field="user_id">
                 <remote-select v-model="formData.user_id" url="/web/user/User/index" labelField="username" valueField="id" :placeholder="$t('user_yongjin_log.userIdPlaceholder')"></remote-select>
             </a-form-item>

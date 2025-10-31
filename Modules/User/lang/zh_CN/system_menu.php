@@ -11,4 +11,7 @@ return [
     'user_yongjin_log_controller' => [
         'index' => '佣金记录',
     ],
+    'user_money_log_controller' => [
+        'index' => '余额记录',
+    ],
 ];

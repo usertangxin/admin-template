@@ -89,5 +89,29 @@
         "before_required": "变更前金额不能为空",
         "after_required": "变更后金额不能为空",
         "memo_required": "备注不能为空"
+    },
+    "user_money_log": {
+        "id": "编号",
+        "user_id": "用户账号",
+        "money": "变更金额",
+        "before": "变更前",
+        "after": "变更后",
+        "memo": "备注",
+        "created_at": "创建时间",
+        "created_by": "创建者",
+        "user": "用户",
+
+        "userIdPlaceholder": "请选择用户账号",
+        "moneyPlaceholder": "请输入变更金额",
+        "beforePlaceholder": "请输入变更前金额",
+        "afterPlaceholder": "请输入变更后金额",
+        "memoPlaceholder": "请输入备注",
+        "createdByPlaceholder": "请输入创建者",
+
+        "user_id_required": "用户编号不能为空",
+        "money_required": "变更金额不能为空",
+        "before_required": "变更前金额不能为空",
+        "after_required": "变更后金额不能为空",
+        "memo_required": "备注不能为空"
     }
 }

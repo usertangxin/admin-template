@@ -6,7 +6,7 @@
                 <a-space>
                     <slot name="left-before"></slot>
                     <slot name="left">
-                        <template v-if="!page.props.__page_index__">
+                        <template v-if="!page.props.__page_index__ && !$slots['left']">
                             <a-tooltip mini :content="$t('global.prev')">
                                 <a-button @click="toIndex">
                                     <template #icon>
@@ -17,7 +17,7 @@
                         </template>
                         <slot name="refresh-before"></slot>
                         <slot name="refresh">
-                            <a-tooltip mini :content="$t('global.refresh')">
+                            <a-tooltip v-if="!$slots['refresh']" mini :content="$t('global.refresh')">
                                 <a-button status="normal" @click="refreshList">
                                     <template #icon>
                                         <icon icon="a refresh"></icon>
@@ -28,7 +28,7 @@
                         <slot name="refresh-after"></slot>
                         <slot name="fullscreen-before"></slot>
                         <slot name="fullscreen">
-                            <a-tooltip mini :content="$t('global.fullscreen')">
+                            <a-tooltip v-if="!$slots['fullscreen']" mini :content="$t('global.fullscreen')">
                                 <a-button status="normal" @click="changeFullScreen">
                                     <template #icon>
                                         <icon icon="a fullscreen"></icon>
@@ -41,14 +41,14 @@
                         <template v-if="page.props.__page_create__ || page.props.__page_update__">
                             <slot name="reset-before"></slot>
                             <slot name="reset">
-                                <a-button type="secondary" @click="handleReset">
+                                <a-button v-if="!$slots['reset']" type="secondary" @click="handleReset">
                                     {{ $t('global.reset') }}
                                 </a-button>
                             </slot>
                             <slot name="reset-after"></slot>
                             <slot name="submit-before"></slot>
                             <slot name="submit">
-                                <a-button type="primary" :loading="submitLoading" @click="handleSubmit">
+                                <a-button v-if="!$slots['submit']" type="primary" :loading="submitLoading" @click="handleSubmit">
                                     {{ $t('global.submit') }}
                                 </a-button>
                             </slot>
@@ -58,14 +58,14 @@
                             <template v-if="!page.props.data.deleted_at">
                                 <slot name="update-before"></slot>
                                 <slot name="update">
-                                    <a-button type="primary" status="warning" @click="handleGoUpdate">
+                                    <a-button v-if="!$slots['update']" type="primary" status="warning" @click="handleGoUpdate">
                                         {{ $t('global.goUpdate') }}
                                     </a-button>
                                 </slot>
                                 <slot name="update-after"></slot>
                                 <slot name="destroy-before"></slot>
                                 <slot name="destroy">
-                                    <a-popconfirm :content="$t('formAction.destroyConfirm')" @ok="handleDestroy">
+                                    <a-popconfirm v-if="!$slots['destroy']" :content="$t('formAction.destroyConfirm')" @ok="handleDestroy">
                                         <a-button type="primary" status="danger">
                                             {{ $t('global.destroy') }}
                                         </a-button>
@@ -76,7 +76,7 @@
                             <template v-else>
                                 <slot name="restore-before"></slot>
                                 <slot name="restore">
-                                    <a-popconfirm :content="$t('formAction.recoveryConfirm')" @ok="handleRecovery">
+                                    <a-popconfirm v-if="!$slots['restore']" :content="$t('formAction.recoveryConfirm')" @ok="handleRecovery">
                                         <a-button type="primary" status="success">
                                             {{ $t('global.recovery') }}
                                         </a-button>
@@ -85,7 +85,7 @@
                                 <slot name="restore-after"></slot>
                                 <slot name="real-destroy-before"></slot>
                                 <slot name="real-destroy">
-                                    <a-popconfirm :content="$t('formAction.realDestroyConfirm')"
+                                    <a-popconfirm v-if="!$slots['real-destroy']" :content="$t('formAction.realDestroyConfirm')"
                                         @ok="handleRealDestroy">
                                         <a-button type="primary" status="danger">
                                             {{ $t('global.realDestroy') }}

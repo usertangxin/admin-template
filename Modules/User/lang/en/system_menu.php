@@ -11,4 +11,7 @@ return [
     'user_yongjin_log_controller' => [
         'index' => 'Yongjin Log',
     ],
+    'user_money_log_controller' => [
+        'index' => 'Money Log',
+    ],
 ];

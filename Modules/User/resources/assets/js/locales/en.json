@@ -89,5 +89,29 @@
         "before_required": "Before amount is required",
         "after_required": "After amount is required",
         "memo_required": "Memo is required"
+    },
+    "user_money_log": {
+        "id": "ID",
+        "user_id": "User Account",
+        "money": "Money Change",
+        "before": "Before",
+        "after": "After",
+        "memo": "Memo",
+        "created_at": "Created At",
+        "created_by": "Created By",
+        "user": "User",
+
+        "userIdPlaceholder": "Please select user account",
+        "moneyPlaceholder": "Please enter money change",
+        "beforePlaceholder": "Please enter before amount",
+        "afterPlaceholder": "Please enter after amount",
+        "memoPlaceholder": "Please enter memo",
+        "createdByPlaceholder": "Please enter creator",
+
+        "user_id_required": "User ID is required",
+        "money_required": "Money change is required",
+        "before_required": "Before amount is required",
+        "after_required": "After amount is required",
+        "memo_required": "Memo is required"
     }
 }
