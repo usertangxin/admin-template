@@ -5,33 +5,33 @@ namespace Modules\User\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Modules\Admin\Models\AbstractModel;
 
-class UserMoneyLog extends AbstractModel
+class UserScoreLog extends AbstractModel
 {
     use HasUuids;
 
-    protected $table = 'user_money_logs';
+    protected $table = 'user_score_logs';
 
     protected $fillable = [
         'user_id',
-        'money',
+        'score',
         'memo',
     ];
 
     protected $casts = [
-        'money' => 'float',
+        'score' => 'integer',
     ];
 
     protected static function booted()
     {
-        self::creating(function (UserMoneyLog $model) {
+        self::creating(function (UserScoreLog $model) {
             $user = User::find($model->user_id);
 
-            $userMoney = $user->money;
+            $userScore = $user->score;
 
-            $model->before = $userMoney;
-            $userMoney     = bcadd($userMoney, $model->money, 2);
-            $model->after  = $userMoney;
-            $user->money   = $userMoney;
+            $model->before = $userScore;
+            $userScore     = bcadd($userScore, $model->score, 0);
+            $model->after  = $userScore;
+            $user->score   = $userScore;
             $user->save();
         });
     }

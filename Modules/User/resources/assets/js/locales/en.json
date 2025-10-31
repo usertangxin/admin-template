@@ -113,5 +113,29 @@
         "before_required": "Before amount is required",
         "after_required": "After amount is required",
         "memo_required": "Memo is required"
+    },
+    "user_score_log": {
+        "id": "ID",
+        "user_id": "User Account",
+        "score": "Score Change",
+        "before": "Before",
+        "after": "After",
+        "memo": "Memo",
+        "created_at": "Created At",
+        "created_by": "Created By",
+        "user": "User",
+
+        "userIdPlaceholder": "Please select user account",
+        "scorePlaceholder": "Please enter score change",
+        "beforePlaceholder": "Please enter before amount",
+        "afterPlaceholder": "Please enter after amount",
+        "memoPlaceholder": "Please enter memo",
+        "createdByPlaceholder": "Please enter creator",
+
+        "user_id_required": "User ID is required",
+        "score_required": "Score change is required",
+        "before_required": "Before amount is required",
+        "after_required": "After amount is required",
+        "memo_required": "Memo is required"
     }
 }

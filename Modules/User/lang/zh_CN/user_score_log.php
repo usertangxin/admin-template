@@ -1,10 +1,10 @@
 <?php
 
 return [
-    // Field Labels
-    'id'         => 'ID',
+    // 字段标签
+    'id'         => '编号',
     'user_id'    => '用户编号',
-    'money'      => '余额变更',
+    'score'      => '变更数量',
     'before'     => '变更前',
     'after'      => '变更后',
     'memo'       => '备注',
@@ -12,13 +12,13 @@ return [
     'created_by' => '创建者',
     'user'       => '用户',
 
-    // Placeholders
-    'userIdPlaceholder' => '请选择用户编号',
-    'moneyPlaceholder'  => '请输入余额变更',
+    // 占位符
+    'userIdPlaceholder' => '请输入用户编号',
+    'scorePlaceholder'  => '请输入变更数量',
     'memoPlaceholder'   => '请输入备注',
 
-    // Validation Messages
+    // 验证消息
     'user_id_required' => '用户编号不能为空',
-    'money_required'   => '余额变更不能为空',
+    'score_required'   => '变更数量不能为空',
     'memo_required'    => '备注不能为空',
 ];

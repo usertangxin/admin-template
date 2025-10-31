@@ -5,7 +5,7 @@ namespace Modules\User\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UserMoneyLogRequest extends FormRequest
+class UserScoreLogRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,7 +17,7 @@ class UserMoneyLogRequest extends FormRequest
                 'required',
                 Rule::exists('users', 'id'),
             ],
-            'money' => 'required|numeric',
+            'score' => 'required|integer',
             'memo'  => 'required|string|max:255',
         ];
     }
@@ -28,9 +28,9 @@ class UserMoneyLogRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'user_id' => __('user::user_money_log.user_id'),
-            'money'   => __('user::user_money_log.money'),
-            'memo'    => __('user::user_money_log.memo'),
+            'user_id' => __('user::user_score_log.user_id'),
+            'score'   => __('user::user_score_log.score'),
+            'memo'    => __('user::user_score_log.memo'),
         ];
     }
 
@@ -40,9 +40,9 @@ class UserMoneyLogRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'user_id.required' => __('user::user_money_log.user_id_required'),
-            'money.required'   => __('user::user_money_log.money_required'),
-            'memo.required'    => __('user::user_money_log.memo_required'),
+            'user_id.required' => __('user::user_score_log.user_id_required'),
+            'score.required'   => __('user::user_score_log.score_required'),
+            'memo.required'    => __('user::user_score_log.memo_required'),
         ];
     }
 

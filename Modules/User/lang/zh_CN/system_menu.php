@@ -14,4 +14,7 @@ return [
     'user_money_log_controller' => [
         'index' => '余额记录',
     ],
+    'user_score_log_controller' => [
+        'index' => '积分记录',
+    ],
 ];

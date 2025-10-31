@@ -4,7 +4,7 @@ return [
     // Field Labels
     'id'         => 'ID',
     'user_id'    => 'User ID',
-    'money'      => 'Money Change',
+    'score'      => 'Score Change',
     'before'     => 'Before',
     'after'      => 'After',
     'memo'       => 'Memo',
@@ -13,12 +13,12 @@ return [
     'user'       => 'User',
 
     // Placeholders
-    'userIdPlaceholder' => 'Please select user ID',
-    'moneyPlaceholder'  => 'Please enter money change',
+    'userIdPlaceholder' => 'Please enter user ID',
+    'scorePlaceholder'  => 'Please enter score change',
     'memoPlaceholder'   => 'Please enter memo',
 
     // Validation Messages
     'user_id_required' => 'User ID is required',
-    'money_required'   => 'Money change is required',
+    'score_required'   => 'Score change is required',
     'memo_required'    => 'Memo is required',
 ];

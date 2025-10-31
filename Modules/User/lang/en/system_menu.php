@@ -14,4 +14,7 @@ return [
     'user_money_log_controller' => [
         'index' => 'Money Log',
     ],
+    'user_score_log_controller' => [
+        'index' => 'Score Log',
+    ],
 ];
