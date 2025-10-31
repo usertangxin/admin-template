@@ -57,11 +57,11 @@
                 <template v-else-if="!column.type">
                     <template v-if="column.tooltip">
                         <a-tooltip :content="column.tooltip + ''">
-                            {{ scope.record[column.dataIndex] || '' }}
+                            {{ _.get(scope.record, column.dataIndex) }}
                         </a-tooltip>
                     </template>
                     <template v-else>
-                        {{ scope.record[column.dataIndex] || '' }}
+                        {{ _.get(scope.record, column.dataIndex) }}
                     </template>
                 </template>
                 <template v-else-if="column.type === 'image'">
@@ -72,14 +72,14 @@
                     </a-image-preview-group>
                 </template>
                 <template v-else-if="column.type === 'icon'">
-                    <icon :icon="scope.record.icon"></icon>
+                    <icon :icon="_.get(scope.record, column.dataIndex)"></icon>
                 </template>
                 <template v-else-if="column.type === 'dict_tag'">
-                    <dict-tag :code="column.dict" :value="scope.record[column.dataIndex]"></dict-tag>
+                    <dict-tag :code="column.dict" :value="_.get(scope.record, column.dataIndex)"></dict-tag>
                 </template>
                 <template v-else-if="column.type === 'switch'">
-                    <a-switch type="round" :checked="scope.record[column.dataIndex]"
-                        v-model="scope.record[column.dataIndex]"
+                    <a-switch type="round" :checked="_.get(scope.record, column.dataIndex)"
+                        :value="scope.record[column.dataIndex]"
                         :disabled="scope.record[column.dataIndex + '_disabled'] ?? column.disabled ?? false"
                         :checked-value="column.checkedValue ?? true" :unchecked-value="column.uncheckedValue ?? false"
                         :checked-text="column.checkedText ?? ''" :unchecked-text="column.uncheckedText ?? ''"
@@ -93,8 +93,8 @@
                     </a-switch>
                 </template>
                 <template v-else-if="column.type === 'link'">
-                    <a-link :href="scope.record[column.dataIndex]" target="_blank">
-                        {{ scope.record[column.dataIndex] }}
+                    <a-link :href="_.get(scope.record, column.dataIndex)" target="_blank">
+                        {{ _.get(scope.record, column.dataIndex) }}
                     </a-link>
                 </template>
                 <template v-else>

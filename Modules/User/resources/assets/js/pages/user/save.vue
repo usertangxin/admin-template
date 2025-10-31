@@ -28,14 +28,14 @@
                 <a-date-picker v-model="formData.birthday" style="width: 100%"/>
             </a-form-item>
             <a-form-item :label="$t('user.vip')" field="vip">
-                <a-input-number v-model="formData.vip" :min="0" :step="1"/>
+                <remote-select v-model="formData.vip" url="/web/user/UserVipLevel/index" labelField="name" valueField="level"/>
             </a-form-item>
             <template v-if="!page.props.__page_create__">
                 <a-form-item :label="$t('user.money')" field="money">
-                    <a-input-number v-model="formData.money" :min="0" :precision="2" style="width: 100%"/>
+                    <a-input readonly v-model="formData.money" style="width: 100%"/>
                 </a-form-item>
                 <a-form-item :label="$t('user.score')" field="score">
-                    <a-input-number v-model="formData.score" :min="0" :step="1" style="width: 100%"/>
+                    <a-input readonly v-model="formData.score" style="width: 100%"/>
                 </a-form-item>
             </template>
             <a-form-item :label="$t('user.status')" field="status">

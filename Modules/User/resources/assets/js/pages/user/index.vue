@@ -29,7 +29,7 @@ const store = provideIndexShareStore({
         { title: __('user.score_freeze'), dataIndex: 'score_freeze', show: false, },
         { title: __('user.sex'), dataIndex: 'sex', type: 'dict_tag', dict: 'sex', },
         { title: __('user.birthday'), dataIndex: 'birthday', },
-        { title: __('user.vip'), dataIndex: 'vip', },
+        { title: __('user.vip'), dataIndex: 'vip_level.name', },
         { title: __('user.last_login_ip'), dataIndex: 'last_login_ip', },
         { title: __('user.last_login_type'), dataIndex: 'last_login_type', },
         { title: __('user.status'), dataIndex: 'status', type: 'dict_tag', dict: 'data_status', },

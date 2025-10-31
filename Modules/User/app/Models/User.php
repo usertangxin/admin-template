@@ -27,4 +27,9 @@ class User extends AbstractSoftDelModel
         }
         $this->attributes['password'] = Hash::make($value);
     }
+
+    public function vipLevel()
+    {
+        return $this->belongsTo(UserVipLevel::class, 'vip', 'level');
+    }
 }

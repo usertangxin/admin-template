@@ -106,5 +106,7 @@ const getList = () => {
     })
 }
 
+getList()
+
 
 </script>

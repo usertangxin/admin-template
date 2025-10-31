@@ -33,6 +33,7 @@
         "select": "选择",
         "createdAt": "创建时间",
         "updatedAt": "更新时间",
+        "deletedAt": "删除时间",
         "createdBy": "创建人",
         "updatedBy": "更新人",
         "save": "保存",

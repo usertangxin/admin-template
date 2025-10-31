@@ -47,5 +47,23 @@
         "phoneFormatError": "Invalid phone number format",
         "emailFormatError": "Invalid email format",
         "alipayAccountFormatError": "Invalid Alipay account format"
+    },
+    "userVipLevel": {
+        "name": "Level Name",
+        "namePlaceholder": "Please enter level name",
+        "nameRequired": "Please enter level name",
+        "nameLengthError": "Level name must be between 2 and 20 characters",
+        "level": "Level",
+        "levelPlaceholder": "Please enter level value",
+        "levelRequired": "Please enter level value",
+        "levelMinError": "Level cannot be less than 0",
+        "iconImage": "Level Icon",
+        "status": "Status",
+        "statusRequired": "Please select status",
+        "userVipLevelManagement": "VIP Level Management",
+        "userVipLevelList": "VIP Level List",
+        "addUserVipLevel": "Add VIP Level",
+        "editUserVipLevel": "Edit VIP Level",
+        "userVipLevelInfo": "VIP Level Information"
     }
 }

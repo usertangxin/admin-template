@@ -47,5 +47,23 @@
         "phoneFormatError": "手机号格式不正确",
         "emailFormatError": "邮箱格式不正确",
         "alipayAccountFormatError": "支付宝账号格式不正确"
+    },
+    "userVipLevel": {
+        "name": "等级名称",
+        "namePlaceholder": "请输入等级名称",
+        "nameRequired": "请输入等级名称",
+        "nameLengthError": "等级名称长度在2到20个字符之间",
+        "level": "等级",
+        "levelPlaceholder": "请输入等级数值",
+        "levelRequired": "请输入等级数值",
+        "levelMinError": "等级不能小于0",
+        "iconImage": "等级图标",
+        "status": "状态",
+        "statusRequired": "请选择状态",
+        "userVipLevelManagement": "VIP等级管理",
+        "userVipLevelList": "VIP等级列表",
+        "addUserVipLevel": "添加VIP等级",
+        "editUserVipLevel": "编辑VIP等级",
+        "userVipLevelInfo": "VIP等级信息"
     }
 }

@@ -33,6 +33,7 @@
         "select": "Select",
         "createdAt": "Created At",
         "updatedAt": "Updated At",
+        "deletedAt": "Deleted At",
         "createdBy": "Created By",
         "updatedBy": "Updated By",
         "save": "Save",

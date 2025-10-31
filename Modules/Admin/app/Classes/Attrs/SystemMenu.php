@@ -22,7 +22,7 @@ class SystemMenu implements ArrayAccess
      * @param  array       $children    子菜单
      * @param  bool        $allow_all   是否允许所有人访问
      * @param  bool        $allow_admin 是否允许管理员访问
-     * @param  null|string $name_lang   菜单名称（多语言）
+     * @param  null|string $name_lang   菜单名称（多语言）,如果是当作注解编写，则可不填写此字段，系统会根据控制器和方法名称解析
      * @return void
      */
     public function __construct(
