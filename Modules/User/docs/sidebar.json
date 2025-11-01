@@ -1,0 +1,21 @@
+{
+    "text": "User",
+    "items": [
+        {
+            "text": "模块介绍",
+            "link": "/Modules/User/"
+        },
+        {
+            "text": "余额系统",
+            "link": "/Modules/User/balance-system"
+        },
+        {
+            "text": "佣金系统",
+            "link": "/Modules/User/commission-system"
+        },
+        {
+            "text": "积分系统",
+            "link": "/Modules/User/integral-system"
+        }
+    ]
+}
