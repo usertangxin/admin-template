@@ -5,7 +5,7 @@ namespace Modules\User\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UserScoreLogRequest extends FormRequest
+class UserIntegralLogRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,8 +17,8 @@ class UserScoreLogRequest extends FormRequest
                 'required',
                 Rule::exists('users', 'id'),
             ],
-            'score' => 'required|integer',
-            'memo'  => 'required|string|max:255',
+            'integral' => 'required|integer',
+            'memo'     => 'required|string|max:255',
         ];
     }
 
@@ -28,9 +28,9 @@ class UserScoreLogRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'user_id' => __('user::user_score_log.user_id'),
-            'score'   => __('user::user_score_log.score'),
-            'memo'    => __('user::user_score_log.memo'),
+            'user_id'  => __('user::user_integral_log.user_id'),
+            'integral' => __('user::user_integral_log.integral'),
+            'memo'     => __('user::user_integral_log.memo'),
         ];
     }
 
@@ -40,9 +40,9 @@ class UserScoreLogRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'user_id.required' => __('user::user_score_log.user_id_required'),
-            'score.required'   => __('user::user_score_log.score_required'),
-            'memo.required'    => __('user::user_score_log.memo_required'),
+            'user_id.required'  => __('user::user_integral_log.user_id_required'),
+            'integral.required' => __('user::user_integral_log.integral_required'),
+            'memo.required'     => __('user::user_integral_log.memo_required'),
         ];
     }
 

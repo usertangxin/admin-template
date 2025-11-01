@@ -21,12 +21,12 @@ return new class extends Migration
             $table->string('phone', 191)->nullable()->unique('phone')->comment('手机号');
             $table->string('email', 191)->nullable()->unique('email')->comment('邮箱');
             $table->string('password')->nullable()->comment('密码');
-            $table->decimal('yongjin', 15)->unsigned()->default(0)->comment('佣金');
-            $table->decimal('yongjin_freeze', 15)->unsigned()->default(0)->comment('冻结佣金');
-            $table->decimal('money', 15)->unsigned()->default(0)->comment('余额');
-            $table->decimal('money_freeze', 15)->unsigned()->default(0)->comment('冻结余额');
-            $table->unsignedInteger('score')->default(0)->comment('积分');
-            $table->unsignedInteger('score_freeze')->default(0)->comment('冻结积分');
+            $table->decimal('commission', 15)->unsigned()->default(0)->comment('佣金');
+            $table->decimal('commission_freeze', 15)->unsigned()->default(0)->comment('冻结佣金');
+            $table->decimal('balance', 15)->unsigned()->default(0)->comment('余额');
+            $table->decimal('balance_freeze', 15)->unsigned()->default(0)->comment('冻结余额');
+            $table->unsignedInteger('integral')->default(0)->comment('积分');
+            $table->unsignedInteger('integral_freeze')->default(0)->comment('冻结积分');
             $table->string('sex')->default('unknown')->comment('性别:dict=sex');
             $table->string('avatar')->nullable()->comment('头像');
             $table->dateTime('birthday')->nullable()->comment('生日');

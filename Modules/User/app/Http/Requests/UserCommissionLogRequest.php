@@ -5,7 +5,7 @@ namespace Modules\User\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UserYongjinLogRequest extends FormRequest
+class UserCommissionLogRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,8 +17,8 @@ class UserYongjinLogRequest extends FormRequest
                 'required',
                 Rule::exists('users', 'id'),
             ],
-            'yongjin' => 'required|numeric',
-            'memo'    => 'required|string|max:255',
+            'commission' => 'required|numeric',
+            'memo'       => 'required|string|max:255',
         ];
     }
 
@@ -28,9 +28,9 @@ class UserYongjinLogRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'user_id' => __('user::user_yongjin_log.user_id'),
-            'yongjin' => __('user::user_yongjin_log.yongjin'),
-            'memo'    => __('user::user_yongjin_log.memo'),
+            'user_id'    => __('user::user_commission_log.user_id'),
+            'commission' => __('user::user_commission_log.commission'),
+            'memo'       => __('user::user_commission_log.memo'),
         ];
     }
 
@@ -40,9 +40,9 @@ class UserYongjinLogRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'user_id.required' => __('user::user_yongjin_log.user_id_required'),
-            'yongjin.required' => __('user::user_yongjin_log.yongjin_required'),
-            'memo.required'    => __('user::user_yongjin_log.memo_required'),
+            'user_id.required'    => __('user::user_commission_log.user_id_required'),
+            'commission.required' => __('user::user_commission_log.commission_required'),
+            'memo.required'       => __('user::user_commission_log.memo_required'),
         ];
     }
 

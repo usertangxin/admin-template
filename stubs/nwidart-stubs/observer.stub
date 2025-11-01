@@ -7,27 +7,122 @@ use $MODEL_NAMESPACE$\$NAME$;
 class $NAME$Observer
 {
     /**
+     * Handle the $NAME$ "retrieved" event.
+     */
+    public function retrieved($NAME$ $model): void
+    {
+        // TODO: Implement retrieved() method.
+    }
+
+    /**
+     * Handle the $NAME$ "creating" event.
+     */
+    public function creating($NAME$ $model): void
+    {
+        // TODO: Implement creating() method.
+    }
+
+    /**
      * Handle the $NAME$ "created" event.
      */
-    public function created($NAME$ $NAME_VARIABLE$): void {}
+    public function created($NAME$ $model): void
+    {
+        // TODO: Implement created() method.
+    }
+
+    /**
+     * Handle the $NAME$ "updating" event.
+     */
+    public function updating($NAME$ $model): void
+    {
+        // TODO: Implement updating() method.
+    }
 
     /**
      * Handle the $NAME$ "updated" event.
      */
-    public function updated($NAME$ $NAME_VARIABLE$): void {}
+    public function updated($NAME$ $model): void
+    {
+        // TODO: Implement updated() method.
+    }
 
     /**
-     * Handle the $NAME$ "deleted" event.
+     * Handle the $NAME$ "saving" event.
      */
-    public function deleted($NAME$ $NAME_VARIABLE$): void {}
+    public function saving($NAME$ $model): void
+    {
+        // TODO: Implement saving() method.
+    }
+
+    /**
+     * Handle the $NAME$ "saved" event.
+     */
+    public function saved($NAME$ $model): void
+    {
+        // TODO: Implement saved() method.
+    }
+
+    /**
+     * Handle the $NAME$ "restoring" event.
+     */
+    public function restoring($NAME$ $model): void
+    {
+        // TODO: Implement restoring() method.
+    }
 
     /**
      * Handle the $NAME$ "restored" event.
      */
-    public function restored($NAME$ $NAME_VARIABLE$): void {}
+    public function restored($NAME$ $model): void
+    {
+        // TODO: Implement restored() method.
+    }
 
     /**
-     * Handle the $NAME$ "force deleted" event.
+     * Handle the $NAME$ "replicating" event.
      */
-    public function forceDeleted($NAME$ $NAME_VARIABLE$): void {}
+    public function replicating($NAME$ $model): void
+    {
+        // TODO: Implement replicating() method.
+    }
+
+    /**
+     * Handle the $NAME$ "trashed" event.
+     */
+    public function trashed($NAME$ $model): void
+    {
+        // TODO: Implement trashed() method.
+    }
+
+    /**
+     * Handle the $NAME$ "deleting" event.
+     */
+    public function deleting($NAME$ $model): void
+    {
+        // TODO: Implement deleting() method.
+    }
+
+    /**
+     * Handle the $NAME$ "deleted" event.
+     */
+    public function deleted($NAME$ $model): void
+    {
+        // TODO: Implement deleted() method.
+    }
+
+    /**
+     * Handle the $NAME$ "forceDeleting" event.
+     */
+    public function forceDeleting($NAME$ $model): void
+    {
+        // TODO: Implement forceDeleting() method.
+    }
+
+    /**
+     * Handle the $NAME$ "forceDeleted" event.
+     */
+    public function forceDeleted($NAME$ $model): void
+    {
+        // TODO: Implement forceDeleted() method.
+    }
 }

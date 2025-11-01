@@ -31,14 +31,14 @@
                 <remote-select v-model="formData.vip" url="/web/user/UserVipLevel/index" labelField="name" valueField="level"/>
             </a-form-item>
             <template v-if="!page.props.__page_create__">
-                <a-form-item :label="$t('user.yongjin')" field="yongjin">
-                    <a-input readonly v-model="formData.yongjin" style="width: 100%"/>
+                <a-form-item :label="$t('user.commission')" field="commission">
+                    <a-input readonly v-model="formData.commission" style="width: 100%"/>
                 </a-form-item>
-                <a-form-item :label="$t('user.money')" field="money">
-                    <a-input readonly v-model="formData.money" style="width: 100%"/>
+                <a-form-item :label="$t('user.balance')" field="balance">
+                    <a-input readonly v-model="formData.balance" style="width: 100%"/>
                 </a-form-item>
-                <a-form-item :label="$t('user.score')" field="score">
-                    <a-input readonly v-model="formData.score" style="width: 100%"/>
+                <a-form-item :label="$t('user.integral')" field="integral">
+                    <a-input readonly v-model="formData.integral" style="width: 100%"/>
                 </a-form-item>
             </template>
             <a-form-item :label="$t('user.status')" field="status">
@@ -80,8 +80,8 @@ const formData = reactive({
     sex: 'unknown',
     birthday: '',
     vip: 0,
-    money: 0,
-    score: 0,
+    balance: 0,
+    integral: 0,
     status: 'normal',
     alipay_name: '',
     alipay_account: ''

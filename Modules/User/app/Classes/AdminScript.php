@@ -3,6 +3,7 @@
 namespace Modules\User\Classes;
 
 use Modules\Admin\Classes\Attrs\SystemMenu;
+use Modules\Admin\Classes\Utils\SystemDictUtil;
 use Modules\Admin\Classes\Utils\SystemMenuManager;
 use Modules\Admin\Classes\Utils\SystemMenuType;
 use Modules\Admin\Interfaces\AdminScriptInterface;
@@ -21,6 +22,11 @@ class AdminScript implements AdminScriptInterface
                 name_lang: 'user::system_menu.user_manager'
             )
         );
+
+        SystemDictUtil::autoRegisterTypes(config('user.system_dict_type'));
+        SystemDictUtil::autoRegisterDicts(config('user.system_dict_balance'));
+        SystemDictUtil::autoRegisterDicts(config('user.system_dict_commission'));
+        SystemDictUtil::autoRegisterDicts(config('user.system_dict_integral'));
     }
 
     public function disable(Module $module)

@@ -8,13 +8,13 @@ return [
     'user_vip_level_controller' => [
         'index' => '用户等级',
     ],
-    'user_yongjin_log_controller' => [
+    'user_commission_log_controller' => [
         'index' => '佣金记录',
     ],
-    'user_money_log_controller' => [
+    'user_balance_log_controller' => [
         'index' => '余额记录',
     ],
-    'user_score_log_controller' => [
+    'user_integral_log_controller' => [
         'index' => '积分记录',
     ],
 ];

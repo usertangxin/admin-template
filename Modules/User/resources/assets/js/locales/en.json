@@ -5,12 +5,12 @@
         "username": "Username",
         "phone": "Phone",
         "email": "Email",
-        "yongjin": "Commission",
-        "yongjin_freeze": "Frozen Commission",
-        "money": "Balance",
-        "money_freeze": "Frozen Balance",
-        "score": "Points",
-        "score_freeze": "Frozen Points",
+        "commission": "Commission",
+        "commission_freeze": "Frozen Commission",
+        "balance": "Balance",
+        "balance_freeze": "Frozen Balance",
+        "integral": "Points",
+        "integral_freeze": "Frozen Points",
         "sex": "Gender",
         "birthday": "Birthday",
         "vip": "VIP Level",
@@ -66,10 +66,10 @@
         "editUserVipLevel": "Edit VIP Level",
         "userVipLevelInfo": "VIP Level Information"
     },
-    "user_yongjin_log": {
+    "user_commission_log": {
         "id": "ID",
         "user_id": "User Account",
-        "yongjin": "Commission Change",
+        "commission": "Commission Change",
         "before": "Before",
         "after": "After",
         "memo": "Memo",
@@ -78,22 +78,22 @@
         "user": "User",
 
         "userIdPlaceholder": "Please select user account",
-        "yongjinPlaceholder": "Please enter commission change",
+        "commissionPlaceholder": "Please enter commission change",
         "beforePlaceholder": "Please enter before amount",
         "afterPlaceholder": "Please enter after amount",
         "memoPlaceholder": "Please enter memo",
         "createdByPlaceholder": "Please enter creator",
 
         "user_id_required": "User ID is required",
-        "yongjin_required": "Commission change is required",
+        "commission_required": "Commission change is required",
         "before_required": "Before amount is required",
         "after_required": "After amount is required",
         "memo_required": "Memo is required"
     },
-    "user_money_log": {
+    "user_balance_log": {
         "id": "ID",
         "user_id": "User Account",
-        "money": "Money Change",
+        "balance": "Balance Change",
         "before": "Before",
         "after": "After",
         "memo": "Memo",
@@ -102,22 +102,22 @@
         "user": "User",
 
         "userIdPlaceholder": "Please select user account",
-        "moneyPlaceholder": "Please enter money change",
+        "balancePlaceholder": "Please enter balance change",
         "beforePlaceholder": "Please enter before amount",
         "afterPlaceholder": "Please enter after amount",
         "memoPlaceholder": "Please enter memo",
         "createdByPlaceholder": "Please enter creator",
 
         "user_id_required": "User ID is required",
-        "money_required": "Money change is required",
+        "balance_required": "Balance change is required",
         "before_required": "Before amount is required",
         "after_required": "After amount is required",
         "memo_required": "Memo is required"
     },
-    "user_score_log": {
+    "user_integral_log": {
         "id": "ID",
         "user_id": "User Account",
-        "score": "Score Change",
+        "integral": "Integral Change",
         "before": "Before",
         "after": "After",
         "memo": "Memo",
@@ -126,14 +126,14 @@
         "user": "User",
 
         "userIdPlaceholder": "Please select user account",
-        "scorePlaceholder": "Please enter score change",
+        "integralPlaceholder": "Please enter integral change",
         "beforePlaceholder": "Please enter before amount",
         "afterPlaceholder": "Please enter after amount",
         "memoPlaceholder": "Please enter memo",
         "createdByPlaceholder": "Please enter creator",
 
         "user_id_required": "User ID is required",
-        "score_required": "Score change is required",
+        "integral_required": "Integral change is required",
         "before_required": "Before amount is required",
         "after_required": "After amount is required",
         "memo_required": "Memo is required"

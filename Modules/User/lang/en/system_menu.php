@@ -8,13 +8,13 @@ return [
     'user_vip_level_controller' => [
         'index' => 'Level List',
     ],
-    'user_yongjin_log_controller' => [
-        'index' => 'Yongjin Log',
+    'user_commission_log_controller' => [
+        'index' => 'Commission Log',
     ],
-    'user_money_log_controller' => [
-        'index' => 'Money Log',
+    'user_balance_log_controller' => [
+        'index' => 'Balance Log',
     ],
-    'user_score_log_controller' => [
-        'index' => 'Score Log',
+    'user_integral_log_controller' => [
+        'index' => 'Integral Log',
     ],
 ];

@@ -5,8 +5,7 @@ namespace Modules\User\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Support\Facades\Hash;
 use Modules\Admin\Models\AbstractSoftDelModel;
-
-// use Modules\User\Database\Factories\UserFactory;
+use Modules\User\Database\Factories\UserFactory;
 
 class User extends AbstractSoftDelModel
 {
@@ -19,6 +18,11 @@ class User extends AbstractSoftDelModel
     ];
 
     protected $hidden = ['password'];
+
+    public static function factory($count = null, $state = [])
+    {
+        return UserFactory::new();
+    }
 
     public function setPasswordAttribute($value)
     {
