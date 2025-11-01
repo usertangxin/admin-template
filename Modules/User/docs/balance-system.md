@@ -29,7 +29,43 @@ title: 余额系统
 
 ## 使用方法
 
-### 创建余额日志
+### 方式一：使用 UserRepository 辅助方法（推荐）
+
+`UserRepository` 提供了便捷的辅助方法，所有方法都在事务中执行，并自动处理金额的正负数转换：
+
+```php
+use Modules\User\Repositories\UserRepository;
+
+$repository = app(UserRepository::class);
+
+// 充值余额 - 传入正数金额
+$log = $repository->rechargeBalance($userId, 100.00, '用户充值');
+
+// 提现 - 传入正数金额，方法内部会自动转为负数
+$log = $repository->withdrawBalance($userId, 50.00, '用户提现');
+
+// 消费 - 传入正数金额，方法内部会自动转为负数
+$log = $repository->consumptionBalance($userId, 80.00, '购买商品');
+
+// 退款 - 传入正数金额
+$log = $repository->refundBalance($userId, 30.00, '订单退款');
+
+// 冻结余额 - 传入正数金额，方法内部会自动转为负数
+$log = $repository->freezeBalance($userId, 20.00, '冻结余额');
+
+// 解冻余额 - 传入正数金额
+$log = $repository->unFreezeBalance($userId, 20.00, '解冻余额');
+```
+
+::: tip
+推荐使用 `UserRepository` 的辅助方法，因为它们：
+- 在事务中执行，确保数据一致性
+- 自动验证金额不能为负数
+- 自动处理金额的正负数转换
+- 返回创建后的日志记录
+:::
+
+### 方式二：直接创建余额日志
 
 余额系统使用观察者模式自动处理余额变更。只需创建 `UserBalanceLog` 记录，系统会自动：
 
@@ -56,6 +92,62 @@ UserBalanceLog::create([
     'memo' => '购买商品',
 ]);
 ```
+
+## UserRepository 方法说明
+
+### rechargeBalance($user_id, $balance, $memo)
+充值余额
+- **参数：**
+  - `$user_id` - 用户ID
+  - `$balance` - 充值金额（必须为正数）
+  - `$memo` - 备注说明
+- **返回：** `UserBalanceLog` 实例
+- **异常：** 如果金额为负数，抛出异常
+
+### withdrawBalance($user_id, $balance, $memo)
+提现余额
+- **参数：**
+  - `$user_id` - 用户ID
+  - `$balance` - 提现金额（必须为正数）
+  - `$memo` - 备注说明
+- **返回：** `UserBalanceLog` 实例
+- **异常：** 如果金额为负数或余额不足，抛出异常
+
+### consumptionBalance($user_id, $balance, $memo)
+消费余额
+- **参数：**
+  - `$user_id` - 用户ID
+  - `$balance` - 消费金额（必须为正数）
+  - `$memo` - 备注说明
+- **返回：** `UserBalanceLog` 实例
+- **异常：** 如果金额为负数或余额不足，抛出异常
+
+### refundBalance($user_id, $balance, $memo)
+退款到余额
+- **参数：**
+  - `$user_id` - 用户ID
+  - `$balance` - 退款金额（必须为正数）
+  - `$memo` - 备注说明
+- **返回：** `UserBalanceLog` 实例
+- **异常：** 如果金额为负数，抛出异常
+
+### freezeBalance($user_id, $balance, $memo)
+冻结余额
+- **参数：**
+  - `$user_id` - 用户ID
+  - `$balance` - 冻结金额（必须为正数）
+  - `$memo` - 备注说明
+- **返回：** `UserBalanceLog` 实例
+- **异常：** 如果金额为负数或余额不足，抛出异常
+
+### unFreezeBalance($user_id, $balance, $memo)
+解冻余额
+- **参数：**
+  - `$user_id` - 用户ID
+  - `$balance` - 解冻金额（必须为正数）
+  - `$memo` - 备注说明
+- **返回：** `UserBalanceLog` 实例
+- **异常：** 如果金额为负数或冻结余额不足，抛出异常
 
 ## 操作验证规则
 
@@ -101,7 +193,7 @@ UserBalanceLog::create([
 ## 注意事项
 
 ::: warning
-所有余额操作都是通过观察者自动处理的。不要直接修改 `User` 模型的 `balance` 和 `balance_freeze` 字段，而应该通过创建 `UserBalanceLog` 记录来实现。
+所有余额操作都是通过观察者自动处理的。不要直接修改 `User` 模型的 `balance` 和 `balance_freeze` 字段，而应该通过创建 `UserBalanceLog` 记录或使用 `UserRepository` 的辅助方法来实现。
 :::
 
 ::: tip
@@ -110,4 +202,12 @@ UserBalanceLog::create([
 
 ::: danger
 提现、消费、冻结操作会自动验证余额是否充足，如果余额不足会抛出异常，请务必捕获处理。
+:::
+
+::: tip
+使用 `UserRepository` 的辅助方法时，所有传入的金额都应该是正数，方法内部会根据操作类型自动处理正负数转换。
+:::
+
+::: danger
+所有余额操作都应该在数据库事务中进行，以确保数据一致性。`UserRepository` 的辅助方法已经包含了事务处理，如果直接创建 `UserBalanceLog` 记录，请务必使用 `DB::transaction()` 包装操作。
 :::

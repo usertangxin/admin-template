@@ -27,7 +27,37 @@ title: 积分系统
 
 ## 使用方法
 
-### 创建积分日志
+### 方式一：使用 UserRepository 辅助方法（推荐）
+
+`UserRepository` 提供了便捷的辅助方法，所有方法都在事务中执行，并自动处理积分的正负数转换：
+
+```php
+use Modules\User\Repositories\UserRepository;
+
+$repository = app(UserRepository::class);
+
+// 消费返积分 - 传入正数积分
+$log = $repository->consumptionReturnsIntegral($userId, 100, '消费返积分');
+
+// 积分抵扣 - 传入正数积分，方法内部会自动转为负数
+$log = $repository->deductionIntegral($userId, 50, '积分抵扣');
+
+// 冻结积分 - 传入正数积分，方法内部会自动转为负数
+$log = $repository->freezeIntegral($userId, 20, '冻结积分');
+
+// 解冻积分 - 传入正数积分
+$log = $repository->unFreezeIntegral($userId, 20, '解冻积分');
+```
+
+::: tip
+推荐使用 `UserRepository` 的辅助方法，因为它们：
+- 在事务中执行，确保数据一致性
+- 自动验证积分不能为负数
+- 自动处理积分的正负数转换
+- 返回创建后的日志记录
+:::
+
+### 方式二：直接创建积分日志
 
 积分系统使用观察者模式自动处理积分变更。只需创建 `UserIntegralLog` 记录，系统会自动：
 
@@ -54,6 +84,44 @@ UserIntegralLog::create([
     'memo' => '积分抵扣',
 ]);
 ```
+
+## UserRepository 方法说明
+
+### consumptionReturnsIntegral($user_id, $integral, $memo)
+消费返积分（增加积分）
+- **参数：**
+  - `$user_id` - 用户ID
+  - `$integral` - 积分数量（必须为正数）
+  - `$memo` - 备注说明
+- **返回：** `UserIntegralLog` 实例
+- **异常：** 如果积分为负数，抛出异常
+
+### deductionIntegral($user_id, $integral, $memo)
+抵扣积分
+- **参数：**
+  - `$user_id` - 用户ID
+  - `$integral` - 抵扣积分数量（必须为正数）
+  - `$memo` - 备注说明
+- **返回：** `UserIntegralLog` 实例
+- **异常：** 如果积分为负数或积分不足，抛出异常
+
+### freezeIntegral($user_id, $integral, $memo)
+冻结积分
+- **参数：**
+  - `$user_id` - 用户ID
+  - `$integral` - 冻结积分数量（必须为正数）
+  - `$memo` - 备注说明
+- **返回：** `UserIntegralLog` 实例
+- **异常：** 如果积分为负数或积分不足，抛出异常
+
+### unFreezeIntegral($user_id, $integral, $memo)
+解冻积分
+- **参数：**
+  - `$user_id` - 用户ID
+  - `$integral` - 解冻积分数量（必须为正数）
+  - `$memo` - 备注说明
+- **返回：** `UserIntegralLog` 实例
+- **异常：** 如果积分为负数或冻结积分不足，抛出异常
 
 ## 操作验证规则
 
@@ -90,7 +158,7 @@ UserIntegralLog::create([
 ## 注意事项
 
 ::: warning
-所有积分操作都是通过观察者自动处理的。不要直接修改 `User` 模型的 `integral` 和 `integral_freeze` 字段，而应该通过创建 `UserIntegralLog` 记录来实现。
+所有积分操作都是通过观察者自动处理的。不要直接修改 `User` 模型的 `integral` 和 `integral_freeze` 字段，而应该通过创建 `UserIntegralLog` 记录或使用 `UserRepository` 的辅助方法来实现。
 :::
 
 ::: tip
@@ -99,4 +167,12 @@ UserIntegralLog::create([
 
 ::: danger
 抵扣、冻结操作会自动验证积分是否充足，如果积分不足会抛出异常，请务必捕获处理。
+:::
+
+::: tip
+使用 `UserRepository` 的辅助方法时，所有传入的积分都应该是正数，方法内部会根据操作类型自动处理正负数转换。
+:::
+
+::: danger
+所有积分操作都应该在数据库事务中进行，以确保数据一致性。`UserRepository` 的辅助方法已经包含了事务处理，如果直接创建 `UserIntegralLog` 记录，请务必使用 `DB::transaction()` 包装操作。
 :::
