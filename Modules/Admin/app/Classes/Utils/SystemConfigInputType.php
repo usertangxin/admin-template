@@ -12,7 +12,7 @@ class SystemConfigInputType
 
     const TABS = 'tabs';
 
-    const CHECKBOX = 'checkbox';
+    const CHECKBOX = 'a-checkbox-group';
 
     const RADIO = 'radio';
 

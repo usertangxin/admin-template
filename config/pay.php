@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Yansongda\Pay\Pay;
-
 return [
     'alipay' => [
         'default' => [
@@ -22,7 +20,7 @@ return [
             // 选填-服务商模式下的服务商 id，当 mode 为 Pay::MODE_SERVICE 时使用该参数
             'service_provider_id' => '',
             // 选填-默认为正常模式。可选为： MODE_NORMAL, MODE_SANDBOX, MODE_SERVICE
-            'mode' => Pay::MODE_NORMAL,
+            'mode' => 0,
         ],
     ],
     'wechat' => [
@@ -58,7 +56,7 @@ return [
                 '45F59D4DABF31918AFCEC556D5D2C6E376675D57' => __DIR__ . '/Cert/wechatPublicKey.crt',
             ],
             // 选填-默认为正常模式。可选为： MODE_NORMAL, MODE_SERVICE
-            'mode' => Pay::MODE_NORMAL,
+            'mode' => 0,
         ],
     ],
     'unipay' => [
@@ -116,7 +114,7 @@ return [
             // 支付通知地址
             'notify_url' => '',
             // 选填-默认为正常模式。可选为： MODE_NORMAL:正式环境, MODE_SANDBOX:测试环境
-            'mode' => Pay::MODE_NORMAL,
+            'mode' => 0,
         ],
     ],
     'http' => [ // optional
