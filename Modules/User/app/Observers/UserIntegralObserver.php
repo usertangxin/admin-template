@@ -36,7 +36,6 @@ class UserIntegralObserver
     /**
      * 抵扣
      *
-     * @param  UserIntegralLog $userIntegralLog
      * @return void
      *
      * @throws Throwable
@@ -54,7 +53,6 @@ class UserIntegralObserver
     /**
      * 冻结
      *
-     * @param  UserIntegralLog $userIntegralLog
      * @return void
      *
      * @throws Throwable
@@ -74,7 +72,6 @@ class UserIntegralObserver
     /**
      * 解冻
      *
-     * @param  UserIntegralLog $userIntegralLog
      * @return void
      *
      * @throws Throwable

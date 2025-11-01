@@ -161,7 +161,7 @@ class UserIntegralObserverTest extends AbstractAuthTestCase
     public function test_unfreeze_operation()
     {
         // 先冻结一些积分
-        $this->user->integral = 70;
+        $this->user->integral        = 70;
         $this->user->integral_freeze = 30;
         $this->user->save();
 

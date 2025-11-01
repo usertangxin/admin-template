@@ -5,7 +5,11 @@ namespace Modules\User\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Modules\User\Models\UserBalanceLog;
+use Modules\User\Models\UserCommissionLog;
+use Modules\User\Models\UserIntegralLog;
 use Modules\User\Observers\UserBalanceObserver;
+use Modules\User\Observers\UserCommissionObserver;
+use Modules\User\Observers\UserIntegralObserver;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -31,6 +35,8 @@ class UserServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
         UserBalanceLog::observe(UserBalanceObserver::class);
+        UserCommissionLog::observe(UserCommissionObserver::class);
+        UserIntegralLog::observe(UserIntegralObserver::class);
 
     }
 

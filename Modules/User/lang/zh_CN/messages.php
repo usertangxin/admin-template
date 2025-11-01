@@ -19,9 +19,9 @@ return [
     'The frozen commission is insufficient'                     => '冻结的佣金不足',
 
     // 积分相关翻译
-    'The amount of the integral change cannot be less than 0'   => '积分变更数量不能小于0',
+    'The amount of the integral change cannot be less than 0'       => '积分变更数量不能小于0',
     'The amount of the integral deduction cannot be greater than 0' => '积分抵扣数量必须小于0',
-    'Insufficient integral when deducting'                      => '抵扣时积分不足',
-    'Insufficient integral when freezing'                       => '冻结时积分不足',
-    'The frozen integral is insufficient'                       => '冻结的积分不足',
+    'Insufficient integral when deducting'                          => '抵扣时积分不足',
+    'Insufficient integral when freezing'                           => '冻结时积分不足',
+    'The frozen integral is insufficient'                           => '冻结的积分不足',
 ];

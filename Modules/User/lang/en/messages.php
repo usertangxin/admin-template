@@ -19,9 +19,9 @@ return [
     'The frozen commission is insufficient'                     => 'The frozen commission is insufficient',
 
     // Integral related translations
-    'The amount of the integral change cannot be less than 0'   => 'The amount of the integral change cannot be less than 0',
+    'The amount of the integral change cannot be less than 0'       => 'The amount of the integral change cannot be less than 0',
     'The amount of the integral deduction cannot be greater than 0' => 'The amount of the integral deduction cannot be greater than 0',
-    'Insufficient integral when deducting'                      => 'Insufficient integral when deducting',
-    'Insufficient integral when freezing'                       => 'Insufficient integral when freezing',
-    'The frozen integral is insufficient'                       => 'The frozen integral is insufficient',
+    'Insufficient integral when deducting'                          => 'Insufficient integral when deducting',
+    'Insufficient integral when freezing'                           => 'Insufficient integral when freezing',
+    'The frozen integral is insufficient'                           => 'The frozen integral is insufficient',
 ];
