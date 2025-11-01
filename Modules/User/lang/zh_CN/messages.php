@@ -24,4 +24,24 @@ return [
     'Insufficient integral when deducting'                          => '抵扣时积分不足',
     'Insufficient integral when freezing'                           => '冻结时积分不足',
     'The frozen integral is insufficient'                           => '冻结的积分不足',
+
+    // 新增翻译条目
+    'Recharge amount cannot be negative'    => '充值金额不能为负数',
+    'Withdrawal amount cannot be negative'  => '提现金额不能为负数',
+    'Consumption amount cannot be negative' => '消费金额不能为负数',
+    'Refund amount cannot be negative'      => '退款金额不能为负数',
+    'Freeze amount cannot be negative'      => '冻结金额不能为负数',
+    'Unfreeze amount cannot be negative'    => '解冻金额不能为负数',
+
+    // 佣金新增翻译条目
+    'Commission amount cannot be negative'          => '发放佣金金额不能为负数',
+    'Withdraw commission amount cannot be negative' => '提现佣金金额不能为负数',
+    'Freeze commission amount cannot be negative'   => '冻结佣金金额不能为负数',
+    'Unfreeze commission amount cannot be negative' => '解冻佣金金额不能为负数',
+
+    // 积分新增翻译条目
+    'Integral amount cannot be negative'           => '增加积分数量不能为负数',
+    'Deduction integral amount cannot be negative' => '抵扣积分数量不能为负数',
+    'Freeze integral amount cannot be negative'    => '冻结积分数量不能为负数',
+    'Unfreeze integral amount cannot be negative'  => '解冻积分数量不能为负数',
 ];

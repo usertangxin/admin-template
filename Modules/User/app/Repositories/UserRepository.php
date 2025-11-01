@@ -29,7 +29,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保金额为正数
         if ($balance < 0) {
-            throw new Exception('充值金额不能为负数');
+            throw new Exception(trans('user::messages.Recharge amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $balance, $memo) {
@@ -57,7 +57,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保金额为正数
         if ($balance < 0) {
-            throw new Exception('提现金额不能为负数');
+            throw new Exception(trans('user::messages.Withdrawal amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $balance, $memo) {
@@ -85,7 +85,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保金额为正数
         if ($balance < 0) {
-            throw new Exception('消费金额不能为负数');
+            throw new Exception(trans('user::messages.Consumption amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $balance, $memo) {
@@ -113,7 +113,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保金额为正数
         if ($balance < 0) {
-            throw new Exception('退款金额不能为负数');
+            throw new Exception(trans('user::messages.Refund amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $balance, $memo) {
@@ -141,7 +141,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保金额为正数
         if ($balance < 0) {
-            throw new Exception('冻结金额不能为负数');
+            throw new Exception(trans('user::messages.Freeze amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $balance, $memo) {
@@ -169,7 +169,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保金额为正数
         if ($balance < 0) {
-            throw new Exception('解冻金额不能为负数');
+            throw new Exception(trans('user::messages.Unfreeze amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $balance, $memo) {
@@ -197,7 +197,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保金额为正数
         if ($commission < 0) {
-            throw new Exception('发放佣金金额不能为负数');
+            throw new Exception(trans('user::messages.Commission amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $commission, $memo) {
@@ -225,7 +225,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保金额为正数
         if ($commission < 0) {
-            throw new Exception('提现佣金金额不能为负数');
+            throw new Exception(trans('user::messages.Withdraw commission amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $commission, $memo) {
@@ -253,7 +253,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保金额为正数
         if ($commission < 0) {
-            throw new Exception('冻结佣金金额不能为负数');
+            throw new Exception(trans('user::messages.Freeze commission amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $commission, $memo) {
@@ -281,7 +281,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保金额为正数
         if ($commission < 0) {
-            throw new Exception('解冻佣金金额不能为负数');
+            throw new Exception(trans('user::messages.Unfreeze commission amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $commission, $memo) {
@@ -309,7 +309,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保积分为正数
         if ($integral < 0) {
-            throw new Exception('增加积分数量不能为负数');
+            throw new Exception(trans('user::messages.Integral amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $integral, $memo) {
@@ -337,7 +337,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保积分为正数
         if ($integral < 0) {
-            throw new Exception('抵扣积分数量不能为负数');
+            throw new Exception(trans('user::messages.Deduction integral amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $integral, $memo) {
@@ -365,7 +365,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保积分为正数
         if ($integral < 0) {
-            throw new Exception('冻结积分数量不能为负数');
+            throw new Exception(trans('user::messages.Freeze integral amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $integral, $memo) {
@@ -393,7 +393,7 @@ class UserRepository extends AbstractRepository
     {
         // 确保积分为正数
         if ($integral < 0) {
-            throw new Exception('解冻积分数量不能为负数');
+            throw new Exception(trans('user::messages.Unfreeze integral amount cannot be negative'));
         }
 
         return DB::transaction(function () use ($user_id, $integral, $memo) {

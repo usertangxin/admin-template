@@ -24,4 +24,24 @@ return [
     'Insufficient integral when deducting'                          => 'Insufficient integral when deducting',
     'Insufficient integral when freezing'                           => 'Insufficient integral when freezing',
     'The frozen integral is insufficient'                           => 'The frozen integral is insufficient',
+
+    // New translation entries
+    'Recharge amount cannot be negative'    => 'Recharge amount cannot be negative',
+    'Withdrawal amount cannot be negative'  => 'Withdrawal amount cannot be negative',
+    'Consumption amount cannot be negative' => 'Consumption amount cannot be negative',
+    'Refund amount cannot be negative'      => 'Refund amount cannot be negative',
+    'Freeze amount cannot be negative'      => 'Freeze amount cannot be negative',
+    'Unfreeze amount cannot be negative'    => 'Unfreeze amount cannot be negative',
+
+    // Commission new translation entries
+    'Commission amount cannot be negative'          => 'Commission amount cannot be negative',
+    'Withdraw commission amount cannot be negative' => 'Withdraw commission amount cannot be negative',
+    'Freeze commission amount cannot be negative'   => 'Freeze commission amount cannot be negative',
+    'Unfreeze commission amount cannot be negative' => 'Unfreeze commission amount cannot be negative',
+
+    // Integral new translation entries
+    'Integral amount cannot be negative'           => 'Integral amount cannot be negative',
+    'Deduction integral amount cannot be negative' => 'Deduction integral amount cannot be negative',
+    'Freeze integral amount cannot be negative'    => 'Freeze integral amount cannot be negative',
+    'Unfreeze integral amount cannot be negative'  => 'Unfreeze integral amount cannot be negative',
 ];
