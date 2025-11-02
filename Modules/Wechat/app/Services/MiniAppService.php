@@ -7,7 +7,6 @@ use Modules\Admin\Services\SystemConfigService;
 
 /**
  * @mixin Application
- * @package Modules\Wechat\Services
  */
 class MiniAppService
 {
