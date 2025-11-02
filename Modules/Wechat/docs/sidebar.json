@@ -1,0 +1,18 @@
+{
+    "text": "Wechat",
+    "items": [
+        {
+            "text": "模块介绍",
+            "link": "/Modules/Wechat/"
+        },
+        {
+            "text": "服务使用",
+            "link": "/Modules/Wechat/service-usage"
+        },
+        {
+            "text": "配置说明",
+            "link": "/Modules/Wechat/config"
+        }
+    ]
+}
+
