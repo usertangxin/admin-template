@@ -226,6 +226,11 @@ return [
         'input_attr'    => null,
     ],
 
+    /**
+     * ===================================================
+     * 支付宝
+     * ===================================================
+     */
     [
         'group' => 'pay_config',
         'key'   => 'pay_alipay_app_id',
@@ -256,8 +261,8 @@ return [
         ],
         'bind_p_config' => 'pay_group',
         'input_attr'    => [
-            'zh_CN' => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => '微信支付公钥，请勿泄露'],
-            'en'    => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => 'WeChat Payment Public Key, Do Not Leak'],
+            'zh_CN' => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.crt', 'remark' => '支付宝应用私钥，请勿泄露'],
+            'en'    => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.crt', 'remark' => 'Alipay Application Private Key, Do Not Leak'],
         ],
     ],
     [
@@ -276,8 +281,8 @@ return [
         ],
         'bind_p_config' => 'pay_group',
         'input_attr'    => [
-            'zh_CN' => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => '微信支付公钥，请勿泄露'],
-            'en'    => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => 'WeChat Payment Public Key, Do Not Leak'],
+            'zh_CN' => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.crt', 'remark' => '支付宝应用公钥，请勿泄露'],
+            'en'    => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.crt', 'remark' => 'Alipay Application Public Key, Do Not Leak'],
         ],
     ],
     [
@@ -296,8 +301,8 @@ return [
         ],
         'bind_p_config' => 'pay_group',
         'input_attr'    => [
-            'zh_CN' => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => '微信支付公钥，请勿泄露'],
-            'en'    => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => 'WeChat Payment Public Key, Do Not Leak'],
+            'zh_CN' => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.crt', 'remark' => '支付宝根证书，请勿泄露'],
+            'en'    => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.crt', 'remark' => 'Alipay Root Certificate, Do Not Leak'],
         ],
     ],
     [
@@ -316,8 +321,8 @@ return [
         ],
         'bind_p_config' => 'pay_group',
         'input_attr'    => [
-            'zh_CN' => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => '微信支付公钥，请勿泄露'],
-            'en'    => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.pem', 'remark' => 'WeChat Payment Public Key, Do Not Leak'],
+            'zh_CN' => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.crt', 'remark' => '支付宝根证书，请勿泄露'],
+            'en'    => ['storage-mode' => 'upload_private', 'upload-mode' => 'document', 'multiple' => false, 'limit' => 1, 'accept' => '.crt', 'remark' => 'Alipay Root Certificate, Do Not Leak'],
         ],
     ],
     [
