@@ -89,7 +89,7 @@ return [
         'bind_p_config' => 'wechat_group',
         'input_attr'    => null,
     ],
-    
+
     [
         'group'      => 'wechat_config',
         'key'        => 'wechat_official_app_id',

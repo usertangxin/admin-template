@@ -11,15 +11,15 @@ class MiniAppService
 
     public function __construct()
     {
-        $app_id = app(SystemConfigService::class)->getConfigByKey('wechat_mini_app_id');
-        $secret = app(SystemConfigService::class)->getConfigByKey('wechat_mini_secret');
-        $token = app(SystemConfigService::class)->getConfigByKey('wechat_mini_token');
+        $app_id  = app(SystemConfigService::class)->getConfigByKey('wechat_mini_app_id');
+        $secret  = app(SystemConfigService::class)->getConfigByKey('wechat_mini_secret');
+        $token   = app(SystemConfigService::class)->getConfigByKey('wechat_mini_token');
         $aes_key = app(SystemConfigService::class)->getConfigByKey('wechat_mini_aes_key');
 
         $config = [
-            'app_id' => $app_id,
-            'secret' => $secret,
-            'token' => $token,
+            'app_id'  => $app_id,
+            'secret'  => $secret,
+            'token'   => $token,
             'aes_key' => $aes_key,
         ];
 

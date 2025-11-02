@@ -8,8 +8,6 @@ namespace Modules\Admin\Interfaces;
  * 该接口定义了文件上传时对文件进行验证和约束的规范。
  * 实现该接口的类需要提供上传模式标识和文件验证逻辑，
  * 用于检查上传文件的类型、大小等是否符合系统配置的要求。
- *
- * @package Modules\Admin\Interfaces
  */
 interface UploadFileConstraintInterface
 {
@@ -32,6 +30,7 @@ interface UploadFileConstraintInterface
      *
      * @param  \Illuminate\Http\UploadedFile[] $files 待检查的上传文件数组
      * @return \Illuminate\Http\UploadedFile[] 通过验证的文件数组
+     *
      * @throws \Exception 当文件不符合限制时抛出异常，异常消息包含具体的限制信息
      */
     public function check($files): array;

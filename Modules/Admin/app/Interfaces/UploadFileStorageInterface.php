@@ -28,19 +28,16 @@ interface UploadFileStorageInterface
 
     /**
      * 删除文件
-     * 
-     * @param mixed $paths 
-     * @return bool 
+     *
+     * @param mixed $paths
      */
     public function delete($paths): bool;
 
     /**
      * 生成临时路径
-     * 
-     * @param mixed $path 
-     * @param DateTime $expiration 
-     * @param array $options 
-     * @return string 
+     *
+     * @param mixed $path
+     * @param array $options
      */
     public function temporaryUrl($path, DateTime $expiration, $options = []): string;
 }
