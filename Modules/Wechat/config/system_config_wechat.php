@@ -20,16 +20,27 @@ return [
                 'options' => [
                     ['label' => '小程序', 'value' => 'wechat_mini'],
                     ['label' => '公众号', 'value' => 'wechat_official'],
+                    ['label' => '开放平台', 'value' => 'wechat_open_platform'],
+                    ['label' => '企业微信', 'value' => 'wechat_work'],
+                    ['label' => '企业微信开放平台', 'value' => 'wechat_open_work'],
                 ],
             ],
             'en' => [
                 'options' => [
                     ['label' => 'Mini Program', 'value' => 'wechat_mini'],
                     ['label' => 'Official Account', 'value' => 'wechat_official'],
+                    ['label' => 'Open Platform', 'value' => 'wechat_open_platform'],
+                    ['label' => 'WeChat Work', 'value' => 'wechat_work'],
+                    ['label' => 'Wechat Open Work', 'value' => 'wechat_open_work'],
                 ],
             ],
         ],
     ],
+    /**
+     * ========================================================
+     * 微信小程序配置
+     * ========================================================
+     */
     [
         'group' => 'wechat_config',
         'key'   => 'wechat_mini_app_id',
@@ -90,6 +101,11 @@ return [
         'input_attr'    => null,
     ],
 
+    /**
+     * ========================================================
+     * 微信公众号配置
+     * ========================================================
+     */
     [
         'group'      => 'wechat_config',
         'key'        => 'wechat_official_app_id',
@@ -193,6 +209,220 @@ return [
         'remark' => [
             'zh_CN' => '微信公众号回调地址',
             'en'    => 'WeChat Official Account Callback URL',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+
+    /**
+     * ========================================================
+     * 微信开放平台配置
+     * ========================================================
+     */
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_open_platform_app_id',
+        'value'      => '',
+        'name'       => 'app id',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '微信开放平台app id',
+            'en'    => 'WeChat Open Platform App ID',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_open_platform_secret',
+        'value'      => '',
+        'name'       => 'secret',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '微信开放平台secret',
+            'en'    => 'WeChat Open Platform Secret',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_open_platform_token',
+        'value'      => '',
+        'name'       => 'token',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '微信开放平台token',
+            'en'    => 'WeChat Open Platform Token',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_open_platform_aes_key',
+        'value'      => '',
+        'name'       => 'aes key',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '微信开放平台aes key',
+            'en'    => 'WeChat Open Platform AES Key',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+
+    /**
+     * ========================================================
+     * 企业微信配置
+     * ========================================================
+     */
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_work_corp_id',
+        'value'      => '',
+        'name'       => 'corp id',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '企业微信corp id',
+            'en'    => 'WeChat Work Corp ID',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_work_secret',
+        'value'      => '',
+        'name'       => 'corp secret',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '企业微信secret',
+            'en'    => 'WeChat Work Secret',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_work_token',
+        'value'      => '',
+        'name'       => 'token',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '企业微信token',
+            'en'    => 'WeChat Work Token',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_work_aes_key',
+        'value'      => '',
+        'name'       => 'aes key',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '企业微信aes key',
+            'en'    => 'WeChat Work AES Key',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_work_suite_id',
+        'value'      => '',
+        'name'       => 'suite id',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '企业微信suite id',
+            'en'    => 'WeChat Work Suite ID',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_work_suite_secret',
+        'value'      => '',
+        'name'       => 'suite secret',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '企业微信suite secret',
+            'en'    => 'WeChat Work Suite Secret',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+
+    /**
+     * ========================================================
+     * 企业微信开放平台配置
+     * ========================================================
+     */
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_open_work_corp_id',
+        'value'      => '',
+        'name'       => 'corp id',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '企业微信开放平台corp id',
+            'en'    => 'WeChat Open Work Corp ID',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_open_work_provider_secret',
+        'value'      => '',
+        'name'       => 'provider secret',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '企业微信开放平台provider secret',
+            'en'    => 'WeChat Open Work Provider Secret',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_open_work_token',
+        'value'      => '',
+        'name'       => 'token',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '企业微信开放平台token',
+            'en'    => 'WeChat Open Work Token',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_open_work_aes_key',
+        'value'      => '',
+        'name'       => 'aes key',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '企业微信开放平台aes key',
+            'en'    => 'WeChat Open Work AES Key',
         ],
         'bind_p_config' => 'wechat_group',
         'input_attr'    => null,
