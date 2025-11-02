@@ -63,6 +63,35 @@ return [
     ],
     [
         'group'      => 'wechat_config',
+        'key'        => 'wechat_mini_token',
+        'value'      => '',
+        'name'       => 'token',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '微信小程序token',
+            'en'    => 'WeChat Mini Program token',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    [
+        'group'      => 'wechat_config',
+        'key'        => 'wechat_mini_aes_key',
+        'value'      => '',
+        'name'       => 'aes_key',
+        'input_type' => SystemConfigInputType::INPUT,
+
+        'remark' => [
+            'zh_CN' => '微信小程序aes key',
+            'en'    => 'WeChat Mini Program aes key',
+        ],
+        'bind_p_config' => 'wechat_group',
+        'input_attr'    => null,
+    ],
+    
+    [
+        'group'      => 'wechat_config',
         'key'        => 'wechat_official_app_id',
         'value'      => '',
         'name'       => 'app id',
