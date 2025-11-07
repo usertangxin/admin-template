@@ -136,7 +136,7 @@ class UserServiceProvider extends ServiceProvider
         $viewPath   = resource_path('views/modules/' . $this->nameSnake);
         $sourcePath = module_path($this->name, 'resources/views');
 
-        $this->publishes([$sourcePath => $viewPath], ['views', $this->nameSnake . '-module-views']);
+        $this->publishes([$sourcePath => $viewPath], ['views', $this->nameSnake . '_module_views']);
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->nameSnake);
 
