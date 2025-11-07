@@ -62,7 +62,7 @@ class $CLASS$ extends ServiceProvider
      */
     public function registerTranslations(): void
     {
-        $langPath = resource_path('lang/'. $this->nameSnake);
+        $langPath = resource_path('lang/' . $this->nameSnake);
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->nameSnake);
@@ -85,9 +85,9 @@ class $CLASS$ extends ServiceProvider
 
             foreach ($iterator as $file) {
                 if ($file->isFile() && $file->getExtension() === 'php') {
-                    $config = str_replace($configPath.DIRECTORY_SEPARATOR, '', $file->getPathname());
+                    $config     = str_replace($configPath . DIRECTORY_SEPARATOR, '', $file->getPathname());
                     $config_key = str_replace([DIRECTORY_SEPARATOR, '.php'], ['.', ''], $config);
-                    $segments = explode('.', $this->nameSnake.'.'.$config_key);
+                    $segments   = explode('.', $this->nameSnake . '.' . $config_key);
 
                     // Remove duplicated adjacent segments
                     $normalized = [];
@@ -119,14 +119,14 @@ class $CLASS$ extends ServiceProvider
      */
     public function registerViews(): void
     {
-        $viewPath = resource_path('views/modules/'.$this->nameSnake);
+        $viewPath   = resource_path('views/modules/' . $this->nameSnake);
         $sourcePath = module_path($this->name, '$PATH_VIEWS$');
 
-        $this->publishes([$sourcePath => $viewPath], ['views', $this->nameSnake.'_module_views']);
+        $this->publishes([$sourcePath => $viewPath], ['views', $this->nameSnake . '_module_views']);
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->nameSnake);
 
-        Blade::componentNamespace(config('modules.namespace').'\\' . $this->name . '\\View\\Components', $this->nameSnake);
+        Blade::componentNamespace(config('modules.namespace') . '\\' . $this->name . '\\View\\Components', $this->nameSnake);
     }
 
     /**
@@ -141,8 +141,8 @@ class $CLASS$ extends ServiceProvider
     {
         $paths = [];
         foreach (config('view.paths') as $path) {
-            if (is_dir($path.'/modules/'.$this->nameSnake)) {
-                $paths[] = $path.'/modules/'.$this->nameSnake;
+            if (is_dir($path . '/modules/' . $this->nameSnake)) {
+                $paths[] = $path . '/modules/' . $this->nameSnake;
             }
         }
 
