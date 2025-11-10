@@ -15,4 +15,8 @@ return [
     'upload_size_video'      => 'Video size exceeds limit:',
     'upload_status_disabled' => 'Storage is not enabled',
     'public_temporary_tip'   => 'This storage can be accessed directly without the need for generation.',
+    'please_upload_file'     => 'Please upload file',
+    'upload_mode_not_exist'  => 'Upload mode does not exist',
+    'storage_mode_not_exist' => 'Storage mode does not exist',
+    'file_not_exist'         => 'File does not exist',
 ];

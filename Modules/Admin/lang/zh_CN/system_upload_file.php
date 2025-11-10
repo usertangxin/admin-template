@@ -15,4 +15,8 @@ return [
     'upload_size_video'      => '视频大小超出限制：',
     'upload_status_disabled' => '存储未启用',
     'public_temporary_tip'   => '该存储可直接访问，无需生成',
+    'please_upload_file'     => '请上传文件',
+    'upload_mode_not_exist'  => '上传模式不存在',
+    'storage_mode_not_exist' => '存储模式不存在',
+    'file_not_exist'         => '文件不存在',
 ];

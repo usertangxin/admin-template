@@ -45,15 +45,15 @@ class FileStorageService
         $upload_mode  = \request('upload_mode', 'file');
         $files        = \request()->file('file');
         if (empty($files)) {
-            throw new NotFoundResourceException('请上传文件');
+            throw new NotFoundResourceException(__('admin::system_upload_file.please_upload_file'));
         }
         $constraint = $this->file_constraint[$upload_mode] ?? null;
         if (empty($constraint)) {
-            throw new NotFoundResourceException('上传模式不存在');
+            throw new NotFoundResourceException(__('admin::system_upload_file.upload_mode_not_exist'));
         }
         $storage = $this->file_storage[$storage_mode] ?? null;
         if (empty($storage)) {
-            throw new NotFoundResourceException('存储模式不存在');
+            throw new NotFoundResourceException(__('admin::system_upload_file.storage_mode_not_exist'));
         }
         if (! \is_array($files)) {
             $files = [$files];
@@ -101,11 +101,11 @@ class FileStorageService
         /** @var SystemUploadFile $systemUploadFile */
         $systemUploadFile = SystemUploadFile::withTrashed()->find($id);
         if (empty($systemUploadFile)) {
-            throw new NotFoundResourceException('文件不存在');
+            throw new NotFoundResourceException(__('admin::system_upload_file.file_not_exist'));
         }
         $storage = $this->file_storage[$systemUploadFile->storage_mode] ?? null;
         if (empty($storage)) {
-            throw new NotFoundResourceException('存储模式不存在');
+            throw new NotFoundResourceException(__('admin::system_upload_file.storage_mode_not_exist'));
         }
 
         // \dump($systemUploadFile->storage_path);
